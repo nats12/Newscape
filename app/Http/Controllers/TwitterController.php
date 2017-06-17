@@ -17,6 +17,9 @@ class TwitterController extends Controller
 
 		$loginPage = route('twitterLogin');
 
+		// $creds = Twitter::getCredentials();
+		// dd($creds);
+
 		return view('welcome', compact('loginPage'));
 	}
 
