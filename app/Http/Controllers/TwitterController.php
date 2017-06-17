@@ -15,7 +15,7 @@ class TwitterController extends Controller
 
 	public function accessVariables() {
 
-		$loginPage = route('login');
+		$loginPage = route('twitterLogin');
 
 		return view('welcome', compact('loginPage'));
 	}

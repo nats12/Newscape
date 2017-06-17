@@ -14,7 +14,7 @@
 Route::get('/', 'TwitterController@accessVariables')->name('access');
 
 // Login
-Route::get('twitter/login', 'TwitterController@twitterLogIn', ['as' => 'twitter.login'])->name('login');
+Route::get('twitter/login', 'TwitterController@twitterLogIn', ['as' => 'twitter.login'])->name('twitterLogin');
 
 // Logout
 Route::get('twitter/logout', 'TwitterController@twitterLogOut', ['as' => 'twitter.logout'])->name('logout');
