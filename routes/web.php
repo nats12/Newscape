@@ -37,3 +37,7 @@ Route::get('error', 'TwitterController@error')->name('error');
 
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
