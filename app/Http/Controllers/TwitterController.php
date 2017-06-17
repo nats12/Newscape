@@ -13,7 +13,12 @@ use Redirect;
 class TwitterController extends Controller
 {
 
+	public function accessVariables() {
 
+		$loginPage = route('login');
+
+		return view('welcome', compact('loginPage'));
+	}
 
 
     /**
@@ -92,7 +97,7 @@ class TwitterController extends Controller
 				return Redirect::to('/')->with('flash_notice', 'Congrats! You\'ve successfully signed in!');
 			}
 
-			return Redirect::route('twitter.error')->with('flash_error', 'Crab! Something went wrong while signing you up!');
+			return Redirect::route('twitter.error')->with('flash_error', 'Crap! Something went wrong while signing you up!');
 		}
     }
 
