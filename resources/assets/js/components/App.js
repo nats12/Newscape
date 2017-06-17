@@ -3,13 +3,27 @@ import ReactDOM from 'react-dom';
 
 
 class App extends Component {
+	constructor() {
+		super()
+
+		this.state = {
+			laravel: window.Laravel
+		}
+	}
+
 
 	render() {
 
-		return (
+		const laravel = this.state.laravel.loginPage;
 
-			<h1>Test component!</h1>
+
+		return (
+			<div>
+				<h1>Test component!</h1>
+				<a href={laravel}>Login</a>
+			</div>
 		)
+
 	}
 }
 
