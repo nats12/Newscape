@@ -11,10 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', 'TwitterController@accessVariables')->name('access');
 
 // Login
 Route::get('twitter/login', 'TwitterController@twitterLogIn', ['as' => 'twitter.login'])->name('login');
