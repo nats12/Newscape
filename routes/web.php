@@ -14,3 +14,26 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+// Login
+Route::get('twitter/login', 'TwitterController@twitterLogIn', ['as' => 'twitter.login'])->name('login');
+
+// Logout
+Route::get('twitter/logout', 'TwitterController@twitterLogOut', ['as' => 'twitter.logout'])->name('logout');
+
+// CallBack
+Route::get('twitter/callback', 'TwitterController@twitterCallBack', ['as' => 'twitter.callback'])->name('callback');
+
+// NewsFeed
+Route::get('timeline', 'TwitterController@twitterNewsFeed')->name('newsfeed');
+
+// Error
+Route::get('error', 'TwitterController@error')->name('error');
+
+
+
+
+
+
+
