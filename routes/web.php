@@ -23,7 +23,7 @@ Route::get('twitter/logout', 'TwitterController@twitterLogOut', ['as' => 'twitte
 Route::get('twitter/callback', 'TwitterController@twitterCallBack', ['as' => 'twitter.callback'])->name('callback');
 
 // NewsFeed
-Route::get('timeline', 'TwitterController@twitterNewsFeed')->name('newsfeed');
+Route::get('newsfeed', 'TwitterController@twitterNewsFeed')->name('newsfeed');
 
 // Error
 Route::get('error', 'TwitterController@error')->name('error');
