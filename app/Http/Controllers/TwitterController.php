@@ -97,7 +97,7 @@ class TwitterController extends Controller
 
 				Session::put('access_token', $token);
 
-				return Redirect::to('/')->with('flash_notice', 'Congrats! You\'ve successfully signed in!');
+				return Redirect::to('newsfeed')->with('flash_notice', 'Congrats! You\'ve successfully signed in!');
 			}
 
 			return Redirect::route('twitter.error')->with('flash_error', 'Crap! Something went wrong while signing you up!');
@@ -123,7 +123,7 @@ class TwitterController extends Controller
      */
     public function twitterNewsFeed() {
 
-    	return Twitter::getHomeTimeline(['count' => 20, 'format' => 'json']);
+    	return Twitter::getHomeTimeline(['count' => 25]);
     }
 
 
