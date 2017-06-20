@@ -7,8 +7,7 @@ use Illuminate\Support\Facades\Input;
 use Twitter;
 use Session;
 use Redirect;
-
-
+use App\User;
 
 class TwitterController extends Controller
 {
@@ -83,17 +82,35 @@ class TwitterController extends Controller
 				return Redirect::route('twitter.error')->with('flash_error', 'We could not log you in on Twitter.');
 			}
 
-			$credentials = Twitter::getCredentials();
+			$credentials = Twitter::getCredentials(['include_email' => 'true',]);
 
 			if (is_object($credentials) && !isset($credentials->error))
 			{
 				// $credentials contains the Twitter user object with all the info about the user.
+
+                // $user = User::where('twitter_id', $credentials->id_str);
+
+                // if(!$user) {
+                    // User::create([
+                    //     'twitter_id' => $credentials->id_str,
+                    //     'name' => $credentials->name,
+                    //     'email' => $credentials->email,
+                    // ]);
+                // };
+
+                User::create([
+                    'twitter_id' => $credentials->id_str,
+                    'name' => $credentials->name,
+                    'email' => $credentials->email,
+                ]);
+
 				// Add here your own user logic, store profiles, create new users on your tables...you name it!
 				// Typically you'll want to store at least, user id, name and access tokens
 				// if you want to be able to call the API on behalf of your users.
 
 				// This is also the moment to log in your users if you're using Laravel's Auth class
 				// Auth::login($user) should do the trick.
+                // auth()->login($user);
 
 				Session::put('access_token', $token);
 
@@ -122,8 +139,10 @@ class TwitterController extends Controller
      * @return [type] [description]
      */
     public function twitterNewsFeed() {
+        
+    	$timeline = Twitter::getHomeTimeline(['count' => 25]);
 
-    	return Twitter::getHomeTimeline(['count' => 25]);
+        return response()->json(Twitter::getCredentials(['include_email' => 'true',]));
     }
 
 
