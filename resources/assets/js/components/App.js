@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import Login from './Login';
 import TwitterFeed from './TwitterFeed';
+import NewsSources from './NewsSources';
 
 
 class App extends Component {
@@ -22,8 +23,15 @@ class App extends Component {
 		return (
 			<div>
 				<Login />
-				<TwitterFeed 
+				<div className="large-8 columns">
+					<NewsSources />
+				</div>
+				<div className="large-4 columns">
+					<div className="twitter-container">
+					<TwitterFeed 
 					timeline={timeline}/>
+					</div>
+				</div>
 			</div>
 		)
 	}
