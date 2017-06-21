@@ -13,14 +13,17 @@ use App\User;
 class TwitterController extends Controller
 {
 
+	/**
+	 * [accessVariables description]
+	 * @return [type] [description]
+	 */
 	public function accessVariables() {
 
 		$loginPage = route('twitterLogin');
 
-		// $creds = Twitter::getCredentials();
-		// dd($creds);
+		$timeline = Twitter::getHomeTimeline(['count' => 25]);
 
-		return view('welcome', compact('loginPage'));
+		return view('welcome', compact('loginPage', 'timeline'));
 	}
 
 
@@ -136,8 +139,6 @@ class TwitterController extends Controller
      * @return [type] [description]
      */
     public function twitterNewsFeed() {
-
-        dd(auth()->user());
         
     	$timeline = Twitter::getHomeTimeline(['count' => 25]);
 

@@ -1,32 +1,32 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+import Login from './Login';
+import TwitterFeed from './TwitterFeed';
+
 
 class App extends Component {
-	constructor() {
+	constructor(props) {
 		super()
 
 		this.state = {
-			laravel: window.Laravel
+			timeline: window.Laravel.timeline
 		}
 	}
 
 
 	render() {
 
-		const laravel = this.state.laravel.loginPage;
-
+		const { timeline } = this.state;
 
 		return (
 			<div>
-				<h1>Test component!</h1>
-				<a href={laravel}>Login</a>
+				<Login />
+				<TwitterFeed 
+					timeline={timeline}/>
 			</div>
 		)
-
 	}
 }
-
-
 
 export default App
