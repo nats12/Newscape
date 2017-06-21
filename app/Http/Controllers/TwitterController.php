@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Auth;
 use Twitter;
 use Session;
 use Redirect;
@@ -88,21 +89,17 @@ class TwitterController extends Controller
 			{
 				// $credentials contains the Twitter user object with all the info about the user.
 
-                // $user = User::where('twitter_id', $credentials->id_str);
+                $user = User::where('twitter_id', $credentials->id_str)->first();
 
-                // if(!$user) {
-                    // User::create([
-                    //     'twitter_id' => $credentials->id_str,
-                    //     'name' => $credentials->name,
-                    //     'email' => $credentials->email,
-                    // ]);
-                // };
+                if(!$user) {
+                    $user = User::create([
+                        'twitter_id' => $credentials->id_str,
+                        'name' => $credentials->name,
+                        'email' => $credentials->email,
+                    ]);
+                };
 
-                User::create([
-                    'twitter_id' => $credentials->id_str,
-                    'name' => $credentials->name,
-                    'email' => $credentials->email,
-                ]);
+                Auth::login($user);
 
 				// Add here your own user logic, store profiles, create new users on your tables...you name it!
 				// Typically you'll want to store at least, user id, name and access tokens
@@ -139,6 +136,8 @@ class TwitterController extends Controller
      * @return [type] [description]
      */
     public function twitterNewsFeed() {
+
+        dd(auth()->user());
         
     	$timeline = Twitter::getHomeTimeline(['count' => 25]);
 
