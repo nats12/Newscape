@@ -23047,10 +23047,24 @@ var NewsSource = function (_Component) {
 	function NewsSource() {
 		_classCallCheck(this, NewsSource);
 
-		return _possibleConstructorReturn(this, (NewsSource.__proto__ || Object.getPrototypeOf(NewsSource)).call(this));
+		var _this = _possibleConstructorReturn(this, (NewsSource.__proto__ || Object.getPrototypeOf(NewsSource)).call(this));
+
+		_this.truncateLogoUrl = _this.truncateLogoUrl.bind(_this);
+
+		return _this;
 	}
 
 	_createClass(NewsSource, [{
+		key: 'truncateLogoUrl',
+		value: function truncateLogoUrl() {
+
+			var url = this.props.newsSource.url;
+
+			var truncatedUrl = 'http://logo.clearbit.com/' + url.split("//")[1].split('/')[0];
+
+			return truncatedUrl;
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 
@@ -23068,7 +23082,7 @@ var NewsSource = function (_Component) {
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							'div',
 							{ className: 'thumbnail' },
-							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: newsSource.urlsToLogos.small, alt: newsSource.name })
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: this.truncateLogoUrl(), alt: newsSource.name })
 						)
 					),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -23087,7 +23101,11 @@ var NewsSource = function (_Component) {
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							'p',
 							null,
-							newsSource.url
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								'a',
+								{ href: newsSource.url, target: '_blank' },
+								newsSource.url
+							)
 						)
 					)
 				)

@@ -7,7 +7,20 @@ import '../../../../public/css/twitter.css'
 class NewsSource extends Component {
 	constructor() {
 		super()
+
+		this.truncateLogoUrl = this.truncateLogoUrl.bind(this);
+
 	}
+
+	truncateLogoUrl() {
+
+		const url = this.props.newsSource.url;
+
+		const truncatedUrl = `http://logo.clearbit.com/${url.split("//")[1].split('/')[0]}`; 
+
+		return truncatedUrl;
+	}
+
 
 	render() {
 
@@ -18,13 +31,13 @@ class NewsSource extends Component {
 				<div className="media-object">
 				  <div className="media-object-section">
 				    <div className="thumbnail">
-				      <img src={newsSource.urlsToLogos.small} alt={newsSource.name} />
+				      <img src={this.truncateLogoUrl()} alt={newsSource.name} />
 				    </div>
 				  </div>
 				  <div className="media-object-section">
 				  	<h4>{newsSource.name}</h4>
 				    <p>{newsSource.description}</p>
-				    <p>{newsSource.url}</p>
+				    <p><a href={newsSource.url} target="_blank">{newsSource.url}</a></p>
 				  </div>
 				</div>
 			</div>
