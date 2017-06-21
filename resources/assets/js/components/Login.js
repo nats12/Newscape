@@ -18,9 +18,9 @@ class Login extends Component {
 
 
 		return (
-			<div>
+			<div className="small-12 large-12 columns">
 				<h1>Welcome to Newscape!</h1>
-				<a href={laravel}>Login</a>
+				<a className="button" href={laravel}>Login</a>
 			</div>
 		)
 
