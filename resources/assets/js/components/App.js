@@ -11,25 +11,27 @@ class App extends Component {
 		super()
 
 		this.state = {
-			timeline: window.Laravel.timeline
+			timeline: window.Laravel.timeline,
+			newsSources: window.Laravel.newsSources.sources
 		}
 	}
 
 
 	render() {
 
-		const { timeline } = this.state;
+		const { timeline, newsSources } = this.state;
 
 		return (
 			<div>
 				<Login />
 				<div className="large-8 columns">
-					<NewsSources />
+					<NewsSources 
+						newsSources={newsSources} />
 				</div>
 				<div className="large-4 columns">
 					<div className="twitter-container">
 					<TwitterFeed 
-					timeline={timeline}/>
+						timeline={timeline}/>
 					</div>
 				</div>
 			</div>

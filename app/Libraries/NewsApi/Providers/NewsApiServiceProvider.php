@@ -13,8 +13,8 @@ class NewsApiServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
-    {
+    public function register() {
+        
         $this->app->bind(NewsApi::class, function () {
             return new NewsApi(
                 config('newsapi.key'),

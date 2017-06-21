@@ -11,5 +11,8 @@ class NewsApi extends Facade
      *
      * @return string
      */
-    protected static function getFacadeAccessor() { return \App\Libraries\NewsApi\NewsApi::class; }
+    protected static function getFacadeAccessor() { 
+    	
+    	return \App\Libraries\NewsApi\NewsApi::class; 
+    }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+import NewsSource from './NewsSource';
 
 class NewsSources extends Component {
 	constructor() {
@@ -11,7 +12,11 @@ class NewsSources extends Component {
 
 	
 		return (
-			<div>News sources article</div>
+			<div> 
+				{
+					Object.keys(this.props.newsSources).map(key => <NewsSource key={key} newsSource={this.props.newsSources[key]} />)
+				} 
+			</div>
 		)
 
 	}
