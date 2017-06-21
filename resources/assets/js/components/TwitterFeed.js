@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+import Tweet from './Tweet';
 
 class TwitterFeed extends Component {
 	constructor() {
@@ -13,7 +14,7 @@ class TwitterFeed extends Component {
 		return (
 			<div>
 				{
-					Object.keys(this.props.timeline).map(key => <p key={key}>{this.props.timeline[key].text}</p>)
+					Object.keys(this.props.timeline).map(key => <Tweet key={key} tweet={this.props.timeline[key]} />)
 				}
 			</div>
 		)
