@@ -9,6 +9,8 @@ use Twitter;
 use Session;
 use Redirect;
 use App\User;
+use Cache;
+use NewsApi;
 
 class TwitterController extends Controller
 {
@@ -19,11 +21,19 @@ class TwitterController extends Controller
 	 */
 	public function accessVariables() {
 
+        $newsSources = Cache::remember('news_sources', 3600, function () {
+            return NewsApi::getSources();
+        });
+    
+
 		$loginPage = route('twitterLogin');
 
-		$timeline = Twitter::getHomeTimeline(['count' => 25]);
+        $timeline = Cache::remember('timeline_' . auth()->user()->twitter_id, 
+            10, function () {
+            return Twitter::getHomeTimeline(['count' => 25]);
+        });
 
-		return view('welcome', compact('loginPage', 'timeline'));
+		return view('welcome', compact('loginPage', 'timeline', 'newsSources'));
 	}
 
 
