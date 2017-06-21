@@ -20,7 +20,6 @@ class Login extends Component {
 		return (
 			<div>
 				<h1>Welcome to Newscape!</h1>
-				<p>BLAH</p>
 				<a href={laravel}>Login</a>
 			</div>
 		)
