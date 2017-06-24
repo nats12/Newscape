@@ -25,15 +25,15 @@ class TwitterController extends Controller
             return NewsApi::getSources();
         });
     
-    if (Auth::check()) {
-      $user = Auth::user();
-    }
-    else {
-      $user = null;
-    }
+	    if (Auth::check()) {
+	      $user = Auth::user();
+	    }
+	    else {
+	      $user = null;
+	    }
 
 		$loginPage = route('twitterLogin');
-    $logoutPage = route('twitterLogout');
+    	$logoutPage = route('twitterLogout');
 
         $timeline = [];
 
