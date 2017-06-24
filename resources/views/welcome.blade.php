@@ -81,7 +81,6 @@
                 'newsSources' => $newsSources,
                 'newsArticles' => $newsArticles,
                 'user' => $user,
-                'articles' => $articles,
             ]); ?>
         </script>
 

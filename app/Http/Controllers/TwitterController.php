@@ -22,39 +22,25 @@ class TwitterController extends Controller
 	 */
 	public function accessVariables() {
 
-        $newsSources = Cache::remember('news_sources', 3600, function () {
-            return NewsApi::getSources();
-        });
+    $newsSources = Cache::remember('news_sources', 60, function () {
+      return NewsApi::getSources();
+    });
 
-        $newsArticles = Cache::remember('news_articles', 3600, function () {
-
-            return NewsApi::getArticles('techcrunch');
-        });
-
-
-
-        $articles = [];
-        foreach ($newsSources["sources"] as $source) {
-          $articleArray = NewsApi::getArticles($source["id"])["articles"];
-
-          // dd($articleArray);
-
-          foreach($articleArray as $article) {
-
-            $object = new stdClass();
-            foreach ($article as $key => $value)
-            {
-                $object->$key = $value;
-
-            }
-            array_push($articles, $object);
+    $newsArticles = Cache::remember('news_articles', 60, function () {
+      $articles = [];
+      foreach ($newsSources["sources"] as $source) {
+        $articleArray = NewsApi::getArticles($source["id"])["articles"];
+        foreach($articleArray as $article) {
+          $object = new stdClass();
+          foreach ($article as $key => $value)
+          {
+            $object->$key = $value;
           }
-
-
-
-          // dd($object);
-          // 
+          array_push($articles, $object);
         }
+      }
+      return $articles;
+    });
     
     if (Auth::check()) {
       $user = Auth::user();
@@ -75,7 +61,7 @@ class TwitterController extends Controller
           });
         }
 
-		return view('welcome', compact('loginPage', 'logoutPage', 'timeline', 'newsSources', 'newsArticles', 'user', 'articles'));
+		return view('welcome', compact('loginPage', 'logoutPage', 'timeline', 'newsSources', 'newsArticles', 'user'));
 	}
 
 
