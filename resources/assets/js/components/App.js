@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import Login from './Login';
+import TwitterAuth './TwitterAuth';
 import TwitterFeed from './TwitterFeed';
 import NewsSources from './NewsSources';
 
@@ -26,7 +26,7 @@ class App extends Component {
 
 		return (
 			<div>
-				<Login user={user} loginPage={loginPage} logoutPage={logoutPage}/>
+				<TwitterAuth user={user} loginPage={loginPage} logoutPage={logoutPage}/>
 				<div className="large-8 columns">
 					<NewsSources 
 						newsSources={newsSources} />
