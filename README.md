@@ -11,12 +11,16 @@ Newscape fuses the [Twitter API for Laravel](https://github.com/thujohn/twitter)
 * Generate application key with `php artisan key:gen`
 * Go to [https://apps.twitter.com](https://apps.twitter.com) and create the application
     * Make sure you also generate an access token via the 'Keys and Access Tokens' tab
-* Create the database in your local environment and modify your .env file accordingly 
-    * You will also need to add the following four lines with the data from your twitter application page:
+* Go to [https://newsapi.org/](https://newsapi.org/) and register to get an API key.
+* Create the database in your local environment
+* Copy the `.env.example` file and copy paste its contents into a new `.env` file. Modify the following according to your Twitter/NewsApi application settings ONLY in your `.env` file:
     * `TWITTER_CONSUMER_KEY=`
     * `TWITTER_CONSUMER_SECRET=`
     * `TWITTER_ACCESS_TOKEN=`
     * `TWITTER_ACCESS_TOKEN_SECRET=`
+  
+    * `NEWSAPI_KEY=`
+    * `NEWSAPI_URL=`
 * Run `npm run watch`
 * Run `php artisan migrate`
 
