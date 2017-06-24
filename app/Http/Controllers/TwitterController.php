@@ -28,10 +28,14 @@ class TwitterController extends Controller
 
 		$loginPage = route('twitterLogin');
 
-        $timeline = Cache::remember('timeline_' . auth()->user()->twitter_id, 
-            10, function () {
-            return Twitter::getHomeTimeline(['count' => 25]);
-        });
+        $timeline = [];
+
+        if (Auth::check()) {
+          $timeline = Cache::remember('timeline_' . auth()->user()->twitter_id, 
+              10, function () {
+              return Twitter::getHomeTimeline(['count' => 25]);
+          });
+        }
 
 		return view('welcome', compact('loginPage', 'timeline', 'newsSources'));
 	}
@@ -119,8 +123,6 @@ class TwitterController extends Controller
 				// if you want to be able to call the API on behalf of your users.
 
 				// This is also the moment to log in your users if you're using Laravel's Auth class
-				// Auth::login($user) should do the trick.
-                // auth()->login($user);
 
 				Session::put('access_token', $token);
 

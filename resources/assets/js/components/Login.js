@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 
 
 class Login extends Component {
@@ -10,7 +11,6 @@ class Login extends Component {
 			laravel: window.Laravel
 		}
 	}
-
 
 	render() {
 
