@@ -6,10 +6,10 @@ class Tweet extends Component {
 	constructor() {
 		super()
 
-		this.TwitterDateConverter = this.TwitterDateConverter.bind(this);
+		this.dateFormatter = this.dateFormatter.bind(this);
 	}
 
-	TwitterDateConverter(time){
+	dateFormatter(time){
 		var date = new Date(time),
 			diff = (((new Date()).getTime() - date.getTime()) / 1000),
 			day_diff = Math.floor(diff / 86400);
@@ -43,7 +43,7 @@ class Tweet extends Component {
 				  </div>
 				  <div className="media-object-section">
 				  	<p>{tweet.user.name} <a href={"http://twitter.com/" + tweet.user.screen_name}>@{tweet.user.screen_name}</a></p>
-				  	<p><small>{this.TwitterDateConverter(tweet.created_at)}</small></p>
+				  	<p><small>{this.dateFormatter(tweet.created_at)}</small></p>
 				    <p>{tweet.text}</p>
 				  </div>
 				</div>

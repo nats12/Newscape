@@ -41,6 +41,21 @@ class TwitterController extends Controller
       }
       return $articles;
     });
+
+      $articles = [];
+      foreach ($newsSources["sources"] as $source) {
+        $articleArray = NewsApi::getArticles($source["id"])["articles"];
+        foreach($articleArray as $article) {
+          $object = new stdClass();
+          foreach ($article as $key => $value)
+          {
+            $object->$key = $value;
+          }
+          array_push($articles, $object);
+        }
+      }
+
+      $newsArticles = $articles;
     
 	    if (Auth::check()) {
 	      $user = Auth::user();
