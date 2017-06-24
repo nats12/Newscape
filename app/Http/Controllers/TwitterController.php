@@ -124,7 +124,7 @@ class TwitterController extends Controller
 
 				Session::put('access_token', $token);
 
-				return Redirect::to('newsfeed')->with('flash_notice', 'Congrats! You\'ve successfully signed in!');
+				return Redirect::to('/')->with('flash_notice', 'Congrats! You\'ve successfully signed in!');
 			}
 
 			return Redirect::route('twitter.error')->with('flash_error', 'Crap! Something went wrong while signing you up!');
