@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import TwitterAuth './TwitterAuth';
+import TwitterAuth from './TwitterAuth';
 import TwitterFeed from './TwitterFeed';
 import NewsSources from './NewsSources';
 

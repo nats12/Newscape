@@ -10455,67 +10455,19 @@ function createInstance(defaultConfig) {
   // Copy context to instance
   utils.extend(instance, context);
 
-<<<<<<< HEAD
   return instance;
 }
 
 // Create the default instance to be exported
 var axios = createInstance(defaults);
-=======
-		_this.state = {
-			timeline: window.Laravel.timeline,
-			newsSources: window.Laravel.newsSources.sources,
-			user: window.Laravel.user,
-			loginPage: window.Laravel.loginPage,
-			logoutPage: window.Laravel.logoutPage
-		};
-		return _this;
-	}
-
-	_createClass(App, [{
-		key: 'render',
-		value: function render() {
-			var _state = this.state,
-			    timeline = _state.timeline,
-			    newsSources = _state.newsSources,
-			    user = _state.user,
-			    logoutPage = _state.logoutPage,
-			    loginPage = _state.loginPage;
->>>>>>> feature/authentication
 
 // Expose Axios class to allow class inheritance
 axios.Axios = Axios;
 
-<<<<<<< HEAD
 // Factory for creating new instances
 axios.create = function create(instanceConfig) {
   return createInstance(utils.merge(defaults, instanceConfig));
 };
-=======
-			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-				'div',
-				null,
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Login__["a" /* default */], { user: user, loginPage: loginPage, logoutPage: logoutPage }),
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					'div',
-					{ className: 'large-8 columns' },
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__NewsSources__["a" /* default */], {
-						newsSources: newsSources })
-				),
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					'div',
-					{ className: 'large-4 columns' },
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-						'div',
-						{ className: 'twitter-container' },
-						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__TwitterFeed__["a" /* default */], {
-							timeline: timeline })
-					)
-				)
-			);
-		}
-	}]);
->>>>>>> feature/authentication
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(54);
@@ -10598,7 +10550,6 @@ CancelToken.source = function source() {
 module.exports = CancelToken;
 
 
-<<<<<<< HEAD
 /***/ }),
 /* 95 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -10612,42 +10563,6 @@ var InterceptorManager = __webpack_require__(96);
 var dispatchRequest = __webpack_require__(97);
 var isAbsoluteURL = __webpack_require__(105);
 var combineURLs = __webpack_require__(103);
-=======
-		_this.checkAuth = _this.checkAuth.bind(_this);
-		return _this;
-	}
-
-	_createClass(Login, [{
-		key: 'checkAuth',
-		value: function checkAuth() {
-			var user = this.props.user;
-			var auth = {
-				url: user ? this.props.logoutPage : this.props.loginPage,
-				text: user ? 'Logout' : 'Login'
-			};
-			return auth;
-		}
-	}, {
-		key: 'render',
-		value: function render() {
-
-			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-				'div',
-				{ className: 'small-12 large-12 columns' },
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					'h1',
-					null,
-					'Welcome to Newscape!'
-				),
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					'a',
-					{ className: 'button', href: this.checkAuth().url },
-					this.checkAuth().text
-				)
-			);
-		}
-	}]);
->>>>>>> feature/authentication
 
 /**
  * Create a new instance of Axios
@@ -11356,9 +11271,9 @@ module.exports = function spread(callback) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Login__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__TwitterAuth__ = __webpack_require__(114);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__TwitterFeed__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NewsSources__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NewsSources__ = __webpack_require__(112);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -11384,7 +11299,10 @@ var App = function (_Component) {
 
 		_this.state = {
 			timeline: window.Laravel.timeline,
-			newsSources: window.Laravel.newsSources.sources
+			newsSources: window.Laravel.newsSources.sources,
+			user: window.Laravel.user,
+			loginPage: window.Laravel.loginPage,
+			logoutPage: window.Laravel.logoutPage
 		};
 		return _this;
 	}
@@ -11394,13 +11312,16 @@ var App = function (_Component) {
 		value: function render() {
 			var _state = this.state,
 			    timeline = _state.timeline,
-			    newsSources = _state.newsSources;
+			    newsSources = _state.newsSources,
+			    user = _state.user,
+			    logoutPage = _state.logoutPage,
+			    loginPage = _state.loginPage;
 
 
 			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
 				null,
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Login__["a" /* default */], null),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__TwitterAuth__["a" /* default */], { user: user, loginPage: loginPage, logoutPage: logoutPage }),
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'div',
 					{ className: 'large-8 columns' },
@@ -11428,71 +11349,6 @@ var App = function (_Component) {
 
 /***/ }),
 /* 111 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(92);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-var Login = function (_Component) {
-	_inherits(Login, _Component);
-
-	function Login() {
-		_classCallCheck(this, Login);
-
-		var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this));
-
-		_this.state = {
-			laravel: window.Laravel
-		};
-		return _this;
-	}
-
-	_createClass(Login, [{
-		key: 'render',
-		value: function render() {
-
-			var laravel = this.state.laravel.loginPage;
-
-			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-				'div',
-				{ className: 'small-12 large-12 columns' },
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					'h1',
-					null,
-					'Welcome to Newscape!'
-				),
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					'a',
-					{ className: 'button', href: laravel },
-					'Login'
-				)
-			);
-		}
-	}]);
-
-	return Login;
-}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
-
-/* harmony default export */ __webpack_exports__["a"] = (Login);
-
-/***/ }),
-/* 112 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11589,7 +11445,7 @@ var NewsSource = function (_Component) {
 /* harmony default export */ __webpack_exports__["a"] = (NewsSource);
 
 /***/ }),
-/* 113 */
+/* 112 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11597,7 +11453,7 @@ var NewsSource = function (_Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__NewsSource__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__NewsSource__ = __webpack_require__(111);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -11641,7 +11497,7 @@ var NewsSources = function (_Component) {
 /* harmony default export */ __webpack_exports__["a"] = (NewsSources);
 
 /***/ }),
-/* 114 */
+/* 113 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11745,6 +11601,77 @@ var Tweet = function (_Component) {
 /* harmony default export */ __webpack_exports__["a"] = (Tweet);
 
 /***/ }),
+/* 114 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+var Login = function (_Component) {
+	_inherits(Login, _Component);
+
+	function Login() {
+		_classCallCheck(this, Login);
+
+		var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this));
+
+		_this.checkAuth = _this.checkAuth.bind(_this);
+		return _this;
+	}
+
+	_createClass(Login, [{
+		key: 'checkAuth',
+		value: function checkAuth() {
+			var user = this.props.user;
+			var auth = {
+				url: user ? this.props.logoutPage : this.props.loginPage,
+				text: user ? 'Logout' : 'Login'
+			};
+			return auth;
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+
+			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'div',
+				{ className: 'small-12 large-12 columns' },
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'h1',
+					null,
+					'Welcome to Newscape!'
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'a',
+					{ className: 'button', href: this.checkAuth().url },
+					this.checkAuth().text
+				)
+			);
+		}
+	}]);
+
+	return Login;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+/* harmony default export */ __webpack_exports__["a"] = (Login);
+
+/***/ }),
 /* 115 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -11753,7 +11680,7 @@ var Tweet = function (_Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Tweet__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Tweet__ = __webpack_require__(113);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }

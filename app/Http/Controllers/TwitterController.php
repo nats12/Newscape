@@ -11,6 +11,7 @@ use Redirect;
 use App\User;
 use Cache;
 use NewsApi;
+use \stdClass;
 
 class TwitterController extends Controller
 {
@@ -24,6 +25,36 @@ class TwitterController extends Controller
         $newsSources = Cache::remember('news_sources', 3600, function () {
             return NewsApi::getSources();
         });
+
+        $newsArticles = Cache::remember('news_articles', 3600, function () {
+
+            return NewsApi::getArticles('techcrunch');
+        });
+
+
+
+        $articles = [];
+        foreach ($newsSources["sources"] as $source) {
+          $articleArray = NewsApi::getArticles($source["id"])["articles"];
+
+          // dd($articleArray);
+
+          foreach($articleArray as $article) {
+
+            $object = new stdClass();
+            foreach ($article as $key => $value)
+            {
+                $object->$key = $value;
+
+            }
+            array_push($articles, $object);
+          }
+
+
+
+          // dd($object);
+          // 
+        }
     
     if (Auth::check()) {
       $user = Auth::user();
@@ -44,7 +75,7 @@ class TwitterController extends Controller
           });
         }
 
-		return view('welcome', compact('loginPage', 'logoutPage', 'timeline', 'newsSources', 'user'));
+		return view('welcome', compact('loginPage', 'logoutPage', 'timeline', 'newsSources', 'newsArticles', 'user', 'articles'));
 	}
 
 
