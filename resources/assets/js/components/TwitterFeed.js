@@ -11,15 +11,15 @@ class TwitterFeed extends Component {
 
 	render() {
 
-	
-		return (
-			<div>
-				{
-					Object.keys(this.props.timeline).map(key => <Tweet key={key} tweet={this.props.timeline[key]} />)
-				}
-			</div>
-		)
-
+		if (this.props.timeline) {
+			return (
+				<div>
+					{
+						Object.keys(this.props.timeline).map(key => <Tweet key={key} tweet={this.props.timeline[key]} />)
+					}
+				</div>
+			)
+		}
 	}
 }
 
