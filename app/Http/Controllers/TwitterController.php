@@ -25,8 +25,15 @@ class TwitterController extends Controller
             return NewsApi::getSources();
         });
     
+    if (Auth::check()) {
+      $user = Auth::user();
+    }
+    else {
+      $user = null;
+    }
 
 		$loginPage = route('twitterLogin');
+    $logoutPage = route('twitterLogout');
 
         $timeline = [];
 
@@ -37,7 +44,7 @@ class TwitterController extends Controller
           });
         }
 
-		return view('welcome', compact('loginPage', 'timeline', 'newsSources'));
+		return view('welcome', compact('loginPage', 'logoutPage', 'timeline', 'newsSources', 'user'));
 	}
 
 
@@ -126,7 +133,7 @@ class TwitterController extends Controller
 
 				Session::put('access_token', $token);
 
-				return Redirect::to('newsfeed')->with('flash_notice', 'Congrats! You\'ve successfully signed in!');
+				return Redirect::to('/')->with('flash_notice', 'Congrats! You\'ve successfully signed in!');
 			}
 
 			return Redirect::route('twitter.error')->with('flash_error', 'Crap! Something went wrong while signing you up!');
@@ -142,6 +149,7 @@ class TwitterController extends Controller
     public function twitterLogOut() {
 
     	Session::forget('access_token');
+      Auth::logout();
 		return Redirect::to('/')->with('flash_notice', 'You\'ve successfully logged out!');
     }
 

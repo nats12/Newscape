@@ -12,18 +12,21 @@ class App extends Component {
 
 		this.state = {
 			timeline: window.Laravel.timeline,
-			newsSources: window.Laravel.newsSources.sources
+			newsSources: window.Laravel.newsSources.sources,
+			user: window.Laravel.user,
+			loginPage: window.Laravel.loginPage,
+			logoutPage: window.Laravel.logoutPage
 		}
 	}
 
 
 	render() {
 
-		const { timeline, newsSources } = this.state;
+		const { timeline, newsSources, user, logoutPage, loginPage } = this.state;
 
 		return (
 			<div>
-				<Login />
+				<Login user={user} loginPage={loginPage} logoutPage={logoutPage}/>
 				<div className="large-8 columns">
 					<NewsSources 
 						newsSources={newsSources} />

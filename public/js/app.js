@@ -9813,7 +9813,10 @@ var App = function (_Component) {
 
 		_this.state = {
 			timeline: window.Laravel.timeline,
-			newsSources: window.Laravel.newsSources.sources
+			newsSources: window.Laravel.newsSources.sources,
+			user: window.Laravel.user,
+			loginPage: window.Laravel.loginPage,
+			logoutPage: window.Laravel.logoutPage
 		};
 		return _this;
 	}
@@ -9823,13 +9826,16 @@ var App = function (_Component) {
 		value: function render() {
 			var _state = this.state,
 			    timeline = _state.timeline,
-			    newsSources = _state.newsSources;
+			    newsSources = _state.newsSources,
+			    user = _state.user,
+			    logoutPage = _state.logoutPage,
+			    loginPage = _state.loginPage;
 
 
 			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
 				null,
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Login__["a" /* default */], null),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Login__["a" /* default */], { user: user, loginPage: loginPage, logoutPage: logoutPage }),
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'div',
 					{ className: 'large-8 columns' },
@@ -9886,17 +9892,23 @@ var Login = function (_Component) {
 
 		var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this));
 
-		_this.state = {
-			laravel: window.Laravel
-		};
+		_this.checkAuth = _this.checkAuth.bind(_this);
 		return _this;
 	}
 
 	_createClass(Login, [{
+		key: 'checkAuth',
+		value: function checkAuth() {
+			var user = this.props.user;
+			var auth = {
+				url: user ? this.props.logoutPage : this.props.loginPage,
+				text: user ? 'Logout' : 'Login'
+			};
+			return auth;
+		}
+	}, {
 		key: 'render',
 		value: function render() {
-
-			var laravel = this.state.laravel.loginPage;
 
 			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
@@ -9908,8 +9920,8 @@ var Login = function (_Component) {
 				),
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'a',
-					{ className: 'button', href: laravel },
-					'Login'
+					{ className: 'button', href: this.checkAuth().url },
+					this.checkAuth().text
 				)
 			);
 		}
