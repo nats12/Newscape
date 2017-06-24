@@ -79,6 +79,7 @@
                 'logoutPage' => $logoutPage,
                 'timeline' => $timeline,
                 'newsSources' => $newsSources,
+                'newsArticles' => $newsArticles,
                 'user' => $user,
             ]); ?>
         </script>

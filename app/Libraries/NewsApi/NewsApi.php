@@ -59,7 +59,7 @@ class NewsApi {
         $data = $data + ['apiKey' => $this->key];
 
         $url = $this->url . $endpoint . '?' . http_build_query($data);
-
+     
         return $this->client->request('GET', $url);
     }
 
