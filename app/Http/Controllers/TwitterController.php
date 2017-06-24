@@ -22,31 +22,36 @@ class TwitterController extends Controller
 	 */
 	public function accessVariables() {
 
-    $newsSources = Cache::remember('news_sources', 60, function () {
-      return NewsApi::getSources();
-    });
+    // $newsSources = Cache::remember('news_sources', 60, function () {
+    //   return NewsApi::getSources();
+    // });
 
-    $newsArticles = Cache::remember('news_articles', 60, function () {
+    $newsSources = NewsApi::getSources();
+
+    // $newsArticles = Cache::remember('news_articles', 60, function () {
+    //   $articles = [];
+    //   foreach ($newsSources["sources"] as $source) {
+    //     $articleArray = NewsApi::getArticles($source["id"])["articles"];
+    //     foreach($articleArray as $article) {
+    //       $object = new stdClass();
+    //       foreach ($article as $key => $value)
+    //       {
+    //         $object->$key = $value;
+    //       }
+    //       array_push($articles, $object);
+    //     }
+    //   }
+    //   return $articles;
+    // });
+
       $articles = [];
       foreach ($newsSources["sources"] as $source) {
         $articleArray = NewsApi::getArticles($source["id"])["articles"];
         foreach($articleArray as $article) {
           $object = new stdClass();
-          foreach ($article as $key => $value)
-          {
-            $object->$key = $value;
-          }
-          array_push($articles, $object);
-        }
-      }
-      return $articles;
-    });
 
-      $articles = [];
-      foreach ($newsSources["sources"] as $source) {
-        $articleArray = NewsApi::getArticles($source["id"])["articles"];
-        foreach($articleArray as $article) {
-          $object = new stdClass();
+          $object->sourceId = $source['id'];
+          $object->sourceName = $source['name'];
           foreach ($article as $key => $value)
           {
             $object->$key = $value;

@@ -22,7 +22,8 @@ class NewsArticle extends Component {
           </div>
           <div className="media-object-section">
             <h4>{article.title}</h4>
-            <small>{this.props.dateFormatter(article.publishedAt)}</small>
+            <p><small>{this.props.dateFormatter(article.publishedAt)}</small></p>
+            <p><small>{article.sourceName}</small></p>
             <p>{article.description}</p>
             <p><a href={article.url} target="_blank">{article.url}</a></p>
           </div>
