@@ -56,10 +56,13 @@ class App extends Component {
 					<NewsFeed 
 						newsArticles={newsArticles} dateFormatter={this.dateFormatter} />
 				</div>
+
+				{/*
 				<div className="large-8 columns">
 					<NewsSources 
 						newsSources={newsSources} />
 				</div>
+				*/}
 				<div className="large-4 columns">
 					<div className="twitter-container">
 					<TwitterFeed 
