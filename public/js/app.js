@@ -10455,19 +10455,67 @@ function createInstance(defaultConfig) {
   // Copy context to instance
   utils.extend(instance, context);
 
+<<<<<<< HEAD
   return instance;
 }
 
 // Create the default instance to be exported
 var axios = createInstance(defaults);
+=======
+		_this.state = {
+			timeline: window.Laravel.timeline,
+			newsSources: window.Laravel.newsSources.sources,
+			user: window.Laravel.user,
+			loginPage: window.Laravel.loginPage,
+			logoutPage: window.Laravel.logoutPage
+		};
+		return _this;
+	}
+
+	_createClass(App, [{
+		key: 'render',
+		value: function render() {
+			var _state = this.state,
+			    timeline = _state.timeline,
+			    newsSources = _state.newsSources,
+			    user = _state.user,
+			    logoutPage = _state.logoutPage,
+			    loginPage = _state.loginPage;
+>>>>>>> feature/authentication
 
 // Expose Axios class to allow class inheritance
 axios.Axios = Axios;
 
+<<<<<<< HEAD
 // Factory for creating new instances
 axios.create = function create(instanceConfig) {
   return createInstance(utils.merge(defaults, instanceConfig));
 };
+=======
+			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'div',
+				null,
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Login__["a" /* default */], { user: user, loginPage: loginPage, logoutPage: logoutPage }),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'div',
+					{ className: 'large-8 columns' },
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__NewsSources__["a" /* default */], {
+						newsSources: newsSources })
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'div',
+					{ className: 'large-4 columns' },
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'div',
+						{ className: 'twitter-container' },
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__TwitterFeed__["a" /* default */], {
+							timeline: timeline })
+					)
+				)
+			);
+		}
+	}]);
+>>>>>>> feature/authentication
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(54);
@@ -10550,6 +10598,7 @@ CancelToken.source = function source() {
 module.exports = CancelToken;
 
 
+<<<<<<< HEAD
 /***/ }),
 /* 95 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -10563,6 +10612,42 @@ var InterceptorManager = __webpack_require__(96);
 var dispatchRequest = __webpack_require__(97);
 var isAbsoluteURL = __webpack_require__(105);
 var combineURLs = __webpack_require__(103);
+=======
+		_this.checkAuth = _this.checkAuth.bind(_this);
+		return _this;
+	}
+
+	_createClass(Login, [{
+		key: 'checkAuth',
+		value: function checkAuth() {
+			var user = this.props.user;
+			var auth = {
+				url: user ? this.props.logoutPage : this.props.loginPage,
+				text: user ? 'Logout' : 'Login'
+			};
+			return auth;
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+
+			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'div',
+				{ className: 'small-12 large-12 columns' },
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'h1',
+					null,
+					'Welcome to Newscape!'
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'a',
+					{ className: 'button', href: this.checkAuth().url },
+					this.checkAuth().text
+				)
+			);
+		}
+	}]);
+>>>>>>> feature/authentication
 
 /**
  * Create a new instance of Axios

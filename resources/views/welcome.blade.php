@@ -76,8 +76,10 @@
         <script>
             window.Laravel = <?php echo json_encode([
                 'loginPage' => $loginPage,
+                'logoutPage' => $logoutPage,
                 'timeline' => $timeline,
-                'newsSources' => $newsSources
+                'newsSources' => $newsSources,
+                'user' => $user,
             ]); ?>
         </script>
 

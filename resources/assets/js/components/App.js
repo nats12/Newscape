@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import Login from './Login';
+import TwitterAuth './TwitterAuth';
 import TwitterFeed from './TwitterFeed';
 import NewsSources from './NewsSources';
 
@@ -12,18 +12,21 @@ class App extends Component {
 
 		this.state = {
 			timeline: window.Laravel.timeline,
-			newsSources: window.Laravel.newsSources.sources
+			newsSources: window.Laravel.newsSources.sources,
+			user: window.Laravel.user,
+			loginPage: window.Laravel.loginPage,
+			logoutPage: window.Laravel.logoutPage
 		}
 	}
 
 
 	render() {
 
-		const { timeline, newsSources } = this.state;
+		const { timeline, newsSources, user, logoutPage, loginPage } = this.state;
 
 		return (
 			<div>
-				<Login />
+				<TwitterAuth user={user} loginPage={loginPage} logoutPage={logoutPage}/>
 				<div className="large-8 columns">
 					<NewsSources 
 						newsSources={newsSources} />
