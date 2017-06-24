@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import '../../../../public/css/twitter.css'
-
 
 class NewsSource extends Component {
 	constructor() {

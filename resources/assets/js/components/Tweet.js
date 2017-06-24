@@ -1,13 +1,33 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import '../../../../public/css/twitter.css'
-
 
 class Tweet extends Component {
 	constructor() {
 		super()
+
+		this.TwitterDateConverter = this.TwitterDateConverter.bind(this);
 	}
+
+	TwitterDateConverter(time){
+		var date = new Date(time),
+			diff = (((new Date()).getTime() - date.getTime()) / 1000),
+			day_diff = Math.floor(diff / 86400);
+				
+		if ( isNaN(day_diff) || day_diff < 0 || day_diff >= 31 )
+			return;
+				
+		return day_diff == 0 && (
+				diff < 60 && "just now" ||
+				diff < 120 && "1 minute ago" ||
+				diff < 3600 && Math.floor( diff / 60 ) + " minutes ago" ||
+				diff < 7200 && "1 hour ago" ||
+				diff < 86400 && Math.floor( diff / 3600 ) + " hours ago") ||
+			day_diff == 1 && "Yesterday" ||
+			day_diff < 7 && day_diff + " days ago" ||
+			day_diff < 31 && Math.ceil( day_diff / 7 ) + " weeks ago";
+	}
+
 
 	render() {
 
@@ -22,7 +42,8 @@ class Tweet extends Component {
 				    </div>
 				  </div>
 				  <div className="media-object-section">
-				  	<p>{tweet.user.name} <a href={"http://twitter.com/" + tweet.user.screen_name}>@{tweet.user.screen_name}</a> {tweet.created_at}</p>
+				  	<p>{tweet.user.name} <a href={"http://twitter.com/" + tweet.user.screen_name}>@{tweet.user.screen_name}</a></p>
+				  	<p><small>{this.TwitterDateConverter(tweet.created_at)}</small></p>
 				    <p>{tweet.text}</p>
 				  </div>
 				</div>
