@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+import Category from './Category';
+
 import axios from 'axios';
 
 class Categories extends Component {
@@ -41,6 +43,8 @@ class Categories extends Component {
       .catch( error => {
         console.log(error);
       });
+
+      console.log('clicked');
   }
 
   saveCategories() {
@@ -60,9 +64,8 @@ class Categories extends Component {
         <div>
           <button onClick={this.getCategories}>Get Categories</button>
 
-          {this.state.categories.map((category, index) => {
-            return <label key={category.id}><input data-id={category.id} className="category-checkbox" onChange={this.selectCategory} type="checkbox"/>{category.name}</label>
-          })
+          {
+            this.state.categories.map((category, index) => {return <Category key={category.id} dataID={category.id} category={category} selectCategory={this.selectCategory} />})
           }
           
         </div>
