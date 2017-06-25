@@ -12,7 +12,9 @@ class NewsFeed extends Component {
     return (
       <div> 
         {
-          this.props.newsArticles.sort((a,b) => new Date(b.publishedAt) - new Date(a.publishedAt) ).map((item, index) => this.props.dateFormatter(item.publishedAt) ? <NewsArticle key={index} newsArticle={item} dateFormatter={this.props.dateFormatter} /> : '')
+          this.props.newsArticles
+          .sort((a,b) => new Date(b.publishedAt) - new Date(a.publishedAt) )
+          .map((item, index) => this.props.dateFormatter(item.publishedAt) ? <NewsArticle key={index} newsArticle={item} dateFormatter={this.props.dateFormatter} /> : '')
         } 
       </div>
     )
