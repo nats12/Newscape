@@ -24537,14 +24537,32 @@ var Categories = function (_Component) {
     var _this = _possibleConstructorReturn(this, (Categories.__proto__ || Object.getPrototypeOf(Categories)).call(this));
 
     _this.getCategories = _this.getCategories.bind(_this);
+    _this.selectCategory = _this.selectCategory.bind(_this);
+    _this.saveCategories = _this.saveCategories.bind(_this);
     _this.state = {
-      categories: []
+      categories: [],
+      selectedCategories: []
     };
-
     return _this;
   }
 
   _createClass(Categories, [{
+    key: 'selectCategory',
+    value: function selectCategory(e) {
+      var checkboxes = document.querySelectorAll('.category-checkbox');
+      var checkboxArray = [].slice.call(checkboxes);
+      var selectedArray = [];
+      checkboxArray.map(function (checkbox) {
+        if (checkbox.checked && selectedArray.indexOf(checkbox.getAttribute('data-id')) === -1) {
+          selectedArray.push(checkbox.getAttribute('data-id'));
+        } else {
+          selectedArray.splice(checkbox.getAttribute('data-id'), 1);
+        }
+      });
+      console.log(selectedArray);
+      this.setState({ selectedCategories: selectedArray });
+    }
+  }, {
     key: 'getCategories',
     value: function getCategories() {
       var _this2 = this;
@@ -24558,8 +24576,21 @@ var Categories = function (_Component) {
       });
     }
   }, {
+    key: 'saveCategories',
+    value: function saveCategories() {
+      __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post('/category', {
+        categories: []
+      }).then(function (response) {
+        console.log(response);
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this3 = this;
+
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         null,
@@ -24571,8 +24602,8 @@ var Categories = function (_Component) {
         this.state.categories.map(function (category, index) {
           return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'label',
-            { key: index },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'checkbox' }),
+            { key: category.id },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { 'data-id': category.id, className: 'category-checkbox', onChange: _this3.selectCategory, type: 'checkbox' }),
             category.name
           );
         })

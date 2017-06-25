@@ -22,7 +22,8 @@ class CategoriesController extends Controller
       Auth::loginUsingId(1);
       $user = Auth::user();
 
-      $user->categories()->detach($user->id);
+      // $user->categories()->attach($user->id);
+      $user->categories()->sync($request->categories, true);
 
       // if(Auth::check()){
 
@@ -36,6 +37,6 @@ class CategoriesController extends Controller
       //   }
       // }
 
-      return response()->json(['categories' => "test"], 201);
+      return response()->json(['categories' => $user->categories], 201);
     }
 }
