@@ -5,6 +5,7 @@ import TwitterAuth from './TwitterAuth';
 import TwitterFeed from './TwitterFeed';
 import NewsSources from './NewsSources';
 import NewsFeed from './NewsFeed';
+import Categories from './Categories';
 
 
 
@@ -53,6 +54,7 @@ class App extends Component {
 			<div>
 				<TwitterAuth user={user} loginPage={loginPage} logoutPage={logoutPage}/>
 				<div className="large-8 columns">
+					<Categories/>
 					<NewsFeed 
 						newsArticles={newsArticles} dateFormatter={this.dateFormatter} />
 				</div>
