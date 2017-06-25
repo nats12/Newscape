@@ -5,12 +5,16 @@ import NewsArticle from './NewsArticle';
 class NewsFeed extends Component {
   constructor() {
     super()
+
+    this.state = {
+      limitCountEnd: 10 
+    }
   }
 
   render() {
 
     const currentDate = new Date();
-    let limitCount = 0;
+    let limitCounter = 0;
 
     return (
       <div> 
@@ -20,8 +24,8 @@ class NewsFeed extends Component {
 
             (item, index) => {
             const publishedAtDate = new Date(item.publishedAt);
-            if(currentDate > publishedAtDate && limitCount <= 10) {
-              limitCount += 1;
+            if(currentDate > publishedAtDate && limitCounter <= this.state.limitCountEnd) {
+              limitCounter +=1;
               return <NewsArticle key={index} newsArticle={item} dateFormatter={this.props.dateFormatter} />
             }
           })

@@ -11493,7 +11493,12 @@ var NewsFeed = function (_Component) {
   function NewsFeed() {
     _classCallCheck(this, NewsFeed);
 
-    return _possibleConstructorReturn(this, (NewsFeed.__proto__ || Object.getPrototypeOf(NewsFeed)).call(this));
+    var _this = _possibleConstructorReturn(this, (NewsFeed.__proto__ || Object.getPrototypeOf(NewsFeed)).call(this));
+
+    _this.state = {
+      limitCountEnd: 10
+    };
+    return _this;
   }
 
   _createClass(NewsFeed, [{
@@ -11502,7 +11507,7 @@ var NewsFeed = function (_Component) {
       var _this2 = this;
 
       var currentDate = new Date();
-      var limitCount = 0;
+      var limitCounter = 0;
 
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
@@ -11511,8 +11516,8 @@ var NewsFeed = function (_Component) {
           return new Date(b.publishedAt) - new Date(a.publishedAt);
         }).map(function (item, index) {
           var publishedAtDate = new Date(item.publishedAt);
-          if (currentDate > publishedAtDate && limitCount <= 10) {
-            limitCount += 1;
+          if (currentDate > publishedAtDate && limitCounter <= _this2.state.limitCountEnd) {
+            limitCounter += 1;
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__NewsArticle__["a" /* default */], { key: index, newsArticle: item, dateFormatter: _this2.props.dateFormatter });
           }
         })
@@ -11817,10 +11822,12 @@ var Login = function (_Component) {
 		key: 'checkAuth',
 		value: function checkAuth() {
 			var user = this.props.user;
+
 			var auth = {
 				url: user ? this.props.logoutPage : this.props.loginPage,
 				text: user ? 'Logout' : 'Login'
 			};
+
 			return auth;
 		}
 	}, {

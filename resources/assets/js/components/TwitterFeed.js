@@ -15,7 +15,8 @@ class TwitterFeed extends Component {
 			return (
 				<div>
 					{
-						Object.keys(this.props.timeline).map(key => <Tweet key={key} tweet={this.props.timeline[key]} />)
+						Object.keys(this.props.timeline)
+						.map(key => <Tweet key={key} tweet={this.props.timeline[key]} />)
 					}
 				</div>
 			)
