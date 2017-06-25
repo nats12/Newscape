@@ -11501,13 +11501,20 @@ var NewsFeed = function (_Component) {
     value: function render() {
       var _this2 = this;
 
+      var currentDate = new Date();
+      var limitCount = 0;
+
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         null,
         this.props.newsArticles.sort(function (a, b) {
           return new Date(b.publishedAt) - new Date(a.publishedAt);
         }).map(function (item, index) {
-          return _this2.props.dateFormatter(item.publishedAt) ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__NewsArticle__["a" /* default */], { key: index, newsArticle: item, dateFormatter: _this2.props.dateFormatter }) : '';
+          var publishedAtDate = new Date(item.publishedAt);
+          if (currentDate > publishedAtDate && limitCount <= 10) {
+            limitCount += 1;
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__NewsArticle__["a" /* default */], { key: index, newsArticle: item, dateFormatter: _this2.props.dateFormatter });
+          }
         })
       );
     }
