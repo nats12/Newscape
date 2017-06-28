@@ -6,11 +6,9 @@ import axios from 'axios';
 class Login extends Component {
 	constructor() {
 		super()
-
-		this.checkAuth = this.checkAuth.bind(this);
 	}
 
-	checkAuth() {
+	checkAuth = () => {
 		const user = this.props.user;
 
 		const auth = {

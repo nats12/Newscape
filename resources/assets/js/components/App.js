@@ -13,8 +13,6 @@ class App extends Component {
 	constructor(props) {
 		super()
 
-		this.dateFormatter = this.dateFormatter.bind(this);
-
 		this.state = {
 			timeline: window.Laravel.timeline,
 			newsSources: window.Laravel.newsSources.sources,
@@ -26,7 +24,7 @@ class App extends Component {
 	}
 
 
-	dateFormatter(time){
+	dateFormatter = (time) => {
 		var date = new Date(time),
 			diff = (((new Date()).getTime() - date.getTime()) / 1000),
 			day_diff = Math.floor(diff / 86400);

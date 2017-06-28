@@ -6,10 +6,9 @@ class Tweet extends Component {
 	constructor() {
 		super()
 
-		this.dateFormatter = this.dateFormatter.bind(this);
 	}
 
-	dateFormatter(time){
+	dateFormatter = (time) => {
 		var date = new Date(time),
 			diff = (((new Date()).getTime() - date.getTime()) / 1000),
 			day_diff = Math.floor(diff / 86400);

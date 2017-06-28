@@ -8,16 +8,14 @@ import axios from 'axios';
 class Categories extends Component {
   constructor() {
     super()
-    this.getCategories = this.getCategories.bind(this);
-    this.selectCategory = this.selectCategory.bind(this);
-    this.saveCategories = this.saveCategories.bind(this);
+ 
     this.state = {
       categories: [],
       selectedCategories: [],
     }
   }
 
-  selectCategory(e) {
+  selectCategory = (e) => {
     const checkboxes = document.querySelectorAll('.category-checkbox');
     const checkboxArray = [].slice.call(checkboxes);
     let selectedArray = [];
@@ -33,7 +31,7 @@ class Categories extends Component {
     this.setState({selectedCategories: selectedArray});
   }
 
-  getCategories() {
+  getCategories = () => {
     axios.get('/api/categories')
       .then(response => {
         console.log(this.state);
@@ -47,7 +45,7 @@ class Categories extends Component {
       console.log('clicked');
   }
 
-  saveCategories() {
+  saveCategories = () => {
     axios.post('/category', {
         categories: []
       })

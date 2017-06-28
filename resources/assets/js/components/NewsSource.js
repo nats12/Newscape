@@ -5,12 +5,9 @@ import ReactDOM from 'react-dom';
 class NewsSource extends Component {
 	constructor() {
 		super()
-
-		this.truncateLogoUrl = this.truncateLogoUrl.bind(this);
-
 	}
 
-	truncateLogoUrl() {
+	truncateLogoUrl = () => {
 
 		const url = this.props.newsSource.url;
 
