@@ -23,6 +23,8 @@ Newscape fuses the [Twitter API for Laravel](https://github.com/thujohn/twitter)
     * `NEWSAPI_URL=`
 * Run `npm run watch`
 * Run `php artisan migrate`
+* Run `php artisan db:seed`
+* `composer dump-autoload` may be required before seeding the database
 
 
 ##### Installation for development use without MAMP
