@@ -12008,6 +12008,26 @@ var Tweet = function (_Component) {
 			return day_diff == 0 && (diff < 60 && "just now" || diff < 120 && "1 minute ago" || diff < 3600 && Math.floor(diff / 60) + " minutes ago" || diff < 7200 && "1 hour ago" || diff < 86400 && Math.floor(diff / 3600) + " hours ago") || day_diff == 1 && "Yesterday" || day_diff < 7 && day_diff + " days ago" || day_diff < 31 && Math.ceil(day_diff / 7) + " weeks ago";
 		};
 
+		_this.parseTweet = function (text) {
+			// Parse URIs
+			text = text.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&\?\/.=]+/, function (uri) {
+				return uri.link(uri);
+			});
+
+			// Parse Twitter usernames
+			text = text.replace(/[@]+[A-Za-z0-9-_]+/, function (u) {
+				var username = u.replace("@", "");
+				return u.link("http://twitter.com/" + username);
+			});
+
+			// Parse Twitter hash tags
+			text = text.replace(/[#]+[A-Za-z0-9-_]+/, function (t) {
+				var tag = t.replace("#", "%23");
+				return t.link("http://search.twitter.com/search?q=" + tag);
+			});
+			return { __html: text };
+		};
+
 		return _this;
 	}
 
@@ -12056,11 +12076,7 @@ var Tweet = function (_Component) {
 								this.dateFormatter(tweet.created_at)
 							)
 						),
-						_react2.default.createElement(
-							'p',
-							null,
-							tweet.text
-						)
+						_react2.default.createElement('p', { dangerouslySetInnerHTML: this.parseTweet(tweet.text) })
 					)
 				)
 			);
