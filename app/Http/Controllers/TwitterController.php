@@ -60,6 +60,7 @@ class TwitterController extends Controller
 	        // Add new properties to the article object
 	        $articleObject->sourceId = $source['id'];
 	        $articleObject->sourceName = $source['name'];
+          $articleObject->sourceCategory = $source['category'];
 
 	        foreach ($article as $key => $value)
 	        {
