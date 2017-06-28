@@ -21,13 +21,25 @@ class App extends Component {
 			user: window.Laravel.user,
 			loginPage: window.Laravel.loginPage,
 			logoutPage: window.Laravel.logoutPage,
-			tweetFormOpen: false
+			tweetFormOpen: false,
+			selectedArticle: {}
 		}
 	}
 
 	toggleTweetForm = (tweetFormOpen) => {
 		tweetFormOpen = !tweetFormOpen;
 		this.setState({tweetFormOpen: tweetFormOpen}); 
+	}
+
+	selectArticle = (article) => {
+		console.log(article);
+		this.setState({selectedArticle: article});
+	}
+
+	updateTimeline = (tweet, article) => {
+
+		//push tweet into timeline array;
+
 	}
 
 
@@ -66,6 +78,7 @@ class App extends Component {
 				{this.state.tweetFormOpen ? <TweetForm 
 					tweetFormOpen={this.state.tweetFormOpen} 
 					toggleTweetForm={this.toggleTweetForm}
+					selectedArticle={this.state.selectedArticle}
 				/> : '' }
 				
 
@@ -76,6 +89,7 @@ class App extends Component {
 						dateFormatter={this.dateFormatter} 
 						tweetFormOpen={this.state.tweetFormOpen} 
 						toggleTweetForm={this.toggleTweetForm}
+						selectArticle={this.selectArticle}
 					/>
 				</div>
 

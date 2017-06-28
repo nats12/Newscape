@@ -15,7 +15,11 @@ class TweetButton extends Component {
     render() {
         let tweetFormOpen = this.props.tweetFormOpen;
         return (
-            <button type="button" className="button tiny" onClick={() => this.props.toggleTweetForm(tweetFormOpen)}>Tweet</button>
+            <button type="button" className="button tiny" onClick={() => {
+                this.props.toggleTweetForm(tweetFormOpen);
+                this.props.selectArticle(this.props.article);
+            }
+            }>Tweet</button>
         )
     }
 }
