@@ -1,0 +1,23 @@
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+
+
+class TweetButton extends Component {
+    constructor() {
+        super()
+    }
+
+    openTweetForm = (e) => {
+        e.preventDefault();
+        console.log("tweeted!");
+    };
+
+    render() {
+        let tweetFormOpen = this.props.tweetFormOpen;
+        return (
+            <button type="button" className="button tiny" onClick={() => this.props.toggleTweetForm(tweetFormOpen)}>Tweet</button>
+        )
+    }
+}
+
+export default TweetButton

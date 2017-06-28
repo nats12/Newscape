@@ -95,6 +95,8 @@ class TwitterController extends Controller
 	    $loginPage = route('twitterLogin');
 	    $logoutPage = route('twitterLogout');
 
+      // Twitter::postTweet(['status' => 'test https://www.theguardian.com/books/2017/jun/28/paddington-bear-author-michael-bond-dies-aged-91']);
+
 		return view('welcome', compact('loginPage', 'logoutPage', 'timeline', 'newsSources', 'newsArticles', 'user'));
 	}
 
@@ -230,6 +232,10 @@ class TwitterController extends Controller
     	$timeline = Twitter::getHomeTimeline(['count' => 25]);
 
       return response()->json(Twitter::getCredentials(['include_email' => 'true',]));
+    }
+
+    public function tweetArticle(Request $request) {
+
     }
 
 

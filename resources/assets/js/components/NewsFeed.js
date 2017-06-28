@@ -26,7 +26,7 @@ class NewsFeed extends Component {
             const publishedAtDate = new Date(item.publishedAt);
             if(currentDate > publishedAtDate && limitCounter <= this.state.limitCountEnd) {
               limitCounter +=1;
-              return <NewsArticle key={index} newsArticle={item} dateFormatter={this.props.dateFormatter} />
+              return <NewsArticle key={index} newsArticle={item} dateFormatter={this.props.dateFormatter} tweetFormOpen={this.props.tweetFormOpen} toggleTweetForm={this.props.toggleTweetForm} />
             }
           })
         } 
