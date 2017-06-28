@@ -12011,19 +12011,19 @@ var Tweet = function (_Component) {
 		_this.parseTweet = function (text) {
 			// Parse URIs
 			text = text.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&\?\/.=]+/, function (uri) {
-				return uri.link(uri);
+				return '<a href=' + uri + ' target="_blank">' + uri + '</a>';
 			});
 
 			// Parse Twitter usernames
 			text = text.replace(/[@]+[A-Za-z0-9-_]+/, function (u) {
-				var username = u.replace("@", "");
-				return u.link("http://twitter.com/" + username);
+				var username = u.replace('@', '');
+				return '<a href="http://twitter.com/' + username + '" target="_blank">' + u + '</a>';
 			});
 
 			// Parse Twitter hash tags
 			text = text.replace(/[#]+[A-Za-z0-9-_]+/, function (t) {
-				var tag = t.replace("#", "%23");
-				return t.link("http://search.twitter.com/search?q=" + tag);
+				var tag = t.replace('#', '');
+				return '<a href="https://twitter.com/hashtag/' + tag + '?src=hash" target="_blank">' + t + '</a>';
 			});
 			return { __html: text };
 		};
