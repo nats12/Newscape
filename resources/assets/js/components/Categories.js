@@ -46,8 +46,8 @@ class Categories extends Component {
   }
 
   saveCategories = () => {
-    axios.post('/category', {
-        categories: []
+    axios.post('/api/category', {
+        categories: this.state.selectedCategories
       })
       .then(response => {
         console.log(response);
@@ -60,11 +60,13 @@ class Categories extends Component {
   render() {
     return(
         <div>
-          <button onClick={this.getCategories}>Get Categories</button>
+          <button className="button small" onClick={this.getCategories}>Get Categories</button>
 
           {
             this.state.categories.map((category, index) => {return <Category key={category.id} dataID={category.id} category={category} selectCategory={this.selectCategory} />})
           }
+
+          <button className="button small" onClick={this.saveCategories} style={{display:"block"}}>Save</button>
           
         </div>
       )

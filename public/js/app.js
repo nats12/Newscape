@@ -11460,8 +11460,8 @@ var Categories = function (_Component) {
     };
 
     _this.saveCategories = function () {
-      _axios2.default.post('/category', {
-        categories: []
+      _axios2.default.post('/api/category', {
+        categories: _this.state.selectedCategories
       }).then(function (response) {
         console.log(response);
       }).catch(function (error) {
@@ -11486,12 +11486,17 @@ var Categories = function (_Component) {
         null,
         _react2.default.createElement(
           'button',
-          { onClick: this.getCategories },
+          { className: 'button small', onClick: this.getCategories },
           'Get Categories'
         ),
         this.state.categories.map(function (category, index) {
           return _react2.default.createElement(_Category2.default, { key: category.id, dataID: category.id, category: category, selectCategory: _this2.selectCategory });
-        })
+        }),
+        _react2.default.createElement(
+          'button',
+          { className: 'button small', onClick: this.saveCategories, style: { display: "block" } },
+          'Save'
+        )
       );
     }
   }]);
@@ -12078,6 +12083,9 @@ var Login = function (_Component) {
 		key: 'render',
 		value: function render() {
 
+			var url = this.checkAuth().url;
+			var text = this.checkAuth().text;
+
 			return _react2.default.createElement(
 				'div',
 				{ className: 'small-12 large-12 columns' },
@@ -12088,8 +12096,8 @@ var Login = function (_Component) {
 				),
 				_react2.default.createElement(
 					'a',
-					{ className: 'button', href: this.checkAuth().url },
-					this.checkAuth().text
+					{ className: 'button ' + (text === 'Logout' ? 'alert' : 'success'), href: url },
+					text
 				)
 			);
 		}

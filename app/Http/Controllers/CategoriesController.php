@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Category;
 use Illuminate\Support\Facades\Auth;
 
+use App\Category;
+
+
 class CategoriesController extends Controller
-{
+{   
+  /**
+   * [getCategories description]
+   * @return [type] [description]
+   */
     public function getCategories()
     {
     	$categories = Category::all();
@@ -18,11 +23,17 @@ class CategoriesController extends Controller
     	return response()->json($response, 200);
     }
 
-    public function attachCategorytoUser(Request $request) {
+    /**
+     * [attachCategorytoUser description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function attachCategoryToUser(Request $request) {
+
       Auth::loginUsingId(1);
+
       $user = Auth::user();
 
-      // $user->categories()->attach($user->id);
       $user->categories()->sync($request->categories, true);
 
       // if(Auth::check()){

@@ -21,10 +21,13 @@ class Login extends Component {
 
 	render() {
 
+		const url = this.checkAuth().url;
+		const text = this.checkAuth().text;
+
 		return (
 			<div className="small-12 large-12 columns">
 				<h1>Welcome to Newscape!</h1>
-				<a className="button" href={this.checkAuth().url}>{this.checkAuth().text}</a>
+				<a className={`button ${text === 'Logout' ? 'alert' : 'success'}`} href={url}>{text}</a>
 			</div>
 		)
 	}
