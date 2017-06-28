@@ -20,4 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //get quotes
 Route::get('/categories', ['uses'=> 'CategoriesController@getCategories']);
 
-Route::post('/category', ['uses'=> 'CategoriesController@attachCategorytoUser']);
+Route::post('/category', ['uses'=> 'CategoriesController@attachCategoryToUser']);
