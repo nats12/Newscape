@@ -12010,18 +12010,18 @@ var Tweet = function (_Component) {
 
 		_this.parseTweet = function (text) {
 			// Parse URIs
-			text = text.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&\?\/.=]+/, function (uri) {
+			text = text.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&~\?\/.=]+/g, function (uri) {
 				return '<a href=' + uri + ' target="_blank">' + uri + '</a>';
 			});
 
 			// Parse Twitter usernames
-			text = text.replace(/[@]+[A-Za-z0-9-_]+/, function (u) {
+			text = text.replace(/[@]+[A-Za-z0-9-_]+/g, function (u) {
 				var username = u.replace('@', '');
 				return '<a href="http://twitter.com/' + username + '" target="_blank">' + u + '</a>';
 			});
 
 			// Parse Twitter hash tags
-			text = text.replace(/[#]+[A-Za-z0-9-_]+/, function (t) {
+			text = text.replace(/[#]+[A-Za-z0-9-_]+/g, function (t) {
 				var tag = t.replace('#', '');
 				return '<a href="https://twitter.com/hashtag/' + tag + '?src=hash" target="_blank">' + t + '</a>';
 			});
@@ -12176,6 +12176,10 @@ var _reactDom = __webpack_require__(6);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _axios = __webpack_require__(53);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -12194,8 +12198,14 @@ var TweetForm = function (_Component) {
 
         _this.charLimit = function (e) {
             var input = e.target.value;
+
+            //remove username from charlimit
+            //   input = input.replace(/[@]+[A-Za-z0-9-_]+/g, function(u) {
+            //   var username = u.length;
+            //   return username;
+            // });
+
             _this.setState({ charsLeft: _this.maxChars - input.length });
-            console.log(_this.state.charsLeft);
         };
 
         _this.tweetArticle = function (e) {
@@ -12207,13 +12217,14 @@ var TweetForm = function (_Component) {
             // console.log(postTweetBody, articleUrl);
             console.log(_this.props.selectedArticle);
 
-            // axios.post('/', { firstName: 'Marlon', lastName: 'Bernardes' })
-            //   .then((response) => {
-            //     console.log('saved successfully')
-            //   })
-            //   .catch((error) => {
-            //     console.log('error');
-            //   });
+            _axios2.default.post('/tweet', {
+                tweetBody: postTweetBody,
+                tweetUrl: articleUrl
+            }).then(function (response) {
+                console.log(response);
+            }).catch(function (error) {
+                console.log('error');
+            });
         };
 
         _this.maxChars = 117;

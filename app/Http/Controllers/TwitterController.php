@@ -22,7 +22,6 @@ class TwitterController extends Controller
 	 */
 	public function accessVariables() 
   	{
-
 	    // $newsSources = Cache::remember('news_sources', 60, function () {
 	    //   return NewsApi::getSources();
 	    // });
@@ -95,14 +94,8 @@ class TwitterController extends Controller
 	    $loginPage = route('twitterLogin');
 	    $logoutPage = route('twitterLogout');
 
-      // Twitter::postTweet(['status' => 'test https://www.theguardian.com/books/2017/jun/28/paddington-bear-author-michael-bond-dies-aged-91']);
-
 		return view('welcome', compact('loginPage', 'logoutPage', 'timeline', 'newsSources', 'newsArticles', 'user'));
 	}
-
-
-
-
 
     /**
      * [twitterLogIn description]
@@ -184,7 +177,6 @@ class TwitterController extends Controller
                   };
 
                   Auth::login($user);
-
   				// Add here your own user logic, store profiles, create new users on your tables...you name it!
   				// Typically you'll want to store at least, user id, name and access tokens
   				// if you want to be able to call the API on behalf of your users.
@@ -236,9 +228,12 @@ class TwitterController extends Controller
 
     public function tweetArticle(Request $request) {
 
+      $tweet = $request->tweetBody." ".$request->tweetUrl;
+      
+      Twitter::postTweet(['status' => $tweet]);
+
+      return response()->json(['status' => $tweet], 201);
     }
-
-
 
     /**
      * [error description]

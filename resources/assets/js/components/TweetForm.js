@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 
 
 class TweetForm extends Component {
@@ -12,9 +13,15 @@ class TweetForm extends Component {
     }
 
     charLimit = (e) => {
-        const input = e.target.value;
+        let input = e.target.value;
+
+    //remove username from charlimit
+      //   input = input.replace(/[@]+[A-Za-z0-9-_]+/g, function(u) {
+      //   var username = u.length;
+      //   return username;
+      // });
+
         this.setState({charsLeft: this.maxChars - input.length});
-        console.log(this.state.charsLeft)
     }
 
     tweetArticle = (e) => {
@@ -26,13 +33,16 @@ class TweetForm extends Component {
         // console.log(postTweetBody, articleUrl);
         console.log(this.props.selectedArticle);
 
-        // axios.post('/', { firstName: 'Marlon', lastName: 'Bernardes' })
-        //   .then((response) => {
-        //     console.log('saved successfully')
-        //   })
-        //   .catch((error) => {
-        //     console.log('error');
-        //   });
+        axios.post('/tweet', {
+            tweetBody: postTweetBody,
+            tweetUrl: articleUrl
+        })
+          .then((response) => {
+            console.log(response)
+          })
+          .catch((error) => {
+            console.log('error');
+          });
     }
 
     render() {

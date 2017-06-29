@@ -29,18 +29,18 @@ class Tweet extends Component {
 
 	parseTweet = (text) => {
       // Parse URIs
-      text = text.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&\?\/.=]+/, (uri) => {
+      text = text.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&~\?\/.=]+/g, (uri) => {
       	return `<a href=${uri} target="_blank">${uri}</a>`;
       });
 
       // Parse Twitter usernames
-      text = text.replace(/[@]+[A-Za-z0-9-_]+/, function(u) {
+      text = text.replace(/[@]+[A-Za-z0-9-_]+/g, function(u) {
       	var username = u.replace('@','');
       	return `<a href="http://twitter.com/${username}" target="_blank">${u}</a>`;
       });
 
 		// Parse Twitter hash tags
-		text = text.replace(/[#]+[A-Za-z0-9-_]+/, function(t) {
+		text = text.replace(/[#]+[A-Za-z0-9-_]+/g, function(t) {
 			var tag = t.replace('#','')
 			return `<a href="https://twitter.com/hashtag/${tag}?src=hash" target="_blank">${t}</a>`;
 		});
