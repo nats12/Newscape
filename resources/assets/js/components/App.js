@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import TwitterAuth from './TwitterAuth';
 import TwitterFeed from './TwitterFeed';
+import TweetForm from './TweetForm';
 import NewsSources from './NewsSources';
 import NewsFeed from './NewsFeed';
 import Categories from './Categories';
@@ -19,8 +20,26 @@ class App extends Component {
 			newsArticles: window.Laravel.newsArticles,
 			user: window.Laravel.user,
 			loginPage: window.Laravel.loginPage,
-			logoutPage: window.Laravel.logoutPage
+			logoutPage: window.Laravel.logoutPage,
+			tweetFormOpen: false,
+			selectedArticle: {}
 		}
+	}
+
+	toggleTweetForm = (tweetFormOpen) => {
+		tweetFormOpen = !tweetFormOpen;
+		this.setState({tweetFormOpen: tweetFormOpen}); 
+	}
+
+	selectArticle = (article) => {
+		console.log(article);
+		this.setState({selectedArticle: article});
+	}
+
+	updateTimeline = (tweet, article) => {
+
+		//push tweet into timeline array;
+
 	}
 
 
@@ -50,11 +69,28 @@ class App extends Component {
 
 		return (
 			<div>
-				<TwitterAuth user={user} loginPage={loginPage} logoutPage={logoutPage}/>
+				<TwitterAuth 
+					user={user} 
+					loginPage={loginPage} 
+					logoutPage={logoutPage}
+				/>
+
+				{this.state.tweetFormOpen ? <TweetForm 
+					tweetFormOpen={this.state.tweetFormOpen} 
+					toggleTweetForm={this.toggleTweetForm}
+					selectedArticle={this.state.selectedArticle}
+				/> : '' }
+				
+
 				<div className="large-8 columns">
 					<Categories/>
 					<NewsFeed 
-						newsArticles={newsArticles} dateFormatter={this.dateFormatter} />
+						newsArticles={newsArticles} 
+						dateFormatter={this.dateFormatter} 
+						tweetFormOpen={this.state.tweetFormOpen} 
+						toggleTweetForm={this.toggleTweetForm}
+						selectArticle={this.selectArticle}
+					/>
 				</div>
 
 				{/*

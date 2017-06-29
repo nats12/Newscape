@@ -27,6 +27,25 @@ class Tweet extends Component {
 			day_diff < 31 && Math.ceil( day_diff / 7 ) + " weeks ago";
 	}
 
+	parseTweet = (text) => {
+      // Parse URIs
+      text = text.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&~\?\/.=]+/g, (uri) => {
+      	return `<a href=${uri} target="_blank">${uri}</a>`;
+      });
+
+      // Parse Twitter usernames
+      text = text.replace(/[@]+[A-Za-z0-9-_]+/g, function(u) {
+      	var username = u.replace('@','');
+      	return `<a href="http://twitter.com/${username}" target="_blank">${u}</a>`;
+      });
+
+		// Parse Twitter hash tags
+		text = text.replace(/[#]+[A-Za-z0-9-_]+/g, function(t) {
+			var tag = t.replace('#','')
+			return `<a href="https://twitter.com/hashtag/${tag}?src=hash" target="_blank">${t}</a>`;
+		});
+		return {__html: text};
+	}
 
 	render() {
 
@@ -43,7 +62,7 @@ class Tweet extends Component {
 				  <div className="media-object-section">
 				  	<p>{tweet.user.name} <a href={"http://twitter.com/" + tweet.user.screen_name}>@{tweet.user.screen_name}</a></p>
 				  	<p><small>{this.dateFormatter(tweet.created_at)}</small></p>
-				    <p>{tweet.text}</p>
+				    <p dangerouslySetInnerHTML={this.parseTweet(tweet.text)}></p>
 				  </div>
 				</div>
 			</div>

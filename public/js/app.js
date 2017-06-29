@@ -11296,6 +11296,10 @@ var _TwitterFeed = __webpack_require__(119);
 
 var _TwitterFeed2 = _interopRequireDefault(_TwitterFeed);
 
+var _TweetForm = __webpack_require__(225);
+
+var _TweetForm2 = _interopRequireDefault(_TweetForm);
+
 var _NewsSources = __webpack_require__(116);
 
 var _NewsSources2 = _interopRequireDefault(_NewsSources);
@@ -11324,6 +11328,22 @@ var App = function (_Component) {
 
 		var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
 
+		_this.toggleTweetForm = function (tweetFormOpen) {
+			tweetFormOpen = !tweetFormOpen;
+			_this.setState({ tweetFormOpen: tweetFormOpen });
+		};
+
+		_this.selectArticle = function (article) {
+			console.log(article);
+			_this.setState({ selectedArticle: article });
+		};
+
+		_this.updateTimeline = function (tweet, article) {
+
+			//push tweet into timeline array;
+
+		};
+
 		_this.dateFormatter = function (time) {
 			var date = new Date(time),
 			    diff = (new Date().getTime() - date.getTime()) / 1000,
@@ -11340,7 +11360,9 @@ var App = function (_Component) {
 			newsArticles: window.Laravel.newsArticles,
 			user: window.Laravel.user,
 			loginPage: window.Laravel.loginPage,
-			logoutPage: window.Laravel.logoutPage
+			logoutPage: window.Laravel.logoutPage,
+			tweetFormOpen: false,
+			selectedArticle: {}
 		};
 		return _this;
 	}
@@ -11360,13 +11382,27 @@ var App = function (_Component) {
 			return _react2.default.createElement(
 				'div',
 				null,
-				_react2.default.createElement(_TwitterAuth2.default, { user: user, loginPage: loginPage, logoutPage: logoutPage }),
+				_react2.default.createElement(_TwitterAuth2.default, {
+					user: user,
+					loginPage: loginPage,
+					logoutPage: logoutPage
+				}),
+				this.state.tweetFormOpen ? _react2.default.createElement(_TweetForm2.default, {
+					tweetFormOpen: this.state.tweetFormOpen,
+					toggleTweetForm: this.toggleTweetForm,
+					selectedArticle: this.state.selectedArticle
+				}) : '',
 				_react2.default.createElement(
 					'div',
 					{ className: 'large-8 columns' },
 					_react2.default.createElement(_Categories2.default, null),
 					_react2.default.createElement(_NewsFeed2.default, {
-						newsArticles: newsArticles, dateFormatter: this.dateFormatter })
+						newsArticles: newsArticles,
+						dateFormatter: this.dateFormatter,
+						tweetFormOpen: this.state.tweetFormOpen,
+						toggleTweetForm: this.toggleTweetForm,
+						selectArticle: this.selectArticle
+					})
 				),
 				_react2.default.createElement(
 					'div',
@@ -11583,6 +11619,10 @@ var _reactDom = __webpack_require__(10);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _TweetButton = __webpack_require__(224);
+
+var _TweetButton2 = _interopRequireDefault(_TweetButton);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -11660,7 +11700,13 @@ var NewsArticle = function (_Component) {
                 { href: article.url, target: '_blank' },
                 article.url
               )
-            )
+            ),
+            _react2.default.createElement(_TweetButton2.default, {
+              article: article,
+              tweetFormOpen: this.props.tweetFormOpen,
+              toggleTweetForm: this.props.toggleTweetForm,
+              selectArticle: this.props.selectArticle
+            })
           )
         )
       );
@@ -11680,7 +11726,7 @@ exports.default = NewsArticle;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -11706,44 +11752,51 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var NewsFeed = function (_Component) {
-  _inherits(NewsFeed, _Component);
+    _inherits(NewsFeed, _Component);
 
-  function NewsFeed() {
-    _classCallCheck(this, NewsFeed);
+    function NewsFeed() {
+        _classCallCheck(this, NewsFeed);
 
-    var _this = _possibleConstructorReturn(this, (NewsFeed.__proto__ || Object.getPrototypeOf(NewsFeed)).call(this));
+        var _this = _possibleConstructorReturn(this, (NewsFeed.__proto__ || Object.getPrototypeOf(NewsFeed)).call(this));
 
-    _this.state = {
-      limitCountEnd: 10
-    };
-    return _this;
-  }
-
-  _createClass(NewsFeed, [{
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      var currentDate = new Date();
-      var limitCounter = 0;
-
-      return _react2.default.createElement(
-        'div',
-        null,
-        this.props.newsArticles.sort(function (a, b) {
-          return new Date(b.publishedAt) - new Date(a.publishedAt);
-        }).map(function (item, index) {
-          var publishedAtDate = new Date(item.publishedAt);
-          if (currentDate > publishedAtDate && limitCounter <= _this2.state.limitCountEnd) {
-            limitCounter += 1;
-            return _react2.default.createElement(_NewsArticle2.default, { key: index, newsArticle: item, dateFormatter: _this2.props.dateFormatter });
-          }
-        })
-      );
+        _this.state = {
+            limitCountEnd: 10
+        };
+        return _this;
     }
-  }]);
 
-  return NewsFeed;
+    _createClass(NewsFeed, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            var currentDate = new Date();
+            var limitCounter = 0;
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                this.props.newsArticles.sort(function (a, b) {
+                    return new Date(b.publishedAt) - new Date(a.publishedAt);
+                }).map(function (item, index) {
+                    var publishedAtDate = new Date(item.publishedAt);
+                    if (currentDate > publishedAtDate && limitCounter <= _this2.state.limitCountEnd) {
+                        limitCounter += 1;
+                        return _react2.default.createElement(_NewsArticle2.default, {
+                            key: index,
+                            newsArticle: item,
+                            dateFormatter: _this2.props.dateFormatter,
+                            tweetFormOpen: _this2.props.tweetFormOpen,
+                            toggleTweetForm: _this2.props.toggleTweetForm,
+                            selectArticle: _this2.props.selectArticle
+                        });
+                    }
+                })
+            );
+        }
+    }]);
+
+    return NewsFeed;
 }(_react.Component);
 
 exports.default = NewsFeed;
@@ -11960,6 +12013,26 @@ var Tweet = function (_Component) {
 			return day_diff == 0 && (diff < 60 && "just now" || diff < 120 && "1 minute ago" || diff < 3600 && Math.floor(diff / 60) + " minutes ago" || diff < 7200 && "1 hour ago" || diff < 86400 && Math.floor(diff / 3600) + " hours ago") || day_diff == 1 && "Yesterday" || day_diff < 7 && day_diff + " days ago" || day_diff < 31 && Math.ceil(day_diff / 7) + " weeks ago";
 		};
 
+		_this.parseTweet = function (text) {
+			// Parse URIs
+			text = text.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&~\?\/.=]+/g, function (uri) {
+				return '<a href=' + uri + ' target="_blank">' + uri + '</a>';
+			});
+
+			// Parse Twitter usernames
+			text = text.replace(/[@]+[A-Za-z0-9-_]+/g, function (u) {
+				var username = u.replace('@', '');
+				return '<a href="http://twitter.com/' + username + '" target="_blank">' + u + '</a>';
+			});
+
+			// Parse Twitter hash tags
+			text = text.replace(/[#]+[A-Za-z0-9-_]+/g, function (t) {
+				var tag = t.replace('#', '');
+				return '<a href="https://twitter.com/hashtag/' + tag + '?src=hash" target="_blank">' + t + '</a>';
+			});
+			return { __html: text };
+		};
+
 		return _this;
 	}
 
@@ -12008,11 +12081,7 @@ var Tweet = function (_Component) {
 								this.dateFormatter(tweet.created_at)
 							)
 						),
-						_react2.default.createElement(
-							'p',
-							null,
-							tweet.text
-						)
+						_react2.default.createElement('p', { dangerouslySetInnerHTML: this.parseTweet(tweet.text) })
 					)
 				)
 			);
@@ -24759,6 +24828,230 @@ module.exports = traverseAllChildren;
 __webpack_require__(91);
 module.exports = __webpack_require__(92);
 
+
+/***/ }),
+/* 221 */,
+/* 222 */,
+/* 223 */,
+/* 224 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(11);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(10);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TweetButton = function (_Component) {
+    _inherits(TweetButton, _Component);
+
+    function TweetButton() {
+        _classCallCheck(this, TweetButton);
+
+        var _this = _possibleConstructorReturn(this, (TweetButton.__proto__ || Object.getPrototypeOf(TweetButton)).call(this));
+
+        _this.openTweetForm = function (e) {
+            e.preventDefault();
+            console.log("tweeted!");
+        };
+
+        return _this;
+    }
+
+    _createClass(TweetButton, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            var tweetFormOpen = this.props.tweetFormOpen;
+            return _react2.default.createElement(
+                'button',
+                { type: 'button', className: 'button tiny', onClick: function onClick() {
+                        _this2.props.toggleTweetForm(tweetFormOpen);
+                        _this2.props.selectArticle(_this2.props.article);
+                    } },
+                'Tweet'
+            );
+        }
+    }]);
+
+    return TweetButton;
+}(_react.Component);
+
+exports.default = TweetButton;
+
+/***/ }),
+/* 225 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(11);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(10);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _axios = __webpack_require__(53);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TweetForm = function (_Component) {
+    _inherits(TweetForm, _Component);
+
+    function TweetForm(props) {
+        _classCallCheck(this, TweetForm);
+
+        var _this = _possibleConstructorReturn(this, (TweetForm.__proto__ || Object.getPrototypeOf(TweetForm)).call(this));
+
+        _this.charLimit = function (e) {
+            var input = e.target.value;
+
+            //remove username from charlimit
+            //   input = input.replace(/[@]+[A-Za-z0-9-_]+/g, function(u) {
+            //   var username = u.length;
+            //   return username;
+            // });
+
+            _this.setState({ charsLeft: _this.maxChars - input.length });
+        };
+
+        _this.tweetArticle = function (e) {
+
+            e.preventDefault();
+
+            var postTweetBody = document.getElementById('postTweet-body').value;
+            var articleUrl = _this.props.selectedArticle.url;
+            // console.log(postTweetBody, articleUrl);
+            console.log(_this.props.selectedArticle);
+
+            _axios2.default.post('/tweet', {
+                tweetBody: postTweetBody,
+                tweetUrl: articleUrl
+            }).then(function (response) {
+                console.log(response);
+            }).catch(function (error) {
+                console.log('error');
+            });
+        };
+
+        _this.maxChars = 117;
+        _this.state = {
+            charsLeft: _this.maxChars
+        };
+        return _this;
+    }
+
+    _createClass(TweetForm, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            var tweetFormOpen = this.props.tweetFormOpen;
+            return _react2.default.createElement(
+                'div',
+                { className: 'row' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'large-4 columns' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'callout' },
+                        _react2.default.createElement(
+                            'button',
+                            { className: 'close-button', 'aria-label': 'Close alert', type: 'button', onClick: function onClick() {
+                                    return _this2.props.toggleTweetForm(tweetFormOpen);
+                                } },
+                            _react2.default.createElement(
+                                'span',
+                                { 'aria-hidden': 'true' },
+                                '\xD7'
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'form',
+                            null,
+                            _react2.default.createElement(
+                                'h5',
+                                null,
+                                'Compose Tweet'
+                            ),
+                            _react2.default.createElement(
+                                'label',
+                                null,
+                                _react2.default.createElement('textarea', { id: 'postTweet-body', onChange: this.charLimit, type: 'text', placeholder: 'Tweet', rows: '3', maxLength: this.maxChars })
+                            ),
+                            _react2.default.createElement(
+                                'label',
+                                null,
+                                'Article URL ',
+                                _react2.default.createElement(
+                                    'small',
+                                    null,
+                                    '(uses 23 chars)'
+                                ),
+                                _react2.default.createElement('input', { id: 'postTweet-url', type: 'text', value: this.props.selectedArticle.url, disabled: true })
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'button',
+                            { className: 'button', type: 'button', onClick: function onClick(e) {
+                                    return _this2.tweetArticle(e);
+                                } },
+                            'Tweet'
+                        ),
+                        ' ',
+                        _react2.default.createElement(
+                            'small',
+                            null,
+                            this.state.charsLeft
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return TweetForm;
+}(_react.Component);
+
+exports.default = TweetForm;
 
 /***/ })
 /******/ ]);
