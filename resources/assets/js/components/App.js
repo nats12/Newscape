@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { Link } from 'react-router';
 
 import TwitterAuth from './TwitterAuth';
 import TwitterFeed from './TwitterFeed';
@@ -69,6 +70,8 @@ class App extends Component {
 
 		return (
 			<div>
+
+				<Link className="button" to={`/preferences`}>Preferences</Link>
 				<TwitterAuth 
 					user={user} 
 					loginPage={loginPage} 

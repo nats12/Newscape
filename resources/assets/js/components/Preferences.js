@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { Link } from 'react-router';
 
 
 class Preferences extends Component {
@@ -11,7 +12,10 @@ class Preferences extends Component {
   render() {
 
     return (
-      <div>User Preferences</div>
+      <div>
+          <h1>User Preferences</h1>
+          <Link className="button" to={`/`}>Preferences</Link>
+      </div>
     )
 
   }
