@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('{slug}','TwitterController@accessVariables')
+->where('slug', '(?!api|twitter)([A-z\d-\/_.]+)?');
+
+
 Route::get('/', 'TwitterController@accessVariables')->name('access');
 
 // Login

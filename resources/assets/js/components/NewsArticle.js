@@ -25,7 +25,7 @@ class NewsArticle extends Component {
             <h4>{article.title}</h4>
             <p><small>{this.props.dateFormatter(article.publishedAt)}</small></p>
             <p><small>{article.sourceName}</small></p>
-            <p>{article.description}</p>
+            <p>{article.description.replace(/(&quot\;)/g,"\"")}</p>
             <p><a href={article.url} target="_blank">{article.url}</a></p>
             <TweetButton 
               article={article} 
