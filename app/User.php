@@ -27,9 +27,22 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-
+    /**
+     * [categories description]
+     * @return [type] [description]
+     */
     public function categories()
     {
         return $this->belongsToMany('App\Category');
+    }
+
+
+    /**
+     * [categories description]
+     * @return [type] [description]
+     */
+    public function sources()
+    {
+        return $this->belongsToMany('App\Source');
     }
 }

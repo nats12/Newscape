@@ -93,12 +93,12 @@ class App extends Component {
 					/>
 				</div>
 
-				{/*
+				{
 				<div className="large-8 columns">
 					<NewsSources 
 						newsSources={newsSources} />
 				</div>
-				*/}
+				}
 				<div className="large-4 columns">
 					<div className="twitter-container">
 					<TwitterFeed 
