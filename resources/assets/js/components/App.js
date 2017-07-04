@@ -7,8 +7,7 @@ import TweetForm from './TweetForm';
 import NewsSources from './NewsSources';
 import NewsFeed from './NewsFeed';
 import Categories from './Categories';
-
-
+import axios from 'axios';
 
 class App extends Component {
 	constructor(props) {
@@ -22,7 +21,10 @@ class App extends Component {
 			loginPage: window.Laravel.loginPage,
 			logoutPage: window.Laravel.logoutPage,
 			tweetFormOpen: false,
-			selectedArticle: {}
+			selectedArticle: {},
+			selectedCategories: [],
+			categories: [],
+			savedCategories: []
 		}
 	}
 
@@ -40,6 +42,46 @@ class App extends Component {
 
 		//push tweet into timeline array;
 
+	}
+
+	selectCategory = (e) => {
+		const checkboxes = document.querySelectorAll('.category-checkbox');
+		const checkboxArray = [].slice.call(checkboxes);
+		let selectedArray = [];
+		let selectedNamesArray = [];
+		checkboxArray.map(checkbox => {
+			if(checkbox.checked && (selectedArray.indexOf(checkbox.getAttribute('data-id')) === -1)) {
+				selectedArray.push(checkbox.getAttribute('data-id'));
+			}
+			else  {
+				selectedArray.splice(checkbox.getAttribute('data-id'),1);
+			}
+		});
+		this.setState({selectedCategories: selectedArray});
+	}
+
+	getCategories = () => {
+	  axios.get('/api/categories')
+	    .then(response => {
+	      // const categories = {...this.state.categories};
+	      this.setState({categories: response.data.categories});
+	    })
+	    .catch( error => {
+	      console.log(error);
+	    });
+	}
+
+	saveCategories = () => {
+	  axios.post('/api/category', {
+	      categories: this.state.selectedCategories
+	    })
+	    .then(response => {
+	      console.log(response);
+	      this.setState({savedCategories: response.data.categories })
+	    })
+	    .catch(error => {
+	      console.log(error);
+	    });
 	}
 
 
@@ -65,7 +107,17 @@ class App extends Component {
 
 	render() {
 
-		const { timeline, newsSources, newsArticles, user, logoutPage, loginPage, tweetFormOpen } = this.state;
+		const { timeline, 
+				newsSources, 
+				newsArticles, 
+				user, 
+				logoutPage, 
+				loginPage, 
+				tweetFormOpen, 
+				selectedCategories,
+				categories,
+				savedCategories
+				} = this.state;
 
 		return (
 			<div>
@@ -83,7 +135,13 @@ class App extends Component {
 				
 
 				<div className="large-8 columns">
-					<Categories />
+					<Categories 
+						selectedCategories={selectedCategories} 
+						selectCategory={this.selectCategory}
+						getCategories={this.getCategories}
+						saveCategories={this.saveCategories}
+						categories={categories}
+					/>
 
 					<NewsSources />
 					
@@ -93,6 +151,9 @@ class App extends Component {
 						tweetFormOpen={tweetFormOpen} 
 						toggleTweetForm={this.toggleTweetForm}
 						selectArticle={this.selectArticle}
+						selectedCategories={selectedCategories}
+						categories={categories}
+						savedCategories={savedCategories}
 					/>
 				</div>
 				

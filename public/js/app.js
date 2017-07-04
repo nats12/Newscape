@@ -11312,6 +11312,10 @@ var _Categories = __webpack_require__(111);
 
 var _Categories2 = _interopRequireDefault(_Categories);
 
+var _axios = __webpack_require__(27);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -11344,6 +11348,41 @@ var App = function (_Component) {
 
 		};
 
+		_this.selectCategory = function (e) {
+			var checkboxes = document.querySelectorAll('.category-checkbox');
+			var checkboxArray = [].slice.call(checkboxes);
+			var selectedArray = [];
+			var selectedNamesArray = [];
+			checkboxArray.map(function (checkbox) {
+				if (checkbox.checked && selectedArray.indexOf(checkbox.getAttribute('data-id')) === -1) {
+					selectedArray.push(checkbox.getAttribute('data-id'));
+				} else {
+					selectedArray.splice(checkbox.getAttribute('data-id'), 1);
+				}
+			});
+			_this.setState({ selectedCategories: selectedArray });
+		};
+
+		_this.getCategories = function () {
+			_axios2.default.get('/api/categories').then(function (response) {
+				// const categories = {...this.state.categories};
+				_this.setState({ categories: response.data.categories });
+			}).catch(function (error) {
+				console.log(error);
+			});
+		};
+
+		_this.saveCategories = function () {
+			_axios2.default.post('/api/category', {
+				categories: _this.state.selectedCategories
+			}).then(function (response) {
+				console.log(response);
+				_this.setState({ savedCategories: response.data.categories });
+			}).catch(function (error) {
+				console.log(error);
+			});
+		};
+
 		_this.dateFormatter = function (time) {
 			var date = new Date(time),
 			    diff = (new Date().getTime() - date.getTime()) / 1000,
@@ -11362,7 +11401,10 @@ var App = function (_Component) {
 			loginPage: window.Laravel.loginPage,
 			logoutPage: window.Laravel.logoutPage,
 			tweetFormOpen: false,
-			selectedArticle: {}
+			selectedArticle: {},
+			selectedCategories: [],
+			categories: [],
+			savedCategories: []
 		};
 		return _this;
 	}
@@ -11377,7 +11419,10 @@ var App = function (_Component) {
 			    user = _state.user,
 			    logoutPage = _state.logoutPage,
 			    loginPage = _state.loginPage,
-			    tweetFormOpen = _state.tweetFormOpen;
+			    tweetFormOpen = _state.tweetFormOpen,
+			    selectedCategories = _state.selectedCategories,
+			    categories = _state.categories,
+			    savedCategories = _state.savedCategories;
 
 
 			return _react2.default.createElement(
@@ -11396,14 +11441,23 @@ var App = function (_Component) {
 				_react2.default.createElement(
 					'div',
 					{ className: 'large-8 columns' },
-					_react2.default.createElement(_Categories2.default, null),
+					_react2.default.createElement(_Categories2.default, {
+						selectedCategories: selectedCategories,
+						selectCategory: this.selectCategory,
+						getCategories: this.getCategories,
+						saveCategories: this.saveCategories,
+						categories: categories
+					}),
 					_react2.default.createElement(_NewsSources2.default, null),
 					_react2.default.createElement(_NewsFeed2.default, {
 						newsArticles: newsArticles,
 						dateFormatter: this.dateFormatter,
 						tweetFormOpen: tweetFormOpen,
 						toggleTweetForm: this.toggleTweetForm,
-						selectArticle: this.selectArticle
+						selectArticle: this.selectArticle,
+						selectedCategories: selectedCategories,
+						categories: categories,
+						savedCategories: savedCategories
 					})
 				),
 				_react2.default.createElement(
@@ -11450,10 +11504,6 @@ var _Category = __webpack_require__(112);
 
 var _Category2 = _interopRequireDefault(_Category);
 
-var _axios = __webpack_require__(27);
-
-var _axios2 = _interopRequireDefault(_axios);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -11468,71 +11518,37 @@ var Categories = function (_Component) {
   function Categories() {
     _classCallCheck(this, Categories);
 
-    var _this = _possibleConstructorReturn(this, (Categories.__proto__ || Object.getPrototypeOf(Categories)).call(this));
-
-    _this.selectCategory = function (e) {
-      var checkboxes = document.querySelectorAll('.category-checkbox');
-      var checkboxArray = [].slice.call(checkboxes);
-      var selectedArray = [];
-      checkboxArray.map(function (checkbox) {
-        if (checkbox.checked && selectedArray.indexOf(checkbox.getAttribute('data-id')) === -1) {
-          selectedArray.push(checkbox.getAttribute('data-id'));
-        } else {
-          selectedArray.splice(checkbox.getAttribute('data-id'), 1);
-        }
-      });
-      console.log(selectedArray);
-      _this.setState({ selectedCategories: selectedArray });
-    };
-
-    _this.getCategories = function () {
-      _axios2.default.get('/api/categories').then(function (response) {
-        console.log(_this.state);
-        // const categories = {...this.state.categories};
-        _this.setState({ categories: response.data.categories });
-      }).catch(function (error) {
-        console.log(error);
-      });
-
-      console.log('clicked');
-    };
-
-    _this.saveCategories = function () {
-      _axios2.default.post('/api/category', {
-        categories: _this.state.selectedCategories
-      }).then(function (response) {
-        console.log(response);
-      }).catch(function (error) {
-        console.log(error);
-      });
-    };
-
-    _this.state = {
-      categories: [],
-      selectedCategories: []
-    };
-    return _this;
+    return _possibleConstructorReturn(this, (Categories.__proto__ || Object.getPrototypeOf(Categories)).call(this));
   }
 
   _createClass(Categories, [{
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _props = this.props,
+          getCategories = _props.getCategories,
+          saveCategories = _props.saveCategories,
+          selectCategory = _props.selectCategory,
+          categories = _props.categories;
+
 
       return _react2.default.createElement(
         'div',
         null,
         _react2.default.createElement(
           'button',
-          { className: 'button small', onClick: this.getCategories },
+          { className: 'button small', onClick: getCategories },
           'Get Categories'
         ),
-        this.state.categories.map(function (category, index) {
-          return _react2.default.createElement(_Category2.default, { key: category.id, dataID: category.id, category: category, selectCategory: _this2.selectCategory });
+        categories.map(function (category, index) {
+          return _react2.default.createElement(_Category2.default, {
+            key: index,
+            category: category,
+            selectCategory: selectCategory
+          });
         }),
         _react2.default.createElement(
           'button',
-          { className: 'button small', onClick: this.saveCategories, style: { display: "block" } },
+          { className: 'button small', onClick: saveCategories, style: { display: "block" } },
           'Save'
         )
       );
@@ -11589,7 +11605,12 @@ var Category = function (_Component) {
       return _react2.default.createElement(
         'label',
         null,
-        _react2.default.createElement('input', { 'data-id': this.props.dataID, className: 'category-checkbox', onChange: this.props.selectCategory, type: 'checkbox' }),
+        _react2.default.createElement('input', {
+          className: 'category-checkbox',
+          'data-id': this.props.category.id,
+          name: this.props.category.name,
+          onChange: this.props.selectCategory,
+          type: 'checkbox' }),
         this.props.category.name
       );
     }
@@ -11772,6 +11793,11 @@ var NewsFeed = function (_Component) {
         value: function render() {
             var _this2 = this;
 
+            var _props = this.props,
+                selectedCategories = _props.selectedCategories,
+                categories = _props.categories,
+                savedCategories = _props.savedCategories;
+
             var currentDate = new Date();
             var limitCounter = 0;
 
@@ -11784,14 +11810,32 @@ var NewsFeed = function (_Component) {
                     var publishedAtDate = new Date(item.publishedAt);
                     if (currentDate > publishedAtDate && limitCounter <= _this2.state.limitCountEnd) {
                         limitCounter += 1;
-                        return _react2.default.createElement(_NewsArticle2.default, {
-                            key: index,
-                            newsArticle: item,
-                            dateFormatter: _this2.props.dateFormatter,
-                            tweetFormOpen: _this2.props.tweetFormOpen,
-                            toggleTweetForm: _this2.props.toggleTweetForm,
-                            selectArticle: _this2.props.selectArticle
-                        });
+
+                        if (savedCategories.length == 0) {
+                            return _react2.default.createElement(_NewsArticle2.default, {
+                                key: index,
+                                newsArticle: item,
+                                dateFormatter: _this2.props.dateFormatter,
+                                tweetFormOpen: _this2.props.tweetFormOpen,
+                                toggleTweetForm: _this2.props.toggleTweetForm,
+                                selectArticle: _this2.props.selectArticle
+                            });
+                        } else if (savedCategories.length > 0) {
+                            console.log(savedCategories.length);
+
+                            savedCategories.map(function (category) {
+                                if (category.name == item.sourceCategory) {
+                                    return _react2.default.createElement(_NewsArticle2.default, {
+                                        key: index,
+                                        newsArticle: item,
+                                        dateFormatter: _this2.props.dateFormatter,
+                                        tweetFormOpen: _this2.props.tweetFormOpen,
+                                        toggleTweetForm: _this2.props.toggleTweetForm,
+                                        selectArticle: _this2.props.selectArticle
+                                    });
+                                }
+                            });
+                        }
                     }
                 })
             );
@@ -11848,7 +11892,7 @@ var NewsSource = function (_Component) {
 			return _react2.default.createElement(
 				'label',
 				null,
-				_react2.default.createElement('input', { 'data-id': this.props.dataID, className: 'source-checkbox', onChange: this.props.selectSource, type: 'checkbox' }),
+				_react2.default.createElement('input', { 'data-id': this.props.source.id, className: 'source-checkbox', onChange: this.props.selectSource, type: 'checkbox' }),
 				_react2.default.createElement('img', { className: 'source-icon', src: this.props.source.logoUrl, alt: this.props.source.name })
 			);
 		}
@@ -11963,7 +12007,12 @@ var NewsSources = function (_Component) {
           'Get Sources'
         ),
         this.state.sources.map(function (source, index) {
-          return _react2.default.createElement(_NewsSource2.default, { key: source.id, dataID: source.id, sourceID: source.source_id, source: source, selectSource: _this2.selectSource });
+          return;
+          _react2.default.createElement(_NewsSource2.default, {
+            key: index,
+            source: source,
+            selectSource: _this2.selectSource
+          });
         }),
         _react2.default.createElement(
           'button',

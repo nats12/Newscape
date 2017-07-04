@@ -12,7 +12,12 @@ class Category extends Component {
 
     return (
       <label>
-        <input data-id={this.props.dataID} className="category-checkbox" onChange={this.props.selectCategory} type="checkbox"/>
+        <input 
+        className="category-checkbox"
+        data-id={this.props.category.id} 
+        name={this.props.category.name}
+        onChange={this.props.selectCategory}
+        type="checkbox"/>
         {this.props.category.name}
       </label>
     )

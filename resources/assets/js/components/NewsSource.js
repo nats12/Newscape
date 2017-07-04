@@ -7,12 +7,11 @@ class NewsSource extends Component {
 		super()
 	}
 
-
 	render() {
 
 		return (
 			<label>
-	        	<input data-id={this.props.dataID} className="source-checkbox" onChange={this.props.selectSource} type="checkbox"/>
+	        	<input data-id={this.props.source.id} className="source-checkbox" onChange={this.props.selectSource} type="checkbox"/>
 	        	<img className="source-icon" src={this.props.source.logoUrl} alt={this.props.source.name}/>
 	      </label>
 		)
