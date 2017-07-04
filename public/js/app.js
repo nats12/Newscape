@@ -11892,7 +11892,7 @@ var NewsSource = function (_Component) {
 			return _react2.default.createElement(
 				'label',
 				null,
-				_react2.default.createElement('input', { 'data-id': this.props.source.id, className: 'source-checkbox', onChange: this.props.selectSource, type: 'checkbox' }),
+				_react2.default.createElement('input', { 'data-id': this.props.dataID, className: 'source-checkbox', onChange: this.props.selectSource, type: 'checkbox' }),
 				_react2.default.createElement('img', { className: 'source-icon', src: this.props.source.logoUrl, alt: this.props.source.name })
 			);
 		}
@@ -12007,9 +12007,9 @@ var NewsSources = function (_Component) {
           'Get Sources'
         ),
         this.state.sources.map(function (source, index) {
-          return;
-          _react2.default.createElement(_NewsSource2.default, {
+          return _react2.default.createElement(_NewsSource2.default, {
             key: index,
+            dataID: source.id,
             source: source,
             selectSource: _this2.selectSource
           });
