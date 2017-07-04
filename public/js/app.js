@@ -11823,7 +11823,7 @@ var NewsFeed = function (_Component) {
                         } else if (savedCategories.length > 0) {
                             console.log(savedCategories.length);
 
-                            savedCategories.map(function (category) {
+                            return savedCategories.map(function (category) {
                                 if (category.name == item.sourceCategory) {
                                     return _react2.default.createElement(_NewsArticle2.default, {
                                         key: index,
