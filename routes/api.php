@@ -17,10 +17,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//get quotes
 Route::get('/categories', ['uses'=> 'CategoriesController@getCategories']);
 
 Route::post('/category', ['uses'=> 'CategoriesController@attachCategorytoUser']);
+
+Route::get('/sources', ['uses'=> 'SourceController@getSources']);
+
+Route::post('/source', ['uses'=> 'SourceController@attachSourceToUser']);
 
 
 

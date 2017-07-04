@@ -84,6 +84,9 @@ class App extends Component {
 
 				<div className="large-8 columns">
 					<Categories/>
+
+					<NewsSources />
+					
 					<NewsFeed 
 						newsArticles={newsArticles} 
 						dateFormatter={this.dateFormatter} 
@@ -92,13 +95,8 @@ class App extends Component {
 						selectArticle={this.selectArticle}
 					/>
 				</div>
+				
 
-				{
-				<div className="large-8 columns">
-					<NewsSources 
-						newsSources={newsSources} />
-				</div>
-				}
 				<div className="large-4 columns">
 					<div className="twitter-container">
 					<TwitterFeed 
