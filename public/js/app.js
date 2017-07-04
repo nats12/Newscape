@@ -11376,7 +11376,8 @@ var App = function (_Component) {
 			    newsArticles = _state.newsArticles,
 			    user = _state.user,
 			    logoutPage = _state.logoutPage,
-			    loginPage = _state.loginPage;
+			    loginPage = _state.loginPage,
+			    tweetFormOpen = _state.tweetFormOpen;
 
 
 			return _react2.default.createElement(
@@ -11400,7 +11401,7 @@ var App = function (_Component) {
 					_react2.default.createElement(_NewsFeed2.default, {
 						newsArticles: newsArticles,
 						dateFormatter: this.dateFormatter,
-						tweetFormOpen: this.state.tweetFormOpen,
+						tweetFormOpen: tweetFormOpen,
 						toggleTweetForm: this.toggleTweetForm,
 						selectArticle: this.selectArticle
 					})
@@ -11962,7 +11963,7 @@ var NewsSources = function (_Component) {
           'Get Sources'
         ),
         this.state.sources.map(function (source, index) {
-          return _react2.default.createElement(_NewsSource2.default, { key: source.id, dataID: source.id, source: source, selectSource: _this2.selectSource });
+          return _react2.default.createElement(_NewsSource2.default, { key: source.id, dataID: source.id, sourceID: source.source_id, source: source, selectSource: _this2.selectSource });
         }),
         _react2.default.createElement(
           'button',

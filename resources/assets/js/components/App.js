@@ -65,7 +65,7 @@ class App extends Component {
 
 	render() {
 
-		const { timeline, newsSources, newsArticles, user, logoutPage, loginPage } = this.state;
+		const { timeline, newsSources, newsArticles, user, logoutPage, loginPage, tweetFormOpen } = this.state;
 
 		return (
 			<div>
@@ -83,14 +83,14 @@ class App extends Component {
 				
 
 				<div className="large-8 columns">
-					<Categories/>
+					<Categories />
 
 					<NewsSources />
 					
 					<NewsFeed 
 						newsArticles={newsArticles} 
 						dateFormatter={this.dateFormatter} 
-						tweetFormOpen={this.state.tweetFormOpen} 
+						tweetFormOpen={tweetFormOpen} 
 						toggleTweetForm={this.toggleTweetForm}
 						selectArticle={this.selectArticle}
 					/>
