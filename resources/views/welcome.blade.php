@@ -16,11 +16,8 @@
         
     </head>
     <body>
-
-        <div class="row">
-            <div id="root"></div>
-        </div>
-
+        <div id="root"></div>
+        
         <script>
             window.Laravel = <?php echo json_encode([
                 'loginPage' => $loginPage,

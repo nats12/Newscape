@@ -47,16 +47,21 @@ class App extends Component {
 	selectCategory = (component, checked) => {
 		let selectedArray = [...this.state.selectedCategories];
 		const id = component.props.category.id;
-		const index = selectedArray.indexOf(id);
+		const category = component.props.category;
+		const index = selectedArray.indexOf(category);
 		const isChecked = checked;
 
+
+		console.log(isChecked);
 		//if in array AND checked is false, splice from array
-		if ((selectedArray.indexOf(id) !== -1) && isChecked == false) {
+		if ((selectedArray.indexOf(category) !== -1) && isChecked == false) {
+			console.log('splice',category);
 			selectedArray.splice(index,1);
 		}
 		//else if not in array AND checked is true, push into array
-		else if ((selectedArray.indexOf(id) == -1) && isChecked == true) {
-			selectedArray.push(id);
+		else if ((selectedArray.indexOf(category) == -1) && isChecked == true) {
+			console.log('push',category);
+			selectedArray.push(category);
 		}
 		//else if in array AND true, do nothing, just return
 		else {
@@ -64,22 +69,6 @@ class App extends Component {
 		}
 		this.setState({selectedCategories: selectedArray});
 	}
-
-
-		// const checkboxes = document.querySelectorAll('.category-checkbox');
-		// const checkboxArray = [].slice.call(checkboxes);
-		// let selectedArray = [];
-		// let selectedNamesArray = [];
-		// checkboxArray.map(checkbox => {
-		// 	if(checkbox.checked && (selectedArray.indexOf(checkbox.getAttribute('data-id')) === -1)) {
-		// 		selectedArray.push(checkbox.getAttribute('data-id'));
-		// 	}
-		// 	else  {
-		// 		selectedArray.splice(checkbox.getAttribute('data-id'),1);
-		// 	}
-		// });
-		// this.setState({selectedCategories: selectedArray});
-
 
 	getCategories = () => {
 	  axios.get('/api/categories')
@@ -93,8 +82,12 @@ class App extends Component {
 	}
 
 	saveCategories = () => {
+		let categories = this.state.selectedCategories.map( (category, index) => {
+			return category.id;
+		});
+
 	  axios.post('/api/category', {
-	      categories: this.state.selectedCategories
+	      categories: categories
 	    })
 	    .then(response => {
 	      console.log(response);
@@ -155,35 +148,34 @@ class App extends Component {
 				/> : '' }
 				
 
-				<div className="large-8 columns">
-					<Categories 
-						selectedCategories={selectedCategories} 
-						selectCategory={this.selectCategory}
-						getCategories={this.getCategories}
-						saveCategories={this.saveCategories}
-						categories={categories}
-						savedCategories={savedCategories}
-					/>
+				<div className="row">
+					<div className="large-8 columns">
+						<Categories 
+							selectedCategories={selectedCategories} 
+							selectCategory={this.selectCategory}
+							getCategories={this.getCategories}
+							saveCategories={this.saveCategories}
+							categories={categories}
+						/>
 
-					<NewsSources />
-					
-					<NewsFeed 
-						newsArticles={newsArticles} 
-						dateFormatter={this.dateFormatter} 
-						tweetFormOpen={tweetFormOpen} 
-						toggleTweetForm={this.toggleTweetForm}
-						selectArticle={this.selectArticle}
-						selectedCategories={selectedCategories}
-						categories={categories}
-						savedCategories={savedCategories}
-					/>
-				</div>
-				
-
-				<div className="large-4 columns">
-					<div className="twitter-container">
-					<TwitterFeed 
-						timeline={timeline} />
+						<NewsSources selectedCategories={selectedCategories} />
+						
+						<NewsFeed 
+							newsArticles={newsArticles} 
+							dateFormatter={this.dateFormatter} 
+							tweetFormOpen={tweetFormOpen} 
+							toggleTweetForm={this.toggleTweetForm}
+							selectArticle={this.selectArticle}
+							selectedCategories={selectedCategories}
+							categories={categories}
+							savedCategories={savedCategories}
+						/>
+					</div>
+					<div className="large-4 columns">
+						<div className="twitter-container">
+						<TwitterFeed 
+							timeline={timeline} />
+						</div>
 					</div>
 				</div>
 			</div>

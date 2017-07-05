@@ -39,8 +39,6 @@ class NewsFeed extends Component {
                                     />
                             }
                             else if (savedCategories.length > 0) {
-                                console.log(savedCategories.length);
-
                                 return savedCategories.map((category) => {
                                     if (category.name == item.sourceCategory) {
                                         return <NewsArticle 

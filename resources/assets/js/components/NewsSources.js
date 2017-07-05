@@ -61,21 +61,37 @@ class NewsSources extends Component {
 
 	render() {
 
+    const { selectedCategories } = this.props;
 	
 		return (
 			<div>
-        <button className="button small" onClick={this.getSources}>Get Sources</button>
+          <button className="button small" onClick={this.getSources}>Get Sources</button>
+          <button className="button small" onClick={this.saveSources} style={{display:"block"}}>Save Sources</button>
 
-				{
-		      this.state.sources.map((source, index) => <NewsSource 
-            key={index}
-            dataID={source.id}
-            source={source} 
-            selectSource={this.selectSource}
-            />)
-		    } 
+          {
+            this.state.sources.map((source, index) => {
 
-				<button className="button small" onClick={this.saveSources} style={{display:"block"}}>Save</button>
+              if (selectedCategories.length === 0) {
+                return <NewsSource 
+                          key={index}
+                          source={source} 
+                          selectSource={this.selectSource}
+                        />
+              }
+
+              else {
+                return selectedCategories.map((category) => {
+                    if (category.name == source.category) {
+                        return <NewsSource 
+                          key={index}
+                          source={source} 
+                          selectSource={this.selectSource}
+                        />
+                    }
+                })
+              }
+            })
+          } 
       </div>
 		)
 
