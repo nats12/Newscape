@@ -11560,7 +11560,7 @@ var Categories = function (_Component) {
           category.selected = category.name === category;
           return category;
         }),
-        sources: window.Laravel.newsSources.sources.category === 'general' ? window.Laravel.newsSources.sources : window.Laravel.newsSources.sources.filter(function (source) {
+        sources: category === 'general' ? window.Laravel.newsSources.sources : window.Laravel.newsSources.sources.filter(function (source) {
           return source.category === category;
         })
       });
@@ -11568,17 +11568,20 @@ var Categories = function (_Component) {
       console.log(category.name);
     };
 
-    _this.handleInputChange = function (event) {
-      var target = event.target;
+    _this.handleInputChange = function (e) {
+      var target = e.target;
       var value = target.type === 'checkbox' ? target.checked : target.value;
       var name = target.name;
 
       var selectedCategories = _this.state.selectedCategories;
 
-      target.checked ? selectedCategories.push(name) : selectedCategories.splice(name, 1);
-      // this.setState({
-      //   selectedCategories: target.checked ? selectedCategories.push('2') : selectedCategories.splice('2', 1)
-      // });
+      if (e.target.checked) {
+        selectedCategories.push(e.target.name);
+      } else {
+        var index = selectedCategories.indexOf(e.target.name);
+        selectedCategories.splice(index, 1);
+      }
+      console.log(selectedCategories);
     };
 
     _this.state = {

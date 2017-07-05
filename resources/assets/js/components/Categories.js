@@ -45,24 +45,27 @@ class Categories extends Component {
         category.selected = category.name === category
         return category
       }),
-      sources: window.Laravel.newsSources.sources.category === 'general' ? window.Laravel.newsSources.sources : window.Laravel.newsSources.sources.filter(source => (source.category === category)),
+      sources: category === 'general' ? window.Laravel.newsSources.sources : window.Laravel.newsSources.sources.filter(source => (source.category === category)),
     })
 
     console.log(category.name);
   }
 
 
-  handleInputChange = (event) => {
-      const target = event.target;
+  handleInputChange = (e) => {
+      const target = e.target;
       const value = target.type === 'checkbox' ? target.checked : target.value;
       const name = target.name;
 
       let selectedCategories = this.state.selectedCategories;
 
-      target.checked ? selectedCategories.push(name) : selectedCategories.splice(name, 1);
-      // this.setState({
-      //   selectedCategories: target.checked ? selectedCategories.push('2') : selectedCategories.splice('2', 1)
-      // });
+      if (e.target.checked) {
+        selectedCategories.push(e.target.name)
+      } else {
+        const index = selectedCategories.indexOf(e.target.name)
+        selectedCategories.splice(index, 1)
+      }
+      console.log(selectedCategories);
   }
 
 
