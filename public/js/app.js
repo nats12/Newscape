@@ -11504,10 +11504,6 @@ var _reactDom = __webpack_require__(6);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _categories = __webpack_require__(226);
-
-var _categories2 = _interopRequireDefault(_categories);
-
 var _Category = __webpack_require__(112);
 
 var _Category2 = _interopRequireDefault(_Category);
@@ -11526,11 +11522,15 @@ var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// import categories from '../data/categories'
 // import sources from '../data/sources'
 
 var Categories = function (_Component) {
@@ -11541,18 +11541,23 @@ var Categories = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Categories.__proto__ || Object.getPrototypeOf(Categories)).call(this));
 
-    _this.selectTab = function (category) {
-
+    _this.componentDidMount = function () {
       _axios2.default.get('/api/categories').then(function (response) {
         // const categories = {...this.state.categories};
         _this.setState({ categories: response.data.categories });
       }).catch(function (error) {
         console.log(error);
       });
+    };
+
+    _this.selectTab = function (category) {
+
+      var selectedCategories = [].concat(_toConsumableArray(_this.state.selectedCategories));
+      var categories = [].concat(_toConsumableArray(_this.state.categories));
 
       _this.setState({
-        categories: _categories2.default.map(function (category) {
-          category.selected = category.cat === category;
+        categories: categories.map(function (category) {
+          category.selected = category.name === category;
           return category;
         }),
         sources: window.Laravel.newsSources.sources.category === 'general' ? window.Laravel.newsSources.sources : window.Laravel.newsSources.sources.filter(function (source) {
@@ -11563,15 +11568,9 @@ var Categories = function (_Component) {
 
     _this.state = {
       sources: window.Laravel.newsSources.sources,
-      categories: []
+      categories: [],
+      selectedCategories: []
     };
-
-    _axios2.default.get('/api/categories').then(function (response) {
-      // const categories = {...this.state.categories};
-      _this.setState({ categories: response.data.categories });
-    }).catch(function (error) {
-      console.log(error);
-    });
     return _this;
   }
 
@@ -25158,20 +25157,7 @@ module.exports = __webpack_require__(92);
 /* 223 */,
 /* 224 */,
 /* 225 */,
-/* 226 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var categories = [{ cat: 'general', selected: true }, { cat: 'business', selected: false }, { cat: 'music', selected: false }, { cat: 'technology', selected: false }, { cat: 'science', selected: false }, { cat: 'food', selected: false }];
-
-exports.default = categories;
-
-/***/ }),
+/* 226 */,
 /* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25322,7 +25308,7 @@ var Tab = function (_Component) {
 					} },
 				category.name,
 				_react2.default.createElement('input', {
-					name: 'test',
+					name: category.name,
 					type: 'checkbox',
 					checked: this.state.isGoing,
 					onChange: this.handleInputChange })

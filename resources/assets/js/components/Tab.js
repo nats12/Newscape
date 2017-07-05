@@ -35,7 +35,7 @@ class Tab extends Component {
 			<label className={ category.selected ? 'active': '' } onClick={ () => {this.props.selectTab(category.name)} }>
 				{ category.name }
 	          <input
-	            name="test"
+	            name={category.name}
 	            type="checkbox"
 	            checked={this.state.isGoing}
 	            onChange={this.handleInputChange} />

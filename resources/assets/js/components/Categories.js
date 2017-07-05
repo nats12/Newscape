@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import categories from '../data/categories'
+// import categories from '../data/categories'
 // import sources from '../data/sources'
 
 import Category from './Category';
@@ -17,34 +17,32 @@ class Categories extends Component {
 
     this.state = {
       sources: window.Laravel.newsSources.sources,
-      categories: []
+      categories: [],
+      selectedCategories: []
     }
+  }
 
+  componentDidMount = () => {
     axios.get('/api/categories')
-      .then(response => {
-        // const categories = {...this.state.categories};
-        this.setState({categories: response.data.categories});
-      })
-      .catch( error => {
-        console.log(error);
-      });
+    .then(response => {
+      // const categories = {...this.state.categories};
+      this.setState({categories: response.data.categories});
+    })
+    .catch( error => {
+      console.log(error);
+    });
   }
 
 
   selectTab = (category) => {
 
-    axios.get('/api/categories')
-      .then(response => {
-        // const categories = {...this.state.categories};
-        this.setState({categories: response.data.categories});
-      })
-      .catch( error => {
-        console.log(error);
-      });
-      
+    const selectedCategories = [...this.state.selectedCategories];
+    const categories = [...this.state.categories];
+
+  
     this.setState({
       categories: categories.map(category => {
-        category.selected = category.cat === category
+        category.selected = category.name === category
         return category
       }),
       sources: window.Laravel.newsSources.sources.category === 'general' ? window.Laravel.newsSources.sources : window.Laravel.newsSources.sources.filter(source => (source.category === category)),
