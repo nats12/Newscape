@@ -11377,7 +11377,10 @@ var App = function (_Component) {
 				categories: _this.state.selectedCategories
 			}).then(function (response) {
 				console.log(response);
-				_this.setState({ savedCategories: response.data.categories });
+				_this.setState({
+					savedCategories: response.data.categories,
+					newsSources: response.data.categories
+				});
 			}).catch(function (error) {
 				console.log(error);
 			});
@@ -11501,9 +11504,25 @@ var _reactDom = __webpack_require__(6);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _categories = __webpack_require__(226);
+
+var _categories2 = _interopRequireDefault(_categories);
+
 var _Category = __webpack_require__(112);
 
 var _Category2 = _interopRequireDefault(_Category);
+
+var _NewsSource = __webpack_require__(115);
+
+var _NewsSource2 = _interopRequireDefault(_NewsSource);
+
+var _TabList = __webpack_require__(230);
+
+var _TabList2 = _interopRequireDefault(_TabList);
+
+var _axios = __webpack_require__(27);
+
+var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11512,6 +11531,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+// import sources from '../data/sources'
 
 var Categories = function (_Component) {
   _inherits(Categories, _Component);
@@ -11519,39 +11539,57 @@ var Categories = function (_Component) {
   function Categories() {
     _classCallCheck(this, Categories);
 
-    return _possibleConstructorReturn(this, (Categories.__proto__ || Object.getPrototypeOf(Categories)).call(this));
+    var _this = _possibleConstructorReturn(this, (Categories.__proto__ || Object.getPrototypeOf(Categories)).call(this));
+
+    _this.selectTab = function (category) {
+
+      _axios2.default.get('/api/categories').then(function (response) {
+        // const categories = {...this.state.categories};
+        _this.setState({ categories: response.data.categories });
+      }).catch(function (error) {
+        console.log(error);
+      });
+
+      _this.setState({
+        categories: _categories2.default.map(function (category) {
+          category.selected = category.cat === category;
+          return category;
+        }),
+        sources: window.Laravel.newsSources.sources.category === 'general' ? window.Laravel.newsSources.sources : window.Laravel.newsSources.sources.filter(function (source) {
+          return source.category === category;
+        })
+      });
+    };
+
+    _this.state = {
+      sources: window.Laravel.newsSources.sources,
+      categories: []
+    };
+
+    _axios2.default.get('/api/categories').then(function (response) {
+      // const categories = {...this.state.categories};
+      _this.setState({ categories: response.data.categories });
+    }).catch(function (error) {
+      console.log(error);
+    });
+    return _this;
   }
 
   _createClass(Categories, [{
     key: 'render',
     value: function render() {
-      var _props = this.props,
-          getCategories = _props.getCategories,
-          saveCategories = _props.saveCategories,
-          selectCategory = _props.selectCategory,
-          categories = _props.categories;
+      var _state = this.state,
+          sources = _state.sources,
+          categories = _state.categories;
 
 
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(
-          'button',
-          { className: 'button small', onClick: getCategories },
-          'Get Categories'
-        ),
-        categories.map(function (category, index) {
-          return _react2.default.createElement(_Category2.default, {
-            key: index,
-            category: category,
-            selectCategory: selectCategory
-          });
-        }),
-        _react2.default.createElement(
-          'button',
-          { className: 'button small', onClick: saveCategories, style: { display: "block" } },
-          'Save'
-        )
+        _react2.default.createElement(_TabList2.default, { categories: categories, selectTab: this.selectTab }),
+        sources.map(function (source, i) {
+          return _react2.default.createElement(_NewsSource2.default, { key: "source" + i, source: source });
+        })
       );
     }
   }]);
@@ -11869,6 +11907,10 @@ var _reactDom = __webpack_require__(6);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _sources = __webpack_require__(227);
+
+var _sources2 = _interopRequireDefault(_sources);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -11891,10 +11933,9 @@ var NewsSource = function (_Component) {
 		value: function render() {
 
 			return _react2.default.createElement(
-				'label',
+				'p',
 				null,
-				_react2.default.createElement('input', { 'data-id': this.props.dataID, className: 'source-checkbox', onChange: this.props.selectSource, type: 'checkbox' }),
-				_react2.default.createElement('img', { className: 'source-icon', src: this.props.source.logoUrl, alt: this.props.source.name })
+				this.props.source.name
 			);
 		}
 	}]);
@@ -25112,6 +25153,261 @@ module.exports = traverseAllChildren;
 __webpack_require__(91);
 module.exports = __webpack_require__(92);
 
+
+/***/ }),
+/* 223 */,
+/* 224 */,
+/* 225 */,
+/* 226 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var categories = [{ cat: 'general', selected: true }, { cat: 'business', selected: false }, { cat: 'music', selected: false }, { cat: 'technology', selected: false }, { cat: 'science', selected: false }, { cat: 'food', selected: false }];
+
+exports.default = categories;
+
+/***/ }),
+/* 227 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+var sources = [{ id: "the-insider",
+	name: "The Insider",
+	cat: 'business'
+}, {
+	id: "mtv",
+	name: 'MTV',
+	cat: 'music'
+}, {
+	id: "techcrunch",
+	name: 'Tech Crunch',
+	cat: 'technology'
+}, {
+	id: "science-shit",
+	name: 'Some Science Source',
+	cat: 'science'
+}, {
+	id: "tnw",
+	name: 'TNW',
+	cat: 'technology'
+}, {
+	id: "daily-mail",
+	name: 'The Daily Mail',
+	cat: 'general'
+}, {
+	id: "chef1",
+	name: 'Chef1',
+	cat: 'food'
+}];
+
+exports.default = sources;
+
+/***/ }),
+/* 228 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
+
+if (true) {
+  var REACT_ELEMENT_TYPE = (typeof Symbol === 'function' &&
+    Symbol.for &&
+    Symbol.for('react.element')) ||
+    0xeac7;
+
+  var isValidElement = function(object) {
+    return typeof object === 'object' &&
+      object !== null &&
+      object.$$typeof === REACT_ELEMENT_TYPE;
+  };
+
+  // By explicitly using `prop-types` you are opting into new development behavior.
+  // http://fb.me/prop-types-in-prod
+  var throwOnDirectAccess = true;
+  module.exports = __webpack_require__(138)(isValidElement, throwOnDirectAccess);
+} else {
+  // By explicitly using `prop-types` you are opting into new production behavior.
+  // http://fb.me/prop-types-in-prod
+  module.exports = require('./factoryWithThrowingShims')();
+}
+
+
+/***/ }),
+/* 229 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(8);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(6);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _propTypes = __webpack_require__(228);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Tab = function (_Component) {
+	_inherits(Tab, _Component);
+
+	function Tab() {
+		_classCallCheck(this, Tab);
+
+		var _this = _possibleConstructorReturn(this, (Tab.__proto__ || Object.getPrototypeOf(Tab)).call(this));
+
+		_this.handleInputChange = function (event) {
+			var target = event.target;
+			var value = target.type === 'checkbox' ? target.checked : target.value;
+			var name = target.name;
+
+			var selectedCategories = _this.state.selectedCategories;
+
+			target.checked ? console.log('checked') : console.log('not checked');
+			// this.setState({
+			//   selectedCategories: target.checked ? selectedCategories.push('2') : selectedCategories.splice('2', 1)
+			// });
+		};
+
+		_this.state = {
+			selectedCategories: []
+		};
+		return _this;
+	}
+
+	_createClass(Tab, [{
+		key: 'render',
+		value: function render() {
+			var _this2 = this;
+
+			var category = this.props.category;
+
+			return _react2.default.createElement(
+				'label',
+				{ className: category.selected ? 'active' : '', onClick: function onClick() {
+						_this2.props.selectTab(category.name);
+					} },
+				category.name,
+				_react2.default.createElement('input', {
+					name: 'test',
+					type: 'checkbox',
+					checked: this.state.isGoing,
+					onChange: this.handleInputChange })
+			);
+		}
+	}]);
+
+	return Tab;
+}(_react.Component);
+
+Tab.PropTypes = {
+	category: _propTypes2.default.object,
+	selectTab: _propTypes2.default.func
+};
+
+exports.default = Tab;
+
+/***/ }),
+/* 230 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(8);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(228);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _Tab = __webpack_require__(229);
+
+var _Tab2 = _interopRequireDefault(_Tab);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TabList = function (_Component) {
+	_inherits(TabList, _Component);
+
+	function TabList() {
+		_classCallCheck(this, TabList);
+
+		return _possibleConstructorReturn(this, (TabList.__proto__ || Object.getPrototypeOf(TabList)).call(this));
+	}
+
+	_createClass(TabList, [{
+		key: 'render',
+		value: function render() {
+			var _this2 = this;
+
+			var categories = this.props.categories;
+
+			return _react2.default.createElement(
+				'ul',
+				{ className: 'nav text-center' },
+				categories.map(function (category, i) {
+					return _react2.default.createElement(_Tab2.default, { key: "category_" + i, category: category, selectTab: _this2.props.selectTab });
+				})
+			);
+		}
+	}]);
+
+	return TabList;
+}(_react.Component);
+
+TabList.PropTypes = {
+	categories: _propTypes2.default.array,
+	selectTab: _propTypes2.default.func
+};
+
+exports.default = TabList;
 
 /***/ })
 /******/ ]);

@@ -77,7 +77,10 @@ class App extends Component {
 	    })
 	    .then(response => {
 	      console.log(response);
-	      this.setState({savedCategories: response.data.categories })
+	      this.setState({
+	      	savedCategories: response.data.categories,
+	      	newsSources: response.data.categories
+	      })
 	    })
 	    .catch(error => {
 	      console.log(error);

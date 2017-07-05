@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+import sources from '../data/sources'
 
 class NewsSource extends Component {
 	constructor() {
@@ -10,10 +11,7 @@ class NewsSource extends Component {
 	render() {
 
 		return (
-			<label>
-	        	<input data-id={this.props.dataID} className="source-checkbox" onChange={this.props.selectSource} type="checkbox"/>
-	        	<img className="source-icon" src={this.props.source.logoUrl} alt={this.props.source.name}/>
-	      </label>
+			<p>{this.props.source.name}</p>
 		)
 
 	}
