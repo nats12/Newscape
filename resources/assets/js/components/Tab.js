@@ -12,33 +12,17 @@ class Tab extends Component {
 		}
 	}
 
-
-	handleInputChange = (event) => {
-		const target = event.target;
-	    const value = target.type === 'checkbox' ? target.checked : target.value;
-	    const name = target.name;
-
-	    let selectedCategories = this.state.selectedCategories;
-
-	    target.checked ? console.log('checked') : console.log('not checked');
-	    // this.setState({
-	    //   selectedCategories: target.checked ? selectedCategories.push('2') : selectedCategories.splice('2', 1)
-	    // });
-	}
-
-
 	render() {
 
 		const category = this.props.category;
 
 		return(
-			<label className={ category.selected ? 'active': '' } onClick={ () => {this.props.selectTab(category.name)} }>
+			<label className={ category.selected ? 'active': '' } onClick={ () => {this.props.selectCategory(category.name)} }>
 				{ category.name }
 	          <input
 	            name={category.name}
 	            type="checkbox"
-	            checked={this.state.isGoing}
-	            onChange={this.handleInputChange} />
+	            onChange={this.props.handleInputChange} />
         	</label>
 		)
 	}

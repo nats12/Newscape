@@ -11550,7 +11550,7 @@ var Categories = function (_Component) {
       });
     };
 
-    _this.selectTab = function (category) {
+    _this.selectCategory = function (category) {
 
       var selectedCategories = [].concat(_toConsumableArray(_this.state.selectedCategories));
       var categories = [].concat(_toConsumableArray(_this.state.categories));
@@ -11564,6 +11564,21 @@ var Categories = function (_Component) {
           return source.category === category;
         })
       });
+
+      console.log(category.name);
+    };
+
+    _this.handleInputChange = function (event) {
+      var target = event.target;
+      var value = target.type === 'checkbox' ? target.checked : target.value;
+      var name = target.name;
+
+      var selectedCategories = _this.state.selectedCategories;
+
+      target.checked ? selectedCategories.push(name) : selectedCategories.splice(name, 1);
+      // this.setState({
+      //   selectedCategories: target.checked ? selectedCategories.push('2') : selectedCategories.splice('2', 1)
+      // });
     };
 
     _this.state = {
@@ -11579,13 +11594,15 @@ var Categories = function (_Component) {
     value: function render() {
       var _state = this.state,
           sources = _state.sources,
-          categories = _state.categories;
+          categories = _state.categories,
+          selectedCategories = _state.selectedCategories,
+          checked = _state.checked;
 
 
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_TabList2.default, { categories: categories, selectTab: this.selectTab }),
+        _react2.default.createElement(_TabList2.default, { categories: categories, selectCategory: this.selectCategory, handleInputChange: this.handleInputChange }),
         sources.map(function (source, i) {
           return _react2.default.createElement(_NewsSource2.default, { key: "source" + i, source: source });
         })
@@ -25275,19 +25292,6 @@ var Tab = function (_Component) {
 
 		var _this = _possibleConstructorReturn(this, (Tab.__proto__ || Object.getPrototypeOf(Tab)).call(this));
 
-		_this.handleInputChange = function (event) {
-			var target = event.target;
-			var value = target.type === 'checkbox' ? target.checked : target.value;
-			var name = target.name;
-
-			var selectedCategories = _this.state.selectedCategories;
-
-			target.checked ? console.log('checked') : console.log('not checked');
-			// this.setState({
-			//   selectedCategories: target.checked ? selectedCategories.push('2') : selectedCategories.splice('2', 1)
-			// });
-		};
-
 		_this.state = {
 			selectedCategories: []
 		};
@@ -25304,14 +25308,13 @@ var Tab = function (_Component) {
 			return _react2.default.createElement(
 				'label',
 				{ className: category.selected ? 'active' : '', onClick: function onClick() {
-						_this2.props.selectTab(category.name);
+						_this2.props.selectCategory(category.name);
 					} },
 				category.name,
 				_react2.default.createElement('input', {
 					name: category.name,
 					type: 'checkbox',
-					checked: this.state.isGoing,
-					onChange: this.handleInputChange })
+					onChange: this.props.handleInputChange })
 			);
 		}
 	}]);
@@ -25379,7 +25382,12 @@ var TabList = function (_Component) {
 				'ul',
 				{ className: 'nav text-center' },
 				categories.map(function (category, i) {
-					return _react2.default.createElement(_Tab2.default, { key: "category_" + i, category: category, selectTab: _this2.props.selectTab });
+					return _react2.default.createElement(_Tab2.default, {
+						key: "category_" + i,
+						category: category,
+						selectCategory: _this2.props.selectCategory,
+						handleInputChange: _this2.props.handleInputChange
+					});
 				})
 			);
 		}

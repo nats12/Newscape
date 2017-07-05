@@ -18,7 +18,12 @@ class TabList extends Component {
 			<ul className="nav text-center">
 		    {
 		      categories.map((category, i) => (
-		        <Tab key={"category_" + i} category={category} selectTab={this.props.selectTab}/>
+		        <Tab 
+			        key={"category_" + i} 
+			        category={category} 
+			        selectCategory={this.props.selectCategory}
+			        handleInputChange={this.props.handleInputChange}
+		        />
 		      ))
 		    }
 		  </ul>

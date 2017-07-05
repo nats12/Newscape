@@ -34,7 +34,7 @@ class Categories extends Component {
   }
 
 
-  selectTab = (category) => {
+  selectCategory = (category) => {
 
     const selectedCategories = [...this.state.selectedCategories];
     const categories = [...this.state.categories];
@@ -47,12 +47,28 @@ class Categories extends Component {
       }),
       sources: window.Laravel.newsSources.sources.category === 'general' ? window.Laravel.newsSources.sources : window.Laravel.newsSources.sources.filter(source => (source.category === category)),
     })
+
+    console.log(category.name);
+  }
+
+
+  handleInputChange = (event) => {
+      const target = event.target;
+      const value = target.type === 'checkbox' ? target.checked : target.value;
+      const name = target.name;
+
+      let selectedCategories = this.state.selectedCategories;
+
+      target.checked ? selectedCategories.push(name) : selectedCategories.splice(name, 1);
+      // this.setState({
+      //   selectedCategories: target.checked ? selectedCategories.push('2') : selectedCategories.splice('2', 1)
+      // });
   }
 
 
   render() {
 
-    const { sources, categories } = this.state;
+    const { sources, categories, selectedCategories, checked } = this.state;
 
     return(
 
@@ -60,7 +76,7 @@ class Categories extends Component {
 
         <div>
 
-        <TabList categories={categories} selectTab={this.selectTab} />
+        <TabList categories={categories} selectCategory={this.selectCategory} handleInputChange={this.handleInputChange} />
 
           { 
             sources.map((source, i) => (<NewsSource key={"source" + i} source={source} /> )) 
