@@ -25,9 +25,11 @@ class Login extends Component {
 		const text = this.checkAuth().text;
 
 		return (
-			<div className="small-12 large-12 columns">
-				<h1>Welcome to Newscape!</h1>
-				<a className={`button ${text === 'Logout' ? 'alert' : 'success'}`} href={url}>{text}</a>
+			<div className="row">
+				<div className="small-12 large-12 columns">
+					<h1>Welcome to Newscape!</h1>
+					<a className={`button ${text === 'Logout' ? 'alert' : 'success'}`} href={url}>{text}</a>
+				</div>
 			</div>
 		)
 	}

@@ -16,16 +16,18 @@ class Categories extends Component {
         <div>
           <button className="button small" onClick={getCategories}>Get Categories</button>
 
-          {
-            categories.map((category, index) => { 
-              return <Category 
-              key={index} 
-              category={category} 
-              selectCategory={selectCategory} 
-              />})
-          }
+          <button className="button small" onClick={saveCategories} style={{display:"block"}}>Save Categories</button>
 
-          <button className="button small" onClick={saveCategories} style={{display:"block"}}>Save</button>
+          <div className="row">
+            {
+              categories.map((category, index) => { 
+                return <Category 
+                key={index} 
+                category={category} 
+                selectCategory={selectCategory} 
+                />})
+            }
+          </div>
           
         </div>
       )
