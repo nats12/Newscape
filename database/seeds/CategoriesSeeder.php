@@ -12,7 +12,7 @@ class CategoriesSeeder extends Seeder
     public function run()
     {	
 
-    	DB::table('categories')->delete();
+    	DB::table('categories')->truncate();
 
     	$categories = array(
     		array(
@@ -49,7 +49,7 @@ class CategoriesSeeder extends Seeder
 
     		array(
     			'name' => 'technology'
-    		)
+    		),
     	);
 
 

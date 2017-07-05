@@ -16,9 +16,9 @@ class CreateSourceUserTable extends Migration
         Schema::create('source_user', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('source_id')->unsigned(); 
-            $table->foreign('source_id')->references('id')->on('sources');
+            $table->foreign('source_id')->references('id')->on('sources')->onDelete('cascade');
             $table->timestamps();
         });
     }
