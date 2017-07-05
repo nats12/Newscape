@@ -231,7 +231,7 @@ class SourcesSeeder extends Seeder
     			'category' => 'sport',
     			'language' => 'en',
     			'country' => 'us',
-    			'logoUrl' => 'http://logo.clearbit.com/espn.go.com'
+    			'logoUrl' => 'https://www.brandsoftheworld.com/sites/default/files/styles/logo-thumbnail/public/052016/untitled-1_242.png?itok=vy3l2HxD'
     		),
 
     		array(
@@ -660,7 +660,7 @@ class SourcesSeeder extends Seeder
     			'category' => 'general',
     			'language' => 'en',
     			'country' => 'us',
-    			'logoUrl' => 'http://logo.clearbit.com/www.huffingtonpost.com'
+    			'logoUrl' => 'https://i.vimeocdn.com/portrait/7695804_300x300'
     		),
 
     		array(
