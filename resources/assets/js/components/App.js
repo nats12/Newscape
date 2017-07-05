@@ -141,6 +141,7 @@ class App extends Component {
 						getCategories={this.getCategories}
 						saveCategories={this.saveCategories}
 						categories={categories}
+						savedCategories={savedCategories}
 					/>
 
 					<NewsSources />

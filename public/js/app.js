@@ -11446,7 +11446,8 @@ var App = function (_Component) {
 						selectCategory: this.selectCategory,
 						getCategories: this.getCategories,
 						saveCategories: this.saveCategories,
-						categories: categories
+						categories: categories,
+						savedCategories: savedCategories
 					}),
 					_react2.default.createElement(_NewsSources2.default, null),
 					_react2.default.createElement(_NewsFeed2.default, {
