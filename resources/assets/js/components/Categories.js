@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-// import categories from '../data/categories'
-// import sources from '../data/sources'
-
 import Category from './Category';
 import NewsSource from './NewsSource';
 import TabList from './TabList';
