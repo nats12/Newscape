@@ -236,6 +236,15 @@ class TwitterController extends Controller
       return response()->json(['status' => $tweet], 201);
     }
 
+    public function getTimeline()
+    {
+      $timeline = Twitter::getHomeTimeline(['count' => 25]);
+
+      $response = ['timeline' => $timeline];
+
+      return response()->json($response, 200);
+    }
+
     /**
      * [error description]
      * @return [type] [description]

@@ -11344,10 +11344,9 @@ var App = function (_Component) {
 			_this.setState({ selectedArticle: article });
 		};
 
-		_this.updateTimeline = function (tweet, article) {
+		_this.updateTimeline = function (array) {
 
-			//push tweet into timeline array;
-
+			_this.setState({ timeline: array });
 		};
 
 		_this.selectCategory = function (component, checked) {
@@ -11452,7 +11451,10 @@ var App = function (_Component) {
 				this.state.tweetFormOpen ? _react2.default.createElement(_TweetForm2.default, {
 					tweetFormOpen: this.state.tweetFormOpen,
 					toggleTweetForm: this.toggleTweetForm,
-					selectedArticle: this.state.selectedArticle
+					selectedArticle: this.state.selectedArticle,
+					user: user,
+					timeline: timeline,
+					updateTimeline: this.updateTimeline
 				}) : '',
 				_react2.default.createElement(
 					'div',
@@ -12292,7 +12294,7 @@ exports.default = TweetButton;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -12318,118 +12320,142 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var TweetForm = function (_Component) {
-    _inherits(TweetForm, _Component);
+  _inherits(TweetForm, _Component);
 
-    function TweetForm(props) {
-        _classCallCheck(this, TweetForm);
+  function TweetForm(props) {
+    _classCallCheck(this, TweetForm);
 
-        var _this = _possibleConstructorReturn(this, (TweetForm.__proto__ || Object.getPrototypeOf(TweetForm)).call(this));
+    var _this = _possibleConstructorReturn(this, (TweetForm.__proto__ || Object.getPrototypeOf(TweetForm)).call(this));
 
-        _this.charLimit = function (e) {
-            var input = e.target.value;
+    _this.charLimit = function (e) {
+      var input = e.target.value;
 
-            //remove username from charlimit
-            //   input = input.replace(/[@]+[A-Za-z0-9-_]+/g, function(u) {
-            //   var username = u.length;
-            //   return username;
-            // });
+      //remove username from charlimit
+      //   input = input.replace(/[@]+[A-Za-z0-9-_]+/g, function(u) {
+      //   var username = u.length;
+      //   return username;
+      // });
 
-            _this.setState({ charsLeft: _this.maxChars - input.length });
-        };
+      _this.setState({ charsLeft: _this.maxChars - input.length });
+    };
 
-        _this.tweetArticle = function (e) {
+    _this.getTimeline = function () {
+      _axios2.default.get('/twitter/timeline').then(function (response) {
+        console.log(response);
+        _this.props.updateTimeline(response.data.timeline);
+      }).catch(function (error) {
+        console.log(error);
+      });
+    };
 
-            e.preventDefault();
+    _this.tweetArticle = function (e) {
 
-            var postTweetBody = document.getElementById('postTweet-body').value;
-            var articleUrl = _this.props.selectedArticle.url;
-            // console.log(postTweetBody, articleUrl);
-            console.log(_this.props.selectedArticle);
+      e.preventDefault();
 
-            _axios2.default.post('/tweet', {
-                tweetBody: postTweetBody,
-                tweetUrl: articleUrl
-            }).then(function (response) {
-                console.log(response);
-            }).catch(function (error) {
-                console.log('error');
-            });
-        };
+      var postTweetBody = document.getElementById('postTweet-body').value;
+      var articleUrl = _this.props.selectedArticle.url;
+      // console.log(postTweetBody, articleUrl);
+      console.log(_this.props.selectedArticle);
 
-        _this.maxChars = 117;
-        _this.state = {
-            charsLeft: _this.maxChars
-        };
-        return _this;
+      _axios2.default.post('/tweet', {
+        tweetBody: postTweetBody,
+        tweetUrl: articleUrl
+      }).then(function (response) {
+        console.log(response);
+
+        _this.getTimeline();
+        // let tweets = [...this.props.timeline]; 
+        //   const tweet= {
+        //     created_at: new Date(),
+        //     text: postTweetBody,
+        //     user: {
+        //       profile_image_url: this.props.user.image,
+        //       screen_name: this.props.user.twitter_username,
+        //       name: this.props.user.name
+        //     }
+        //   }
+
+        //   tweets.push(tweet);
+        // this.props.updateTimeline(tweets);
+      }).catch(function (error) {
+        console.log('error');
+      });
+    };
+
+    _this.maxChars = 117;
+    _this.state = {
+      charsLeft: _this.maxChars
+    };
+    return _this;
+  }
+
+  _createClass(TweetForm, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var tweetFormOpen = this.props.tweetFormOpen;
+      return _react2.default.createElement(
+        'div',
+        { className: 'tweet-modal' },
+        _react2.default.createElement(
+          'div',
+          { className: 'callout' },
+          _react2.default.createElement(
+            'button',
+            { className: 'close-button', 'aria-label': 'Close alert', type: 'button', onClick: function onClick() {
+                return _this2.props.toggleTweetForm(tweetFormOpen);
+              } },
+            _react2.default.createElement(
+              'span',
+              { 'aria-hidden': 'true' },
+              '\xD7'
+            )
+          ),
+          _react2.default.createElement(
+            'form',
+            null,
+            _react2.default.createElement(
+              'h5',
+              null,
+              'Compose Tweet'
+            ),
+            _react2.default.createElement(
+              'label',
+              null,
+              _react2.default.createElement('textarea', { id: 'postTweet-body', onChange: this.charLimit, type: 'text', placeholder: 'Tweet', rows: '3', maxLength: this.maxChars })
+            ),
+            _react2.default.createElement(
+              'label',
+              null,
+              'Article URL ',
+              _react2.default.createElement(
+                'small',
+                null,
+                '(uses 23 chars)'
+              ),
+              _react2.default.createElement('input', { id: 'postTweet-url', type: 'text', value: this.props.selectedArticle.url, disabled: true })
+            )
+          ),
+          _react2.default.createElement(
+            'button',
+            { className: 'button', type: 'button', onClick: function onClick(e) {
+                return _this2.tweetArticle(e);
+              } },
+            'Tweet'
+          ),
+          ' ',
+          _react2.default.createElement(
+            'small',
+            null,
+            this.state.charsLeft
+          )
+        )
+      );
     }
+  }]);
 
-    _createClass(TweetForm, [{
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
-
-            var tweetFormOpen = this.props.tweetFormOpen;
-            return _react2.default.createElement(
-                'div',
-                { className: 'tweet-modal' },
-                _react2.default.createElement(
-                    'div',
-                    { className: 'callout' },
-                    _react2.default.createElement(
-                        'button',
-                        { className: 'close-button', 'aria-label': 'Close alert', type: 'button', onClick: function onClick() {
-                                return _this2.props.toggleTweetForm(tweetFormOpen);
-                            } },
-                        _react2.default.createElement(
-                            'span',
-                            { 'aria-hidden': 'true' },
-                            '\xD7'
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'form',
-                        null,
-                        _react2.default.createElement(
-                            'h5',
-                            null,
-                            'Compose Tweet'
-                        ),
-                        _react2.default.createElement(
-                            'label',
-                            null,
-                            _react2.default.createElement('textarea', { id: 'postTweet-body', onChange: this.charLimit, type: 'text', placeholder: 'Tweet', rows: '3', maxLength: this.maxChars })
-                        ),
-                        _react2.default.createElement(
-                            'label',
-                            null,
-                            'Article URL ',
-                            _react2.default.createElement(
-                                'small',
-                                null,
-                                '(uses 23 chars)'
-                            ),
-                            _react2.default.createElement('input', { id: 'postTweet-url', type: 'text', value: this.props.selectedArticle.url, disabled: true })
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'button',
-                        { className: 'button', type: 'button', onClick: function onClick(e) {
-                                return _this2.tweetArticle(e);
-                            } },
-                        'Tweet'
-                    ),
-                    ' ',
-                    _react2.default.createElement(
-                        'small',
-                        null,
-                        this.state.charsLeft
-                    )
-                )
-            );
-        }
-    }]);
-
-    return TweetForm;
+  return TweetForm;
 }(_react.Component);
 
 exports.default = TweetForm;

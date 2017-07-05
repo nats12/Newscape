@@ -24,6 +24,17 @@ class TweetForm extends Component {
         this.setState({charsLeft: this.maxChars - input.length});
     }
 
+    getTimeline = () => {
+      axios.get('/twitter/timeline')
+        .then(response => {
+          console.log(response);
+          this.props.updateTimeline(response.data.timeline);
+        })
+        .catch( error => {
+          console.log(error);
+        });
+    }
+
     tweetArticle = (e) => {
 
         e.preventDefault();
@@ -38,7 +49,22 @@ class TweetForm extends Component {
             tweetUrl: articleUrl
         })
           .then((response) => {
-            console.log(response)
+            console.log(response);
+
+            this.getTimeline();
+            // let tweets = [...this.props.timeline]; 
+            //   const tweet= {
+            //     created_at: new Date(),
+            //     text: postTweetBody,
+            //     user: {
+            //       profile_image_url: this.props.user.image,
+            //       screen_name: this.props.user.twitter_username,
+            //       name: this.props.user.name
+            //     }
+            //   }
+
+            //   tweets.push(tweet);
+              // this.props.updateTimeline(tweets);
           })
           .catch((error) => {
             console.log('error');

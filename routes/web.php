@@ -28,12 +28,7 @@ Route::get('newsfeed', 'TwitterController@twitterNewsFeed')->name('newsfeed');
 // Error
 Route::get('error', 'TwitterController@error')->name('error');
 
-
-
-
-
-
-
+Route::get('/twitter/timeline', ['uses'=> 'TwitterController@getTimeline']);
 
 Auth::routes();
 

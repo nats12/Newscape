@@ -38,9 +38,9 @@ class App extends Component {
 		this.setState({selectedArticle: article});
 	}
 
-	updateTimeline = (tweet, article) => {
+	updateTimeline = (array) => {
 
-		//push tweet into timeline array;
+		this.setState({timeline: array});
 
 	}
 
@@ -145,6 +145,9 @@ class App extends Component {
 					tweetFormOpen={this.state.tweetFormOpen} 
 					toggleTweetForm={this.toggleTweetForm}
 					selectedArticle={this.state.selectedArticle}
+					user={user}
+					timeline={timeline}
+					updateTimeline={this.updateTimeline}
 				/> : '' }
 				
 
