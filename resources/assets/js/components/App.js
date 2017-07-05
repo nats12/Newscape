@@ -11,7 +11,7 @@ import axios from 'axios';
 
 class App extends Component {
 	constructor(props) {
-		super()
+		super(props)
 
 		this.state = {
 			timeline: window.Laravel.timeline,
@@ -25,7 +25,7 @@ class App extends Component {
 			selectedCategories: [],
 			categories: [],
 			savedCategories: []
-		}
+		}		
 	}
 
 	toggleTweetForm = (tweetFormOpen) => {
@@ -44,21 +44,42 @@ class App extends Component {
 
 	}
 
-	selectCategory = (e) => {
-		const checkboxes = document.querySelectorAll('.category-checkbox');
-		const checkboxArray = [].slice.call(checkboxes);
-		let selectedArray = [];
-		let selectedNamesArray = [];
-		checkboxArray.map(checkbox => {
-			if(checkbox.checked && (selectedArray.indexOf(checkbox.getAttribute('data-id')) === -1)) {
-				selectedArray.push(checkbox.getAttribute('data-id'));
-			}
-			else  {
-				selectedArray.splice(checkbox.getAttribute('data-id'),1);
-			}
-		});
+	selectCategory = (component, checked) => {
+		let selectedArray = [...this.state.selectedCategories];
+		const id = component.props.category.id;
+		const index = selectedArray.indexOf(id);
+		const isChecked = checked;
+
+		//if in array AND checked is false, splice from array
+		if ((selectedArray.indexOf(id) !== -1) && isChecked == false) {
+			selectedArray.splice(index,1);
+		}
+		//else if not in array AND checked is true, push into array
+		else if ((selectedArray.indexOf(id) == -1) && isChecked == true) {
+			selectedArray.push(id);
+		}
+		//else if in array AND true, do nothing, just return
+		else {
+			return
+		}
 		this.setState({selectedCategories: selectedArray});
 	}
+
+
+		// const checkboxes = document.querySelectorAll('.category-checkbox');
+		// const checkboxArray = [].slice.call(checkboxes);
+		// let selectedArray = [];
+		// let selectedNamesArray = [];
+		// checkboxArray.map(checkbox => {
+		// 	if(checkbox.checked && (selectedArray.indexOf(checkbox.getAttribute('data-id')) === -1)) {
+		// 		selectedArray.push(checkbox.getAttribute('data-id'));
+		// 	}
+		// 	else  {
+		// 		selectedArray.splice(checkbox.getAttribute('data-id'),1);
+		// 	}
+		// });
+		// this.setState({selectedCategories: selectedArray});
+
 
 	getCategories = () => {
 	  axios.get('/api/categories')
