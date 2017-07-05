@@ -67,12 +67,12 @@ class NewsSources extends Component {
         <button className="button small" onClick={this.getSources}>Get Sources</button>
 
 				{
-		      this.state.sources.map((source, index) => { return 
-            <NewsSource 
+		      this.state.sources.map((source, index) => <NewsSource 
             key={index}
+            dataID={source.id}
             source={source} 
             selectSource={this.selectSource}
-            />})
+            />)
 		    } 
 
 				<button className="button small" onClick={this.saveSources} style={{display:"block"}}>Save</button>

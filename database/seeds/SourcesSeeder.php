@@ -11,7 +11,7 @@ class SourcesSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('sources')->delete();
+        DB::table('sources')->truncate();
 
     	$sources = array(
     		array(

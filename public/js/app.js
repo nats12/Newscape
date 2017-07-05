@@ -11469,7 +11469,8 @@ var App = function (_Component) {
 						selectCategory: this.selectCategory,
 						getCategories: this.getCategories,
 						saveCategories: this.saveCategories,
-						categories: categories
+						categories: categories,
+						savedCategories: savedCategories
 					}),
 					_react2.default.createElement(_NewsSources2.default, null),
 					_react2.default.createElement(_NewsFeed2.default, {
@@ -11858,7 +11859,7 @@ var NewsFeed = function (_Component) {
                         } else if (savedCategories.length > 0) {
                             console.log(savedCategories.length);
 
-                            savedCategories.map(function (category) {
+                            return savedCategories.map(function (category) {
                                 if (category.name == item.sourceCategory) {
                                     return _react2.default.createElement(_NewsArticle2.default, {
                                         key: index,
@@ -11927,7 +11928,7 @@ var NewsSource = function (_Component) {
 			return _react2.default.createElement(
 				'label',
 				null,
-				_react2.default.createElement('input', { 'data-id': this.props.source.id, className: 'source-checkbox', onChange: this.props.selectSource, type: 'checkbox' }),
+				_react2.default.createElement('input', { 'data-id': this.props.dataID, className: 'source-checkbox', onChange: this.props.selectSource, type: 'checkbox' }),
 				_react2.default.createElement('img', { className: 'source-icon', src: this.props.source.logoUrl, alt: this.props.source.name })
 			);
 		}
@@ -12042,9 +12043,9 @@ var NewsSources = function (_Component) {
           'Get Sources'
         ),
         this.state.sources.map(function (source, index) {
-          return;
-          _react2.default.createElement(_NewsSource2.default, {
+          return _react2.default.createElement(_NewsSource2.default, {
             key: index,
+            dataID: source.id,
             source: source,
             selectSource: _this2.selectSource
           });
