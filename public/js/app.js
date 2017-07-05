@@ -12371,62 +12371,58 @@ var TweetForm = function (_Component) {
             var tweetFormOpen = this.props.tweetFormOpen;
             return _react2.default.createElement(
                 'div',
-                { className: 'row' },
+                { className: 'tweet-modal' },
                 _react2.default.createElement(
                     'div',
-                    { className: 'large-4 columns' },
+                    { className: 'callout' },
                     _react2.default.createElement(
-                        'div',
-                        { className: 'callout' },
+                        'button',
+                        { className: 'close-button', 'aria-label': 'Close alert', type: 'button', onClick: function onClick() {
+                                return _this2.props.toggleTweetForm(tweetFormOpen);
+                            } },
                         _react2.default.createElement(
-                            'button',
-                            { className: 'close-button', 'aria-label': 'Close alert', type: 'button', onClick: function onClick() {
-                                    return _this2.props.toggleTweetForm(tweetFormOpen);
-                                } },
-                            _react2.default.createElement(
-                                'span',
-                                { 'aria-hidden': 'true' },
-                                '\xD7'
-                            )
-                        ),
-                        _react2.default.createElement(
-                            'form',
-                            null,
-                            _react2.default.createElement(
-                                'h5',
-                                null,
-                                'Compose Tweet'
-                            ),
-                            _react2.default.createElement(
-                                'label',
-                                null,
-                                _react2.default.createElement('textarea', { id: 'postTweet-body', onChange: this.charLimit, type: 'text', placeholder: 'Tweet', rows: '3', maxLength: this.maxChars })
-                            ),
-                            _react2.default.createElement(
-                                'label',
-                                null,
-                                'Article URL ',
-                                _react2.default.createElement(
-                                    'small',
-                                    null,
-                                    '(uses 23 chars)'
-                                ),
-                                _react2.default.createElement('input', { id: 'postTweet-url', type: 'text', value: this.props.selectedArticle.url, disabled: true })
-                            )
-                        ),
-                        _react2.default.createElement(
-                            'button',
-                            { className: 'button', type: 'button', onClick: function onClick(e) {
-                                    return _this2.tweetArticle(e);
-                                } },
-                            'Tweet'
-                        ),
-                        ' ',
-                        _react2.default.createElement(
-                            'small',
-                            null,
-                            this.state.charsLeft
+                            'span',
+                            { 'aria-hidden': 'true' },
+                            '\xD7'
                         )
+                    ),
+                    _react2.default.createElement(
+                        'form',
+                        null,
+                        _react2.default.createElement(
+                            'h5',
+                            null,
+                            'Compose Tweet'
+                        ),
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            _react2.default.createElement('textarea', { id: 'postTweet-body', onChange: this.charLimit, type: 'text', placeholder: 'Tweet', rows: '3', maxLength: this.maxChars })
+                        ),
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            'Article URL ',
+                            _react2.default.createElement(
+                                'small',
+                                null,
+                                '(uses 23 chars)'
+                            ),
+                            _react2.default.createElement('input', { id: 'postTweet-url', type: 'text', value: this.props.selectedArticle.url, disabled: true })
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'button',
+                        { className: 'button', type: 'button', onClick: function onClick(e) {
+                                return _this2.tweetArticle(e);
+                            } },
+                        'Tweet'
+                    ),
+                    ' ',
+                    _react2.default.createElement(
+                        'small',
+                        null,
+                        this.state.charsLeft
                     )
                 )
             );

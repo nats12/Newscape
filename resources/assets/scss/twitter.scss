@@ -11,3 +11,11 @@
   height: 100px;
   object-fit: cover;
 }
+
+.tweet-modal {
+    position: fixed;
+    width: 320px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

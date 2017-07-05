@@ -48,9 +48,7 @@ class TweetForm extends Component {
     render() {
         let tweetFormOpen = this.props.tweetFormOpen;
         return (
-
-            <div className="row">
-                <div className="large-4 columns">
+                  <div className="tweet-modal">
                     <div className="callout">
                       <button className="close-button" aria-label="Close alert" type="button" onClick={() => this.props.toggleTweetForm(tweetFormOpen)}>
                         <span aria-hidden="true">&times;</span>
@@ -67,8 +65,8 @@ class TweetForm extends Component {
                       </form>
                       <button className="button" type="button" onClick={(e) =>this.tweetArticle(e)}>Tweet</button> <small>{this.state.charsLeft}</small>
                     </div>
-                </div>           
-            </div>
+                  </div>
+                    
         )
     }
 }
