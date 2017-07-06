@@ -1,0 +1,14 @@
+.top-bar, .top-bar ul {
+    background-color: $blue;
+    color: $white;
+
+    h1 {
+        font-size: 1.7rem;
+        margin: 0;
+        font-weight: bold;
+    }
+
+    a {
+        color: $white !important;
+    }
+}

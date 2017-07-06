@@ -3,11 +3,12 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 
 // Variables
-@import "variables";
+@import "vars";
 
-// Pages
-@import "twitter";
-@import "news-sources";
+// Components
+@import "./components/twitter";
+@import "./components/news-sources";
+@import "./components/header";
 
 // Bootstrap
 // @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";

@@ -135,11 +135,27 @@ class App extends Component {
 
 		return (
 			<div>
-				<TwitterAuth 
-					user={user} 
-					loginPage={loginPage} 
-					logoutPage={logoutPage}
-				/>
+
+				<div className="top-bar">
+					<div className="row">
+						  	<div className="top-bar-left">
+						    	<ul className="menu">
+						    	<li className="menu-text"><h1>Newscape</h1></li>
+						    </ul>
+						  	</div>
+						  	<div className="top-bar-right">
+						  	<ul className="menu">
+						        <li className="menu-text">
+						        	<TwitterAuth 
+										user={user} 
+										loginPage={loginPage} 
+										logoutPage={logoutPage}
+									/>
+								</li>
+						    </ul>
+						  </div>
+					</div>
+				</div>
 
 				{this.state.tweetFormOpen ? <TweetForm 
 					tweetFormOpen={this.state.tweetFormOpen} 
@@ -150,7 +166,7 @@ class App extends Component {
 					updateTimeline={this.updateTimeline}
 				/> : '' }
 				
-
+				<br />
 				<div className="row">
 					<div className="large-8 columns">
 						<Categories 

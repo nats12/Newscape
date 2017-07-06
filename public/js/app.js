@@ -11443,11 +11443,48 @@ var App = function (_Component) {
 			return _react2.default.createElement(
 				'div',
 				null,
-				_react2.default.createElement(_TwitterAuth2.default, {
-					user: user,
-					loginPage: loginPage,
-					logoutPage: logoutPage
-				}),
+				_react2.default.createElement(
+					'div',
+					{ className: 'top-bar' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'row' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'top-bar-left' },
+							_react2.default.createElement(
+								'ul',
+								{ className: 'menu' },
+								_react2.default.createElement(
+									'li',
+									{ className: 'menu-text' },
+									_react2.default.createElement(
+										'h1',
+										null,
+										'Newscape'
+									)
+								)
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'top-bar-right' },
+							_react2.default.createElement(
+								'ul',
+								{ className: 'menu' },
+								_react2.default.createElement(
+									'li',
+									{ className: 'menu-text' },
+									_react2.default.createElement(_TwitterAuth2.default, {
+										user: user,
+										loginPage: loginPage,
+										logoutPage: logoutPage
+									})
+								)
+							)
+						)
+					)
+				),
 				this.state.tweetFormOpen ? _react2.default.createElement(_TweetForm2.default, {
 					tweetFormOpen: this.state.tweetFormOpen,
 					toggleTweetForm: this.toggleTweetForm,
@@ -11456,6 +11493,7 @@ var App = function (_Component) {
 					timeline: timeline,
 					updateTimeline: this.updateTimeline
 				}) : '',
+				_react2.default.createElement('br', null),
 				_react2.default.createElement(
 					'div',
 					{ className: 'row' },
@@ -12523,22 +12561,9 @@ var Login = function (_Component) {
 			var text = this.checkAuth().text;
 
 			return _react2.default.createElement(
-				'div',
-				{ className: 'row' },
-				_react2.default.createElement(
-					'div',
-					{ className: 'small-12 large-12 columns' },
-					_react2.default.createElement(
-						'h1',
-						null,
-						'Welcome to Newscape!'
-					),
-					_react2.default.createElement(
-						'a',
-						{ className: 'button ' + (text === 'Logout' ? 'alert' : 'success'), href: url },
-						text
-					)
-				)
+				'a',
+				{ className: 'button ' + (text === 'Logout' ? 'alert' : 'success'), href: url },
+				text
 			);
 		}
 	}]);
