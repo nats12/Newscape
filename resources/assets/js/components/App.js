@@ -4,9 +4,8 @@ import ReactDOM from 'react-dom';
 import TwitterAuth from './TwitterAuth';
 import TwitterFeed from './TwitterFeed';
 import TweetForm from './TweetForm';
-import NewsSources from './NewsSources';
 import NewsFeed from './NewsFeed';
-import Categories from './Categories';
+import Filter from './Filter';
 import axios from 'axios';
 
 class App extends Component {
@@ -166,18 +165,23 @@ class App extends Component {
 					updateTimeline={this.updateTimeline}
 				/> : '' }
 				
-				<br />
-				<div className="row">
-					<div className="large-8 columns">
-						<Categories 
+				<div className="section-filter">
+					<div className="row">
+						<Filter
 							selectedCategories={selectedCategories} 
 							selectCategory={this.selectCategory}
 							getCategories={this.getCategories}
 							saveCategories={this.saveCategories}
 							categories={categories}
 						/>
+					</div>
+					<br/>
+				</div>
 
-						<NewsSources selectedCategories={selectedCategories} />
+
+				<div className="row">
+					<div className="large-8 columns">
+
 						
 						<NewsFeed 
 							newsArticles={newsArticles} 
@@ -188,6 +192,7 @@ class App extends Component {
 							selectedCategories={selectedCategories}
 							categories={categories}
 							savedCategories={savedCategories}
+							user={user}
 						/>
 					</div>
 					<div className="large-4 columns">

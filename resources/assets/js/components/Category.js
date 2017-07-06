@@ -18,7 +18,7 @@ class Category extends Component {
   render() {
 
     return (
-      <div className="large-4 medium-6 columns end">
+      <div className="large-12 columns">
         <label>
           <input 
           className="category-checkbox"

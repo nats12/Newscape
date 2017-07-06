@@ -27,12 +27,16 @@ class NewsArticle extends Component {
             <p><small>{article.sourceName}</small></p>
             <p>{article.description}</p>
             <p><a href={article.url} target="_blank">{article.url}</a></p>
-            <TweetButton 
-              article={article} 
-              tweetFormOpen={this.props.tweetFormOpen} 
-              toggleTweetForm={this.props.toggleTweetForm}
-              selectArticle={this.props.selectArticle}
-            />
+            
+            { 
+              this.props.user ? <TweetButton 
+                article={article} 
+                tweetFormOpen={this.props.tweetFormOpen} 
+                toggleTweetForm={this.props.toggleTweetForm}
+                selectArticle={this.props.selectArticle}
+                /> : ''
+            }
+
           </div>
         </div>
       </div>

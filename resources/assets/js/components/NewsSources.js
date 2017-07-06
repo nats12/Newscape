@@ -67,31 +67,40 @@ class NewsSources extends Component {
 			<div>
           <button className="button small" onClick={this.getSources}>Get Sources</button>
           <button className="button small" onClick={this.saveSources} style={{display:"block"}}>Save Sources</button>
-
           {
-            this.state.sources.map((source, index) => {
+            this.state.sources.length !==0 ?
+              <div className="news-sources">
+                <div className="row">
+                  {
+                    this.state.sources.map((source, index) => {
 
-              if (selectedCategories.length === 0) {
-                return <NewsSource 
-                          key={index}
-                          source={source} 
-                          selectSource={this.selectSource}
-                        />
-              }
-
-              else {
-                return selectedCategories.map((category) => {
-                    if (category.name == source.category) {
+                      if (selectedCategories.length === 0) {
                         return <NewsSource 
-                          key={index}
-                          source={source} 
-                          selectSource={this.selectSource}
-                        />
-                    }
-                })
-              }
-            })
-          } 
+                                  key={index}
+                                  source={source} 
+                                  selectSource={this.selectSource}
+                                />
+                      }
+
+                      else {
+                        return selectedCategories.map((category) => {
+                            if (category.name == source.category) {
+                                return <NewsSource 
+                                  key={index}
+                                  source={source} 
+                                  selectSource={this.selectSource}
+                                />
+                            }
+                        })
+                      }
+                    })
+                  } 
+                </div>
+              </div>
+            : ''
+          }
+          
+          
       </div>
 		)
 

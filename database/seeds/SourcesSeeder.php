@@ -550,7 +550,7 @@ class SourcesSeeder extends Seeder
     			'category' => 'general',
     			'language' => 'en',
     			'country' => 'us',
-    			'logoUrl' => 'http://logo.clearbit.com/www.reuters.com'
+    			'logoUrl' => 'http://s3.reutersmedia.net/resources_v2/images/reuters_social_logo.png'
     		),
 
     		array(
@@ -616,7 +616,7 @@ class SourcesSeeder extends Seeder
     			'category' => 'business',
     			'language' => 'en',
     			'country' => 'gb',
-    			'logoUrl' => 'http://logo.clearbit.com/www.economist.com'
+    			'logoUrl' => 'https://media.glassdoor.com/sqll/7800/economist-group-squarelogo.png'
     		),
 
     		array(
