@@ -11887,17 +11887,17 @@ var NewsArticle = function (_Component) {
             _react2.default.createElement(
               'p',
               null,
+              _react2.default.createElement(
+                'a',
+                { className: 'button small article-btn', href: article.url, target: '_blank' },
+                'View article'
+              ),
               this.props.user ? _react2.default.createElement(_TweetButton2.default, {
                 article: article,
                 tweetFormOpen: this.props.tweetFormOpen,
                 toggleTweetForm: this.props.toggleTweetForm,
                 selectArticle: this.props.selectArticle
-              }) : '',
-              _react2.default.createElement(
-                'a',
-                { className: 'button small article-btn', href: article.url, target: '_blank' },
-                'View article'
-              )
+              }) : ''
             )
           )
         )
@@ -12415,7 +12415,7 @@ var TweetButton = function (_Component) {
             var tweetFormOpen = this.props.tweetFormOpen;
             return _react2.default.createElement(
                 'button',
-                { type: 'button', className: 'button small', onClick: function onClick() {
+                { type: 'button', className: 'button small btn-tweet', onClick: function onClick() {
                         _this2.props.toggleTweetForm(tweetFormOpen);
                         _this2.props.selectArticle(_this2.props.article);
                     } },

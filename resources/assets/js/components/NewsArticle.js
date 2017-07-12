@@ -27,6 +27,7 @@ class NewsArticle extends Component {
             <p>Category here</p>  
             <p>{article.description}</p>
             <p>
+              <a className="button small article-btn" href={article.url} target="_blank">View article</a>
               { 
                 this.props.user ? <TweetButton 
                   article={article} 
@@ -35,7 +36,7 @@ class NewsArticle extends Component {
                   selectArticle={this.props.selectArticle}
                   /> : ''
               }
-              <a className="button small article-btn" href={article.url} target="_blank">View article</a>
+              
             </p>
           </div>
 

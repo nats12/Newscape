@@ -3,6 +3,7 @@
   color: $white;
   position: absolute;
   padding: 45px;
+  height: 100%;
 
   a {
     color: $white;
@@ -27,4 +28,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.btn-tweet {
+    margin-left: 10px;
 }
