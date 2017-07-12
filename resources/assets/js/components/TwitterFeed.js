@@ -13,11 +13,13 @@ class TwitterFeed extends Component {
 
 		if (this.props.timeline) {
 			return (
-				<div>
-					{
-						Object.keys(this.props.timeline)
-						.map(key => <Tweet key={key} tweet={this.props.timeline[key]} />)
-					}
+				<div className="row">
+					<div>
+						{
+							Object.keys(this.props.timeline)
+							.map(key => <Tweet key={key} tweet={this.props.timeline[key]} />)
+						}
+					</div>
 				</div>
 			)
 		}

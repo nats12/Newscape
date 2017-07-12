@@ -1,15 +1,24 @@
+.twitter-container {
+  background-color: $blue-dk;
+  color: $white;
+  position: absolute;
+  padding: 45px;
+
+  a {
+    color: $white;
+  }
+
+  .media-object {
+    margin: 24px 0 24px 0;
+    width: 75%;
+  }
+}
+
 .tweet-block {
-	margin: 20px 0;
 
 	p {
 		margin: 0;
 	}
-}
-
-.article-image {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
 }
 
 .tweet-modal {

@@ -11842,22 +11842,14 @@ var NewsArticle = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'small-12 large-12 columns tweet-block' },
+        { className: 'small-12 large-6 columns tweet-block' },
         _react2.default.createElement(
           'div',
-          { className: 'media-object' },
+          { className: 'card' },
+          _react2.default.createElement('img', { className: 'article-image', src: article.urlToImage, alt: article.title }),
           _react2.default.createElement(
             'div',
-            { className: 'media-object-section' },
-            _react2.default.createElement(
-              'div',
-              { className: 'thumbnail' },
-              _react2.default.createElement('img', { className: 'article-image', src: article.urlToImage, alt: article.title })
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'media-object-section' },
+            { className: 'card-section offhover' },
             _react2.default.createElement(
               'h4',
               null,
@@ -11870,16 +11862,22 @@ var NewsArticle = function (_Component) {
                 'small',
                 null,
                 this.props.dateFormatter(article.publishedAt)
+              ),
+              ' ',
+              _react2.default.createElement(
+                'small',
+                { className: 'source' },
+                article.sourceName
               )
-            ),
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'card-section onhover' },
             _react2.default.createElement(
               'p',
               null,
-              _react2.default.createElement(
-                'small',
-                null,
-                article.sourceName
-              )
+              'Category here'
             ),
             _react2.default.createElement(
               'p',
@@ -11889,18 +11887,18 @@ var NewsArticle = function (_Component) {
             _react2.default.createElement(
               'p',
               null,
+              this.props.user ? _react2.default.createElement(_TweetButton2.default, {
+                article: article,
+                tweetFormOpen: this.props.tweetFormOpen,
+                toggleTweetForm: this.props.toggleTweetForm,
+                selectArticle: this.props.selectArticle
+              }) : '',
               _react2.default.createElement(
                 'a',
-                { href: article.url, target: '_blank' },
-                article.url
+                { className: 'button small article-btn', href: article.url, target: '_blank' },
+                'View article'
               )
-            ),
-            this.props.user ? _react2.default.createElement(_TweetButton2.default, {
-              article: article,
-              tweetFormOpen: this.props.tweetFormOpen,
-              toggleTweetForm: this.props.toggleTweetForm,
-              selectArticle: this.props.selectArticle
-            }) : ''
+            )
           )
         )
       );
@@ -11974,7 +11972,7 @@ var NewsFeed = function (_Component) {
 
             return _react2.default.createElement(
                 'div',
-                null,
+                { className: 'row large-collapse' },
                 this.props.newsArticles.sort(function (a, b) {
                     return new Date(b.publishedAt) - new Date(a.publishedAt);
                 }).map(function (item, index) {
@@ -12730,10 +12728,14 @@ var TwitterFeed = function (_Component) {
 			if (this.props.timeline) {
 				return _react2.default.createElement(
 					'div',
-					null,
-					Object.keys(this.props.timeline).map(function (key) {
-						return _react2.default.createElement(_Tweet2.default, { key: key, tweet: _this2.props.timeline[key] });
-					})
+					{ className: 'row' },
+					_react2.default.createElement(
+						'div',
+						null,
+						Object.keys(this.props.timeline).map(function (key) {
+							return _react2.default.createElement(_Tweet2.default, { key: key, tweet: _this2.props.timeline[key] });
+						})
+					)
 				);
 			}
 		}
