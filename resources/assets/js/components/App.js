@@ -198,7 +198,8 @@ class App extends Component {
 					<div className="large-4 columns">
 						<div className="twitter-container">
 						<TwitterFeed 
-							timeline={timeline} />
+							timeline={timeline}
+							user={user} />
 						</div>
 					</div>
 				</div>

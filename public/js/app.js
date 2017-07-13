@@ -11530,7 +11530,8 @@ var App = function (_Component) {
 							'div',
 							{ className: 'twitter-container' },
 							_react2.default.createElement(_TwitterFeed2.default, {
-								timeline: timeline })
+								timeline: timeline,
+								user: user })
 						)
 					)
 				)
@@ -12725,19 +12726,21 @@ var TwitterFeed = function (_Component) {
 		value: function render() {
 			var _this2 = this;
 
-			if (this.props.timeline) {
-				return _react2.default.createElement(
+			return _react2.default.createElement(
+				'div',
+				{ className: 'row' },
+				this.props.timeline && this.props.user ? _react2.default.createElement(
 					'div',
-					{ className: 'row' },
-					_react2.default.createElement(
-						'div',
-						null,
-						Object.keys(this.props.timeline).map(function (key) {
-							return _react2.default.createElement(_Tweet2.default, { key: key, tweet: _this2.props.timeline[key] });
-						})
-					)
-				);
-			}
+					null,
+					Object.keys(this.props.timeline).map(function (key) {
+						return _react2.default.createElement(_Tweet2.default, { key: key, tweet: _this2.props.timeline[key] });
+					})
+				) : _react2.default.createElement(
+					'p',
+					null,
+					'Sign in to use this feature'
+				)
+			);
 		}
 	}]);
 

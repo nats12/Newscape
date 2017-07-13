@@ -10,19 +10,22 @@ class TwitterFeed extends Component {
 	}
 
 	render() {
-
-		if (this.props.timeline) {
-			return (
-				<div className="row">
+		
+		return (
+			<div className="row">
+				{	
+					this.props.timeline && this.props.user ?
 					<div>
 						{
 							Object.keys(this.props.timeline)
 							.map(key => <Tweet key={key} tweet={this.props.timeline[key]} />)
 						}
 					</div>
-				</div>
-			)
-		}
+					: 
+					<p>Sign in to use this feature</p>
+				}
+			</div>
+		)
 	}
 }
 
