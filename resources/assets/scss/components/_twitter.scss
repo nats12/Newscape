@@ -1,16 +1,14 @@
 .twitter-container {
   background-color: $blue-dk;
   color: $white;
-  position: absolute;
-  padding: 45px;
 
   a {
     color: $white;
   }
 
   .media-object {
-    margin: 24px 0 24px 0;
-    width: 75%;
+    margin-bottom: 25px;
+    margin-left: 10px;
   }
 }
 
@@ -27,8 +25,54 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 1;
 }
 
 .btn-tweet {
     margin-left: 10px;
 }
+
+.overlay:before {
+  content: '';
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background-color: $black;
+  opacity: 0.8;
+}
+
+/* Small only */
+@media screen and (max-width: 39.9375em) {
+  .twitter-container {
+    .media-object {
+      margin-left: 0;
+    }
+  }
+}
+
+/* Medium and up */
+@media screen and (min-width: 40em) {
+  .twitter-container {
+    &:before {
+      content: '';
+      position: fixed;
+      background-color: $blue-dk;
+      height: 100vh;
+      width: 100%;
+      z-index: -1;
+      top: 0;
+    }
+  }
+}
+
+/* Medium only */
+@media screen and (min-width: 40em) and (max-width: 63.9375em) {}
+
+/* Large and up */
+@media screen and (min-width: 64em) {}
+
+/* Large only */
+@media screen and (min-width: 64em) and (max-width: 74.9375em) {}

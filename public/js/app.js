@@ -11438,7 +11438,7 @@ var App = function (_Component) {
 
 			return _react2.default.createElement(
 				'div',
-				null,
+				{ className: tweetFormOpen ? 'overlay' : '' },
 				_react2.default.createElement(
 					'div',
 					{ className: 'top-bar' },
@@ -11507,10 +11507,10 @@ var App = function (_Component) {
 				),
 				_react2.default.createElement(
 					'div',
-					{ className: 'row' },
+					{ className: 'row small-collapse medium-uncollapse large-uncollapse' },
 					_react2.default.createElement(
 						'div',
-						{ className: 'large-8 columns' },
+						{ className: 'large-8 medium-7 columns' },
 						_react2.default.createElement(_NewsFeed2.default, {
 							newsArticles: newsArticles,
 							dateFormatter: this.dateFormatter,
@@ -11525,7 +11525,7 @@ var App = function (_Component) {
 					),
 					_react2.default.createElement(
 						'div',
-						{ className: 'large-4 columns' },
+						{ className: 'large-4 medium-5 columns' },
 						_react2.default.createElement(
 							'div',
 							{ className: 'twitter-container' },
@@ -11877,8 +11877,8 @@ var NewsArticle = function (_Component) {
             { className: 'card-section onhover' },
             _react2.default.createElement(
               'p',
-              null,
-              'Category here'
+              { className: 'source-category' },
+              article.sourceCategory
             ),
             _react2.default.createElement(
               'p',
@@ -11973,7 +11973,7 @@ var NewsFeed = function (_Component) {
 
             return _react2.default.createElement(
                 'div',
-                { className: 'row large-collapse' },
+                { className: 'row small-collapse large-collapse' },
                 this.props.newsArticles.sort(function (a, b) {
                     return new Date(b.publishedAt) - new Date(a.publishedAt);
                 }).map(function (item, index) {
@@ -12471,16 +12471,18 @@ var TweetForm = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (TweetForm.__proto__ || Object.getPrototypeOf(TweetForm)).call(this));
 
-    _this.charLimit = function (e) {
+    _this.handleChange = function (e) {
       var input = e.target.value;
-
       //remove username from charlimit
       //   input = input.replace(/[@]+[A-Za-z0-9-_]+/g, function(u) {
       //   var username = u.length;
       //   return username;
       // });
 
-      _this.setState({ charsLeft: _this.maxChars - input.length });
+      _this.setState({
+        charsLeft: _this.maxChars - input.length,
+        tweet: input
+      });
     };
 
     _this.getTimeline = function () {
@@ -12496,39 +12498,25 @@ var TweetForm = function (_Component) {
 
       e.preventDefault();
 
-      var postTweetBody = document.getElementById('postTweet-body').value;
+      var postTweetBody = _this.state.tweet;
       var articleUrl = _this.props.selectedArticle.url;
-      // console.log(postTweetBody, articleUrl);
-      console.log(_this.props.selectedArticle);
 
       _axios2.default.post('/tweet', {
         tweetBody: postTweetBody,
         tweetUrl: articleUrl
       }).then(function (response) {
         console.log(response);
-
+        _this.props.toggleTweetForm(_this.props.tweetFormOpen);
         _this.getTimeline();
-        // let tweets = [...this.props.timeline]; 
-        //   const tweet= {
-        //     created_at: new Date(),
-        //     text: postTweetBody,
-        //     user: {
-        //       profile_image_url: this.props.user.image,
-        //       screen_name: this.props.user.twitter_username,
-        //       name: this.props.user.name
-        //     }
-        //   }
-
-        //   tweets.push(tweet);
-        // this.props.updateTimeline(tweets);
       }).catch(function (error) {
-        console.log('error');
+        console.log(error);
       });
     };
 
     _this.maxChars = 117;
     _this.state = {
-      charsLeft: _this.maxChars
+      charsLeft: _this.maxChars,
+      tweet: ''
     };
     return _this;
   }
@@ -12567,7 +12555,7 @@ var TweetForm = function (_Component) {
             _react2.default.createElement(
               'label',
               null,
-              _react2.default.createElement('textarea', { id: 'postTweet-body', onChange: this.charLimit, type: 'text', placeholder: 'Tweet', rows: '3', maxLength: this.maxChars })
+              _react2.default.createElement('textarea', { id: 'postTweet-body', onChange: this.handleChange, type: 'text', placeholder: 'Tweet', rows: '3', maxLength: this.maxChars })
             ),
             _react2.default.createElement(
               'label',

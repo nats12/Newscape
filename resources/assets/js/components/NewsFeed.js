@@ -18,7 +18,7 @@ class NewsFeed extends Component {
         let limitCounter = 1;
 
         return (
-            <div className="row large-collapse"> 
+            <div className="row small-collapse large-collapse"> 
             {
                 this.props.newsArticles.sort((a,b) => new Date(b.publishedAt) - new Date(a.publishedAt) )
                 .map(

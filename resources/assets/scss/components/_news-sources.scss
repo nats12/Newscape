@@ -4,6 +4,10 @@
     object-fit: contain;
 }
 
+.source-category {
+    text-transform: capitalize;
+}
+
 .news-source {
     margin-bottom: 20px;
     text-align: center;
@@ -34,7 +38,6 @@
     .card-section {
     	position: absolute;
     	bottom: 0;
-    	z-index: 10;
 
     	.source {
     		text-decoration: underline;

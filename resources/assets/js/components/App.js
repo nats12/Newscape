@@ -133,7 +133,7 @@ class App extends Component {
 				} = this.state;
 
 		return (
-			<div>
+			<div className={tweetFormOpen ? 'overlay' : ''}>
 
 				<div className="top-bar">
 					<div className="row">
@@ -179,8 +179,8 @@ class App extends Component {
 				</div>
 
 
-				<div className="row">
-					<div className="large-8 columns">
+				<div className="row small-collapse medium-uncollapse large-uncollapse">
+					<div className="large-8 medium-7 columns">
 
 						
 						<NewsFeed 
@@ -195,11 +195,11 @@ class App extends Component {
 							user={user}
 						/>
 					</div>
-					<div className="large-4 columns">
+					<div className="large-4 medium-5 columns">
 						<div className="twitter-container">
-						<TwitterFeed 
-							timeline={timeline}
-							user={user} />
+							<TwitterFeed 
+								timeline={timeline}
+								user={user} />
 						</div>
 					</div>
 				</div>

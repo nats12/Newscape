@@ -8,20 +8,23 @@ class TweetForm extends Component {
         super()
         this.maxChars = 117;
         this.state = {
-            charsLeft: this.maxChars
+            charsLeft: this.maxChars,
+            tweet: ''
         }
     }
 
-    charLimit = (e) => {
+    handleChange = (e) => {
         let input = e.target.value;
-
     //remove username from charlimit
       //   input = input.replace(/[@]+[A-Za-z0-9-_]+/g, function(u) {
       //   var username = u.length;
       //   return username;
       // });
 
-        this.setState({charsLeft: this.maxChars - input.length});
+        this.setState({
+          charsLeft: this.maxChars - input.length,
+          tweet: input
+        });
     }
 
     getTimeline = () => {
@@ -39,10 +42,8 @@ class TweetForm extends Component {
 
         e.preventDefault();
 
-        const postTweetBody = document.getElementById('postTweet-body').value;
+        const postTweetBody = this.state.tweet;
         const articleUrl = this.props.selectedArticle.url;
-        // console.log(postTweetBody, articleUrl);
-        console.log(this.props.selectedArticle);
 
         axios.post('/tweet', {
             tweetBody: postTweetBody,
@@ -50,24 +51,11 @@ class TweetForm extends Component {
         })
           .then((response) => {
             console.log(response);
-
+            this.props.toggleTweetForm(this.props.tweetFormOpen)
             this.getTimeline();
-            // let tweets = [...this.props.timeline]; 
-            //   const tweet= {
-            //     created_at: new Date(),
-            //     text: postTweetBody,
-            //     user: {
-            //       profile_image_url: this.props.user.image,
-            //       screen_name: this.props.user.twitter_username,
-            //       name: this.props.user.name
-            //     }
-            //   }
-
-            //   tweets.push(tweet);
-              // this.props.updateTimeline(tweets);
           })
           .catch((error) => {
-            console.log('error');
+            console.log(error);
           });
     }
 
@@ -82,7 +70,7 @@ class TweetForm extends Component {
                       <form>
                         <h5>Compose Tweet</h5>
                           <label>
-                              <textarea id="postTweet-body" onChange={this.charLimit} type="text" placeholder="Tweet" rows="3" maxLength={this.maxChars}></textarea>
+                              <textarea id="postTweet-body" onChange={this.handleChange} type="text" placeholder="Tweet" rows="3" maxLength={this.maxChars}></textarea>
                           </label>
 
                           <label>Article URL <small>(uses 23 chars)</small>

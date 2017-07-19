@@ -24,7 +24,7 @@ class NewsArticle extends Component {
           </div>
 
           <div className="card-section onhover">
-            <p>Category here</p>  
+            <p className="source-category">{article.sourceCategory}</p>  
             <p>{article.description}</p>
             <p>
               <a className="button small article-btn" href={article.url} target="_blank">View article</a>
