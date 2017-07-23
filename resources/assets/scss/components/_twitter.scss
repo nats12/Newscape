@@ -82,12 +82,10 @@ h2 {
   .twitter-options {
     &:before {
       content: '';
-      position: fixed;
-      background-color: $pink-dk;
-      height: 100vh;
+      position: absolute;
+      background-color: $pink-md;
+      height: 34px;
       width: 100%;
-      z-index: -1;
-      top: 0;
     }
   }
 }
