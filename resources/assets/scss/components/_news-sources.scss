@@ -1,3 +1,30 @@
+span.icon-down-open-big, span.icon-up-open-big,  {
+    float: right;
+
+    &:hover {
+        cursor: pointer;
+        color: $pink-dk;
+    }
+}
+
+.options-menu {
+    padding: 5px;
+}
+
+.save {
+    background-color: $pink-dk;
+    padding: 5px;
+    text-align: center;
+
+    &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+    }
+}
+
+.category {
+    text-transform: capitalize;
+}
 .source-icon {
 	width: 30px;
     height: 30px;
@@ -10,13 +37,12 @@
 
 .news-source {
     margin-bottom: 20px;
-    text-align: center;
 }
 
 .news-sources {
     background-color: $pink-md;
     border-radius: 10px;
-    padding: 20px 0;
+    padding: 20px;
 }
 
 .article-image {

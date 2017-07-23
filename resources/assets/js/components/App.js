@@ -23,7 +23,8 @@ class App extends Component {
 			selectedArticle: {},
 			selectedCategories: [],
 			categories: [],
-			savedCategories: []
+			savedCategories: [],
+			menuIsOpen: false
 		}		
 	}
 
@@ -70,14 +71,15 @@ class App extends Component {
 	}
 
 	getCategories = () => {
-	  axios.get('/api/categories')
-	    .then(response => {
-	      // const categories = {...this.state.categories};
-	      this.setState({categories: response.data.categories});
-	    })
-	    .catch( error => {
-	      console.log(error);
-	    });
+	  	axios.get('/api/categories')
+		    .then(response => {
+		      // const categories = {...this.state.categories};
+		      const menuIsOpen = this.state.menuIsOpen;
+		      this.setState({categories: response.data.categories, menuIsOpen: menuIsOpen ? false : true});
+		    })
+		    .catch( error => {
+		      console.log(error);
+		    });
 	}
 
 	saveCategories = () => {
@@ -129,7 +131,8 @@ class App extends Component {
 				tweetFormOpen, 
 				selectedCategories,
 				categories,
-				savedCategories
+				savedCategories,
+				menuIsOpen
 				} = this.state;
 
 		return (
@@ -167,15 +170,38 @@ class App extends Component {
 				
 				<div className="section-filter">
 					<div className="row">
+						<div className="large-8 medium-7 columns">
+				          <div className="options-menu">
+				            <span className="icon-cog">News</span>
+				            <span className={ menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big'} onClick={this.getCategories}></span>
+				          </div>
+          				</div>
+
+          				<div className="large-4 medium-5 columns">
+          					<div className="twitter-options">
+						        <div className="options-menu">
+						          <span className="icon-cog">Twitter</span>
+						          <span className={ menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big'} onClick={this.getCategories}></span>
+						        </div>
+					        </div>
+					     </div>
 						<Filter
 							selectedCategories={selectedCategories} 
 							selectCategory={this.selectCategory}
 							getCategories={this.getCategories}
-							saveCategories={this.saveCategories}
 							categories={categories}
+							user={user}
+							menuIsOpen={menuIsOpen}
 						/>
 					</div>
-					<br/>
+					{
+						menuIsOpen ?
+							<div className="save" onClick={this.saveCategories}>
+				                <span className="icon-ok-1">Save</span>
+				             </div>
+				        :
+				        	''
+					}
 				</div>
 
 

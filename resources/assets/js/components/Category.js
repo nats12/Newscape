@@ -19,7 +19,8 @@ class Category extends Component {
 
     return (
       <div className="large-12 columns">
-        <label>
+        <label className="category">
+          {this.props.category.name}
           <input 
           className="category-checkbox"
           data-id={this.props.category.id} 
@@ -29,7 +30,6 @@ class Category extends Component {
             }
           }
           type="checkbox"/>
-          {this.props.category.name}
         </label>
       </div>
     )

@@ -8,6 +8,16 @@
     }
 }
 
+.categories {
+	background-color: #a23850;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+label>[type=checkbox] {
+	float: right;
+}
+
 /* Small only */
 @media screen and (max-width: 39.9375em) {
   .section-filter {

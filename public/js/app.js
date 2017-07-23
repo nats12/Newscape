@@ -11373,7 +11373,8 @@ var App = function (_Component) {
 		_this.getCategories = function () {
 			_axios2.default.get('/api/categories').then(function (response) {
 				// const categories = {...this.state.categories};
-				_this.setState({ categories: response.data.categories });
+				var menuIsOpen = _this.state.menuIsOpen;
+				_this.setState({ categories: response.data.categories, menuIsOpen: menuIsOpen ? false : true });
 			}).catch(function (error) {
 				console.log(error);
 			});
@@ -11415,7 +11416,8 @@ var App = function (_Component) {
 			selectedArticle: {},
 			selectedCategories: [],
 			categories: [],
-			savedCategories: []
+			savedCategories: [],
+			menuIsOpen: false
 		};
 		return _this;
 	}
@@ -11433,7 +11435,8 @@ var App = function (_Component) {
 			    tweetFormOpen = _state.tweetFormOpen,
 			    selectedCategories = _state.selectedCategories,
 			    categories = _state.categories,
-			    savedCategories = _state.savedCategories;
+			    savedCategories = _state.savedCategories,
+			    menuIsOpen = _state.menuIsOpen;
 
 
 			return _react2.default.createElement(
@@ -11495,15 +11498,56 @@ var App = function (_Component) {
 					_react2.default.createElement(
 						'div',
 						{ className: 'row' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'large-8 medium-7 columns' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'options-menu' },
+								_react2.default.createElement(
+									'span',
+									{ className: 'icon-cog' },
+									'News'
+								),
+								_react2.default.createElement('span', { className: menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big', onClick: this.getCategories })
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'large-4 medium-5 columns' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'twitter-options' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'options-menu' },
+									_react2.default.createElement(
+										'span',
+										{ className: 'icon-cog' },
+										'Twitter'
+									),
+									_react2.default.createElement('span', { className: menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big', onClick: this.getCategories })
+								)
+							)
+						),
 						_react2.default.createElement(_Filter2.default, {
 							selectedCategories: selectedCategories,
 							selectCategory: this.selectCategory,
 							getCategories: this.getCategories,
-							saveCategories: this.saveCategories,
-							categories: categories
+							categories: categories,
+							user: user,
+							menuIsOpen: menuIsOpen
 						})
 					),
-					_react2.default.createElement('br', null)
+					menuIsOpen ? _react2.default.createElement(
+						'div',
+						{ className: 'save', onClick: this.saveCategories },
+						_react2.default.createElement(
+							'span',
+							{ className: 'icon-ok-1' },
+							'Save'
+						)
+					) : ''
 				),
 				_react2.default.createElement(
 					'div',
@@ -11590,8 +11634,6 @@ var Categories = function (_Component) {
     key: 'render',
     value: function render() {
       var _props = this.props,
-          getCategories = _props.getCategories,
-          saveCategories = _props.saveCategories,
           selectCategory = _props.selectCategory,
           categories = _props.categories;
 
@@ -11600,25 +11642,19 @@ var Categories = function (_Component) {
         'div',
         null,
         _react2.default.createElement(
-          'button',
-          { className: 'button small', onClick: getCategories },
-          'Get Categories'
-        ),
-        _react2.default.createElement(
-          'button',
-          { className: 'button small', onClick: saveCategories, style: { display: "block" } },
-          'Save Categories'
-        ),
-        _react2.default.createElement(
           'div',
-          { className: 'row' },
-          categories.map(function (category, index) {
-            return _react2.default.createElement(_Category2.default, {
-              key: index,
-              category: category,
-              selectCategory: selectCategory
-            });
-          })
+          { className: 'categories' },
+          _react2.default.createElement(
+            'div',
+            { className: 'row' },
+            categories.map(function (category, index) {
+              return _react2.default.createElement(_Category2.default, {
+                key: index,
+                category: category,
+                selectCategory: selectCategory
+              });
+            })
+          )
         )
       );
     }
@@ -11686,7 +11722,8 @@ var Category = function (_Component) {
         { className: 'large-12 columns' },
         _react2.default.createElement(
           'label',
-          null,
+          { className: 'category' },
+          this.props.category.name,
           _react2.default.createElement('input', {
             className: 'category-checkbox',
             'data-id': this.props.category.id,
@@ -11694,8 +11731,7 @@ var Category = function (_Component) {
             onChange: function onChange(e) {
               _this2.toggleCheckboxState(e);
             },
-            type: 'checkbox' }),
-          this.props.category.name
+            type: 'checkbox' })
         )
       );
     }
@@ -11760,7 +11796,9 @@ var Filter = function (_Component) {
           selectCategory = _props.selectCategory,
           getCategories = _props.getCategories,
           saveCategories = _props.saveCategories,
-          categories = _props.categories;
+          categories = _props.categories,
+          user = _props.user,
+          menuIsOpen = _props.menuIsOpen;
 
 
       return _react2.default.createElement(
@@ -11768,21 +11806,56 @@ var Filter = function (_Component) {
         null,
         _react2.default.createElement(
           'div',
-          { className: 'large-2 columns' },
-          _react2.default.createElement('br', null),
-          _react2.default.createElement(_Categories2.default, {
-            selectedCategories: selectedCategories,
-            selectCategory: selectCategory,
-            getCategories: getCategories,
-            saveCategories: saveCategories,
-            categories: categories
-          })
+          { className: 'large-8 medium-7 columns' },
+          menuIsOpen ? _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'div',
+              { className: 'row' },
+              _react2.default.createElement(
+                'div',
+                { className: 'large-6 medium-12 columns' },
+                _react2.default.createElement(_Categories2.default, {
+                  selectedCategories: selectedCategories,
+                  selectCategory: selectCategory,
+                  getCategories: getCategories,
+                  saveCategories: saveCategories,
+                  categories: categories
+                })
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'large-6 medium-12 columns' },
+                _react2.default.createElement(_NewsSources2.default, { selectedCategories: selectedCategories })
+              )
+            )
+          ) : ''
         ),
         _react2.default.createElement(
           'div',
-          { className: 'large-10 columns' },
-          _react2.default.createElement('br', null),
-          _react2.default.createElement(_NewsSources2.default, { selectedCategories: selectedCategories })
+          { className: 'large-4 medium-5 columns' },
+          this.props.user && menuIsOpen ? _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'p',
+              { className: 'icon-user' },
+              'Not ',
+              user.name,
+              '? Log out'
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              'View feed'
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              'Search hashtag'
+            )
+          ) : ''
         )
       );
     }
@@ -12063,20 +12136,15 @@ var NewsSource = function (_Component) {
 
 			return _react2.default.createElement(
 				'div',
-				{ className: 'large-2 medium-3 columns end' },
+				{ className: 'large-12 medium-12 columns end' },
 				_react2.default.createElement(
 					'div',
 					{ className: 'news-source' },
 					_react2.default.createElement(
 						'label',
 						null,
-						_react2.default.createElement('input', { 'data-id': this.props.source.id, className: 'source-checkbox', onChange: this.props.selectSource, type: 'checkbox' }),
-						_react2.default.createElement('img', { className: 'source-icon', src: this.props.source.logoUrl, alt: this.props.source.name })
-					),
-					_react2.default.createElement(
-						'small',
-						null,
-						this.props.source.name
+						this.props.source.name,
+						_react2.default.createElement('input', { 'data-id': this.props.source.id, className: 'source-checkbox', onChange: this.props.selectSource, type: 'checkbox' })
 					)
 				)
 			);
@@ -12724,9 +12792,14 @@ var TwitterFeed = function (_Component) {
 						return _react2.default.createElement(_Tweet2.default, { key: key, tweet: _this2.props.timeline[key] });
 					})
 				) : _react2.default.createElement(
-					'p',
+					'h2',
 					null,
-					'Sign in to use this feature'
+					_react2.default.createElement(
+						'span',
+						null,
+						'Sign in'
+					),
+					' to use this feature'
 				)
 			);
 		}

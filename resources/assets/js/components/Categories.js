@@ -10,23 +10,22 @@ class Categories extends Component {
 
   render() {
 
-    const { getCategories, saveCategories, selectCategory, categories } = this.props;
+    const { selectCategory, categories } = this.props;
 
     return(
         <div>
-          <button className="button small" onClick={getCategories}>Get Categories</button>
-
-          <button className="button small" onClick={saveCategories} style={{display:"block"}}>Save Categories</button>
-
-          <div className="row">
-            {
-              categories.map((category, index) => { 
-                return <Category 
-                key={index} 
-                category={category} 
-                selectCategory={selectCategory} 
-                />})
-            }
+          <div className="categories">
+            <div className="row">
+            
+              {
+                categories.map((category, index) => { 
+                  return <Category 
+                  key={index} 
+                  category={category} 
+                  selectCategory={selectCategory}
+                  />})
+              }
+            </div>
           </div>
           
         </div>

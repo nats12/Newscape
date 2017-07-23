@@ -22,7 +22,7 @@ class TwitterFeed extends Component {
 						}
 					</div>
 					: 
-					<p>Sign in to use this feature</p>
+					<h2><span>Sign in</span> to use this feature</h2>
 				}
 			</div>
 		)

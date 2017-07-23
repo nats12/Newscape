@@ -1,3 +1,15 @@
+h2 {
+    color: $blue;
+
+    span {
+      font-weight: bold;
+    }
+}
+
+.twitter-options {
+  background-color: $pink-dk;
+}
+
 .twitter-container {
   background-color: $blue-dk;
   color: $white;
@@ -60,6 +72,18 @@
       content: '';
       position: fixed;
       background-color: $blue-dk;
+      height: 100vh;
+      width: 100%;
+      z-index: -1;
+      top: 0;
+    }
+  }
+
+  .twitter-options {
+    &:before {
+      content: '';
+      position: fixed;
+      background-color: $pink-dk;
       height: 100vh;
       width: 100%;
       z-index: -1;
