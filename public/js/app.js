@@ -11370,7 +11370,25 @@ var App = function (_Component) {
 			_this.setState({ selectedCategories: selectedArray });
 		};
 
-		_this.getCategories = function () {
+		_this.selectSource = function (e) {
+			var sourceCheckboxes = document.querySelectorAll('.source-checkbox');
+			var sourceCheckboxArray = [].slice.call(sourceCheckboxes);
+			var selectedSourcesArray = [];
+			sourceCheckboxArray.map(function (checkbox) {
+				if (checkbox.checked && selectedSourcesArray.indexOf(checkbox.getAttribute('data-id')) === -1) {
+					selectedSourcesArray.push(checkbox.getAttribute('data-id'));
+				} else {
+					selectedSourcesArray.splice(checkbox.getAttribute('data-id'), 1);
+				}
+			});
+			console.log(selectedSourcesArray);
+
+			_this.setState({
+				selectedSources: selectedSourcesArray
+			});
+		};
+
+		_this.getData = function () {
 			_axios2.default.get('/api/categories').then(function (response) {
 				// const categories = {...this.state.categories};
 				var menuIsOpen = _this.state.menuIsOpen;
@@ -11378,18 +11396,37 @@ var App = function (_Component) {
 			}).catch(function (error) {
 				console.log(error);
 			});
+
+			_axios2.default.get('/api/sources').then(function (response) {
+				console.log(_this.state);
+
+				_this.setState({ sources: response.data.sources });
+			}).catch(function (error) {
+				console.log(error);
+			});
 		};
 
-		_this.saveCategories = function () {
+		_this.saveData = function () {
 			var categories = _this.state.selectedCategories.map(function (category, index) {
 				return category.id;
 			});
+
+			var menuIsOpen = _this.state.menuIsOpen;
 
 			_axios2.default.post('/api/category', {
 				categories: categories
 			}).then(function (response) {
 				console.log(response);
-				_this.setState({ savedCategories: response.data.categories });
+				_this.setState({ savedCategories: response.data.categories, menuIsOpen: menuIsOpen ? false : true });
+			}).catch(function (error) {
+				console.log(error);
+			});
+
+			_axios2.default.post('/api/source', {
+				sources: _this.state.selectedSources
+			}).then(function (response) {
+				console.log(response);
+				_this.setState({ menuIsOpen: menuIsOpen ? false : true });
 			}).catch(function (error) {
 				console.log(error);
 			});
@@ -11417,7 +11454,9 @@ var App = function (_Component) {
 			selectedCategories: [],
 			categories: [],
 			savedCategories: [],
-			menuIsOpen: false
+			menuIsOpen: false,
+			sources: [],
+			selectedSources: []
 		};
 		return _this;
 	}
@@ -11436,7 +11475,8 @@ var App = function (_Component) {
 			    selectedCategories = _state.selectedCategories,
 			    categories = _state.categories,
 			    savedCategories = _state.savedCategories,
-			    menuIsOpen = _state.menuIsOpen;
+			    menuIsOpen = _state.menuIsOpen,
+			    sources = _state.sources;
 
 
 			return _react2.default.createElement(
@@ -11509,7 +11549,7 @@ var App = function (_Component) {
 									{ className: 'icon-cog' },
 									'News'
 								),
-								_react2.default.createElement('span', { className: menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big', onClick: this.getCategories })
+								_react2.default.createElement('span', { className: menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big', onClick: this.getData })
 							)
 						),
 						_react2.default.createElement(
@@ -11526,22 +11566,24 @@ var App = function (_Component) {
 										{ className: 'icon-cog' },
 										'Twitter'
 									),
-									_react2.default.createElement('span', { className: menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big', onClick: this.getCategories })
+									_react2.default.createElement('span', { className: menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big', onClick: this.getData })
 								)
 							)
 						),
 						_react2.default.createElement(_Filter2.default, {
 							selectedCategories: selectedCategories,
 							selectCategory: this.selectCategory,
-							getCategories: this.getCategories,
+							getData: this.getData,
 							categories: categories,
 							user: user,
-							menuIsOpen: menuIsOpen
+							menuIsOpen: menuIsOpen,
+							sources: sources,
+							selectSource: this.selectSource
 						})
 					),
 					menuIsOpen ? _react2.default.createElement(
 						'div',
-						{ className: 'save', onClick: this.saveCategories },
+						{ className: 'save', onClick: this.saveData },
 						_react2.default.createElement(
 							'span',
 							{ className: 'icon-ok-1' },
@@ -11794,8 +11836,10 @@ var Filter = function (_Component) {
       var _props = this.props,
           selectedCategories = _props.selectedCategories,
           selectCategory = _props.selectCategory,
-          getCategories = _props.getCategories,
-          saveCategories = _props.saveCategories,
+          selectSource = _props.selectSource,
+          sources = _props.sources,
+          getData = _props.getData,
+          saveData = _props.saveData,
           categories = _props.categories,
           user = _props.user,
           menuIsOpen = _props.menuIsOpen;
@@ -11819,15 +11863,15 @@ var Filter = function (_Component) {
                 _react2.default.createElement(_Categories2.default, {
                   selectedCategories: selectedCategories,
                   selectCategory: selectCategory,
-                  getCategories: getCategories,
-                  saveCategories: saveCategories,
+                  getData: getData,
+                  saveData: saveData,
                   categories: categories
                 })
               ),
               _react2.default.createElement(
                 'div',
                 { className: 'large-6 medium-12 columns' },
-                _react2.default.createElement(_NewsSources2.default, { selectedCategories: selectedCategories })
+                _react2.default.createElement(_NewsSources2.default, { selectedCategories: selectedCategories, sources: sources, selectSource: selectSource })
               )
             )
           ) : ''
@@ -12199,51 +12243,7 @@ var NewsSources = function (_Component) {
   function NewsSources() {
     _classCallCheck(this, NewsSources);
 
-    var _this = _possibleConstructorReturn(this, (NewsSources.__proto__ || Object.getPrototypeOf(NewsSources)).call(this));
-
-    _this.selectSource = function (e) {
-      var sourceCheckboxes = document.querySelectorAll('.source-checkbox');
-      var sourceCheckboxArray = [].slice.call(sourceCheckboxes);
-      var selectedSourcesArray = [];
-      sourceCheckboxArray.map(function (checkbox) {
-        if (checkbox.checked && selectedSourcesArray.indexOf(checkbox.getAttribute('data-id')) === -1) {
-          selectedSourcesArray.push(checkbox.getAttribute('data-id'));
-        } else {
-          selectedSourcesArray.splice(checkbox.getAttribute('data-id'), 1);
-        }
-      });
-      console.log(selectedSourcesArray);
-
-      _this.setState({
-        selectedSources: selectedSourcesArray
-      });
-    };
-
-    _this.getSources = function () {
-      _axios2.default.get('/api/sources').then(function (response) {
-        console.log(_this.state);
-
-        _this.setState({ sources: response.data.sources });
-      }).catch(function (error) {
-        console.log(error);
-      });
-    };
-
-    _this.saveSources = function () {
-      _axios2.default.post('/api/source', {
-        sources: _this.state.selectedSources
-      }).then(function (response) {
-        console.log(response);
-      }).catch(function (error) {
-        console.log(error);
-      });
-    };
-
-    _this.state = {
-      sources: [],
-      selectedSources: []
-    };
-    return _this;
+    return _possibleConstructorReturn(this, (NewsSources.__proto__ || Object.getPrototypeOf(NewsSources)).call(this));
   }
 
   _createClass(NewsSources, [{
@@ -12257,23 +12257,13 @@ var NewsSources = function (_Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(
-          'button',
-          { className: 'button small', onClick: this.getSources },
-          'Get Sources'
-        ),
-        _react2.default.createElement(
-          'button',
-          { className: 'button small', onClick: this.saveSources, style: { display: "block" } },
-          'Save Sources'
-        ),
-        this.state.sources.length !== 0 ? _react2.default.createElement(
+        this.props.sources.length !== 0 ? _react2.default.createElement(
           'div',
           { className: 'news-sources' },
           _react2.default.createElement(
             'div',
             { className: 'row' },
-            this.state.sources.map(function (source, index) {
+            this.props.sources.map(function (source, index) {
 
               if (selectedCategories.length === 0) {
                 return _react2.default.createElement(_NewsSource2.default, {
@@ -12287,7 +12277,7 @@ var NewsSources = function (_Component) {
                     return _react2.default.createElement(_NewsSource2.default, {
                       key: index,
                       source: source,
-                      selectSource: _this2.selectSource
+                      selectSource: _this2.props.selectSource
                     });
                   }
                 });

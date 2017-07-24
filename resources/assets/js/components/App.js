@@ -24,7 +24,9 @@ class App extends Component {
 			selectedCategories: [],
 			categories: [],
 			savedCategories: [],
-			menuIsOpen: false
+			menuIsOpen: false,
+			sources: [],
+			selectedSources: []
 		}		
 	}
 
@@ -70,7 +72,27 @@ class App extends Component {
 		this.setState({selectedCategories: selectedArray});
 	}
 
-	getCategories = () => {
+
+	selectSource = (e) => {
+	    const sourceCheckboxes = document.querySelectorAll('.source-checkbox');
+	    const sourceCheckboxArray = [].slice.call(sourceCheckboxes);
+	    let selectedSourcesArray = [];
+	    sourceCheckboxArray.map(checkbox => {
+	      if(checkbox.checked && (selectedSourcesArray.indexOf(checkbox.getAttribute('data-id')) === -1)) {
+	        selectedSourcesArray.push(checkbox.getAttribute('data-id'));
+	      }
+	      else  {
+	        selectedSourcesArray.splice(checkbox.getAttribute('data-id'),1);
+	      }
+	    });
+	    console.log(selectedSourcesArray);
+
+	    this.setState({
+	    	selectedSources: selectedSourcesArray
+	    });
+	  }
+
+	getData = () => {
 	  	axios.get('/api/categories')
 		    .then(response => {
 		      // const categories = {...this.state.categories};
@@ -80,23 +102,46 @@ class App extends Component {
 		    .catch( error => {
 		      console.log(error);
 		    });
+
+		axios.get('/api/sources')
+	      	.then(response => {
+	        	console.log(this.state);
+
+	        this.setState({sources: response.data.sources});
+	      	})
+	      	.catch( error => {
+	        	console.log(error);
+	      	});
 	}
 
-	saveCategories = () => {
+	saveData = () => {
 		let categories = this.state.selectedCategories.map( (category, index) => {
 			return category.id;
 		});
 
-	  axios.post('/api/category', {
-	      categories: categories
-	    })
-	    .then(response => {
-	      console.log(response);
-	      this.setState({savedCategories: response.data.categories })
-	    })
-	    .catch(error => {
-	      console.log(error);
-	    });
+		const menuIsOpen = this.state.menuIsOpen;
+
+		axios.post('/api/category', {
+		      categories: categories
+		    })
+		    .then(response => {
+		      console.log(response);
+		      this.setState({savedCategories: response.data.categories, menuIsOpen: menuIsOpen ? false : true })
+		    })
+		    .catch(error => {
+		      console.log(error);
+		    });
+
+		axios.post('/api/source', {
+        	sources: this.state.selectedSources
+	      	})
+	      	.then(response => {
+	        	console.log(response);
+	        	this.setState({menuIsOpen: menuIsOpen ? false : true});
+	      	})
+	      	.catch(error => {
+	       	console.log(error);
+	      	});
 	}
 
 
@@ -132,7 +177,8 @@ class App extends Component {
 				selectedCategories,
 				categories,
 				savedCategories,
-				menuIsOpen
+				menuIsOpen,
+				sources
 				} = this.state;
 
 		return (
@@ -173,7 +219,7 @@ class App extends Component {
 						<div className="large-8 medium-7 columns">
 				          <div className="options-menu">
 				            <span className="icon-cog">News</span>
-				            <span className={ menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big'} onClick={this.getCategories}></span>
+				            <span className={ menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big'} onClick={this.getData}></span>
 				          </div>
           				</div>
 
@@ -181,22 +227,24 @@ class App extends Component {
           					<div className="twitter-options">
 						        <div className="options-menu">
 						          <span className="icon-cog">Twitter</span>
-						          <span className={ menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big'} onClick={this.getCategories}></span>
+						          <span className={ menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big'} onClick={this.getData}></span>
 						        </div>
 					        </div>
 					     </div>
 						<Filter
 							selectedCategories={selectedCategories} 
 							selectCategory={this.selectCategory}
-							getCategories={this.getCategories}
+							getData={this.getData}
 							categories={categories}
 							user={user}
 							menuIsOpen={menuIsOpen}
+							sources={sources}
+							selectSource={this.selectSource}
 						/>
 					</div>
 					{
 						menuIsOpen ?
-							<div className="save" onClick={this.saveCategories}>
+							<div className="save" onClick={this.saveData}>
 				                <span className="icon-ok-1">Save</span>
 				             </div>
 				        :

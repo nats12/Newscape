@@ -13,7 +13,7 @@ class Filter extends Component {
 
   render() {
 
-    const {selectedCategories, selectCategory, getCategories, saveCategories, categories, user, menuIsOpen} = this.props;
+    const {selectedCategories, selectCategory, selectSource, sources, getData, saveData, categories, user, menuIsOpen} = this.props;
 
     return (
       <div>
@@ -26,13 +26,13 @@ class Filter extends Component {
                     <Categories 
                       selectedCategories={selectedCategories} 
                       selectCategory={selectCategory}
-                      getCategories={getCategories}
-                      saveCategories={saveCategories}
+                      getData={getData}
+                      saveData={saveData}
                       categories={categories}
                     />
                   </div>
                   <div className="large-6 medium-12 columns">
-                    <NewsSources selectedCategories={selectedCategories} />
+                    <NewsSources selectedCategories={selectedCategories} sources={sources} selectSource={selectSource}/>
                   </div>
                 </div>
               </div>

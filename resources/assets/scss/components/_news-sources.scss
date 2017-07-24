@@ -16,6 +16,7 @@ span.icon-down-open-big, span.icon-up-open-big,  {
     background-color: $pink-dk;
     padding: 5px;
     text-align: center;
+    margin-top: 50px;
 
     &:hover {
         cursor: pointer;
@@ -44,6 +45,8 @@ span.icon-down-open-big, span.icon-up-open-big,  {
     background-color: $pink-md;
     border-radius: 10px;
     padding: 20px;
+    height: 400px;
+    overflow-y: scroll;
 }
 
 .article-image {
