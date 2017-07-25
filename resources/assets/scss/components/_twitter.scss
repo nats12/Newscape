@@ -7,6 +7,10 @@ h2 {
     }
 }
 
+textarea {
+  resize: none;
+}
+
 .pad-10 {
   padding: 10px;
 }
@@ -45,15 +49,6 @@ h2 {
 	}
 }
 
-.tweet-modal {
-    position: fixed;
-    width: 320px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-}
-
 .btn-tweet {
     margin-left: 10px;
 }
@@ -68,6 +63,30 @@ h2 {
   z-index: 1;
   background-color: $black;
   opacity: 0.8;
+}
+
+.tweet-modal {
+  position: fixed;
+  width: 320px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  width: 500px!important;
+
+  .callout {
+    padding: 80px 20px 80px 20px;
+    background-color: #a23850;
+    color: $white;
+  }
+
+  .close-button{
+    color: $white;
+  }
+
+  label {
+    color: $white;
+  }
 }
 
 /* Small only */
