@@ -174,6 +174,7 @@ class TwitterController extends Controller
                           'twitter_id' => $credentials->id_str,
                           'name' => $credentials->name,
                           'email' => $credentials->email,
+                          'handle' => $credentials->screen_name
                       ]);
                   };
 
