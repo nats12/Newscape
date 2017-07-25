@@ -7,8 +7,21 @@ h2 {
     }
 }
 
+.pad-10 {
+  padding: 10px;
+}
+
 .twitter-options {
   background-color: $pink-dk;
+}
+
+.icon-user span {
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+    cursor: pointer;
+  }
 }
 
 .twitter-container {
@@ -85,7 +98,7 @@ h2 {
       content: '';
       position: absolute;
       background-color: $pink-md;
-      height: 34px;
+      height: 100%;
       width: 100%;
     }
   }

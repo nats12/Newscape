@@ -240,6 +240,7 @@ class App extends Component {
 							menuIsOpen={menuIsOpen}
 							sources={sources}
 							selectSource={this.selectSource}
+							logoutPage={logoutPage}
 						/>
 					</div>
 					{

@@ -2,9 +2,46 @@
     background-color: $pink-lt;
     color: $white;
     margin-bottom: 25px;
+    position: relative;
 
     label {
         color: $white;
+    }
+}
+
+span.icon-down-open-big, span.icon-up-open-big,  {
+    float: right;
+
+    &:hover {
+        cursor: pointer;
+        color: $pink-dk;
+    }
+}
+
+.options-menu {
+    padding: 10px;
+    position: relative;
+}
+
+.options-wrap {
+  position: relative;
+
+  span a {
+    color: $white;
+  }
+}
+
+.save {
+    background-color: $pink-dk;
+    padding: 5px;
+    text-align: center;
+    margin-top: 50px;
+    position: relative;
+    z-index: 10;
+
+    &:hover {
+        cursor: pointer;
+        opacity: 0.8;
     }
 }
 
@@ -17,6 +54,24 @@
 label>[type=checkbox] {
 	float: right;
 }
+
+
+.filter_menu-enter {
+    transition: all .25s;
+     display: block;
+    &.filter_menu-active {
+        transform: translateY(0); // put it in normal resting spot
+    }
+}
+        
+.filter_menu-leave {
+    transition: all .25s;
+    display: none;
+    &.filter_menu-active {
+        transform: translateY(-100%);
+    }
+}
+    
 
 /* Small only */
 @media screen and (max-width: 39.9375em) {

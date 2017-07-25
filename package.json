@@ -22,9 +22,10 @@
     "prop-types": "^15.5.8",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "vue": "^2.1.10"
+    "vue": "^2.4.2"
   },
   "dependencies": {
+    "react-addons-css-transition-group": "^15.6.0",
     "webpack-preset": "^0.2.0",
     "webpack-preset-babel": "^0.2.0",
     "webpack-preset-babel-stage-2": "^0.2.0"
