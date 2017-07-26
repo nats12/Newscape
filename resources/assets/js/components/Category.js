@@ -25,10 +25,7 @@ class Category extends Component {
           className="category-checkbox"
           data-id={this.props.category.id} 
           name={this.props.category.name}
-          onChange={ (e) => {
-            this.toggleCheckboxState(e);
-            }
-          }
+          onChange={(e) => this.toggleCheckboxState(e)}
           type="checkbox"/>
         </label>
       </div>

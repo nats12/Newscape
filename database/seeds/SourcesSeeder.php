@@ -312,17 +312,6 @@ class SourcesSeeder extends Seeder
     		),
 
     		array(
-    			'source_id' => 'financial-times',
-    			'name' => 'Financial Times',
-    			'description' => 'The latest UK and international business, finance, economic and political news, comment and analysis from the Financial Times on FT.com.',
-    			'url' => 'http://www.ft.com/home/uk',
-    			'category' => 'business',
-    			'language' => 'en',
-    			'country' => 'gb',
-    			'logoUrl' => 'http://logo.clearbit.com/www.ft.com'
-    		),
-
-    		array(
     			'source_id' => 'google-news',
     			'name' => 'Google News',
     			'description' => 'Comprehensive, up-to-date news coverage, aggregated from sources all over the world by Google News.',
@@ -397,17 +386,6 @@ class SourcesSeeder extends Seeder
     			'language' => 'en',
     			'country' => 'us',
     			'logoUrl' => 'http://logo.clearbit.com/mashable.com'
-    		),
-
-    		array(
-    			'source_id' => 'hacker-news',
-    			'name' => 'Hacker News',
-    			'description' => 'Hacker News is a social news website focusing on computer science and entrepreneurship. It is run by Paul Graham\'s investment fund and startup incubator, Y Combinator. In general, content that can be submitted is defined as \"anything that gratifies one\'s intellectual curiosity/".',
-    			'url' => 'https://news.ycombinator.com',
-    			'category' => 'technology',
-    			'language' => 'en',
-    			'country' => 'us',
-    			'logoUrl' => 'http://logo.clearbit.com/news.ycombinator.com'
     		),
 
     		array(

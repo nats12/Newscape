@@ -23,12 +23,8 @@ class Language extends Component {
           {this.props.language.name}
           <input 
           className="language-checkbox"
-          data-id={this.props.language.id} 
           name={this.props.language.name}
-          onChange={ (e) => {
-            this.toggleCheckboxState(e);
-            }
-          }
+          onChange={(e) => this.toggleCheckboxState(e)}
           type="checkbox"/>
         </label>
       </div>

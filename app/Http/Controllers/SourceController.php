@@ -29,8 +29,10 @@ class SourceController extends Controller
      */
     public function attachSourceToUser(Request $request) {
 
-      Auth::loginUsingId(1);
-
+      $user_id = $request->user['id'];
+      
+      Auth::loginUsingId($user_id);
+      
       $user = Auth::user();
 
       $user->sources()->sync($request->sources, true);

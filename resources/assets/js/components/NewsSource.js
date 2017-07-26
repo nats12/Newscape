@@ -5,6 +5,13 @@ import ReactDOM from 'react-dom';
 class NewsSource extends Component {
 	constructor() {
 		super()
+		this.state = {
+		}
+	}
+
+	toggleCheckboxState = (e) => {
+	  this.setState({checked: e.target.checked});
+	  this.props.selectSource(this, e.target.checked); 
 	}
 
 	render() {
@@ -14,7 +21,11 @@ class NewsSource extends Component {
 				<div className="news-source">
 					<label>
 						{this.props.source.name}
-			        	<input data-id={this.props.source.id} className="source-checkbox" onChange={this.props.selectSource} type="checkbox"/>
+			        	<input 
+			        		className="source-checkbox" 
+			        		onChange={(e) => this.toggleCheckboxState(e)} 
+			        		type="checkbox"
+			        	/>
 			    	</label>
 				</div>
 

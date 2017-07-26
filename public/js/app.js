@@ -11991,22 +11991,27 @@ var App = function (_Component) {
 			_this.setState({ selectedCategories: selectedArray });
 		};
 
-		_this.selectSource = function (e) {
-			var sourceCheckboxes = document.querySelectorAll('.source-checkbox');
-			var sourceCheckboxArray = [].slice.call(sourceCheckboxes);
-			var selectedSourcesArray = [];
-			sourceCheckboxArray.map(function (checkbox) {
-				if (checkbox.checked && selectedSourcesArray.indexOf(checkbox.getAttribute('data-id')) === -1) {
-					selectedSourcesArray.push(checkbox.getAttribute('data-id'));
-				} else {
-					selectedSourcesArray.splice(checkbox.getAttribute('data-id'), 1);
-				}
-			});
-			console.log(selectedSourcesArray);
+		_this.selectSource = function (component, checked) {
+			var selectedArray = [].concat(_toConsumableArray(_this.state.selectedSources));
+			var id = component.props.source.id;
+			var source = component.props.source;
+			var index = selectedArray.indexOf(source);
+			var isChecked = checked;
 
-			_this.setState({
-				selectedSources: selectedSourcesArray
-			});
+			//if in array AND checked is false, splice from array
+			if (selectedArray.indexOf(source) !== -1 && isChecked == false) {
+				selectedArray.splice(index, 1);
+			}
+			//else if not in array AND checked is true, push into array
+			else if (selectedArray.indexOf(source) == -1 && isChecked == true) {
+					console.log('push', source);
+					selectedArray.push(source);
+				}
+				//else if in array AND true, do nothing, just return
+				else {
+						return;
+					}
+			_this.setState({ selectedSources: selectedArray });
 		};
 
 		_this.selectLanguage = function (component, checked) {
@@ -12039,6 +12044,10 @@ var App = function (_Component) {
 				return category.id;
 			});
 
+			var sources = _this.state.selectedSources.map(function (source, index) {
+				return source.id;
+			});
+
 			var languages = _this.state.selectedLanguages.map(function (language, index) {
 				return language.id;
 			});
@@ -12058,11 +12067,14 @@ var App = function (_Component) {
 			});
 
 			_axios2.default.post('/api/source', {
-				sources: _this.state.selectedSources,
+				sources: sources,
 				user: _this.state.user
 			}).then(function (response) {
 				console.log(response);
-				_this.setState({ menuIsOpen: menuIsOpen ? false : true });
+				_this.setState({
+					savedSources: response.data.sources,
+					menuIsOpen: menuIsOpen ? false : true
+				});
 			}).catch(function (error) {
 				console.log(error);
 			});
@@ -12106,6 +12118,7 @@ var App = function (_Component) {
 			menuIsOpen: false,
 			sources: window.Laravel.sources,
 			selectedSources: [],
+			savedSources: [],
 			languages: window.Laravel.languages,
 			selectedLanguages: [],
 			savedLanguages: []
@@ -12243,7 +12256,7 @@ var App = function (_Component) {
 							selectLanguage: this.selectLanguage
 						})
 					),
-					menuIsOpen ? _react2.default.createElement(
+					menuIsOpen && user ? _react2.default.createElement(
 						'div',
 						{ className: 'save', onClick: this.saveData },
 						_react2.default.createElement(
@@ -12433,7 +12446,7 @@ var Category = function (_Component) {
             'data-id': this.props.category.id,
             name: this.props.category.name,
             onChange: function onChange(e) {
-              _this2.toggleCheckboxState(e);
+              return _this2.toggleCheckboxState(e);
             },
             type: 'checkbox' })
         )
@@ -12676,10 +12689,9 @@ var Language = function (_Component) {
           this.props.language.name,
           _react2.default.createElement('input', {
             className: 'language-checkbox',
-            'data-id': this.props.language.id,
             name: this.props.language.name,
             onChange: function onChange(e) {
-              _this2.toggleCheckboxState(e);
+              return _this2.toggleCheckboxState(e);
             },
             type: 'checkbox' })
         )
@@ -13034,12 +13046,21 @@ var NewsSource = function (_Component) {
 	function NewsSource() {
 		_classCallCheck(this, NewsSource);
 
-		return _possibleConstructorReturn(this, (NewsSource.__proto__ || Object.getPrototypeOf(NewsSource)).call(this));
+		var _this = _possibleConstructorReturn(this, (NewsSource.__proto__ || Object.getPrototypeOf(NewsSource)).call(this));
+
+		_this.toggleCheckboxState = function (e) {
+			_this.setState({ checked: e.target.checked });
+			_this.props.selectSource(_this, e.target.checked);
+		};
+
+		_this.state = {};
+		return _this;
 	}
 
 	_createClass(NewsSource, [{
 		key: 'render',
 		value: function render() {
+			var _this2 = this;
 
 			return _react2.default.createElement(
 				'div',
@@ -13051,7 +13072,13 @@ var NewsSource = function (_Component) {
 						'label',
 						null,
 						this.props.source.name,
-						_react2.default.createElement('input', { 'data-id': this.props.source.id, className: 'source-checkbox', onChange: this.props.selectSource, type: 'checkbox' })
+						_react2.default.createElement('input', {
+							className: 'source-checkbox',
+							onChange: function onChange(e) {
+								return _this2.toggleCheckboxState(e);
+							},
+							type: 'checkbox'
+						})
 					)
 				)
 			);
@@ -13132,7 +13159,7 @@ var NewsSources = function (_Component) {
                 return _react2.default.createElement(_NewsSource2.default, {
                   key: index,
                   source: source,
-                  selectSource: _this2.selectSource
+                  selectSource: _this2.props.selectSource
                 });
               } else {
                 return selectedCategories.map(function (category) {

@@ -27,6 +27,7 @@ class App extends Component {
 			menuIsOpen: false,
 			sources: window.Laravel.sources,
 			selectedSources: [],
+			savedSources: [],
 			languages: window.Laravel.languages,
 			selectedLanguages: [],
 			savedLanguages:[]
@@ -72,24 +73,27 @@ class App extends Component {
 		this.setState({selectedCategories: selectedArray});
 	}
 
+	selectSource = (component, checked) => {
+		let selectedArray = [...this.state.selectedSources];
+		const id = component.props.source.id;
+		const source = component.props.source;
+		const index = selectedArray.indexOf(source);
+		const isChecked = checked;
 
-	selectSource = (e) => {
-		const sourceCheckboxes = document.querySelectorAll('.source-checkbox');
-		const sourceCheckboxArray = [].slice.call(sourceCheckboxes);
-		let selectedSourcesArray = [];
-		sourceCheckboxArray.map(checkbox => {
-			if(checkbox.checked && (selectedSourcesArray.indexOf(checkbox.getAttribute('data-id')) === -1)) {
-				selectedSourcesArray.push(checkbox.getAttribute('data-id'));
-			}
-			else  {
-				selectedSourcesArray.splice(checkbox.getAttribute('data-id'),1);
-			}
-		});
-		console.log(selectedSourcesArray);
-
-		this.setState({
-			selectedSources: selectedSourcesArray
-		});
+		//if in array AND checked is false, splice from array
+		if ((selectedArray.indexOf(source) !== -1) && isChecked == false) {
+			selectedArray.splice(index,1);
+		}
+		//else if not in array AND checked is true, push into array
+		else if ((selectedArray.indexOf(source) == -1) && isChecked == true) {
+			console.log('push',source);
+			selectedArray.push(source);
+		}
+		//else if in array AND true, do nothing, just return
+		else {
+			return
+		}
+		this.setState({selectedSources: selectedArray});
 	}
 
 	selectLanguage = (component, checked) => {
@@ -122,6 +126,10 @@ class App extends Component {
 			return category.id;
 		});
 
+		let sources = this.state.selectedSources.map( (source, index) => {
+			return source.id;
+		});
+
 		let languages = this.state.selectedLanguages.map( (language, index) => {
 			return language.id;
 		});
@@ -143,12 +151,15 @@ class App extends Component {
 		    });
 
 		axios.post('/api/source', {
-        	sources: this.state.selectedSources,
+        	sources: sources,
         	user: this.state.user
 	      	})
 	      	.then(response => {
 	        	console.log(response);
-	        	this.setState({menuIsOpen: menuIsOpen ? false : true});
+	        	this.setState({
+	        		savedSources: response.data.sources,
+	        		menuIsOpen: menuIsOpen ? false : true
+	        	});
 	      	})
 	      	.catch(error => {
 	       	console.log(error);
@@ -274,10 +285,10 @@ class App extends Component {
 						/>
 					</div>
 					{
-						menuIsOpen ?
+						menuIsOpen && user ?
 							<div className="save" onClick={this.saveData}>
-				                <span className="icon-ok-1">Save</span>
-				             </div>
+				        <span className="icon-ok-1">Save</span>
+				      </div>
 				        :
 				        	''
 					}

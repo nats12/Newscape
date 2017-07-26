@@ -27,7 +27,7 @@ class NewsSources extends Component {
                         return <NewsSource 
                                   key={index}
                                   source={source} 
-                                  selectSource={this.selectSource}
+                                  selectSource={this.props.selectSource}
                                 />
                       }
 
