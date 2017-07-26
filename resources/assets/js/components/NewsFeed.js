@@ -11,6 +11,20 @@ class NewsFeed extends Component {
         }
     }
 
+    renderArticle = (article, index) => {
+        return(
+            <NewsArticle 
+                key={index} 
+                newsArticle={article} 
+                dateFormatter={this.props.dateFormatter} 
+                tweetFormOpen={this.props.tweetFormOpen} 
+                toggleTweetForm={this.props.toggleTweetForm}
+                selectArticle={this.props.selectArticle}
+                user={this.props.user}
+            />
+        )
+    }
+
     render() {
 
         const { selectedCategories, categories, savedCategories } = this.props;
@@ -31,29 +45,13 @@ class NewsFeed extends Component {
 
                         if(savedCategories.length == 0 && currentDate > publishedAtDate && limitCounter <= this.state.limitCountEnd) {
                             limitCounter +=1;
-                            return <NewsArticle 
-                                key={index} 
-                                newsArticle={item} 
-                                dateFormatter={this.props.dateFormatter} 
-                                tweetFormOpen={this.props.tweetFormOpen} 
-                                toggleTweetForm={this.props.toggleTweetForm}
-                                selectArticle={this.props.selectArticle}
-                                user={this.props.user}
-                                />
+                            return this.renderArticle(item, index);
                         }
                         else if (savedCategories.length > 0 && currentDate > publishedAtDate && limitCounter <= this.state.limitCountEnd) {
                             return savedCategories.map((category) => {
                                 if (category.name == item.sourceCategory) {
                                     limitCounter +=1;
-                                    return <NewsArticle 
-                                        key={index} 
-                                        newsArticle={item} 
-                                        dateFormatter={this.props.dateFormatter} 
-                                        tweetFormOpen={this.props.tweetFormOpen} 
-                                        toggleTweetForm={this.props.toggleTweetForm}
-                                        selectArticle={this.props.selectArticle}
-                                        user={this.props.user}
-                                        />
+                                    return this.renderArticle(item, index);
                                 }
                             });
 

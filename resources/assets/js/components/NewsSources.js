@@ -10,6 +10,16 @@ class NewsSources extends Component {
 		super()
 	}
 
+  renderSource = (source, index) => {
+    return (
+      <NewsSource 
+        key={index}
+        source={source} 
+        selectSource={this.props.selectSource}
+      />
+    )
+  }
+
 	render() {
 
     const { selectedCategories } = this.props;
@@ -24,21 +34,13 @@ class NewsSources extends Component {
                     this.props.sources.map((source, index) => {
 
                       if (selectedCategories.length === 0) {
-                        return <NewsSource 
-                                  key={index}
-                                  source={source} 
-                                  selectSource={this.props.selectSource}
-                                />
+                        return this.renderSource(source, index);
                       }
 
                       else {
                         return selectedCategories.map((category) => {
                             if (category.name == source.category) {
-                                return <NewsSource 
-                                  key={index}
-                                  source={source} 
-                                  selectSource={this.props.selectSource}
-                                />
+                                return this.renderSource(source, index);
                             }
                         })
                       }

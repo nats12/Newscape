@@ -12944,6 +12944,18 @@ var NewsFeed = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (NewsFeed.__proto__ || Object.getPrototypeOf(NewsFeed)).call(this));
 
+        _this.renderArticle = function (article, index) {
+            return _react2.default.createElement(_NewsArticle2.default, {
+                key: index,
+                newsArticle: article,
+                dateFormatter: _this.props.dateFormatter,
+                tweetFormOpen: _this.props.tweetFormOpen,
+                toggleTweetForm: _this.props.toggleTweetForm,
+                selectArticle: _this.props.selectArticle,
+                user: _this.props.user
+            });
+        };
+
         _this.state = {
             limitCountEnd: 25
         };
@@ -12976,28 +12988,12 @@ var NewsFeed = function (_Component) {
 
                     if (savedCategories.length == 0 && currentDate > publishedAtDate && limitCounter <= _this2.state.limitCountEnd) {
                         limitCounter += 1;
-                        return _react2.default.createElement(_NewsArticle2.default, {
-                            key: index,
-                            newsArticle: item,
-                            dateFormatter: _this2.props.dateFormatter,
-                            tweetFormOpen: _this2.props.tweetFormOpen,
-                            toggleTweetForm: _this2.props.toggleTweetForm,
-                            selectArticle: _this2.props.selectArticle,
-                            user: _this2.props.user
-                        });
+                        return _this2.renderArticle(item, index);
                     } else if (savedCategories.length > 0 && currentDate > publishedAtDate && limitCounter <= _this2.state.limitCountEnd) {
                         return savedCategories.map(function (category) {
                             if (category.name == item.sourceCategory) {
                                 limitCounter += 1;
-                                return _react2.default.createElement(_NewsArticle2.default, {
-                                    key: index,
-                                    newsArticle: item,
-                                    dateFormatter: _this2.props.dateFormatter,
-                                    tweetFormOpen: _this2.props.tweetFormOpen,
-                                    toggleTweetForm: _this2.props.toggleTweetForm,
-                                    selectArticle: _this2.props.selectArticle,
-                                    user: _this2.props.user
-                                });
+                                return _this2.renderArticle(item, index);
                             }
                         });
                     }
@@ -13133,7 +13129,17 @@ var NewsSources = function (_Component) {
   function NewsSources() {
     _classCallCheck(this, NewsSources);
 
-    return _possibleConstructorReturn(this, (NewsSources.__proto__ || Object.getPrototypeOf(NewsSources)).call(this));
+    var _this = _possibleConstructorReturn(this, (NewsSources.__proto__ || Object.getPrototypeOf(NewsSources)).call(this));
+
+    _this.renderSource = function (source, index) {
+      return _react2.default.createElement(_NewsSource2.default, {
+        key: index,
+        source: source,
+        selectSource: _this.props.selectSource
+      });
+    };
+
+    return _this;
   }
 
   _createClass(NewsSources, [{
@@ -13156,19 +13162,11 @@ var NewsSources = function (_Component) {
             this.props.sources.map(function (source, index) {
 
               if (selectedCategories.length === 0) {
-                return _react2.default.createElement(_NewsSource2.default, {
-                  key: index,
-                  source: source,
-                  selectSource: _this2.props.selectSource
-                });
+                return _this2.renderSource(source, index);
               } else {
                 return selectedCategories.map(function (category) {
                   if (category.name == source.category) {
-                    return _react2.default.createElement(_NewsSource2.default, {
-                      key: index,
-                      source: source,
-                      selectSource: _this2.props.selectSource
-                    });
+                    return _this2.renderSource(source, index);
                   }
                 });
               }
