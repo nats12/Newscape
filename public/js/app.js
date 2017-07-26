@@ -12042,7 +12042,6 @@ var App = function (_Component) {
 			var languages = _this.state.selectedLanguages.map(function (language, index) {
 				return language.id;
 			});
-			console.log(languages);
 
 			var menuIsOpen = _this.state.menuIsOpen;
 
@@ -12069,7 +12068,7 @@ var App = function (_Component) {
 			});
 
 			_axios2.default.post('/api/language', {
-				languages: _this.state.selectedLanguages,
+				languages: languages,
 				user: _this.state.user
 			}).then(function (response) {
 				console.log(response);

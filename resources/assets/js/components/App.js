@@ -125,7 +125,6 @@ class App extends Component {
 		let languages = this.state.selectedLanguages.map( (language, index) => {
 			return language.id;
 		});
-		console.log(languages);
 
 		const menuIsOpen = this.state.menuIsOpen;
 
@@ -156,7 +155,7 @@ class App extends Component {
 	      	});
 
 	  axios.post('/api/language', {
-	        languages: this.state.selectedLanguages,
+	        languages: languages,
 	        user: this.state.user
 	      })
 	      .then(response => {
