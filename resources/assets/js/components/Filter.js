@@ -4,6 +4,7 @@ import CSSTransitionGroup from 'react-addons-css-transition-group';
 
 import Categories from './Categories';
 import NewsSources from './NewsSources';
+import Languages from './Languages';
 
 
 class Filter extends Component {
@@ -24,7 +25,9 @@ class Filter extends Component {
             categories, 
             user, 
             menuIsOpen,
-            logoutPage
+            logoutPage,
+            languages,
+            selectLanguage
     } = this.props;
 
     return (
@@ -43,7 +46,7 @@ class Filter extends Component {
                 transitionLeaveTimeout={300}>
                 <div>
                   <div className="row">
-                    <div className="large-6 medium-12 columns">
+                    <div className="large-4 medium-12 columns">
                       <Categories 
                         selectedCategories={selectedCategories} 
                         selectCategory={selectCategory}
@@ -52,8 +55,14 @@ class Filter extends Component {
                         categories={categories}
                       />
                     </div>
-                    <div className="large-6 medium-12 columns">
+                    <div className="large-5 medium-12 columns">
                       <NewsSources selectedCategories={selectedCategories} sources={sources} selectSource={selectSource}/>
+                    </div>
+                    <div className="large-3 medium-12 columns">
+                      <Languages 
+                        languages={languages}
+                        selectLanguage={selectLanguage}
+                      />
                     </div>
                   </div>
                 </div>

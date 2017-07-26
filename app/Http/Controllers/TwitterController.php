@@ -9,6 +9,9 @@ use Twitter;
 use Session;
 use Redirect;
 use App\User;
+use App\Category;
+use App\Source;
+use App\Language;
 use Cache;
 use NewsApi;
 use \stdClass;
@@ -95,7 +98,12 @@ class TwitterController extends Controller
 	    $loginPage = route('twitterLogin');
 	    $logoutPage = route('twitterLogout');
 
-		return view('welcome', compact('loginPage', 'logoutPage', 'timeline', 'newsSources', 'newsArticles', 'user'));
+      //models
+      $categories = Category::all();
+      $sources = Source::all();
+      $languages = Language::all();
+
+		return view('welcome', compact('loginPage', 'logoutPage', 'timeline', 'newsSources', 'newsArticles', 'user', 'categories', 'sources', 'languages'));
 	}
 
     /**

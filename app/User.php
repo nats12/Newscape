@@ -45,4 +45,13 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Source');
     }
+
+    /**
+     * [categories description]
+     * @return [type] [description]
+     */
+    public function languages()
+    {
+        return $this->belongsToMany('App\Language');
+    }
 }

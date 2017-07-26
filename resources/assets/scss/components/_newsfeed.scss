@@ -1,26 +1,5 @@
-.category {
-    text-transform: capitalize;
-}
-.source-icon {
-	width: 30px;
-    height: 30px;
-    object-fit: contain;
-}
-
 .source-category {
     text-transform: capitalize;
-}
-
-.news-source {
-    margin-bottom: 20px;
-}
-
-.news-sources {
-    background-color: $pink-md;
-    border-radius: 10px;
-    padding: 20px;
-    height: 400px;
-    overflow-y: scroll;
 }
 
 .article-image {
@@ -49,6 +28,10 @@
 
     	.article-btn {
     		background-color: $pink-lt;
+            
+            &:hover {
+                background-color: $pink;
+            }
     	}
     }
 	

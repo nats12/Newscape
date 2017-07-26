@@ -34,6 +34,11 @@ textarea {
 
   a {
     color: $white;
+    transition: color .25s ease-out,color .25s ease-out;
+
+    &:hover {
+      color: $pink-lt;
+    }
   }
 
   .media-object {

@@ -21,6 +21,8 @@ Route::get('/categories', ['uses'=> 'CategoriesController@getCategories']);
 
 Route::post('/category', ['uses'=> 'CategoriesController@attachCategorytoUser']);
 
+Route::post('/language', ['uses'=> 'LanguagesController@attachLanguagetoUser']);
+
 Route::get('/sources', ['uses'=> 'SourceController@getSources']);
 
 Route::post('/source', ['uses'=> 'SourceController@attachSourceToUser']);

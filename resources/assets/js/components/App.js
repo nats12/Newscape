@@ -22,11 +22,14 @@ class App extends Component {
 			tweetFormOpen: false,
 			selectedArticle: {},
 			selectedCategories: [],
-			categories: [],
+			categories: window.Laravel.categories,
 			savedCategories: [],
 			menuIsOpen: false,
-			sources: [],
-			selectedSources: []
+			sources: window.Laravel.sources,
+			selectedSources: [],
+			languages: window.Laravel.languages,
+			selectedLanguages: [],
+			savedLanguages:[]
 		}		
 	}
 
@@ -53,11 +56,8 @@ class App extends Component {
 		const index = selectedArray.indexOf(category);
 		const isChecked = checked;
 
-
-		console.log(isChecked);
 		//if in array AND checked is false, splice from array
 		if ((selectedArray.indexOf(category) !== -1) && isChecked == false) {
-			console.log('splice',category);
 			selectedArray.splice(index,1);
 		}
 		//else if not in array AND checked is true, push into array
@@ -74,44 +74,47 @@ class App extends Component {
 
 
 	selectSource = (e) => {
-	    const sourceCheckboxes = document.querySelectorAll('.source-checkbox');
-	    const sourceCheckboxArray = [].slice.call(sourceCheckboxes);
-	    let selectedSourcesArray = [];
-	    sourceCheckboxArray.map(checkbox => {
-	      if(checkbox.checked && (selectedSourcesArray.indexOf(checkbox.getAttribute('data-id')) === -1)) {
-	        selectedSourcesArray.push(checkbox.getAttribute('data-id'));
-	      }
-	      else  {
-	        selectedSourcesArray.splice(checkbox.getAttribute('data-id'),1);
-	      }
-	    });
-	    console.log(selectedSourcesArray);
+		const sourceCheckboxes = document.querySelectorAll('.source-checkbox');
+		const sourceCheckboxArray = [].slice.call(sourceCheckboxes);
+		let selectedSourcesArray = [];
+		sourceCheckboxArray.map(checkbox => {
+			if(checkbox.checked && (selectedSourcesArray.indexOf(checkbox.getAttribute('data-id')) === -1)) {
+				selectedSourcesArray.push(checkbox.getAttribute('data-id'));
+			}
+			else  {
+				selectedSourcesArray.splice(checkbox.getAttribute('data-id'),1);
+			}
+		});
+		console.log(selectedSourcesArray);
 
-	    this.setState({
-	    	selectedSources: selectedSourcesArray
-	    });
-	  }
+		this.setState({
+			selectedSources: selectedSourcesArray
+		});
+	}
 
-	getData = () => {
-	  	axios.get('/api/categories')
-		    .then(response => {
-		      // const categories = {...this.state.categories};
-		      const menuIsOpen = this.state.menuIsOpen;
-		      this.setState({categories: response.data.categories, menuIsOpen: menuIsOpen ? false : true});
-		    })
-		    .catch( error => {
-		      console.log(error);
-		    });
+	selectLanguage = (component, checked) => {
+		let selectedArray = [...this.state.selectedLanguages];
+		const id = component.props.language.id;
+		const language = component.props.language;
+		const index = selectedArray.indexOf(language);
+		const isChecked = checked;
 
-		axios.get('/api/sources')
-	      	.then(response => {
-	        	console.log(this.state);
-
-	        this.setState({sources: response.data.sources});
-	      	})
-	      	.catch( error => {
-	        	console.log(error);
-	      	});
+		console.log(isChecked);
+		//if in array AND checked is false, splice from array
+		if ((selectedArray.indexOf(language) !== -1) && isChecked == false) {
+			console.log('splice',language);
+			selectedArray.splice(index,1);
+		}
+		//else if not in array AND checked is true, push into array
+		else if ((selectedArray.indexOf(language) == -1) && isChecked == true) {
+			console.log('push',language);
+			selectedArray.push(language);
+		}
+		//else if in array AND true, do nothing, just return
+		else {
+			return
+		}
+		this.setState({selectedLanguages: selectedArray});
 	}
 
 	saveData = () => {
@@ -119,21 +122,30 @@ class App extends Component {
 			return category.id;
 		});
 
+		let languages = this.state.selectedLanguages.map( (language, index) => {
+			return language.id;
+		});
+		console.log(languages);
+
 		const menuIsOpen = this.state.menuIsOpen;
 
 		axios.post('/api/category', {
-		      categories: categories
+		      categories: categories,
+		      user: this.state.user
 		    })
 		    .then(response => {
 		      console.log(response);
-		      this.setState({savedCategories: response.data.categories, menuIsOpen: menuIsOpen ? false : true })
+		      this.setState({
+		      	savedCategories: response.data.categories,
+		      	menuIsOpen: menuIsOpen ? false : true })
 		    })
 		    .catch(error => {
 		      console.log(error);
 		    });
 
 		axios.post('/api/source', {
-        	sources: this.state.selectedSources
+        	sources: this.state.selectedSources,
+        	user: this.state.user
 	      	})
 	      	.then(response => {
 	        	console.log(response);
@@ -142,6 +154,21 @@ class App extends Component {
 	      	.catch(error => {
 	       	console.log(error);
 	      	});
+
+	  axios.post('/api/language', {
+	        languages: this.state.selectedLanguages,
+	        user: this.state.user
+	      })
+	      .then(response => {
+	        console.log(response);
+	        this.setState({
+	        	savedLanguages: response.data.languages, 
+	        	menuIsOpen: menuIsOpen ? false : true 
+	        })
+	      })
+	      .catch(error => {
+	        console.log(error);
+	      });
 	}
 
 
@@ -178,7 +205,8 @@ class App extends Component {
 				categories,
 				savedCategories,
 				menuIsOpen,
-				sources
+				sources,
+				languages
 				} = this.state;
 
 		return (
@@ -217,20 +245,21 @@ class App extends Component {
 				<div className="section-filter">
 					<div className="row">
 						<div className="large-8 medium-7 columns">
-				          <div className="options-menu">
-				            <span className="icon-cog">News</span>
-				            <span className={ menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big'} onClick={this.getData}></span>
-				          </div>
-          				</div>
+		          <div className="options-menu">
+		            <span className="icon-cog">News</span>
+		            <span className={ menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big'} onClick={() => this.setState({menuIsOpen: menuIsOpen ? false : true})}></span>
+		          </div>
+          	</div>
 
-          				<div className="large-4 medium-5 columns">
-          					<div className="twitter-options">
-						        <div className="options-menu">
-						          <span className="icon-cog">Twitter</span>
-						          <span className={ menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big'} onClick={this.getData}></span>
-						        </div>
-					        </div>
-					     </div>
+    				<div className="large-4 medium-5 columns">
+    					<div className="twitter-options">
+				        <div className="options-menu">
+				          <span className="icon-cog">Twitter</span>
+				          <span className={ menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big'} onClick={() => this.setState({menuIsOpen: menuIsOpen ? false : true})}></span>
+				        </div>
+		        	</div>
+		     		</div>
+
 						<Filter
 							selectedCategories={selectedCategories} 
 							selectCategory={this.selectCategory}
@@ -241,6 +270,8 @@ class App extends Component {
 							sources={sources}
 							selectSource={this.selectSource}
 							logoutPage={logoutPage}
+							languages={languages}
+							selectLanguage={this.selectLanguage}
 						/>
 					</div>
 					{

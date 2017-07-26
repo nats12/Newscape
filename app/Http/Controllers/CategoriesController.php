@@ -30,8 +30,10 @@ class CategoriesController extends Controller
      */
     public function attachCategoryToUser(Request $request) {
 
-      Auth::loginUsingId(1);
-
+      $user_id = $request->user['id'];
+      
+      Auth::loginUsingId($user_id);
+      
       $user = Auth::user();
 
       $user->categories()->sync($request->categories, true);

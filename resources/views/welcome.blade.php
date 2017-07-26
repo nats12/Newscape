@@ -27,6 +27,9 @@
                 'newsSources' => $newsSources,
                 'newsArticles' => $newsArticles,
                 'user' => $user,
+                'categories' => $categories,
+                'sources' => $sources,
+                'languages' => $languages,
             ]); ?>
         </script>
 
