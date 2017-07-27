@@ -12894,7 +12894,18 @@ var NewsArticle = function (_Component) {
   function NewsArticle() {
     _classCallCheck(this, NewsArticle);
 
-    return _possibleConstructorReturn(this, (NewsArticle.__proto__ || Object.getPrototypeOf(NewsArticle)).call(this));
+    var _this = _possibleConstructorReturn(this, (NewsArticle.__proto__ || Object.getPrototypeOf(NewsArticle)).call(this));
+
+    _this.formatText = function (text) {
+      var string = text.replace(/&quot;/g, '\\"');
+      if (text.length > 260) {
+        string = string.substr(0, 260) + '...';
+      }
+
+      return string;
+    };
+
+    return _this;
   }
 
   _createClass(NewsArticle, [{
@@ -12945,7 +12956,7 @@ var NewsArticle = function (_Component) {
             _react2.default.createElement(
               'p',
               null,
-              article.description
+              this.formatText(article.description)
             ),
             _react2.default.createElement(
               'p',
