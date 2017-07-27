@@ -216,7 +216,8 @@ class App extends Component {
 				savedCategories,
 				menuIsOpen,
 				sources,
-				languages
+				languages,
+				selectedLanguages
 				} = this.state;
 
 		return (
@@ -282,6 +283,7 @@ class App extends Component {
 							logoutPage={logoutPage}
 							languages={languages}
 							selectLanguage={this.selectLanguage}
+							selectedLanguages={selectedLanguages}
 						/>
 					</div>
 					{

@@ -27,7 +27,8 @@ class Filter extends Component {
             menuIsOpen,
             logoutPage,
             languages,
-            selectLanguage
+            selectLanguage,
+            selectedLanguages
     } = this.props;
 
     return (
@@ -56,7 +57,11 @@ class Filter extends Component {
                       />
                     </div>
                     <div className="large-5 medium-12 columns">
-                      <NewsSources selectedCategories={selectedCategories} sources={sources} selectSource={selectSource}/>
+                      <NewsSources 
+                      selectedCategories={selectedCategories} 
+                      selectedLanguages={selectedLanguages}
+                      sources={sources} 
+                      selectSource={selectSource}/>
                     </div>
                     <div className="large-3 medium-12 columns">
                       <Languages 

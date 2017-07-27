@@ -12144,7 +12144,8 @@ var App = function (_Component) {
 			    savedCategories = _state.savedCategories,
 			    menuIsOpen = _state.menuIsOpen,
 			    sources = _state.sources,
-			    languages = _state.languages;
+			    languages = _state.languages,
+			    selectedLanguages = _state.selectedLanguages;
 
 
 			return _react2.default.createElement(
@@ -12253,7 +12254,8 @@ var App = function (_Component) {
 							selectSource: this.selectSource,
 							logoutPage: logoutPage,
 							languages: languages,
-							selectLanguage: this.selectLanguage
+							selectLanguage: this.selectLanguage,
+							selectedLanguages: selectedLanguages
 						})
 					),
 					menuIsOpen && user ? _react2.default.createElement(
@@ -12528,7 +12530,8 @@ var Filter = function (_Component) {
           menuIsOpen = _props.menuIsOpen,
           logoutPage = _props.logoutPage,
           languages = _props.languages,
-          selectLanguage = _props.selectLanguage;
+          selectLanguage = _props.selectLanguage,
+          selectedLanguages = _props.selectedLanguages;
 
 
       return _react2.default.createElement(
@@ -12567,7 +12570,11 @@ var Filter = function (_Component) {
                 _react2.default.createElement(
                   'div',
                   { className: 'large-5 medium-12 columns' },
-                  _react2.default.createElement(_NewsSources2.default, { selectedCategories: selectedCategories, sources: sources, selectSource: selectSource })
+                  _react2.default.createElement(_NewsSources2.default, {
+                    selectedCategories: selectedCategories,
+                    selectedLanguages: selectedLanguages,
+                    sources: sources,
+                    selectSource: selectSource })
                 ),
                 _react2.default.createElement(
                   'div',
@@ -13126,10 +13133,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var NewsSources = function (_Component) {
   _inherits(NewsSources, _Component);
 
-  function NewsSources() {
+  function NewsSources(props) {
     _classCallCheck(this, NewsSources);
 
-    var _this = _possibleConstructorReturn(this, (NewsSources.__proto__ || Object.getPrototypeOf(NewsSources)).call(this));
+    var _this = _possibleConstructorReturn(this, (NewsSources.__proto__ || Object.getPrototypeOf(NewsSources)).call(this, props));
 
     _this.renderSource = function (source, index) {
       return _react2.default.createElement(_NewsSource2.default, {
@@ -13139,6 +13146,13 @@ var NewsSources = function (_Component) {
       });
     };
 
+    _this.updateState = function (filtered) {
+      _this.setState({ filtered: filtered });
+    };
+
+    _this.state = {
+      filtered: []
+    };
     return _this;
   }
 
@@ -13147,7 +13161,9 @@ var NewsSources = function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      var selectedCategories = this.props.selectedCategories;
+      var _props = this.props,
+          selectedCategories = _props.selectedCategories,
+          selectedLanguages = _props.selectedLanguages;
 
 
       return _react2.default.createElement(
@@ -13161,12 +13177,22 @@ var NewsSources = function (_Component) {
             { className: 'row' },
             this.props.sources.map(function (source, index) {
 
-              if (selectedCategories.length === 0) {
+              if (selectedCategories.length === 0 && selectedLanguages.length === 0) {
                 return _this2.renderSource(source, index);
-              } else {
+              } else if (selectedCategories.length > 0 && selectedLanguages.length === 0) {
                 return selectedCategories.map(function (category) {
                   if (category.name == source.category) {
                     return _this2.renderSource(source, index);
+                  }
+                });
+              } else {
+                return selectedCategories.map(function (category) {
+                  if (category.name == source.category) {
+                    return selectedLanguages.map(function (language) {
+                      if (language.iso == source.language) {
+                        return _this2.renderSource(source, index);
+                      }
+                    });
                   }
                 });
               }

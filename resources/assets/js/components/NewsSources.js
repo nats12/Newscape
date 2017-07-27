@@ -6,8 +6,12 @@ import NewsSource from './NewsSource';
 import axios from 'axios';
 
 class NewsSources extends Component {
-	constructor() {
-		super()
+	constructor(props) {
+		super(props)
+
+    this.state = {
+      filtered: []
+    }
 	}
 
   renderSource = (source, index) => {
@@ -20,9 +24,13 @@ class NewsSources extends Component {
     )
   }
 
+  updateState = (filtered) => {
+    this.setState({filtered: filtered});
+  }
+
 	render() {
 
-    const { selectedCategories } = this.props;
+    const { selectedCategories, selectedLanguages } = this.props;
 	
 		return (
 			<div>
@@ -31,17 +39,33 @@ class NewsSources extends Component {
               <div className="news-sources">
                 <div className="row">
                   {
+                    
                     this.props.sources.map((source, index) => {
 
-                      if (selectedCategories.length === 0) {
+                      if (selectedCategories.length === 0 && selectedLanguages.length === 0) {
                         return this.renderSource(source, index);
+                      }
+
+                      else if (selectedCategories.length > 0 && selectedLanguages.length === 0) {
+                        return selectedCategories.map((category) => {
+                            if (category.name == source.category) {
+                                return this.renderSource(source, index);
+                            }
+                        })
                       }
 
                       else {
                         return selectedCategories.map((category) => {
                             if (category.name == source.category) {
-                                return this.renderSource(source, index);
+                              return (
+                                selectedLanguages.map((language) => {
+                                  if (language.iso == source.language) {
+                                      return this.renderSource(source, index);
+                                  }
+                                })
+                              )
                             }
+
                         })
                       }
                     })
