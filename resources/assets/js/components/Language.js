@@ -6,14 +6,39 @@ class Language extends Component {
   constructor() {
     super()
     this.state = {
+      checked: false
     }
 
   }
 
-  toggleCheckboxState = (e) => {
-    this.setState({checked: e.target.checked});
-    this.props.selectLanguage(this, e.target.checked); 
+  toggleCheckboxState = () => {
+    let isChecked = !this.state.checked;
+    this.setState({checked: isChecked});
+    this.props.selectLanguage(this, isChecked); 
   }
+
+  componentWillMount() {
+    this.props.selectedLanguages.map((language, index) => {
+
+      if (this.props.language.name === language.name) {
+        this.setState({checked: true});
+      }
+    })
+  }
+
+  renderCheckbox = () => {
+
+    return (
+      <input 
+        className="language-checkbox"
+        name={this.props.language.name}
+        onChange={(e) => this.toggleCheckboxState()}
+        type="checkbox"
+        checked={this.state.checked}
+        key={this.props.id}
+      />
+    )
+  } 
 
   render() {
 
@@ -21,11 +46,7 @@ class Language extends Component {
       <div className="large-12 columns">
         <label className="language">
           {this.props.language.name}
-          <input 
-          className="language-checkbox"
-          name={this.props.language.name}
-          onChange={(e) => this.toggleCheckboxState(e)}
-          type="checkbox"/>
+          {this.renderCheckbox()}
         </label>
       </div>
     )

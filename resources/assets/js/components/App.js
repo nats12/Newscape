@@ -21,15 +21,15 @@ class App extends Component {
 			logoutPage: window.Laravel.logoutPage,
 			tweetFormOpen: false,
 			selectedArticle: {},
-			selectedCategories: [],
+			selectedCategories: window.Laravel.selectedCategories,
 			categories: window.Laravel.categories,
 			savedCategories: [],
 			menuIsOpen: false,
 			sources: window.Laravel.sources,
-			selectedSources: [],
+			selectedSources: window.Laravel.selectedSources,
 			savedSources: [],
 			languages: window.Laravel.languages,
-			selectedLanguages: [],
+			selectedLanguages: window.Laravel.selectedLanguages,
 			savedLanguages:[]
 		}		
 	}
@@ -54,16 +54,15 @@ class App extends Component {
 		let selectedArray = [...this.state.selectedCategories];
 		const id = component.props.category.id;
 		const category = component.props.category;
-		const index = selectedArray.indexOf(category);
+		const index = selectedArray.map((cat)=>{ return cat.id}).indexOf(category.id);
 		const isChecked = checked;
 
 		//if in array AND checked is false, splice from array
-		if ((selectedArray.indexOf(category) !== -1) && isChecked == false) {
+		if (index !== -1 && isChecked == false) {
 			selectedArray.splice(index,1);
 		}
 		//else if not in array AND checked is true, push into array
-		else if ((selectedArray.indexOf(category) == -1) && isChecked == true) {
-			console.log('push',category);
+		else if (index == -1 && isChecked == true) {
 			selectedArray.push(category);
 		}
 		//else if in array AND true, do nothing, just return
@@ -77,16 +76,15 @@ class App extends Component {
 		let selectedArray = [...this.state.selectedSources];
 		const id = component.props.source.id;
 		const source = component.props.source;
-		const index = selectedArray.indexOf(source);
+		const index = selectedArray.map((src)=>{ return src.id}).indexOf(source.id);
 		const isChecked = checked;
 
 		//if in array AND checked is false, splice from array
-		if ((selectedArray.indexOf(source) !== -1) && isChecked == false) {
+		if (index !== -1 && isChecked == false) {
 			selectedArray.splice(index,1);
 		}
 		//else if not in array AND checked is true, push into array
-		else if ((selectedArray.indexOf(source) == -1) && isChecked == true) {
-			console.log('push',source);
+		else if (index == -1 && isChecked == true) {
 			selectedArray.push(source);
 		}
 		//else if in array AND true, do nothing, just return
@@ -100,18 +98,15 @@ class App extends Component {
 		let selectedArray = [...this.state.selectedLanguages];
 		const id = component.props.language.id;
 		const language = component.props.language;
-		const index = selectedArray.indexOf(language);
+		const index = selectedArray.map((lang)=>{ return lang.id}).indexOf(language.id);
 		const isChecked = checked;
 
-		console.log(isChecked);
 		//if in array AND checked is false, splice from array
-		if ((selectedArray.indexOf(language) !== -1) && isChecked == false) {
-			console.log('splice',language);
+		if (index !== -1 && isChecked == false) {
 			selectedArray.splice(index,1);
 		}
 		//else if not in array AND checked is true, push into array
-		else if ((selectedArray.indexOf(language) == -1) && isChecked == true) {
-			console.log('push',language);
+		else if (index == -1 && isChecked == true) {
 			selectedArray.push(language);
 		}
 		//else if in array AND true, do nothing, just return
@@ -216,6 +211,7 @@ class App extends Component {
 				savedCategories,
 				menuIsOpen,
 				sources,
+				selectedSources,
 				languages,
 				selectedLanguages
 				} = this.state;
@@ -280,6 +276,7 @@ class App extends Component {
 							menuIsOpen={menuIsOpen}
 							sources={sources}
 							selectSource={this.selectSource}
+							selectedSources={selectedSources}
 							logoutPage={logoutPage}
 							languages={languages}
 							selectLanguage={this.selectLanguage}

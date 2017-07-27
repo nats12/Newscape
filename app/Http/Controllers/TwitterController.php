@@ -78,9 +78,18 @@ class TwitterController extends Controller
 	  
 	    if (Auth::check()) {
 	      $user = Auth::user();
+
+        $userCategories = $user->categories;
+        $userSources = $user->sources;
+        $userLanguages = $user->languages;
 	    }
 	    else {
 	      $user = null;
+
+
+        $userCategories = [];
+        $userSources = [];
+        $userLanguages = [];
 	    }
 
 	    // Instantiate timeline array
@@ -98,12 +107,14 @@ class TwitterController extends Controller
 	    $loginPage = route('twitterLogin');
 	    $logoutPage = route('twitterLogout');
 
-      //models
+      //all data
       $categories = Category::all();
       $sources = Source::all();
       $languages = Language::all();
 
-		return view('welcome', compact('loginPage', 'logoutPage', 'timeline', 'newsSources', 'newsArticles', 'user', 'categories', 'sources', 'languages'));
+      //user data
+
+		return view('welcome', compact('loginPage', 'logoutPage', 'timeline', 'newsSources', 'newsArticles', 'user', 'categories', 'sources', 'languages', 'userCategories', 'userSources', 'userLanguages'));
 	}
 
     /**

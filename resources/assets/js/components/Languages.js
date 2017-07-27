@@ -27,6 +27,7 @@ class languages extends Component {
                   key={index} 
                   language={language} 
                   selectLanguage={selectLanguage}
+                  selectedLanguages={this.props.selectedLanguages}
                   />})
               }
             </div>

@@ -39,17 +39,14 @@ class NewsFeed extends Component {
 
                     (item, index) => {
                         const publishedAtDate = new Date(item.publishedAt);
-                        // if(currentDate > publishedAtDate && limitCounter <= this.state.limitCountEnd) {
-                        //     limitCounter +=1;
-                        // }
 
-                        if(savedCategories.length == 0 && currentDate > publishedAtDate && limitCounter <= this.state.limitCountEnd) {
+                        if(savedCategories.length === 0 && currentDate > publishedAtDate && limitCounter <= this.state.limitCountEnd) {
                             limitCounter +=1;
                             return this.renderArticle(item, index);
                         }
                         else if (savedCategories.length > 0 && currentDate > publishedAtDate && limitCounter <= this.state.limitCountEnd) {
                             return savedCategories.map((category) => {
-                                if (category.name == item.sourceCategory) {
+                                if (category.name === item.sourceCategory) {
                                     limitCounter +=1;
                                     return this.renderArticle(item, index);
                                 }

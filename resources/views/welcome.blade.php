@@ -30,6 +30,9 @@
                 'categories' => $categories,
                 'sources' => $sources,
                 'languages' => $languages,
+                'selectedLanguages' => $userLanguages,
+                'selectedCategories' => $userCategories,
+                'selectedSources' => $userSources,
             ]); ?>
         </script>
 

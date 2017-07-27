@@ -11972,16 +11972,17 @@ var App = function (_Component) {
 			var selectedArray = [].concat(_toConsumableArray(_this.state.selectedCategories));
 			var id = component.props.category.id;
 			var category = component.props.category;
-			var index = selectedArray.indexOf(category);
+			var index = selectedArray.map(function (cat) {
+				return cat.id;
+			}).indexOf(category.id);
 			var isChecked = checked;
 
 			//if in array AND checked is false, splice from array
-			if (selectedArray.indexOf(category) !== -1 && isChecked == false) {
+			if (index !== -1 && isChecked == false) {
 				selectedArray.splice(index, 1);
 			}
 			//else if not in array AND checked is true, push into array
-			else if (selectedArray.indexOf(category) == -1 && isChecked == true) {
-					console.log('push', category);
+			else if (index == -1 && isChecked == true) {
 					selectedArray.push(category);
 				}
 				//else if in array AND true, do nothing, just return
@@ -11995,16 +11996,17 @@ var App = function (_Component) {
 			var selectedArray = [].concat(_toConsumableArray(_this.state.selectedSources));
 			var id = component.props.source.id;
 			var source = component.props.source;
-			var index = selectedArray.indexOf(source);
+			var index = selectedArray.map(function (src) {
+				return src.id;
+			}).indexOf(source.id);
 			var isChecked = checked;
 
 			//if in array AND checked is false, splice from array
-			if (selectedArray.indexOf(source) !== -1 && isChecked == false) {
+			if (index !== -1 && isChecked == false) {
 				selectedArray.splice(index, 1);
 			}
 			//else if not in array AND checked is true, push into array
-			else if (selectedArray.indexOf(source) == -1 && isChecked == true) {
-					console.log('push', source);
+			else if (index == -1 && isChecked == true) {
 					selectedArray.push(source);
 				}
 				//else if in array AND true, do nothing, just return
@@ -12018,18 +12020,17 @@ var App = function (_Component) {
 			var selectedArray = [].concat(_toConsumableArray(_this.state.selectedLanguages));
 			var id = component.props.language.id;
 			var language = component.props.language;
-			var index = selectedArray.indexOf(language);
+			var index = selectedArray.map(function (lang) {
+				return lang.id;
+			}).indexOf(language.id);
 			var isChecked = checked;
 
-			console.log(isChecked);
 			//if in array AND checked is false, splice from array
-			if (selectedArray.indexOf(language) !== -1 && isChecked == false) {
-				console.log('splice', language);
+			if (index !== -1 && isChecked == false) {
 				selectedArray.splice(index, 1);
 			}
 			//else if not in array AND checked is true, push into array
-			else if (selectedArray.indexOf(language) == -1 && isChecked == true) {
-					console.log('push', language);
+			else if (index == -1 && isChecked == true) {
 					selectedArray.push(language);
 				}
 				//else if in array AND true, do nothing, just return
@@ -12112,15 +12113,15 @@ var App = function (_Component) {
 			logoutPage: window.Laravel.logoutPage,
 			tweetFormOpen: false,
 			selectedArticle: {},
-			selectedCategories: [],
+			selectedCategories: window.Laravel.selectedCategories,
 			categories: window.Laravel.categories,
 			savedCategories: [],
 			menuIsOpen: false,
 			sources: window.Laravel.sources,
-			selectedSources: [],
+			selectedSources: window.Laravel.selectedSources,
 			savedSources: [],
 			languages: window.Laravel.languages,
-			selectedLanguages: [],
+			selectedLanguages: window.Laravel.selectedLanguages,
 			savedLanguages: []
 		};
 		return _this;
@@ -12144,6 +12145,7 @@ var App = function (_Component) {
 			    savedCategories = _state.savedCategories,
 			    menuIsOpen = _state.menuIsOpen,
 			    sources = _state.sources,
+			    selectedSources = _state.selectedSources,
 			    languages = _state.languages,
 			    selectedLanguages = _state.selectedLanguages;
 
@@ -12252,6 +12254,7 @@ var App = function (_Component) {
 							menuIsOpen: menuIsOpen,
 							sources: sources,
 							selectSource: this.selectSource,
+							selectedSources: selectedSources,
 							logoutPage: logoutPage,
 							languages: languages,
 							selectLanguage: this.selectLanguage,
@@ -12352,6 +12355,8 @@ var Categories = function (_Component) {
   _createClass(Categories, [{
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       var _props = this.props,
           selectCategory = _props.selectCategory,
           categories = _props.categories;
@@ -12370,7 +12375,8 @@ var Categories = function (_Component) {
               return _react2.default.createElement(_Category2.default, {
                 key: index,
                 category: category,
-                selectCategory: selectCategory
+                selectCategory: selectCategory,
+                selectedCategories: _this2.props.selectedCategories
               });
             })
           )
@@ -12421,20 +12427,55 @@ var Category = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Category.__proto__ || Object.getPrototypeOf(Category)).call(this));
 
-    _this.toggleCheckboxState = function (e) {
-      _this.setState({ checked: e.target.checked });
-      _this.props.selectCategory(_this, e.target.checked);
+    _this.renderCheckbox = function () {
+      var isChecked = false;
+      _this.props.selectedCategories.map(function (category, index) {
+
+        if (_this.props.category.name === category.name) {
+          isChecked = true;
+        }
+      });
+
+      return _react2.default.createElement('input', {
+        className: 'category-checkbox',
+        'data-id': _this.props.category.id,
+        name: _this.props.category.name,
+        onChange: function onChange(e) {
+          return _this.toggleCheckboxState();
+        },
+        type: 'checkbox',
+        checked: isChecked
+      });
     };
 
-    _this.state = {};
+    _this.toggleCheckboxState = function () {
+      var isChecked = !_this.state.checked;
+      _this.setState({ checked: isChecked });
+      _this.props.selectCategory(_this, isChecked);
+    };
+
+    _this.state = {
+      checked: false
+    };
 
     return _this;
   }
 
   _createClass(Category, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      var _this2 = this;
+
+      this.props.selectedCategories.map(function (category, index) {
+
+        if (_this2.props.category.name === category.name) {
+          _this2.setState({ checked: true });
+        }
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
 
       return _react2.default.createElement(
         'div',
@@ -12443,14 +12484,7 @@ var Category = function (_Component) {
           'label',
           { className: 'category' },
           this.props.category.name,
-          _react2.default.createElement('input', {
-            className: 'category-checkbox',
-            'data-id': this.props.category.id,
-            name: this.props.category.name,
-            onChange: function onChange(e) {
-              return _this2.toggleCheckboxState(e);
-            },
-            type: 'checkbox' })
+          this.renderCheckbox()
         )
       );
     }
@@ -12522,6 +12556,7 @@ var Filter = function (_Component) {
           selectedCategories = _props.selectedCategories,
           selectCategory = _props.selectCategory,
           selectSource = _props.selectSource,
+          selectedSources = _props.selectedSources,
           sources = _props.sources,
           getData = _props.getData,
           saveData = _props.saveData,
@@ -12574,14 +12609,17 @@ var Filter = function (_Component) {
                     selectedCategories: selectedCategories,
                     selectedLanguages: selectedLanguages,
                     sources: sources,
-                    selectSource: selectSource })
+                    selectSource: selectSource,
+                    selectedSources: selectedSources
+                  })
                 ),
                 _react2.default.createElement(
                   'div',
                   { className: 'large-3 medium-12 columns' },
                   _react2.default.createElement(_Languages2.default, {
                     languages: languages,
-                    selectLanguage: selectLanguage
+                    selectLanguage: selectLanguage,
+                    selectedLanguages: selectedLanguages
                   })
                 )
               )
@@ -12672,20 +12710,48 @@ var Language = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Language.__proto__ || Object.getPrototypeOf(Language)).call(this));
 
-    _this.toggleCheckboxState = function (e) {
-      _this.setState({ checked: e.target.checked });
-      _this.props.selectLanguage(_this, e.target.checked);
+    _this.toggleCheckboxState = function () {
+      var isChecked = !_this.state.checked;
+      _this.setState({ checked: isChecked });
+      _this.props.selectLanguage(_this, isChecked);
     };
 
-    _this.state = {};
+    _this.renderCheckbox = function () {
+
+      return _react2.default.createElement('input', {
+        className: 'language-checkbox',
+        name: _this.props.language.name,
+        onChange: function onChange(e) {
+          return _this.toggleCheckboxState();
+        },
+        type: 'checkbox',
+        checked: _this.state.checked,
+        key: _this.props.id
+      });
+    };
+
+    _this.state = {
+      checked: false
+    };
 
     return _this;
   }
 
   _createClass(Language, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      var _this2 = this;
+
+      this.props.selectedLanguages.map(function (language, index) {
+
+        if (_this2.props.language.name === language.name) {
+          _this2.setState({ checked: true });
+        }
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
 
       return _react2.default.createElement(
         'div',
@@ -12694,13 +12760,7 @@ var Language = function (_Component) {
           'label',
           { className: 'language' },
           this.props.language.name,
-          _react2.default.createElement('input', {
-            className: 'language-checkbox',
-            name: this.props.language.name,
-            onChange: function onChange(e) {
-              return _this2.toggleCheckboxState(e);
-            },
-            type: 'checkbox' })
+          this.renderCheckbox()
         )
       );
     }
@@ -12760,6 +12820,8 @@ var languages = function (_Component) {
   _createClass(languages, [{
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       var _props = this.props,
           languages = _props.languages,
           selectLanguage = _props.selectLanguage;
@@ -12778,7 +12840,8 @@ var languages = function (_Component) {
               return _react2.default.createElement(_Language2.default, {
                 key: index,
                 language: language,
-                selectLanguage: selectLanguage
+                selectLanguage: selectLanguage,
+                selectedLanguages: _this2.props.selectedLanguages
               });
             })
           )
@@ -12989,16 +13052,13 @@ var NewsFeed = function (_Component) {
                     return new Date(b.publishedAt) - new Date(a.publishedAt);
                 }).map(function (item, index) {
                     var publishedAtDate = new Date(item.publishedAt);
-                    // if(currentDate > publishedAtDate && limitCounter <= this.state.limitCountEnd) {
-                    //     limitCounter +=1;
-                    // }
 
-                    if (savedCategories.length == 0 && currentDate > publishedAtDate && limitCounter <= _this2.state.limitCountEnd) {
+                    if (savedCategories.length === 0 && currentDate > publishedAtDate && limitCounter <= _this2.state.limitCountEnd) {
                         limitCounter += 1;
                         return _this2.renderArticle(item, index);
                     } else if (savedCategories.length > 0 && currentDate > publishedAtDate && limitCounter <= _this2.state.limitCountEnd) {
                         return savedCategories.map(function (category) {
-                            if (category.name == item.sourceCategory) {
+                            if (category.name === item.sourceCategory) {
                                 limitCounter += 1;
                                 return _this2.renderArticle(item, index);
                             }
@@ -13051,19 +13111,44 @@ var NewsSource = function (_Component) {
 
 		var _this = _possibleConstructorReturn(this, (NewsSource.__proto__ || Object.getPrototypeOf(NewsSource)).call(this));
 
-		_this.toggleCheckboxState = function (e) {
-			_this.setState({ checked: e.target.checked });
-			_this.props.selectSource(_this, e.target.checked);
+		_this.toggleCheckboxState = function () {
+			var isChecked = !_this.state.checked;
+			_this.setState({ checked: isChecked });
+			_this.props.selectSource(_this, isChecked);
 		};
 
-		_this.state = {};
+		_this.renderCheckbox = function () {
+			return _react2.default.createElement('input', {
+				className: 'source-checkbox',
+				onChange: function onChange(e) {
+					return _this.toggleCheckboxState();
+				},
+				type: 'checkbox',
+				checked: _this.state.checked
+			});
+		};
+
+		_this.state = {
+			checked: false
+		};
 		return _this;
 	}
 
 	_createClass(NewsSource, [{
+		key: 'componentWillMount',
+		value: function componentWillMount() {
+			var _this2 = this;
+
+			this.props.selectedSources.map(function (source, index) {
+
+				if (_this2.props.source.name === source.name) {
+					_this2.setState({ checked: true });
+				}
+			});
+		}
+	}, {
 		key: 'render',
 		value: function render() {
-			var _this2 = this;
 
 			return _react2.default.createElement(
 				'div',
@@ -13075,13 +13160,7 @@ var NewsSource = function (_Component) {
 						'label',
 						null,
 						this.props.source.name,
-						_react2.default.createElement('input', {
-							className: 'source-checkbox',
-							onChange: function onChange(e) {
-								return _this2.toggleCheckboxState(e);
-							},
-							type: 'checkbox'
-						})
+						this.renderCheckbox()
 					)
 				)
 			);
@@ -13140,19 +13219,13 @@ var NewsSources = function (_Component) {
 
     _this.renderSource = function (source, index) {
       return _react2.default.createElement(_NewsSource2.default, {
-        key: index,
+        key: source.id,
         source: source,
-        selectSource: _this.props.selectSource
+        selectSource: _this.props.selectSource,
+        selectedSources: _this.props.selectedSources
       });
     };
 
-    _this.updateState = function (filtered) {
-      _this.setState({ filtered: filtered });
-    };
-
-    _this.state = {
-      filtered: []
-    };
     return _this;
   }
 
@@ -13182,6 +13255,12 @@ var NewsSources = function (_Component) {
               } else if (selectedCategories.length > 0 && selectedLanguages.length === 0) {
                 return selectedCategories.map(function (category) {
                   if (category.name == source.category) {
+                    return _this2.renderSource(source, index);
+                  }
+                });
+              } else if (selectedCategories.length === 0 && selectedLanguages.length > 0) {
+                return selectedLanguages.map(function (language) {
+                  if (language.iso == source.language) {
                     return _this2.renderSource(source, index);
                   }
                 });

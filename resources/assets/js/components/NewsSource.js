@@ -6,13 +6,35 @@ class NewsSource extends Component {
 	constructor() {
 		super()
 		this.state = {
+			checked: false
 		}
 	}
 
-	toggleCheckboxState = (e) => {
-	  this.setState({checked: e.target.checked});
-	  this.props.selectSource(this, e.target.checked); 
+	componentWillMount() {
+	  this.props.selectedSources.map((source, index) => {
+
+	    if (this.props.source.name === source.name) {
+	      this.setState({checked: true});
+	    }
+	  })
 	}
+
+	toggleCheckboxState = () => {
+	  let isChecked = !this.state.checked;
+	  this.setState({checked: isChecked});
+	  this.props.selectSource(this, isChecked); 
+	}
+
+	renderCheckbox = () => {
+	  return (
+	  	<input 
+	  		className="source-checkbox" 
+	  		onChange={(e) => this.toggleCheckboxState()} 
+	  		type="checkbox"
+	  		checked={this.state.checked}
+	  	/>
+	  )
+	} 
 
 	render() {
 
@@ -21,11 +43,7 @@ class NewsSource extends Component {
 				<div className="news-source">
 					<label>
 						{this.props.source.name}
-			        	<input 
-			        		className="source-checkbox" 
-			        		onChange={(e) => this.toggleCheckboxState(e)} 
-			        		type="checkbox"
-			        	/>
+						{this.renderCheckbox()}
 			    	</label>
 				</div>
 

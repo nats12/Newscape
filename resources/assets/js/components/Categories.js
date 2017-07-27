@@ -23,6 +23,7 @@ class Categories extends Component {
                   key={index} 
                   category={category} 
                   selectCategory={selectCategory}
+                  selectedCategories={this.props.selectedCategories}
                   />})
               }
             </div>
