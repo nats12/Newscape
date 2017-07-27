@@ -13014,6 +13014,11 @@ var NewsFeed = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (NewsFeed.__proto__ || Object.getPrototypeOf(NewsFeed)).call(this));
 
+        _this.loadMore = function () {
+            var more = _this.state.limitCountEnd += 10;
+            _this.setState({ limitCountEnd: more });
+        };
+
         _this.renderArticle = function (article, index) {
             return _react2.default.createElement(_NewsArticle2.default, {
                 key: index,
@@ -13027,7 +13032,7 @@ var NewsFeed = function (_Component) {
         };
 
         _this.state = {
-            limitCountEnd: 25
+            limitCountEnd: 26
         };
         return _this;
     }
@@ -13047,24 +13052,39 @@ var NewsFeed = function (_Component) {
 
             return _react2.default.createElement(
                 'div',
-                { className: 'row small-collapse large-collapse' },
-                this.props.newsArticles.sort(function (a, b) {
-                    return new Date(b.publishedAt) - new Date(a.publishedAt);
-                }).map(function (item, index) {
-                    var publishedAtDate = new Date(item.publishedAt);
+                null,
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row small-collapse large-collapse' },
+                    this.props.newsArticles.sort(function (a, b) {
+                        return new Date(b.publishedAt) - new Date(a.publishedAt);
+                    }).map(function (item, index) {
+                        var publishedAtDate = new Date(item.publishedAt);
 
-                    if (savedCategories.length === 0 && currentDate > publishedAtDate && limitCounter <= _this2.state.limitCountEnd) {
-                        limitCounter += 1;
-                        return _this2.renderArticle(item, index);
-                    } else if (savedCategories.length > 0 && currentDate > publishedAtDate && limitCounter <= _this2.state.limitCountEnd) {
-                        return savedCategories.map(function (category) {
-                            if (category.name === item.sourceCategory) {
-                                limitCounter += 1;
-                                return _this2.renderArticle(item, index);
-                            }
-                        });
-                    }
-                })
+                        if (savedCategories.length === 0 && currentDate > publishedAtDate && limitCounter <= _this2.state.limitCountEnd) {
+                            limitCounter += 1;
+                            return _this2.renderArticle(item, index);
+                        } else if (savedCategories.length > 0 && currentDate > publishedAtDate && limitCounter <= _this2.state.limitCountEnd) {
+                            return savedCategories.map(function (category) {
+                                if (category.name === item.sourceCategory) {
+                                    limitCounter += 1;
+                                    return _this2.renderArticle(item, index);
+                                }
+                            });
+                        }
+                    })
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row' },
+                    _react2.default.createElement(
+                        'button',
+                        { className: 'button success load-more', onClick: function onClick() {
+                                return _this2.loadMore();
+                            } },
+                        'Load More'
+                    )
+                )
             );
         }
     }]);

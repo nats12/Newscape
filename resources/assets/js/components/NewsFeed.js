@@ -7,8 +7,13 @@ class NewsFeed extends Component {
         super()
 
         this.state = {
-            limitCountEnd: 25,
+            limitCountEnd: 26,
         }
+    }
+
+    loadMore = () => {
+        const more = this.state.limitCountEnd += 10;
+        this.setState({limitCountEnd: more})
     }
 
     renderArticle = (article, index) => {
@@ -32,29 +37,35 @@ class NewsFeed extends Component {
         let limitCounter = 1;
 
         return (
-            <div className="row small-collapse large-collapse"> 
-            {
-                this.props.newsArticles.sort((a,b) => new Date(b.publishedAt) - new Date(a.publishedAt) )
-                .map(
+            <div>
+                <div className="row small-collapse large-collapse"> 
+                {
+                    this.props.newsArticles.sort((a,b) => new Date(b.publishedAt) - new Date(a.publishedAt) )
+                    .map(
 
-                    (item, index) => {
-                        const publishedAtDate = new Date(item.publishedAt);
+                        (item, index) => {
+                            const publishedAtDate = new Date(item.publishedAt);
 
-                        if(savedCategories.length === 0 && currentDate > publishedAtDate && limitCounter <= this.state.limitCountEnd) {
-                            limitCounter +=1;
-                            return this.renderArticle(item, index);
-                        }
-                        else if (savedCategories.length > 0 && currentDate > publishedAtDate && limitCounter <= this.state.limitCountEnd) {
-                            return savedCategories.map((category) => {
-                                if (category.name === item.sourceCategory) {
-                                    limitCounter +=1;
-                                    return this.renderArticle(item, index);
-                                }
-                            });
+                            if(savedCategories.length === 0 && currentDate > publishedAtDate && limitCounter <= this.state.limitCountEnd) {
+                                limitCounter +=1;
+                                return this.renderArticle(item, index);
+                            }
+                            else if (savedCategories.length > 0 && currentDate > publishedAtDate && limitCounter <= this.state.limitCountEnd) {
+                                return savedCategories.map((category) => {
+                                    if (category.name === item.sourceCategory) {
+                                        limitCounter +=1;
+                                        return this.renderArticle(item, index);
+                                    }
+                                });
 
-                        }
-                    })
-            } 
+                            }
+                        })
+                } 
+                
+                </div>
+                <div className="row">
+                    <button className="button success load-more" onClick={() => this.loadMore()}>Load More</button>
+                </div>
             </div>
             )
     }
