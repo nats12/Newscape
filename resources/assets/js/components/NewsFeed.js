@@ -12,8 +12,10 @@ class NewsFeed extends Component {
     }
 
     loadMore = () => {
-        const more = this.state.limitCountEnd += 10;
-        this.setState({limitCountEnd: more})
+        if (this.state.limitCountEnd < this.props.newsArticles.length) {
+            const more = this.state.limitCountEnd += 20;
+            this.setState({limitCountEnd: more})
+        }
     }
 
     renderArticle = (article, index) => {
@@ -64,7 +66,13 @@ class NewsFeed extends Component {
                 
                 </div>
                 <div className="row">
-                    <button className="button success load-more" onClick={() => this.loadMore()}>Load More</button>
+                    <button 
+                        className="button success load-more" 
+                        onClick={() => this.loadMore()} 
+                        disabled={this.state.limitCountEnd >= this.props.newsArticles.length ? true : false}
+                    >
+                        Load More
+                    </button>
                 </div>
             </div>
             )

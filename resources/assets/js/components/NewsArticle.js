@@ -11,7 +11,11 @@ class NewsArticle extends Component {
   }
 
   formatText = (text) => {
-    let string = text.replace(/&quot;/g, '\\"');
+    let string;
+    
+    if (text) {
+      let string = text.replace(/&quot;/g, '\\"');
+    }
     return string;
   }
 
