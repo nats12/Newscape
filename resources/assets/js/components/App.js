@@ -8,6 +8,7 @@ import NewsFeed from './NewsFeed';
 import Filter from './Filter';
 import axios from 'axios';
 
+
 class App extends Component {
 	constructor(props) {
 		super(props)
@@ -266,7 +267,6 @@ class App extends Component {
 				        </div>
 		        	</div>
 		     		</div>
-
 						<Filter
 							selectedCategories={selectedCategories} 
 							selectCategory={this.selectCategory}
@@ -307,6 +307,8 @@ class App extends Component {
 							selectedCategories={selectedCategories}
 							categories={categories}
 							savedCategories={savedCategories}
+							selectedLanguages={selectedLanguages}
+							selectedSources={selectedSources}
 							user={user}
 						/>
 					</div>

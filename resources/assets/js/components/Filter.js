@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import CSSTransitionGroup from 'react-addons-css-transition-group';
+import { CSSTransitionGroup } from 'react-transition-group';
 
 import Categories from './Categories';
 import NewsSources from './NewsSources';
@@ -34,18 +34,24 @@ class Filter extends Component {
 
     return (
       <div>
-        <div className="large-8 medium-7 columns">
+        <CSSTransitionGroup
+          component="div"
+          className="large-8 medium-7 columns slide"
+          transitionName={ {
+              enter: 'animated',
+              enterActive: 'slideInDown',
+              leave: 'leave',
+              leaveActive: 'leaveActive',
+              appear: 'appear',
+              appearActive: 'appearActive'
+            } }
+          transitionEnter={true}
+          transitionEnterTimeout={5000}
+          transitionLeave={true}
+          transitionLeaveTimeout={5000}
+        >
           {
             menuIsOpen ?
-
-              <CSSTransitionGroup
-                transitionName="filter_menu"
-                className="filter_menu"
-                component="div"
-                transitionAppear={true}
-                transitionAppearTimeout={500}
-                transitionEnterTimeout={500}
-                transitionLeaveTimeout={300}>
                 <div>
                   <div className="row">
                     <div className="large-4 medium-12 columns">
@@ -75,11 +81,10 @@ class Filter extends Component {
                     </div>
                   </div>
                 </div>
-              </CSSTransitionGroup>
               :
                 ''
           }
-        </div>
+        </CSSTransitionGroup>
 
         <div className="large-4 medium-5 columns">
           <div className={`options-wrap ${menuIsOpen ? 'pad-10' : ''}`}>

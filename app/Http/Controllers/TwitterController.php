@@ -63,6 +63,7 @@ class TwitterController extends Controller
 	        $articleObject->sourceId = $source['id'];
 	        $articleObject->sourceName = $source['name'];
           $articleObject->sourceCategory = $source['category'];
+          $articleObject->sourceLanguage = $source['language'];
 
 	        foreach ($article as $key => $value)
 	        {

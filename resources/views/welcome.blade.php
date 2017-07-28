@@ -11,6 +11,7 @@
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
         <link rel="stylesheet" href="css/foundation.min.css">
+        <link rel="stylesheet" href="css/animate.css">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="fontello-5c9a1b5d/css/fontello.css">
 

@@ -25,8 +25,8 @@
     "vue": "^2.4.2"
   },
   "dependencies": {
-    "react-addons-css-transition-group": "^15.6.0",
     "react-dotdotdot": "^1.1.0",
+    "react-transition-group": "^1.2.0",
     "webpack-preset": "^0.2.0",
     "webpack-preset-babel": "^0.2.0",
     "webpack-preset-babel-stage-2": "^0.2.0"
