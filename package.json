@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "react-addons-css-transition-group": "^15.6.0",
+    "react-dotdotdot": "^1.1.0",
     "webpack-preset": "^0.2.0",
     "webpack-preset-babel": "^0.2.0",
     "webpack-preset-babel-stage-2": "^0.2.0"

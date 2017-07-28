@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import Dotdotdot from 'react-dotdotdot'
 
 import TweetButton from './TweetButton'
 
@@ -11,12 +12,7 @@ class NewsArticle extends Component {
 
   formatText = (text) => {
     let string = text.replace(/&quot;/g, '\\"');
-    if (text.length > 260) {
-        string = string.substr(0,260)+'...';
-    }
-
     return string;
-
   }
 
   render() {
@@ -34,8 +30,10 @@ class NewsArticle extends Component {
           </div>
 
           <div className="card-section onhover">
-            <p className="source-category">{article.sourceCategory}</p>  
-            <p>{this.formatText(article.description)}</p>
+            <p className="source-category">{article.sourceCategory}</p>
+            <Dotdotdot clamp={7}>  
+              <p>{this.formatText(article.description)}</p>
+            </Dotdotdot>
             <p>
               <a className="button small article-btn" href={article.url} target="_blank">View article</a>
               { 
