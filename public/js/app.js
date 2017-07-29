@@ -13364,10 +13364,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var NewsFeed = function (_Component) {
     _inherits(NewsFeed, _Component);
 
-    function NewsFeed() {
+    function NewsFeed(props) {
         _classCallCheck(this, NewsFeed);
 
-        var _this = _possibleConstructorReturn(this, (NewsFeed.__proto__ || Object.getPrototypeOf(NewsFeed)).call(this));
+        var _this = _possibleConstructorReturn(this, (NewsFeed.__proto__ || Object.getPrototypeOf(NewsFeed)).call(this, props));
 
         _this.loadMore = function () {
             if (_this.state.limitCountEnd < _this.props.newsArticles.length) {
@@ -13428,7 +13428,7 @@ var NewsFeed = function (_Component) {
             return articles.slice(0, _this.state.limitCountEnd);
         };
 
-        _this.renderArticle = function (articles) {
+        _this.filterArticles = function (articles) {
             var _this$props = _this.props,
                 selectedCategories = _this$props.selectedCategories,
                 selectedLanguages = _this$props.selectedLanguages,
@@ -13449,8 +13449,10 @@ var NewsFeed = function (_Component) {
                 filtered = _this.filterSource(filtered);
             }
 
-            filtered = _this.filterLimit(filtered);
+            return filtered;
+        };
 
+        _this.renderArticle = function (articles) {
             return _react2.default.createElement(
                 _reactTransitionGroup.CSSTransitionGroup,
                 {
@@ -13469,7 +13471,7 @@ var NewsFeed = function (_Component) {
                     transitionLeave: true,
                     transitionLeaveTimeout: 500
                 },
-                filtered.map(function (article, index) {
+                articles.map(function (article, index) {
                     return _react2.default.createElement(_NewsArticle2.default, {
                         key: article.title,
                         newsArticle: article,
@@ -13486,6 +13488,8 @@ var NewsFeed = function (_Component) {
         _this.state = {
             limitCountEnd: 26
         };
+
+        _this.filtered = [];
         return _this;
     }
 
@@ -13500,7 +13504,9 @@ var NewsFeed = function (_Component) {
                 savedCategories = _props.savedCategories;
 
             var currentDate = new Date();
-            var limitCounter = 1;
+
+            var filtered = this.filterArticles(this.props.newsArticles);
+            var limited = this.filterLimit(filtered);
 
             return _react2.default.createElement(
                 'div',
@@ -13508,7 +13514,7 @@ var NewsFeed = function (_Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'row small-collapse large-collapse' },
-                    this.renderArticle(this.props.newsArticles)
+                    this.renderArticle(limited)
                 ),
                 _react2.default.createElement(
                     'div',
@@ -13520,7 +13526,7 @@ var NewsFeed = function (_Component) {
                             onClick: function onClick() {
                                 return _this2.loadMore();
                             },
-                            disabled: this.state.limitCountEnd >= this.props.newsArticles.length ? true : false
+                            disabled: this.state.limitCountEnd >= filtered.length ? true : false
                         },
                         'Load More'
                     )

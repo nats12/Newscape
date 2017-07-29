@@ -5,12 +5,14 @@ import NewsArticle from './NewsArticle';
 
 
 class NewsFeed extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
 
         this.state = {
             limitCountEnd: 26,
         }
+
+        this.filtered = [];
     }
 
     loadMore = () => {
@@ -73,8 +75,7 @@ class NewsFeed extends Component {
         return articles.slice(0, this.state.limitCountEnd);
     }
 
-    renderArticle = (articles) => {
-
+    filterArticles = (articles) => {
         const {selectedCategories, selectedLanguages, selectedSources} = this.props;
 
         let filtered = articles;
@@ -91,8 +92,10 @@ class NewsFeed extends Component {
             filtered = this.filterSource(filtered);
         }
 
-        filtered = this.filterLimit(filtered);
+        return filtered;
+    }
 
+    renderArticle = (articles) => {
         return(
 
             <CSSTransitionGroup
@@ -112,7 +115,7 @@ class NewsFeed extends Component {
               transitionLeaveTimeout={500}
             >
 
-            {filtered.map( (article, index) =>
+            {articles.map( (article, index) =>
                 <NewsArticle 
                     key={article.title} 
                     newsArticle={article} 
@@ -133,14 +136,16 @@ class NewsFeed extends Component {
 
         const { selectedCategories, categories, savedCategories } = this.props;
         const currentDate = new Date();
-        let limitCounter = 1;
+
+        const filtered = this.filterArticles(this.props.newsArticles);
+        const limited = this.filterLimit(filtered);
 
         return (
             <div>
                 <div className="row small-collapse large-collapse"> 
 
                 {
-                    this.renderArticle(this.props.newsArticles)
+                    this.renderArticle(limited)
                 }
                 
                 </div>
@@ -148,7 +153,7 @@ class NewsFeed extends Component {
                     <button 
                         className="button success load-more" 
                         onClick={() => this.loadMore()} 
-                        disabled={this.state.limitCountEnd >= this.props.newsArticles.length ? true : false}
+                        disabled={this.state.limitCountEnd >= filtered.length ? true : false}
                     >
                         Load More
                     </button>
