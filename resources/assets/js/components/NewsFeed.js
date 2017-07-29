@@ -23,50 +23,38 @@ class NewsFeed extends Component {
     }
 
     filterCategory = (articles) => {
-
         return articles.filter((article) => {
-
             let ok = false;
-
             this.props.selectedCategories.map((category) => {
                 if (category.name === article.sourceCategory){
                     ok = true;
                 }
             })
-
             return ok;
         })
     }
 
 
     filterLanguage = (articles) => {
-
         return articles.filter((article) => {
-
             let ok = false;
-
             this.props.selectedLanguages.map((language) => {
                 if (language.iso === article.sourceLanguage){
                     ok = true;
                 }
             })
-
             return ok;
         })
     }
 
     filterSource = (articles) => {
-
         return articles.filter((article) => {
-
             let ok = false;
-
             this.props.selectedSources.map((source) => {
                 if (source.source_id === article.sourceId){
                     ok = true;
                 }
             })
-
             return ok;
         })
     }
@@ -77,22 +65,32 @@ class NewsFeed extends Component {
 
     filterArticles = (articles) => {
         const {selectedCategories, selectedLanguages, selectedSources} = this.props;
-
         let filtered = articles;
-
         if (selectedCategories.length > 0) {
             filtered = this.filterCategory(filtered);
         }
-
         if (selectedLanguages.length > 0) {
             filtered = this.filterLanguage(filtered);
         }
-
         if (selectedSources.length > 0) {
             filtered = this.filterSource(filtered);
         }
-
         return filtered;
+    }
+
+    sortArticles = (articles) => {
+        const currentDate = new Date();
+
+        let ok = false;
+        
+        return articles.sort((a,b) => new Date(b.publishedAt) - new Date(a.publishedAt) ).filter((article) => {
+            const publishedAtDate = new Date(article.publishedAt);
+            if(currentDate > publishedAtDate) {
+                ok = true;
+            }
+
+            return ok;
+        })
     }
 
     renderArticle = (articles) => {
@@ -135,10 +133,9 @@ class NewsFeed extends Component {
     render() {
 
         const { selectedCategories, categories, savedCategories } = this.props;
-        const currentDate = new Date();
-
         const filtered = this.filterArticles(this.props.newsArticles);
-        const limited = this.filterLimit(filtered);
+        const sorted = this.sortArticles(filtered);
+        const limited = this.filterLimit(sorted);
 
         return (
             <div>
