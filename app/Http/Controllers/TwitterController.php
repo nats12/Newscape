@@ -99,7 +99,7 @@ class TwitterController extends Controller
 	    // Only show timeline IF user has logged in, otherwise, default to showing just news articles.
 	    if (Auth::check()) {
 	      $timeline = Cache::remember('timeline_' . auth()->user()->twitter_id, 
-	          10, function () {
+	          1, function () {
 	          return Twitter::getHomeTimeline(['count' => 25]);
 	      });
 	    }

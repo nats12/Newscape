@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { CSSTransitionGroup } from 'react-transition-group';
 
 import TwitterAuth from './TwitterAuth';
 import TwitterFeed from './TwitterFeed';
@@ -26,6 +27,7 @@ class App extends Component {
 			categories: window.Laravel.categories,
 			savedCategories: [],
 			menuIsOpen: false,
+			twitterFeedOpen: false,
 			sources: window.Laravel.sources,
 			selectedSources: window.Laravel.selectedSources,
 			savedSources: [],
@@ -38,6 +40,10 @@ class App extends Component {
 	toggleTweetForm = (tweetFormOpen) => {
 		tweetFormOpen = !tweetFormOpen;
 		this.setState({tweetFormOpen: tweetFormOpen}); 
+	}
+
+	toggleTwitterFeed = (twitterFeedOpen) => {
+		this.setState({twitterFeedOpen: twitterFeedOpen}); 
 	}
 
 	selectArticle = (article) => {
@@ -211,6 +217,8 @@ class App extends Component {
 				categories,
 				savedCategories,
 				menuIsOpen,
+				twitterFeedOpen,
+				toggleTwitterFeed,
 				sources,
 				selectedSources,
 				languages,
@@ -241,8 +249,8 @@ class App extends Component {
 					</div>
 				</div>
 
-				{this.state.tweetFormOpen ? <TweetForm 
-					tweetFormOpen={this.state.tweetFormOpen} 
+				{tweetFormOpen ? <TweetForm 
+					tweetFormOpen={tweetFormOpen} 
 					toggleTweetForm={this.toggleTweetForm}
 					selectedArticle={this.state.selectedArticle}
 					user={user}
@@ -274,6 +282,8 @@ class App extends Component {
 							categories={categories}
 							user={user}
 							menuIsOpen={menuIsOpen}
+							twitterFeedOpen={twitterFeedOpen}
+							toggleTwitterFeed={this.toggleTwitterFeed}
 							sources={sources}
 							selectSource={this.selectSource}
 							selectedSources={selectedSources}
@@ -313,11 +323,30 @@ class App extends Component {
 						/>
 					</div>
 					<div className="large-4 medium-5 columns">
-						<div className="twitter-container">
+						<CSSTransitionGroup
+						  component="div"
+						  className="twitter-container"
+						  transitionName={ {
+						      enter: 'animated',
+						      enterActive: 'slideInRightFadeIn',
+						      leave: 'animated',
+						      leaveActive: 'slideOutRightFadeOut',
+						      appear: 'appear',
+						      appearActive: 'appearActive'
+						    } }
+						  transitionEnter={true}
+						  transitionEnterTimeout={1000}
+						  transitionLeave={true}
+						  transitionLeaveTimeout={1000}
+						>
+						{
+							twitterFeedOpen ? 
 							<TwitterFeed 
 								timeline={timeline}
 								user={user} />
-						</div>
+							: ''
+						}
+						</CSSTransitionGroup>
 					</div>
 				</div>
 			</div>

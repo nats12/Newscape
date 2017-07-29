@@ -5,6 +5,7 @@ import { CSSTransitionGroup } from 'react-transition-group';
 import Categories from './Categories';
 import NewsSources from './NewsSources';
 import Languages from './Languages';
+import Switch from './Switch';
 
 
 class Filter extends Component {
@@ -26,6 +27,7 @@ class Filter extends Component {
             categories, 
             user, 
             menuIsOpen,
+            twitterFeedOpen,
             logoutPage,
             languages,
             selectLanguage,
@@ -40,15 +42,15 @@ class Filter extends Component {
           transitionName={ {
               enter: 'animated',
               enterActive: 'slideInDown',
-              leave: 'leave',
-              leaveActive: 'leaveActive',
+              leave: 'animated',
+              leaveActive: 'slideOutUp',
               appear: 'appear',
               appearActive: 'appearActive'
             } }
           transitionEnter={true}
-          transitionEnterTimeout={5000}
+          transitionEnterTimeout={500}
           transitionLeave={true}
-          transitionLeaveTimeout={5000}
+          transitionLeaveTimeout={500}
         >
           {
             menuIsOpen ?
@@ -92,7 +94,12 @@ class Filter extends Component {
               this.props.user && menuIsOpen ?
                 <div>
                   <p className="icon-user">Not @{user.handle}? <span><a href={logoutPage}>Log out</a></span></p>
-                  <p>View feed</p>
+                  <p className="view-feed">View feed &nbsp;
+                    <Switch 
+                      toggleTwitterFeed={this.props.toggleTwitterFeed}
+                      twitterFeedOpen={twitterFeedOpen}
+                    />
+                  </p>
                   <p>Search hashtag</p>
                 </div>
               :

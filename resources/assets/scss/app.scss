@@ -6,11 +6,14 @@
 @import "vars";
 
 // Components
+@import "./components/animations";
 @import "./components/typo";
+@import "./components/buttons";
 @import "./components/header";
 @import "./components/twitter";
 @import "./components/section-filter";
 @import "./components/newsfeed";
+
 
 // Bootstrap
 // @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";

@@ -63,6 +63,10 @@ class Tweet extends Component {
 				  	<p>{tweet.user.name} <a href={"http://twitter.com/" + tweet.user.screen_name}>@{tweet.user.screen_name}</a></p>
 				  	<p><small>{this.dateFormatter(tweet.created_at)}</small></p>
 				    <p dangerouslySetInnerHTML={this.parseTweet(tweet.text)}></p>
+				    {
+				    	tweet.entities.media ? <img className="tweet-media" src={tweet.entities.media[0].media_url} width={tweet.entities.media[0].sizes.medium.w} height={tweet.entities.media[0].sizes.medium.h}/> : ''
+				    }
+				    
 				  </div>
 				</div>
 			</div>
