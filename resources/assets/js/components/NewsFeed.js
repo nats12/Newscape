@@ -69,6 +69,10 @@ class NewsFeed extends Component {
         })
     }
 
+    filterLimit = (articles) => {
+        return articles.slice(0, this.state.limitCountEnd);
+    }
+
     renderArticle = (articles) => {
 
         const {selectedCategories, selectedLanguages, selectedSources} = this.props;
@@ -87,11 +91,30 @@ class NewsFeed extends Component {
             filtered = this.filterSource(filtered);
         }
 
+        filtered = this.filterLimit(filtered);
+
         return(
 
-            filtered.map( (article, index) =>
+            <CSSTransitionGroup
+              component="div"
+              className="row small-collapse large-collapse testingclass"
+              transitionName={ {
+                  enter: 'animated',
+                  enterActive: 'zoomIn',
+                  leave: 'animated',
+                  leaveActive: 'zoomOut',
+                  appear: 'appear',
+                  appearActive: 'appearActive'
+                } }
+              transitionEnter={true}
+              transitionEnterTimeout={500}
+              transitionLeave={true}
+              transitionLeaveTimeout={500}
+            >
+
+            {filtered.map( (article, index) =>
                 <NewsArticle 
-                    key={index} 
+                    key={article.title} 
                     newsArticle={article} 
                     dateFormatter={this.props.dateFormatter} 
                     tweetFormOpen={this.props.tweetFormOpen} 
@@ -100,7 +123,9 @@ class NewsFeed extends Component {
                     user={this.props.user}
                 />
 
-            )
+            )}
+
+            </CSSTransitionGroup>
         )
     }
 
