@@ -39,12 +39,12 @@ class NewsArticle extends Component {
           </div>
 
           <div className="card-section onhover">
-            <p className="source-category">{article.sourceCategory}</p>
+            <small className="source-category icon-tag">{article.sourceCategory}</small>
             <Dotdotdot clamp={7}>  
               <p>{this.formatText(article.description)}</p>
             </Dotdotdot>
             <p>
-              <a className="button small article-btn" href={article.url} target="_blank">View article</a>
+              <a className="button small article-btn" href={article.url} target="_blank"><span className="icon-link-ext"></span> View article</a>
               { 
                 this.props.user ? <TweetButton 
                   article={article} 

@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="css/animate.css">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="fontello-5c9a1b5d/css/fontello.css">
-
+        <link rel="stylesheet" href="fontello-385806cc/css/fontello.css">
         
     </head>
     <body>

@@ -12262,7 +12262,6 @@ var App = function (_Component) {
 		};
 
 		_this.selectArticle = function (article) {
-			console.log(article);
 			_this.setState({ selectedArticle: article });
 		};
 
@@ -12434,7 +12433,6 @@ var App = function (_Component) {
 	_createClass(App, [{
 		key: 'componentDidMount',
 		value: function componentDidMount() {
-			console.log('mounted');
 			this.setTwitterFeedHeight(this.newsfeedDiv, this.twitterfeedDiv);
 		}
 	}, {
@@ -13298,8 +13296,8 @@ var NewsArticle = function (_Component) {
             'div',
             { className: 'card-section onhover' },
             _react2.default.createElement(
-              'p',
-              { className: 'source-category' },
+              'small',
+              { className: 'source-category icon-tag' },
               article.sourceCategory
             ),
             _react2.default.createElement(
@@ -13317,7 +13315,8 @@ var NewsArticle = function (_Component) {
               _react2.default.createElement(
                 'a',
                 { className: 'button small article-btn', href: article.url, target: '_blank' },
-                'View article'
+                _react2.default.createElement('span', { className: 'icon-link-ext' }),
+                ' View article'
               ),
               this.props.user ? _react2.default.createElement(_TweetButton2.default, {
                 article: article,
@@ -14042,11 +14041,12 @@ var TweetButton = function (_Component) {
             var tweetFormOpen = this.props.tweetFormOpen;
             return _react2.default.createElement(
                 'button',
-                { type: 'button', className: 'button small btn-tweet', onClick: function onClick() {
+                { type: 'button icon-twitter', className: 'button small btn-tweet', onClick: function onClick() {
                         _this2.props.toggleTweetForm(tweetFormOpen);
                         _this2.props.selectArticle(_this2.props.article);
                     } },
-                'Tweet'
+                'Tweet ',
+                _react2.default.createElement('span', { className: 'icon-twitter' })
             );
         }
     }]);
