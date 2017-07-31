@@ -258,7 +258,7 @@ class App extends Component {
 					updateTimeline={this.updateTimeline}
 				/> : '' }
 				
-				<div className="section-filter">
+				<div className={menuIsOpen ? 'section-filter menu-open' : 'section-filter'}>
 					<div className="row">
 						<div className="large-8 medium-7 columns">
 		          <div className="options-menu">
@@ -294,7 +294,7 @@ class App extends Component {
 						/>
 					</div>
 					{
-						menuIsOpen && user ?
+						user ?
 							<div className="save" onClick={this.saveData}>
 				        <span className="icon-ok-1">Save</span>
 				      </div>

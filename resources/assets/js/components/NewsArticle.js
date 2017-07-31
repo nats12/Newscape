@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Dotdotdot from 'react-dotdotdot'
+import Dotdotdot from 'react-dotdotdot';
 
 import TweetButton from './TweetButton'
 
@@ -18,6 +18,10 @@ class NewsArticle extends Component {
 
   }
 
+  componentWillEnter(callback) {
+    console.log('entered');
+  }
+
   render() {
 
     const article = this.props.newsArticle;
@@ -25,7 +29,9 @@ class NewsArticle extends Component {
     return (
       <div className="small-12 large-6 columns tweet-block">
         <div className="card">
-            <img className="article-image" src={article.urlToImage} alt={article.title} />
+        {
+          article.urlToImage ? <img className="article-image" src={article.urlToImage} alt={article.title} /> : ''
+        }
           
           <div className="card-section offhover">
             <h4>{article.title}</h4>

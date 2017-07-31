@@ -36,62 +36,43 @@ class Filter extends Component {
 
     return (
       <div>
-        <CSSTransitionGroup
-          component="div"
-          className="large-8 medium-7 columns slide"
-          transitionName={ {
-              enter: 'animated',
-              enterActive: 'slideInDown',
-              leave: 'animated',
-              leaveActive: 'slideOutUp',
-              appear: 'appear',
-              appearActive: 'appearActive'
-            } }
-          transitionEnter={true}
-          transitionEnterTimeout={500}
-          transitionLeave={true}
-          transitionLeaveTimeout={500}
-        >
-          {
-            menuIsOpen ?
-                <div>
-                  <div className="row">
-                    <div className="large-4 medium-12 columns">
-                      <Categories 
-                        selectedCategories={selectedCategories} 
-                        selectCategory={selectCategory}
-                        getData={getData}
-                        saveData={saveData}
-                        categories={categories}
-                      />
-                    </div>
-                    <div className="large-5 medium-12 columns">
-                      <NewsSources 
-                        selectedCategories={selectedCategories} 
-                        selectedLanguages={selectedLanguages}
-                        sources={sources} 
-                        selectSource={selectSource}
-                        selectedSources={selectedSources}
-                      />
-                    </div>
-                    <div className="large-3 medium-12 columns">
-                      <Languages 
-                        languages={languages}
-                        selectLanguage={selectLanguage}
-                        selectedLanguages= {selectedLanguages}
-                      />
-                    </div>
-                  </div>
-                </div>
-              :
-                ''
-          }
-        </CSSTransitionGroup>
+        <div className="large-8 medium-7 columns">
+          <div className={menuIsOpen ? 'animated fadeIn' : 'animated fadeOut'}>
+            <div className="row">
+              <div className="large-4 medium-12 columns">
+                <Categories 
+                  selectedCategories={selectedCategories} 
+                  selectCategory={selectCategory}
+                  getData={getData}
+                  saveData={saveData}
+                  categories={categories}
+                />
+              </div>
+              <div className="large-5 medium-12 columns">
+                <NewsSources 
+                  selectedCategories={selectedCategories} 
+                  selectedLanguages={selectedLanguages}
+                  sources={sources} 
+                  selectSource={selectSource}
+                  selectedSources={selectedSources}
+                />
+              </div>
+              <div className="large-3 medium-12 columns">
+                <Languages 
+                  languages={languages}
+                  selectLanguage={selectLanguage}
+                  selectedLanguages= {selectedLanguages}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
 
         <div className="large-4 medium-5 columns">
-          <div className={`options-wrap ${menuIsOpen ? 'pad-10' : ''}`}>
+          <div className={menuIsOpen ? 'options-wrap animated fadeIn' : 'options-wrap animated fadeOut'}>
             {
-              this.props.user && menuIsOpen ?
+              this.props.user ?
                 <div>
                   <p className="icon-user">Not @{user.handle}? <span><a href={logoutPage}>Log out</a></span></p>
                   <p className="view-feed">View feed &nbsp;

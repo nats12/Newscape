@@ -12511,7 +12511,7 @@ var App = function (_Component) {
 				}) : '',
 				_react2.default.createElement(
 					'div',
-					{ className: 'section-filter' },
+					{ className: menuIsOpen ? 'section-filter menu-open' : 'section-filter' },
 					_react2.default.createElement(
 						'div',
 						{ className: 'row' },
@@ -12569,7 +12569,7 @@ var App = function (_Component) {
 							selectedLanguages: selectedLanguages
 						})
 					),
-					menuIsOpen && user ? _react2.default.createElement(
+					user ? _react2.default.createElement(
 						'div',
 						{ className: 'save', onClick: this.saveData },
 						_react2.default.createElement(
@@ -12901,26 +12901,11 @@ var Filter = function (_Component) {
         'div',
         null,
         _react2.default.createElement(
-          _reactTransitionGroup.CSSTransitionGroup,
-          {
-            component: 'div',
-            className: 'large-8 medium-7 columns slide',
-            transitionName: {
-              enter: 'animated',
-              enterActive: 'slideInDown',
-              leave: 'animated',
-              leaveActive: 'slideOutUp',
-              appear: 'appear',
-              appearActive: 'appearActive'
-            },
-            transitionEnter: true,
-            transitionEnterTimeout: 500,
-            transitionLeave: true,
-            transitionLeaveTimeout: 500
-          },
-          menuIsOpen ? _react2.default.createElement(
+          'div',
+          { className: 'large-8 medium-7 columns' },
+          _react2.default.createElement(
             'div',
-            null,
+            { className: menuIsOpen ? 'animated fadeIn' : 'animated fadeOut' },
             _react2.default.createElement(
               'div',
               { className: 'row' },
@@ -12956,15 +12941,15 @@ var Filter = function (_Component) {
                 })
               )
             )
-          ) : ''
+          )
         ),
         _react2.default.createElement(
           'div',
           { className: 'large-4 medium-5 columns' },
           _react2.default.createElement(
             'div',
-            { className: 'options-wrap ' + (menuIsOpen ? 'pad-10' : '') },
-            this.props.user && menuIsOpen ? _react2.default.createElement(
+            { className: menuIsOpen ? 'options-wrap animated fadeIn' : 'options-wrap animated fadeOut' },
+            this.props.user ? _react2.default.createElement(
               'div',
               null,
               _react2.default.createElement(
@@ -13247,6 +13232,11 @@ var NewsArticle = function (_Component) {
   }
 
   _createClass(NewsArticle, [{
+    key: 'componentWillEnter',
+    value: function componentWillEnter(callback) {
+      console.log('entered');
+    }
+  }, {
     key: 'render',
     value: function render() {
 
@@ -13258,7 +13248,7 @@ var NewsArticle = function (_Component) {
         _react2.default.createElement(
           'div',
           { className: 'card' },
-          _react2.default.createElement('img', { className: 'article-image', src: article.urlToImage, alt: article.title }),
+          article.urlToImage ? _react2.default.createElement('img', { className: 'article-image', src: article.urlToImage, alt: article.title }) : '',
           _react2.default.createElement(
             'div',
             { className: 'card-section offhover' },
@@ -13453,18 +13443,19 @@ var NewsFeed = function (_Component) {
         };
 
         _this.renderArticle = function (articles) {
+            console.log('rendered article');
             return _react2.default.createElement(
                 _reactTransitionGroup.CSSTransitionGroup,
                 {
                     component: 'div',
-                    className: 'row small-collapse large-collapse testingclass',
+                    className: 'row small-collapse large-collapse newsfeed',
                     transitionName: {
                         enter: 'animated',
                         enterActive: 'zoomIn',
                         leave: 'animated',
-                        leaveActive: 'zoomOut',
-                        appear: 'appear',
-                        appearActive: 'appearActive'
+                        leaveActive: 'news-leave',
+                        appear: 'animated',
+                        appearActive: 'zoomIn'
                     },
                     transitionEnter: true,
                     transitionEnterTimeout: 500,
@@ -13472,6 +13463,7 @@ var NewsFeed = function (_Component) {
                     transitionLeaveTimeout: 500
                 },
                 articles.map(function (article, index) {
+
                     return _react2.default.createElement(_NewsArticle2.default, {
                         key: article.title,
                         newsArticle: article,

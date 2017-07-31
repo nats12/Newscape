@@ -94,18 +94,19 @@ class NewsFeed extends Component {
     }
 
     renderArticle = (articles) => {
+        console.log('rendered article');
         return(
 
             <CSSTransitionGroup
               component="div"
-              className="row small-collapse large-collapse testingclass"
+              className="row small-collapse large-collapse newsfeed"
               transitionName={ {
                   enter: 'animated',
                   enterActive: 'zoomIn',
                   leave: 'animated',
-                  leaveActive: 'zoomOut',
-                  appear: 'appear',
-                  appearActive: 'appearActive'
+                  leaveActive: 'news-leave',
+                  appear: 'animated',
+                  appearActive: 'zoomIn'
                 } }
               transitionEnter={true}
               transitionEnterTimeout={500}
@@ -113,8 +114,9 @@ class NewsFeed extends Component {
               transitionLeaveTimeout={500}
             >
 
-            {articles.map( (article, index) =>
-                <NewsArticle 
+            {articles.map( (article, index) => {
+
+                return <NewsArticle 
                     key={article.title} 
                     newsArticle={article} 
                     dateFormatter={this.props.dateFormatter} 
@@ -123,8 +125,7 @@ class NewsFeed extends Component {
                     selectArticle={this.props.selectArticle}
                     user={this.props.user}
                 />
-
-            )}
+            })}
 
             </CSSTransitionGroup>
         )

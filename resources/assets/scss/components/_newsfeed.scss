@@ -74,3 +74,11 @@
     	}
     }
 }
+
+.newsfeed > * {
+    transition: width 0.5s linear;
+}
+.news-leave {
+    visibility: hidden;
+    width: 0;
+}
