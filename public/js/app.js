@@ -12432,6 +12432,20 @@ var App = function (_Component) {
 	}
 
 	_createClass(App, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			console.log('mounted');
+			this.setTwitterFeedHeight(this.newsfeedDiv, this.twitterfeedDiv);
+		}
+	}, {
+		key: 'setTwitterFeedHeight',
+		value: function setTwitterFeedHeight(newsfeed, twitterfeed) {
+			setTimeout(function () {
+				var height = newsfeed.clientHeight;
+				twitterfeed.style.height = height + 'px';
+			}, 1000);
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			var _this2 = this;
@@ -12584,7 +12598,9 @@ var App = function (_Component) {
 					{ className: 'row small-collapse medium-uncollapse large-uncollapse' },
 					_react2.default.createElement(
 						'div',
-						{ className: 'large-8 medium-7 columns' },
+						{ className: 'large-8 medium-7 columns newsfeed', ref: function ref(element) {
+								return _this2.newsfeedDiv = element;
+							} },
 						_react2.default.createElement(_NewsFeed2.default, {
 							newsArticles: newsArticles,
 							dateFormatter: this.dateFormatter,
@@ -12596,12 +12612,17 @@ var App = function (_Component) {
 							savedCategories: savedCategories,
 							selectedLanguages: selectedLanguages,
 							selectedSources: selectedSources,
-							user: user
+							user: user,
+							setTwitterFeedHeight: this.setTwitterFeedHeight,
+							newsfeedDiv: this.newsfeedDiv,
+							twitterfeedDiv: this.twitterfeedDiv
 						})
 					),
 					_react2.default.createElement(
 						'div',
-						{ className: 'large-4 medium-5 columns' },
+						{ className: 'large-4 medium-5 columns twitterfeed', ref: function ref(element) {
+								return _this2.twitterfeedDiv = element;
+							} },
 						_react2.default.createElement(
 							_reactTransitionGroup.CSSTransitionGroup,
 							{
@@ -13232,9 +13253,9 @@ var NewsArticle = function (_Component) {
   }
 
   _createClass(NewsArticle, [{
-    key: 'componentWillEnter',
-    value: function componentWillEnter(callback) {
-      console.log('entered');
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      console.log('unmounted');
     }
   }, {
     key: 'render',
@@ -13364,6 +13385,9 @@ var NewsFeed = function (_Component) {
                 var more = _this.state.limitCountEnd += 20;
                 _this.setState({ limitCountEnd: more });
             }
+
+            //set twitterfeed height equal to newsfeed height when more articles loaded
+            _this.props.setTwitterFeedHeight(_this.props.newsfeedDiv, _this.props.twitterfeedDiv);
         };
 
         _this.filterCategory = function (articles) {
@@ -13443,7 +13467,6 @@ var NewsFeed = function (_Component) {
         };
 
         _this.renderArticle = function (articles) {
-            console.log('rendered article');
             return _react2.default.createElement(
                 _reactTransitionGroup.CSSTransitionGroup,
                 {
@@ -13458,9 +13481,9 @@ var NewsFeed = function (_Component) {
                         appearActive: 'zoomInGrow'
                     },
                     transitionEnter: true,
-                    transitionEnterTimeout: 600,
+                    transitionEnterTimeout: 800,
                     transitionLeave: true,
-                    transitionLeaveTimeout: 600
+                    transitionLeaveTimeout: 800
                 },
                 articles.map(function (article, index) {
 

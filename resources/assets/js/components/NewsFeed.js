@@ -20,6 +20,10 @@ class NewsFeed extends Component {
             const more = this.state.limitCountEnd += 20;
             this.setState({limitCountEnd: more})
         }
+
+        //set twitterfeed height equal to newsfeed height when more articles loaded
+        this.props.setTwitterFeedHeight(this.props.newsfeedDiv, this.props.twitterfeedDiv);
+
     }
 
     filterCategory = (articles) => {
@@ -94,7 +98,6 @@ class NewsFeed extends Component {
     }
 
     renderArticle = (articles) => {
-        console.log('rendered article');
         return(
 
             <CSSTransitionGroup
@@ -109,9 +112,9 @@ class NewsFeed extends Component {
                   appearActive: 'zoomInGrow'
                 } }
               transitionEnter={true}
-              transitionEnterTimeout={600}
+              transitionEnterTimeout={800}
               transitionLeave={true}
-              transitionLeaveTimeout={600}
+              transitionLeaveTimeout={800}
             >
 
             {articles.map( (article, index) => {

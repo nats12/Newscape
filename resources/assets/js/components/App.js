@@ -37,6 +37,18 @@ class App extends Component {
 		}		
 	}
 
+	componentDidMount() {
+		this.setTwitterFeedHeight(this.newsfeedDiv, this.twitterfeedDiv);
+	}
+	       
+
+	setTwitterFeedHeight(newsfeed, twitterfeed) {
+	    setTimeout(() => {
+	        const height = newsfeed.clientHeight;
+	        twitterfeed.style.height = `${height}px`;
+	    }, 1000);
+	}
+
 	toggleTweetForm = (tweetFormOpen) => {
 		tweetFormOpen = !tweetFormOpen;
 		this.setState({tweetFormOpen: tweetFormOpen}); 
@@ -47,7 +59,6 @@ class App extends Component {
 	}
 
 	selectArticle = (article) => {
-		console.log(article);
 		this.setState({selectedArticle: article});
 	}
 
@@ -305,7 +316,7 @@ class App extends Component {
 
 
 				<div className="row small-collapse medium-uncollapse large-uncollapse">
-					<div className="large-8 medium-7 columns">
+					<div className="large-8 medium-7 columns newsfeed" ref={(element) => this.newsfeedDiv = element}>
 
 						
 						<NewsFeed 
@@ -320,9 +331,12 @@ class App extends Component {
 							selectedLanguages={selectedLanguages}
 							selectedSources={selectedSources}
 							user={user}
+							setTwitterFeedHeight={this.setTwitterFeedHeight}
+							newsfeedDiv={this.newsfeedDiv}
+							twitterfeedDiv={this.twitterfeedDiv}
 						/>
 					</div>
-					<div className="large-4 medium-5 columns">
+					<div className="large-4 medium-5 columns twitterfeed" ref={(element) => this.twitterfeedDiv = element}>
 						<CSSTransitionGroup
 						  component="div"
 						  className="twitter-container"

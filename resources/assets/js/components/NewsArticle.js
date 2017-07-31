@@ -18,8 +18,8 @@ class NewsArticle extends Component {
 
   }
 
-  componentWillEnter(callback) {
-    console.log('entered');
+  componentWillUnmount() {
+    console.log('unmounted');
   }
 
   render() {
