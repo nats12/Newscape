@@ -13451,16 +13451,16 @@ var NewsFeed = function (_Component) {
                     className: 'row small-collapse large-collapse newsfeed',
                     transitionName: {
                         enter: 'animated',
-                        enterActive: 'zoomIn',
+                        enterActive: 'zoomInGrow',
                         leave: 'animated',
-                        leaveActive: 'news-leave',
+                        leaveActive: 'zoomOutShrink',
                         appear: 'animated',
-                        appearActive: 'zoomIn'
+                        appearActive: 'zoomInGrow'
                     },
                     transitionEnter: true,
-                    transitionEnterTimeout: 500,
+                    transitionEnterTimeout: 600,
                     transitionLeave: true,
-                    transitionLeaveTimeout: 500
+                    transitionLeaveTimeout: 600
                 },
                 articles.map(function (article, index) {
 

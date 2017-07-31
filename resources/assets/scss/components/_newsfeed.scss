@@ -75,10 +75,10 @@
     }
 }
 
+.tweet-block {
+    animation-duration: 600ms;
+}
+
 .newsfeed > * {
     transition: width 0.5s linear;
-}
-.news-leave {
-    visibility: hidden;
-    width: 0;
 }

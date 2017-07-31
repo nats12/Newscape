@@ -30,7 +30,45 @@
   animation-name: slideOutRightFadeOut;
 }
 
+@keyframes zoomInGrow {
+  from {
+    max-width: 0;    
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
 
-// .zoomIn {
-//   animation-delay: 0.4s;
-// }
+  50% {
+    max-width: 385px;    
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+
+  }
+}
+
+.zoomInGrow {
+  animation-name: zoomInGrow;
+}
+
+@keyframes zoomOutShrink {
+  from { 
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale3d(.3, .3, .3);  
+    opacity: 0;
+    max-width: 385px;   
+  }
+
+  to {
+    opacity: 0;
+    max-width: 0; 
+  }
+}
+
+.zoomOutShrink {
+  animation-name: zoomOutShrink;
+}
