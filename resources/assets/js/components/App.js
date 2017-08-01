@@ -43,10 +43,12 @@ class App extends Component {
 	       
 
 	setTwitterFeedHeight(newsfeed, twitterfeed) {
-	    setTimeout(() => {
-	        const height = newsfeed.clientHeight;
-	        twitterfeed.style.height = `${height}px`;
-	    }, 500);
+		if(newsfeed && twitterfeed) {
+			setTimeout(() => {
+			    const height = newsfeed.clientHeight;
+			    twitterfeed.style.height = `${height}px`;
+			}, 500);
+		}
 	}
 
 	toggleTweetForm = (tweetFormOpen) => {
@@ -361,7 +363,7 @@ class App extends Component {
 						>
 						{
 							twitterFeedOpen ?
-							<div className={twitterFeedOpen ? 'twitter-wrap show' : 'twitter-feed'} ref={(element) => this.twitterfeedDiv = element}> 
+							<div className={twitterFeedOpen ? 'twitter-wrap' : 'twitter-feed'} ref={(element) => this.twitterfeedDiv = element}> 
 							<TwitterFeed 
 								timeline={timeline}
 								user={user} />

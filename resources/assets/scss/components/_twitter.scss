@@ -1,5 +1,7 @@
 .twitter-wrap {
-  overflow: hidden
+  overflow: auto;
+
+  @import "./scrollbar";
 }
 
 h2 {

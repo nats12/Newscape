@@ -72,3 +72,32 @@
 .zoomOutShrink {
   animation-name: zoomOutShrink;
 }
+
+
+@keyframes stepFadeOut {
+  from {
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes stepFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

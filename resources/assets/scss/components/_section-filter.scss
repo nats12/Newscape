@@ -69,7 +69,9 @@ span.icon-down-open-big, span.icon-up-open-big,  {
 
 .news-sources {
     height: 292px;
-    overflow-y: scroll;
+    overflow: auto;
+
+    @import "./scrollbar";
 }
 
 label>[type=checkbox] {

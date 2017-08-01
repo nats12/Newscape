@@ -18,7 +18,7 @@
     margin: 0;
     border: none;
 
-    .card-section{
+    .card-section > * {
         margin: 10px;
     }
 
@@ -98,30 +98,3 @@
     animation-duration: 800ms;
 }
 
-@keyframes stepFadeOut {
-  from {
-    opacity: 1;
-  }
-
-  75% {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes stepFadeIn {
-  from {
-    opacity: 0;
-  }
-
-  25% {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}

@@ -12443,10 +12443,12 @@ var App = function (_Component) {
 	}, {
 		key: 'setTwitterFeedHeight',
 		value: function setTwitterFeedHeight(newsfeed, twitterfeed) {
-			setTimeout(function () {
-				var height = newsfeed.clientHeight;
-				twitterfeed.style.height = height + 'px';
-			}, 500);
+			if (newsfeed && twitterfeed) {
+				setTimeout(function () {
+					var height = newsfeed.clientHeight;
+					twitterfeed.style.height = height + 'px';
+				}, 500);
+			}
 		}
 	}, {
 		key: 'render',
@@ -12645,7 +12647,7 @@ var App = function (_Component) {
 							},
 							twitterFeedOpen ? _react2.default.createElement(
 								'div',
-								{ className: twitterFeedOpen ? 'twitter-wrap show' : 'twitter-feed', ref: function ref(element) {
+								{ className: twitterFeedOpen ? 'twitter-wrap' : 'twitter-feed', ref: function ref(element) {
 										return _this2.twitterfeedDiv = element;
 									} },
 								_react2.default.createElement(_TwitterFeed2.default, {
