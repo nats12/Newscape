@@ -37,7 +37,7 @@ class App extends Component {
 		}		
 	}
 
-	componentDidMount() {
+	componentDidUpdate() {
 		this.setTwitterFeedHeight(this.newsfeedDiv, this.twitterfeedDiv);
 	}
 	       
@@ -46,7 +46,7 @@ class App extends Component {
 	    setTimeout(() => {
 	        const height = newsfeed.clientHeight;
 	        twitterfeed.style.height = `${height}px`;
-	    }, 1000);
+	    }, 500);
 	}
 
 	toggleTweetForm = (tweetFormOpen) => {
@@ -56,6 +56,11 @@ class App extends Component {
 
 	toggleTwitterFeed = (twitterFeedOpen) => {
 		this.setState({twitterFeedOpen: twitterFeedOpen}); 
+	}
+
+	toggleMenu = () => {
+		let menuIsOpen = this.state.menuIsOpen;
+		this.setState({menuIsOpen: !menuIsOpen});
 	}
 
 	selectArticle = (article) => {
@@ -302,6 +307,7 @@ class App extends Component {
 							languages={languages}
 							selectLanguage={this.selectLanguage}
 							selectedLanguages={selectedLanguages}
+							toggleMenu={this.toggleMenu}
 						/>
 					</div>
 					{
@@ -336,7 +342,7 @@ class App extends Component {
 							twitterfeedDiv={this.twitterfeedDiv}
 						/>
 					</div>
-					<div className="large-4 medium-5 columns twitterfeed" ref={(element) => this.twitterfeedDiv = element}>
+					<div className="large-4 medium-5 columns twitterfeed">
 						<CSSTransitionGroup
 						  component="div"
 						  className="twitter-container"
@@ -354,10 +360,12 @@ class App extends Component {
 						  transitionLeaveTimeout={1000}
 						>
 						{
-							twitterFeedOpen ? 
+							twitterFeedOpen ?
+							<div className={twitterFeedOpen ? 'twitter-wrap show' : 'twitter-feed'} ref={(element) => this.twitterfeedDiv = element}> 
 							<TwitterFeed 
 								timeline={timeline}
 								user={user} />
+							</div>
 							: ''
 						}
 						</CSSTransitionGroup>

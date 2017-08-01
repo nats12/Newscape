@@ -31,7 +31,8 @@ class Filter extends Component {
             logoutPage,
             languages,
             selectLanguage,
-            selectedLanguages
+            selectedLanguages,
+            toggleMenu
     } = this.props;
 
     return (
@@ -79,6 +80,7 @@ class Filter extends Component {
                     <Switch 
                       toggleTwitterFeed={this.props.toggleTwitterFeed}
                       twitterFeedOpen={twitterFeedOpen}
+                      toggleMenu={toggleMenu}
                     />
                   </p>
                   <p>Search hashtag</p>

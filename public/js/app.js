@@ -12261,8 +12261,12 @@ var App = function (_Component) {
 			_this.setState({ twitterFeedOpen: twitterFeedOpen });
 		};
 
+		_this.toggleMenu = function () {
+			var menuIsOpen = _this.state.menuIsOpen;
+			_this.setState({ menuIsOpen: !menuIsOpen });
+		};
+
 		_this.selectArticle = function (article) {
-			console.log(article);
 			_this.setState({ selectedArticle: article });
 		};
 
@@ -12432,9 +12436,8 @@ var App = function (_Component) {
 	}
 
 	_createClass(App, [{
-		key: 'componentDidMount',
-		value: function componentDidMount() {
-			console.log('mounted');
+		key: 'componentDidUpdate',
+		value: function componentDidUpdate() {
 			this.setTwitterFeedHeight(this.newsfeedDiv, this.twitterfeedDiv);
 		}
 	}, {
@@ -12443,7 +12446,7 @@ var App = function (_Component) {
 			setTimeout(function () {
 				var height = newsfeed.clientHeight;
 				twitterfeed.style.height = height + 'px';
-			}, 1000);
+			}, 500);
 		}
 	}, {
 		key: 'render',
@@ -12580,7 +12583,8 @@ var App = function (_Component) {
 							logoutPage: logoutPage,
 							languages: languages,
 							selectLanguage: this.selectLanguage,
-							selectedLanguages: selectedLanguages
+							selectedLanguages: selectedLanguages,
+							toggleMenu: this.toggleMenu
 						})
 					),
 					user ? _react2.default.createElement(
@@ -12620,9 +12624,7 @@ var App = function (_Component) {
 					),
 					_react2.default.createElement(
 						'div',
-						{ className: 'large-4 medium-5 columns twitterfeed', ref: function ref(element) {
-								return _this2.twitterfeedDiv = element;
-							} },
+						{ className: 'large-4 medium-5 columns twitterfeed' },
 						_react2.default.createElement(
 							_reactTransitionGroup.CSSTransitionGroup,
 							{
@@ -12641,9 +12643,15 @@ var App = function (_Component) {
 								transitionLeave: true,
 								transitionLeaveTimeout: 1000
 							},
-							twitterFeedOpen ? _react2.default.createElement(_TwitterFeed2.default, {
-								timeline: timeline,
-								user: user }) : ''
+							twitterFeedOpen ? _react2.default.createElement(
+								'div',
+								{ className: twitterFeedOpen ? 'twitter-wrap show' : 'twitter-feed', ref: function ref(element) {
+										return _this2.twitterfeedDiv = element;
+									} },
+								_react2.default.createElement(_TwitterFeed2.default, {
+									timeline: timeline,
+									user: user })
+							) : ''
 						)
 					)
 				)
@@ -12915,7 +12923,8 @@ var Filter = function (_Component) {
           logoutPage = _props.logoutPage,
           languages = _props.languages,
           selectLanguage = _props.selectLanguage,
-          selectedLanguages = _props.selectedLanguages;
+          selectedLanguages = _props.selectedLanguages,
+          toggleMenu = _props.toggleMenu;
 
 
       return _react2.default.createElement(
@@ -12995,7 +13004,8 @@ var Filter = function (_Component) {
                 'View feed \xA0',
                 _react2.default.createElement(_Switch2.default, {
                   toggleTwitterFeed: this.props.toggleTwitterFeed,
-                  twitterFeedOpen: twitterFeedOpen
+                  twitterFeedOpen: twitterFeedOpen,
+                  toggleMenu: toggleMenu
                 })
               ),
               _react2.default.createElement(
@@ -13387,6 +13397,8 @@ var NewsFeed = function (_Component) {
             }
 
             //set twitterfeed height equal to newsfeed height when more articles loaded
+            console.log('BLAH');
+            console.log(_this.props.newsfeedDiv, _this.props.twitterfeedDiv);
             _this.props.setTwitterFeedHeight(_this.props.newsfeedDiv, _this.props.twitterfeedDiv);
         };
 
@@ -13483,7 +13495,9 @@ var NewsFeed = function (_Component) {
                     transitionEnter: true,
                     transitionEnterTimeout: 800,
                     transitionLeave: true,
-                    transitionLeaveTimeout: 800
+                    transitionLeaveTimeout: 800,
+                    transitionAppear: true,
+                    transitionAppearTimeout: 800
                 },
                 articles.map(function (article, index) {
 
@@ -13829,9 +13843,12 @@ var Switch = function (_Component) {
 
     _this.toggleCheckboxState = function () {
       var isChecked = !_this.state.checked;
-      console.log(isChecked);
       _this.setState({ checked: isChecked });
       _this.props.toggleTwitterFeed(isChecked);
+
+      setTimeout(function () {
+        _this.props.toggleMenu();
+      }, 475);
     };
 
     _this.state = {

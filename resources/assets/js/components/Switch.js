@@ -12,9 +12,13 @@ class Switch extends Component {
 
   toggleCheckboxState = () => {
     let isChecked = !this.state.checked;
-    console.log(isChecked);
     this.setState({checked: isChecked});
     this.props.toggleTwitterFeed(isChecked);
+
+    setTimeout(()=> {
+      this.props.toggleMenu();
+    }, 475)
+
   }
 
   render() {

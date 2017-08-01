@@ -17,9 +17,26 @@
     position: relative;
     margin: 0;
     border: none;
+
+    .card-section{
+        margin: 10px;
+    }
+
+    .card-section.offhover {
+        opacity: 1;
+        animation-name: stepFadeIn;
+        animation-duration: 0.4s;
+        animation-timing-function: ease-in;
+    }
 	
 	.card-section.onhover {
-		display: none;
+		opacity: 0;
+        display: block;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        animation-name: stepFadeOut;
+        animation-duration: 0.4s;
 	}
 
     .card-section {
@@ -59,19 +76,21 @@
 		}
 
     	.card-section.onhover {
-    		display: block;
-    		position: absolute;
-    		top: 0;
-    		width: 100%;
+            opacity: 1;
+            animation-name: stepFadeIn;
+            animation-duration: 0.4s;
     	}
 
     	.card-section.onhover > * {
-    		margin: 10px;
+    		
     	}
 
     	.card-section.offhover {
-    		display: none;
-    	}
+            opacity: 0;
+            animation-name: stepFadeOut;
+            animation-duration: 0.4s;
+            animation-timing-function: ease-out;
+        }
     }
 }
 
@@ -79,6 +98,30 @@
     animation-duration: 800ms;
 }
 
-.newsfeed > * {
-    transition: width 0.5s linear;
+@keyframes stepFadeOut {
+  from {
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes stepFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }

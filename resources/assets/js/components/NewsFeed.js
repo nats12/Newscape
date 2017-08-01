@@ -22,6 +22,8 @@ class NewsFeed extends Component {
         }
 
         //set twitterfeed height equal to newsfeed height when more articles loaded
+        console.log('BLAH')
+        console.log(this.props.newsfeedDiv, this.props.twitterfeedDiv);
         this.props.setTwitterFeedHeight(this.props.newsfeedDiv, this.props.twitterfeedDiv);
 
     }
@@ -115,6 +117,8 @@ class NewsFeed extends Component {
               transitionEnterTimeout={800}
               transitionLeave={true}
               transitionLeaveTimeout={800}
+              transitionAppear={true}
+              transitionAppearTimeout={800}
             >
 
             {articles.map( (article, index) => {
