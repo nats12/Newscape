@@ -1,16 +1,17 @@
 &::-webkit-scrollbar {
   background-color: transparent;
-  width: 8px;
+  width: 18px;
 }
 
 &::-webkit-scrollbar-thumb {
     transition: background-color 0.5s linear;
-    border-radius: 5px;
-    border: none;
+    border: 5px solid rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+    border-radius: 10px;
 }
 
 &:hover {
   &::-webkit-scrollbar-thumb {
-      background-color: rgba(0,0,0,0.2);
+      background-color: rgba(255,255,255,0.2);
   }
 }
