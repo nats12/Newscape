@@ -27,7 +27,7 @@ class App extends Component {
 			categories: window.Laravel.categories,
 			savedCategories: [],
 			menuIsOpen: false,
-			twitterFeedOpen: false,
+			twitterFeedOpen: window.Laravel.user ? true : false,
 			sources: window.Laravel.sources,
 			selectedSources: window.Laravel.selectedSources,
 			savedSources: [],
@@ -43,12 +43,12 @@ class App extends Component {
 	       
 
 	setTwitterFeedHeight(newsfeed, twitterfeed) {
-		if(newsfeed && twitterfeed) {
-			setTimeout(() => {
-			    const height = newsfeed.clientHeight;
-			    twitterfeed.style.height = `${height}px`;
-			}, 500);
-		}
+		// if(newsfeed && twitterfeed) {
+		// 	setTimeout(() => {
+		// 	    const height = newsfeed.clientHeight;
+		// 	    twitterfeed.style.height = `${height}px`;
+		// 	}, 1000);
+		// }
 	}
 
 	toggleTweetForm = (tweetFormOpen) => {
@@ -246,6 +246,8 @@ class App extends Component {
 		return (
 			<div className={tweetFormOpen ? 'overlay' : ''}>
 
+			<header>
+
 				<div className="top-bar">
 					<div className="row">
 						  	<div className="top-bar-left">
@@ -278,14 +280,14 @@ class App extends Component {
 				
 				<div className={menuIsOpen ? 'section-filter menu-open' : 'section-filter'}>
 					<div className="row">
-						<div className="large-8 medium-7 columns">
+						<div className="large-8 medium-6 columns">
 		          <div className="options-menu">
 		            <span className="icon-cog">News</span>
 		            <span className={ menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big'} onClick={() => this.setState({menuIsOpen: menuIsOpen ? false : true})}></span>
 		          </div>
           	</div>
 
-    				<div className="large-4 medium-5 columns">
+    				<div className="large-4 medium-6 columns">
     					<div className="twitter-options">
 				        <div className="options-menu">
 				          <span className="icon-cog">Twitter</span>
@@ -321,10 +323,12 @@ class App extends Component {
 				        	''
 					}
 				</div>
+				</header>
 
 
+				<div className="feeds">
 				<div className="row small-collapse medium-uncollapse large-uncollapse">
-					<div className="large-8 medium-7 columns newsfeed" ref={(element) => this.newsfeedDiv = element}>
+					<div className="large-8 medium-6 columns newsfeed" ref={(element) => this.newsfeedDiv = element}>
 
 						
 						<NewsFeed 
@@ -344,7 +348,7 @@ class App extends Component {
 							twitterfeedDiv={this.twitterfeedDiv}
 						/>
 					</div>
-					<div className="large-4 medium-5 columns twitterfeed">
+					<div className="large-4 medium-6 columns twitterfeed">
 						<CSSTransitionGroup
 						  component="div"
 						  className="twitter-container"
@@ -364,14 +368,30 @@ class App extends Component {
 						{
 							twitterFeedOpen ?
 							<div className={twitterFeedOpen ? 'twitter-wrap' : 'twitter-feed'} ref={(element) => this.twitterfeedDiv = element}> 
-							<TwitterFeed 
-								timeline={timeline}
-								user={user} />
+								<TwitterFeed 
+									timeline={timeline}
+									user={user} />
 							</div>
 							: ''
 						}
 						</CSSTransitionGroup>
+
+						 { twitterFeedOpen ? '' : 							
+						 	<div className="sign-in-message">
+								<div className="row">
+									<div className="large-12 columns">
+										<h2>
+										{user ? <span>Activate </span> : <span>Sign in </span>}
+										
+										to use this feature</h2>
+									</div>
+								</div>
+							</div> 
+						}
+
+						
 					</div>
+				</div>
 				</div>
 			</div>
 		)

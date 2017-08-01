@@ -12424,7 +12424,7 @@ var App = function (_Component) {
 			categories: window.Laravel.categories,
 			savedCategories: [],
 			menuIsOpen: false,
-			twitterFeedOpen: false,
+			twitterFeedOpen: window.Laravel.user ? true : false,
 			sources: window.Laravel.sources,
 			selectedSources: window.Laravel.selectedSources,
 			savedSources: [],
@@ -12443,12 +12443,12 @@ var App = function (_Component) {
 	}, {
 		key: 'setTwitterFeedHeight',
 		value: function setTwitterFeedHeight(newsfeed, twitterfeed) {
-			if (newsfeed && twitterfeed) {
-				setTimeout(function () {
-					var height = newsfeed.clientHeight;
-					twitterfeed.style.height = height + 'px';
-				}, 500);
-			}
+			// if(newsfeed && twitterfeed) {
+			// 	setTimeout(() => {
+			// 	    const height = newsfeed.clientHeight;
+			// 	    twitterfeed.style.height = `${height}px`;
+			// 	}, 1000);
+			// }
 		}
 	}, {
 		key: 'render',
@@ -12479,181 +12479,215 @@ var App = function (_Component) {
 				'div',
 				{ className: tweetFormOpen ? 'overlay' : '' },
 				_react2.default.createElement(
-					'div',
-					{ className: 'top-bar' },
+					'header',
+					null,
 					_react2.default.createElement(
 						'div',
-						{ className: 'row' },
+						{ className: 'top-bar' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'top-bar-left' },
+							{ className: 'row' },
 							_react2.default.createElement(
-								'ul',
-								{ className: 'menu' },
+								'div',
+								{ className: 'top-bar-left' },
 								_react2.default.createElement(
-									'li',
-									{ className: 'menu-text' },
+									'ul',
+									{ className: 'menu' },
 									_react2.default.createElement(
-										'h1',
-										null,
-										'Newscape'
+										'li',
+										{ className: 'menu-text' },
+										_react2.default.createElement(
+											'h1',
+											null,
+											'Newscape'
+										)
+									)
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'top-bar-right' },
+								_react2.default.createElement(
+									'ul',
+									{ className: 'menu' },
+									_react2.default.createElement(
+										'li',
+										{ className: 'menu-text' },
+										_react2.default.createElement(_TwitterAuth2.default, {
+											user: user,
+											loginPage: loginPage,
+											logoutPage: logoutPage
+										})
 									)
 								)
 							)
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'top-bar-right' },
-							_react2.default.createElement(
-								'ul',
-								{ className: 'menu' },
-								_react2.default.createElement(
-									'li',
-									{ className: 'menu-text' },
-									_react2.default.createElement(_TwitterAuth2.default, {
-										user: user,
-										loginPage: loginPage,
-										logoutPage: logoutPage
-									})
-								)
-							)
 						)
-					)
-				),
-				tweetFormOpen ? _react2.default.createElement(_TweetForm2.default, {
-					tweetFormOpen: tweetFormOpen,
-					toggleTweetForm: this.toggleTweetForm,
-					selectedArticle: this.state.selectedArticle,
-					user: user,
-					timeline: timeline,
-					updateTimeline: this.updateTimeline
-				}) : '',
-				_react2.default.createElement(
-					'div',
-					{ className: menuIsOpen ? 'section-filter menu-open' : 'section-filter' },
+					),
+					tweetFormOpen ? _react2.default.createElement(_TweetForm2.default, {
+						tweetFormOpen: tweetFormOpen,
+						toggleTweetForm: this.toggleTweetForm,
+						selectedArticle: this.state.selectedArticle,
+						user: user,
+						timeline: timeline,
+						updateTimeline: this.updateTimeline
+					}) : '',
 					_react2.default.createElement(
 						'div',
-						{ className: 'row' },
+						{ className: menuIsOpen ? 'section-filter menu-open' : 'section-filter' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'large-8 medium-7 columns' },
+							{ className: 'row' },
 							_react2.default.createElement(
 								'div',
-								{ className: 'options-menu' },
-								_react2.default.createElement(
-									'span',
-									{ className: 'icon-cog' },
-									'News'
-								),
-								_react2.default.createElement('span', { className: menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big', onClick: function onClick() {
-										return _this2.setState({ menuIsOpen: menuIsOpen ? false : true });
-									} })
-							)
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'large-4 medium-5 columns' },
-							_react2.default.createElement(
-								'div',
-								{ className: 'twitter-options' },
+								{ className: 'large-8 medium-6 columns' },
 								_react2.default.createElement(
 									'div',
 									{ className: 'options-menu' },
 									_react2.default.createElement(
 										'span',
 										{ className: 'icon-cog' },
-										'Twitter'
+										'News'
 									),
 									_react2.default.createElement('span', { className: menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big', onClick: function onClick() {
 											return _this2.setState({ menuIsOpen: menuIsOpen ? false : true });
 										} })
 								)
-							)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'large-4 medium-6 columns' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'twitter-options' },
+									_react2.default.createElement(
+										'div',
+										{ className: 'options-menu' },
+										_react2.default.createElement(
+											'span',
+											{ className: 'icon-cog' },
+											'Twitter'
+										),
+										_react2.default.createElement('span', { className: menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big', onClick: function onClick() {
+												return _this2.setState({ menuIsOpen: menuIsOpen ? false : true });
+											} })
+									)
+								)
+							),
+							_react2.default.createElement(_Filter2.default, {
+								selectedCategories: selectedCategories,
+								selectCategory: this.selectCategory,
+								getData: this.getData,
+								categories: categories,
+								user: user,
+								menuIsOpen: menuIsOpen,
+								twitterFeedOpen: twitterFeedOpen,
+								toggleTwitterFeed: this.toggleTwitterFeed,
+								sources: sources,
+								selectSource: this.selectSource,
+								selectedSources: selectedSources,
+								logoutPage: logoutPage,
+								languages: languages,
+								selectLanguage: this.selectLanguage,
+								selectedLanguages: selectedLanguages,
+								toggleMenu: this.toggleMenu
+							})
 						),
-						_react2.default.createElement(_Filter2.default, {
-							selectedCategories: selectedCategories,
-							selectCategory: this.selectCategory,
-							getData: this.getData,
-							categories: categories,
-							user: user,
-							menuIsOpen: menuIsOpen,
-							twitterFeedOpen: twitterFeedOpen,
-							toggleTwitterFeed: this.toggleTwitterFeed,
-							sources: sources,
-							selectSource: this.selectSource,
-							selectedSources: selectedSources,
-							logoutPage: logoutPage,
-							languages: languages,
-							selectLanguage: this.selectLanguage,
-							selectedLanguages: selectedLanguages,
-							toggleMenu: this.toggleMenu
-						})
-					),
-					user ? _react2.default.createElement(
-						'div',
-						{ className: 'save', onClick: this.saveData },
-						_react2.default.createElement(
-							'span',
-							{ className: 'icon-ok-1' },
-							'Save'
-						)
-					) : ''
+						user ? _react2.default.createElement(
+							'div',
+							{ className: 'save', onClick: this.saveData },
+							_react2.default.createElement(
+								'span',
+								{ className: 'icon-ok-1' },
+								'Save'
+							)
+						) : ''
+					)
 				),
 				_react2.default.createElement(
 					'div',
-					{ className: 'row small-collapse medium-uncollapse large-uncollapse' },
+					{ className: 'feeds' },
 					_react2.default.createElement(
 						'div',
-						{ className: 'large-8 medium-7 columns newsfeed', ref: function ref(element) {
-								return _this2.newsfeedDiv = element;
-							} },
-						_react2.default.createElement(_NewsFeed2.default, {
-							newsArticles: newsArticles,
-							dateFormatter: this.dateFormatter,
-							tweetFormOpen: tweetFormOpen,
-							toggleTweetForm: this.toggleTweetForm,
-							selectArticle: this.selectArticle,
-							selectedCategories: selectedCategories,
-							categories: categories,
-							savedCategories: savedCategories,
-							selectedLanguages: selectedLanguages,
-							selectedSources: selectedSources,
-							user: user,
-							setTwitterFeedHeight: this.setTwitterFeedHeight,
-							newsfeedDiv: this.newsfeedDiv,
-							twitterfeedDiv: this.twitterfeedDiv
-						})
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'large-4 medium-5 columns twitterfeed' },
+						{ className: 'row small-collapse medium-uncollapse large-uncollapse' },
 						_react2.default.createElement(
-							_reactTransitionGroup.CSSTransitionGroup,
-							{
-								component: 'div',
-								className: 'twitter-container',
-								transitionName: {
-									enter: 'animated',
-									enterActive: 'slideInRightFadeIn',
-									leave: 'animated',
-									leaveActive: 'slideOutRightFadeOut',
-									appear: 'appear',
-									appearActive: 'appearActive'
+							'div',
+							{ className: 'large-8 medium-6 columns newsfeed', ref: function ref(element) {
+									return _this2.newsfeedDiv = element;
+								} },
+							_react2.default.createElement(_NewsFeed2.default, {
+								newsArticles: newsArticles,
+								dateFormatter: this.dateFormatter,
+								tweetFormOpen: tweetFormOpen,
+								toggleTweetForm: this.toggleTweetForm,
+								selectArticle: this.selectArticle,
+								selectedCategories: selectedCategories,
+								categories: categories,
+								savedCategories: savedCategories,
+								selectedLanguages: selectedLanguages,
+								selectedSources: selectedSources,
+								user: user,
+								setTwitterFeedHeight: this.setTwitterFeedHeight,
+								newsfeedDiv: this.newsfeedDiv,
+								twitterfeedDiv: this.twitterfeedDiv
+							})
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'large-4 medium-6 columns twitterfeed' },
+							_react2.default.createElement(
+								_reactTransitionGroup.CSSTransitionGroup,
+								{
+									component: 'div',
+									className: 'twitter-container',
+									transitionName: {
+										enter: 'animated',
+										enterActive: 'slideInRightFadeIn',
+										leave: 'animated',
+										leaveActive: 'slideOutRightFadeOut',
+										appear: 'appear',
+										appearActive: 'appearActive'
+									},
+									transitionEnter: true,
+									transitionEnterTimeout: 1000,
+									transitionLeave: true,
+									transitionLeaveTimeout: 1000
 								},
-								transitionEnter: true,
-								transitionEnterTimeout: 1000,
-								transitionLeave: true,
-								transitionLeaveTimeout: 1000
-							},
-							twitterFeedOpen ? _react2.default.createElement(
+								twitterFeedOpen ? _react2.default.createElement(
+									'div',
+									{ className: twitterFeedOpen ? 'twitter-wrap' : 'twitter-feed', ref: function ref(element) {
+											return _this2.twitterfeedDiv = element;
+										} },
+									_react2.default.createElement(_TwitterFeed2.default, {
+										timeline: timeline,
+										user: user })
+								) : ''
+							),
+							twitterFeedOpen ? '' : _react2.default.createElement(
 								'div',
-								{ className: twitterFeedOpen ? 'twitter-wrap' : 'twitter-feed', ref: function ref(element) {
-										return _this2.twitterfeedDiv = element;
-									} },
-								_react2.default.createElement(_TwitterFeed2.default, {
-									timeline: timeline,
-									user: user })
-							) : ''
+								{ className: 'sign-in-message' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'row' },
+									_react2.default.createElement(
+										'div',
+										{ className: 'large-12 columns' },
+										_react2.default.createElement(
+											'h2',
+											null,
+											user ? _react2.default.createElement(
+												'span',
+												null,
+												'Activate '
+											) : _react2.default.createElement(
+												'span',
+												null,
+												'Sign in '
+											),
+											'to use this feature'
+										)
+									)
+								)
+							)
 						)
 					)
 				)
@@ -12934,7 +12968,7 @@ var Filter = function (_Component) {
         null,
         _react2.default.createElement(
           'div',
-          { className: 'large-8 medium-7 columns' },
+          { className: 'large-8 medium-6 columns' },
           _react2.default.createElement(
             'div',
             { className: menuIsOpen ? 'animated fadeIn' : 'animated fadeOut' },
@@ -12977,7 +13011,7 @@ var Filter = function (_Component) {
         ),
         _react2.default.createElement(
           'div',
-          { className: 'large-4 medium-5 columns' },
+          { className: 'large-4 medium-6 columns' },
           _react2.default.createElement(
             'div',
             { className: menuIsOpen ? 'options-wrap animated fadeIn' : 'options-wrap animated fadeOut' },
@@ -13869,7 +13903,7 @@ var Switch = function (_Component) {
         { className: 'toggle-switch' },
         _react2.default.createElement('input', { type: 'checkbox', onChange: function onChange() {
             return _this2.toggleCheckboxState();
-          } }),
+          }, checked: this.props.twitterFeedOpen }),
         _react2.default.createElement('span', { className: 'toggle-switch-track round' })
       );
     }
@@ -14368,16 +14402,7 @@ var TwitterFeed = function (_Component) {
 					Object.keys(this.props.timeline).map(function (key) {
 						return _react2.default.createElement(_Tweet2.default, { key: key, tweet: _this2.props.timeline[key] });
 					})
-				) : _react2.default.createElement(
-					'h2',
-					null,
-					_react2.default.createElement(
-						'span',
-						null,
-						'Sign in'
-					),
-					' to use this feature'
-				)
+				) : ''
 			);
 		}
 	}]);

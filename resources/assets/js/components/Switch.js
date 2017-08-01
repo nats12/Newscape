@@ -24,7 +24,7 @@ class Switch extends Component {
   render() {
     return (
       <label className="toggle-switch">
-        <input type="checkbox" onChange={() => this.toggleCheckboxState()}/>
+        <input type="checkbox" onChange={() => this.toggleCheckboxState()} checked={this.props.twitterFeedOpen}/>
         <span className="toggle-switch-track round"></span>
       </label>
     )

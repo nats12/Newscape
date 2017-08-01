@@ -37,7 +37,7 @@ class Filter extends Component {
 
     return (
       <div>
-        <div className="large-8 medium-7 columns">
+        <div className="large-8 medium-6 columns">
           <div className={menuIsOpen ? 'animated fadeIn' : 'animated fadeOut'}>
             <div className="row">
               <div className="large-4 medium-12 columns">
@@ -70,7 +70,7 @@ class Filter extends Component {
         </div>
 
 
-        <div className="large-4 medium-5 columns">
+        <div className="large-4 medium-6 columns">
           <div className={menuIsOpen ? 'options-wrap animated fadeIn' : 'options-wrap animated fadeOut'}>
             {
               this.props.user ?

@@ -1,7 +1,13 @@
 .twitter-wrap {
   overflow: auto;
+  height: 100%;
 
   @import "./scrollbar";
+}
+
+.sign-in-message {
+  position: fixed;
+  max-width: 370px;
 }
 
 h2 {
@@ -37,6 +43,8 @@ textarea {
 .twitter-container {
   background-color: $blue-dk;
   color: $white;
+  position: fixed;
+  height: 100%;
 
   a {
     color: rgba(255,255,255,0.6);
@@ -139,10 +147,29 @@ textarea {
 }
 
 /* Medium only */
-@media screen and (min-width: 40em) and (max-width: 63.9375em) {}
+@media screen and (min-width: 40em) and (max-width: 63.9375em) {
+  .twitter-wrap {
+    max-width: 370px;
+  }
+
+  .twitter-container {
+    .media-object {;
+      margin-left: 0px;
+    }
+  }
+
+  .thumbnail img {
+    width: 30px;
+    height: 30px;
+  }
+}
 
 /* Large and up */
-@media screen and (min-width: 64em) {}
+@media screen and (min-width: 64em) {
+  .twitter-wrap {
+    max-width: 370px;
+  }
+}
 
 /* Large only */
 @media screen and (min-width: 64em) and (max-width: 74.9375em) {}

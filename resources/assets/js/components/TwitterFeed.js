@@ -21,8 +21,7 @@ class TwitterFeed extends Component {
 							.map(key => <Tweet key={key} tweet={this.props.timeline[key]} />)
 						}
 					</div>
-					: 
-					<h2><span>Sign in</span> to use this feature</h2>
+					: ''
 				}
 			</div>
 		)
