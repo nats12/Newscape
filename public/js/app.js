@@ -12644,13 +12644,15 @@ var App = function (_Component) {
 										enterActive: 'slideInRightFadeIn',
 										leave: 'animated',
 										leaveActive: 'slideOutRightFadeOut',
-										appear: 'appear',
-										appearActive: 'appearActive'
+										appear: 'animated',
+										appearActive: 'slideInRightFadeIn'
 									},
 									transitionEnter: true,
 									transitionEnterTimeout: 1000,
 									transitionLeave: true,
-									transitionLeaveTimeout: 1000
+									transitionLeaveTimeout: 1000,
+									transitionAppear: true,
+									transitionAppearTimeout: 1000
 								},
 								twitterFeedOpen ? _react2.default.createElement(
 									'div',
@@ -12754,23 +12756,15 @@ var Categories = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        null,
-        _react2.default.createElement(
-          'div',
-          { className: 'categories' },
-          _react2.default.createElement(
-            'div',
-            { className: 'row' },
-            categories.map(function (category, index) {
-              return _react2.default.createElement(_Category2.default, {
-                key: index,
-                category: category,
-                selectCategory: selectCategory,
-                selectedCategories: _this2.props.selectedCategories
-              });
-            })
-          )
-        )
+        { className: 'row' },
+        categories.map(function (category, index) {
+          return _react2.default.createElement(_Category2.default, {
+            key: index,
+            category: category,
+            selectCategory: selectCategory,
+            selectedCategories: _this2.props.selectedCategories
+          });
+        })
       );
     }
   }]);
@@ -12942,8 +12936,16 @@ var Filter = function (_Component) {
   }
 
   _createClass(Filter, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var height = this.categoriesDiv.clientHeight;
+      this.newsSourcesDiv.style.height = height + 'px';
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       var _props = this.props,
           selectedCategories = _props.selectedCategories,
           selectCategory = _props.selectCategory,
@@ -12978,33 +12980,49 @@ var Filter = function (_Component) {
               _react2.default.createElement(
                 'div',
                 { className: 'large-4 medium-12 columns' },
-                _react2.default.createElement(_Categories2.default, {
-                  selectedCategories: selectedCategories,
-                  selectCategory: selectCategory,
-                  getData: getData,
-                  saveData: saveData,
-                  categories: categories
-                })
+                _react2.default.createElement(
+                  'div',
+                  { className: 'categories', ref: function ref(element) {
+                      return _this2.categoriesDiv = element;
+                    } },
+                  _react2.default.createElement(_Categories2.default, {
+                    selectedCategories: selectedCategories,
+                    selectCategory: selectCategory,
+                    getData: getData,
+                    saveData: saveData,
+                    categories: categories
+                  })
+                )
               ),
               _react2.default.createElement(
                 'div',
                 { className: 'large-5 medium-12 columns' },
-                _react2.default.createElement(_NewsSources2.default, {
-                  selectedCategories: selectedCategories,
-                  selectedLanguages: selectedLanguages,
-                  sources: sources,
-                  selectSource: selectSource,
-                  selectedSources: selectedSources
-                })
+                _react2.default.createElement(
+                  'div',
+                  { className: 'news-sources', ref: function ref(element) {
+                      return _this2.newsSourcesDiv = element;
+                    } },
+                  _react2.default.createElement(_NewsSources2.default, {
+                    selectedCategories: selectedCategories,
+                    selectedLanguages: selectedLanguages,
+                    sources: sources,
+                    selectSource: selectSource,
+                    selectedSources: selectedSources
+                  })
+                )
               ),
               _react2.default.createElement(
                 'div',
                 { className: 'large-3 medium-12 columns' },
-                _react2.default.createElement(_Languages2.default, {
-                  languages: languages,
-                  selectLanguage: selectLanguage,
-                  selectedLanguages: selectedLanguages
-                })
+                _react2.default.createElement(
+                  'div',
+                  { className: 'languages' },
+                  _react2.default.createElement(_Languages2.default, {
+                    languages: languages,
+                    selectLanguage: selectLanguage,
+                    selectedLanguages: selectedLanguages
+                  })
+                )
               )
             )
           )
@@ -13797,39 +13815,35 @@ var NewsSources = function (_Component) {
         null,
         this.props.sources.length !== 0 ? _react2.default.createElement(
           'div',
-          { className: 'news-sources' },
-          _react2.default.createElement(
-            'div',
-            { className: 'row' },
-            this.props.sources.map(function (source, index) {
+          { className: 'row' },
+          this.props.sources.map(function (source, index) {
 
-              if (selectedCategories.length === 0 && selectedLanguages.length === 0) {
-                return _this2.renderSource(source, index);
-              } else if (selectedCategories.length > 0 && selectedLanguages.length === 0) {
-                return selectedCategories.map(function (category) {
-                  if (category.name == source.category) {
-                    return _this2.renderSource(source, index);
-                  }
-                });
-              } else if (selectedCategories.length === 0 && selectedLanguages.length > 0) {
-                return selectedLanguages.map(function (language) {
-                  if (language.iso == source.language) {
-                    return _this2.renderSource(source, index);
-                  }
-                });
-              } else {
-                return selectedCategories.map(function (category) {
-                  if (category.name == source.category) {
-                    return selectedLanguages.map(function (language) {
-                      if (language.iso == source.language) {
-                        return _this2.renderSource(source, index);
-                      }
-                    });
-                  }
-                });
-              }
-            })
-          )
+            if (selectedCategories.length === 0 && selectedLanguages.length === 0) {
+              return _this2.renderSource(source, index);
+            } else if (selectedCategories.length > 0 && selectedLanguages.length === 0) {
+              return selectedCategories.map(function (category) {
+                if (category.name == source.category) {
+                  return _this2.renderSource(source, index);
+                }
+              });
+            } else if (selectedCategories.length === 0 && selectedLanguages.length > 0) {
+              return selectedLanguages.map(function (language) {
+                if (language.iso == source.language) {
+                  return _this2.renderSource(source, index);
+                }
+              });
+            } else {
+              return selectedCategories.map(function (category) {
+                if (category.name == source.category) {
+                  return selectedLanguages.map(function (language) {
+                    if (language.iso == source.language) {
+                      return _this2.renderSource(source, index);
+                    }
+                  });
+                }
+              });
+            }
+          })
         ) : ''
       );
     }

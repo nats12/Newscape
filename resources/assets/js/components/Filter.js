@@ -14,6 +14,11 @@ class Filter extends Component {
 
   }
 
+  componentDidMount() {
+    const height = this.categoriesDiv.clientHeight;
+    this.newsSourcesDiv.style.height = `${height}px`;
+  }
+
   render() {
 
     const {
@@ -41,29 +46,35 @@ class Filter extends Component {
           <div className={menuIsOpen ? 'animated fadeIn' : 'animated fadeOut'}>
             <div className="row">
               <div className="large-4 medium-12 columns">
-                <Categories 
-                  selectedCategories={selectedCategories} 
-                  selectCategory={selectCategory}
-                  getData={getData}
-                  saveData={saveData}
-                  categories={categories}
-                />
+                <div className="categories" ref={(element) => this.categoriesDiv = element }>
+                  <Categories 
+                    selectedCategories={selectedCategories} 
+                    selectCategory={selectCategory}
+                    getData={getData}
+                    saveData={saveData}
+                    categories={categories}
+                  />
+                </div>
               </div>
               <div className="large-5 medium-12 columns">
-                <NewsSources 
-                  selectedCategories={selectedCategories} 
-                  selectedLanguages={selectedLanguages}
-                  sources={sources} 
-                  selectSource={selectSource}
-                  selectedSources={selectedSources}
-                />
+                <div className="news-sources" ref={(element) => this.newsSourcesDiv = element}>
+                  <NewsSources 
+                    selectedCategories={selectedCategories} 
+                    selectedLanguages={selectedLanguages}
+                    sources={sources} 
+                    selectSource={selectSource}
+                    selectedSources={selectedSources}
+                  />
+                </div>
               </div>
               <div className="large-3 medium-12 columns">
-                <Languages 
-                  languages={languages}
-                  selectLanguage={selectLanguage}
-                  selectedLanguages= {selectedLanguages}
-                />
+                <div className="languages">
+                  <Languages 
+                    languages={languages}
+                    selectLanguage={selectLanguage}
+                    selectedLanguages= {selectedLanguages}
+                  />
+                </div>
               </div>
             </div>
           </div>

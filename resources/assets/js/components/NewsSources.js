@@ -29,7 +29,6 @@ class NewsSources extends Component {
 			<div>
           {
             this.props.sources.length !==0 ?
-              <div className="news-sources">
                 <div className="row">
                   {
                     
@@ -72,7 +71,6 @@ class NewsSources extends Component {
                     })
                   } 
                 </div>
-              </div>
             : ''
           }
           

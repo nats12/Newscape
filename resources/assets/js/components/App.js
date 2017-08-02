@@ -357,13 +357,15 @@ class App extends Component {
 						      enterActive: 'slideInRightFadeIn',
 						      leave: 'animated',
 						      leaveActive: 'slideOutRightFadeOut',
-						      appear: 'appear',
-						      appearActive: 'appearActive'
+						      appear: 'animated',
+						      appearActive: 'slideInRightFadeIn'
 						    } }
 						  transitionEnter={true}
 						  transitionEnterTimeout={1000}
 						  transitionLeave={true}
 						  transitionLeaveTimeout={1000}
+						  transitionAppear={true}
+						  transitionAppearTimeout={1000}
 						>
 						{
 							twitterFeedOpen ?

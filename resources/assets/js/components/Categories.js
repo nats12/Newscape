@@ -13,8 +13,6 @@ class Categories extends Component {
     const { selectCategory, categories } = this.props;
 
     return(
-        <div>
-          <div className="categories">
             <div className="row">
             
               {
@@ -27,9 +25,6 @@ class Categories extends Component {
                   />})
               }
             </div>
-          </div>
-          
-        </div>
       )
   }
 }
