@@ -308,6 +308,7 @@ class App extends Component {
 							selectSource={this.selectSource}
 							selectedSources={selectedSources}
 							logoutPage={logoutPage}
+							loginPage={loginPage}
 							languages={languages}
 							selectLanguage={this.selectLanguage}
 							selectedLanguages={selectedLanguages}

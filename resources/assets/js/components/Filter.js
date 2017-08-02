@@ -34,6 +34,7 @@ class Filter extends Component {
             menuIsOpen,
             twitterFeedOpen,
             logoutPage,
+            loginPage,
             languages,
             selectLanguage,
             selectedLanguages,
@@ -85,19 +86,26 @@ class Filter extends Component {
           <div className={menuIsOpen ? 'options-wrap animated fadeIn' : 'options-wrap animated fadeOut'}>
             {
               this.props.user ?
-                <div>
-                  <p className="icon-user">Not @{user.handle}? <span><a href={logoutPage}>Log out</a></span></p>
-                  <p className="view-feed">View feed &nbsp;
-                    <Switch 
-                      toggleTwitterFeed={this.props.toggleTwitterFeed}
-                      twitterFeedOpen={twitterFeedOpen}
-                      toggleMenu={toggleMenu}
-                    />
-                  </p>
-                  <p>Search hashtag</p>
+                <div className="row collapse">
+                  <div className="large-12 columns">
+                    <p className="icon-user">Not @{user.handle}? <span><a href={logoutPage}>Log out</a></span></p>
+                  </div>
+                  <div className="large-5 columns">
+                    <p className="view-feed">View feed &nbsp;
+                      <Switch 
+                        toggleTwitterFeed={this.props.toggleTwitterFeed}
+                        twitterFeedOpen={twitterFeedOpen}
+                        toggleMenu={toggleMenu}
+                      />
+                    </p>
+                  </div>
+                  <div className="large-7 columns">
+                    <p>Search hashtag</p>
+                    <input className="search" type="text"/>
+                  </div>
                 </div>
               :
-                ''
+                <p className="icon-user"><span><a href={loginPage}>Sign in</a></span></p>
             }
           </div>
         </div>

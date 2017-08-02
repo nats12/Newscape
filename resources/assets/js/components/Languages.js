@@ -17,10 +17,7 @@ class languages extends Component {
     const { languages, selectLanguage } = this.props;
 
     return(
-        <div>
-          <div className="languages">
             <div className="row">
-            
               {
                 languages.map((language, index) => { 
                   return <Language 
@@ -31,9 +28,6 @@ class languages extends Component {
                   />})
               }
             </div>
-          </div>
-          
-        </div>
       )
   }
 }

@@ -28,7 +28,7 @@ textarea {
 }
 
 .twitter-options {
-  background-color: $pink-dk;
+  background-color: $pink-md;
 }
 
 .icon-user span {
@@ -139,7 +139,7 @@ textarea {
     &:before {
       content: '';
       position: absolute;
-      background-color: $pink-md;
+      background-color: $pink-dk;
       height: 100%;
       width: 100%;
     }

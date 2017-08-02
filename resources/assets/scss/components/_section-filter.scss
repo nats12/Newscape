@@ -8,7 +8,6 @@
     transition: max-height 0.6s ease-out;
 
     &.menu-open {
-        max-height: 900px;
         transition: max-height 0.6s ease-in;
     }
 
@@ -41,7 +40,7 @@ span.icon-down-open-big, span.icon-up-open-big,  {
 }
 
 .save {
-    background-color: $pink-dk;
+    background-color: $pink-md;
     padding: 5px;
     text-align: center;
     position: relative;
@@ -56,7 +55,7 @@ span.icon-down-open-big, span.icon-up-open-big,  {
 .categories,
 .languages,
 .news-sources {
-	background-color: $pink-md;
+	background-color: $pink-dk;
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 30px;
@@ -94,11 +93,21 @@ label>[type=checkbox] {
     }
 }
 
+.search {
+    border-radius: 30px;
+    border: none;
+    background-color: $pink-md;
+    box-shadow: none;
+}
+
 
 /* Small only */
 @media screen and (max-width: 39.9375em) {
     .section-filter {
         margin-bottom: 0;
+        &.menu-open {
+            max-height: 1000px;
+        }
     }
 
     .options-wrap {
@@ -110,10 +119,24 @@ label>[type=checkbox] {
 @media screen and (min-width: 40em) {}
 
 /* Medium only */
-@media screen and (min-width: 40em) and (max-width: 63.9375em) {}
+@media screen and (min-width: 40em) and (max-width: 63.9375em) {
+    .section-filter { 
+        &.menu-open {
+            max-height: 1000px;
+        }
+    }
+}
 
 /* Large and up */
-@media screen and (min-width: 64em) {}
+@media screen and (min-width: 64em) {
+    .section-filter { 
+        &.menu-open {
+            max-height: 500px;
+        }
+    }
+
+
+}
 
 /* Large only */
 @media screen and (min-width: 64em) and (max-width: 74.9375em) {}

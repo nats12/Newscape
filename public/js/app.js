@@ -12586,6 +12586,7 @@ var App = function (_Component) {
 								selectSource: this.selectSource,
 								selectedSources: selectedSources,
 								logoutPage: logoutPage,
+								loginPage: loginPage,
 								languages: languages,
 								selectLanguage: this.selectLanguage,
 								selectedLanguages: selectedLanguages,
@@ -12959,6 +12960,7 @@ var Filter = function (_Component) {
           menuIsOpen = _props.menuIsOpen,
           twitterFeedOpen = _props.twitterFeedOpen,
           logoutPage = _props.logoutPage,
+          loginPage = _props.loginPage,
           languages = _props.languages,
           selectLanguage = _props.selectLanguage,
           selectedLanguages = _props.selectedLanguages,
@@ -13035,39 +13037,64 @@ var Filter = function (_Component) {
             { className: menuIsOpen ? 'options-wrap animated fadeIn' : 'options-wrap animated fadeOut' },
             this.props.user ? _react2.default.createElement(
               'div',
-              null,
+              { className: 'row collapse' },
               _react2.default.createElement(
-                'p',
-                { className: 'icon-user' },
-                'Not @',
-                user.handle,
-                '? ',
+                'div',
+                { className: 'large-12 columns' },
                 _react2.default.createElement(
-                  'span',
-                  null,
+                  'p',
+                  { className: 'icon-user' },
+                  'Not @',
+                  user.handle,
+                  '? ',
                   _react2.default.createElement(
-                    'a',
-                    { href: logoutPage },
-                    'Log out'
+                    'span',
+                    null,
+                    _react2.default.createElement(
+                      'a',
+                      { href: logoutPage },
+                      'Log out'
+                    )
                   )
                 )
               ),
               _react2.default.createElement(
-                'p',
-                { className: 'view-feed' },
-                'View feed \xA0',
-                _react2.default.createElement(_Switch2.default, {
-                  toggleTwitterFeed: this.props.toggleTwitterFeed,
-                  twitterFeedOpen: twitterFeedOpen,
-                  toggleMenu: toggleMenu
-                })
+                'div',
+                { className: 'large-5 columns' },
+                _react2.default.createElement(
+                  'p',
+                  { className: 'view-feed' },
+                  'View feed \xA0',
+                  _react2.default.createElement(_Switch2.default, {
+                    toggleTwitterFeed: this.props.toggleTwitterFeed,
+                    twitterFeedOpen: twitterFeedOpen,
+                    toggleMenu: toggleMenu
+                  })
+                )
               ),
               _react2.default.createElement(
-                'p',
-                null,
-                'Search hashtag'
+                'div',
+                { className: 'large-7 columns' },
+                _react2.default.createElement(
+                  'p',
+                  null,
+                  'Search hashtag'
+                ),
+                _react2.default.createElement('input', { className: 'search', type: 'text' })
               )
-            ) : ''
+            ) : _react2.default.createElement(
+              'p',
+              { className: 'icon-user' },
+              _react2.default.createElement(
+                'span',
+                null,
+                _react2.default.createElement(
+                  'a',
+                  { href: loginPage },
+                  'Sign in'
+                )
+              )
+            )
           )
         )
       );
@@ -13235,23 +13262,15 @@ var languages = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        null,
-        _react2.default.createElement(
-          'div',
-          { className: 'languages' },
-          _react2.default.createElement(
-            'div',
-            { className: 'row' },
-            languages.map(function (language, index) {
-              return _react2.default.createElement(_Language2.default, {
-                key: index,
-                language: language,
-                selectLanguage: selectLanguage,
-                selectedLanguages: _this2.props.selectedLanguages
-              });
-            })
-          )
-        )
+        { className: 'row' },
+        languages.map(function (language, index) {
+          return _react2.default.createElement(_Language2.default, {
+            key: index,
+            language: language,
+            selectLanguage: selectLanguage,
+            selectedLanguages: _this2.props.selectedLanguages
+          });
+        })
       );
     }
   }]);
