@@ -93,13 +93,34 @@ label>[type=checkbox] {
     }
 }
 
-.search {
+.search, 
+.search:focus {
     border-radius: 30px;
     border: none;
     background-color: $pink-md;
     box-shadow: none;
+    color: rgba(255,255,255,0.8);
 }
 
+.search {
+    padding-left: 20px;
+}
+
+
+.search-wrap {
+    position: relative;
+    display: block;
+
+
+    &:before {
+        content: '#';
+        position: absolute;
+        top: 50%;
+        left: 8px;
+        transform: translateY(-50%);
+        z-index: 1;
+    }
+}
 
 /* Small only */
 @media screen and (max-width: 39.9375em) {

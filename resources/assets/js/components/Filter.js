@@ -101,7 +101,7 @@ class Filter extends Component {
                   </div>
                   <div className="large-7 columns">
                     <p>Search hashtag</p>
-                    <input className="search" type="text"/>
+                    <span className="search-wrap"><input className="search" type="text"/></span>
                   </div>
                 </div>
               :

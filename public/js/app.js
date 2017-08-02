@@ -13080,7 +13080,11 @@ var Filter = function (_Component) {
                   null,
                   'Search hashtag'
                 ),
-                _react2.default.createElement('input', { className: 'search', type: 'text' })
+                _react2.default.createElement(
+                  'span',
+                  { className: 'search-wrap' },
+                  _react2.default.createElement('input', { className: 'search', type: 'text' })
+                )
               )
             ) : _react2.default.createElement(
               'p',
