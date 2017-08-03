@@ -100,7 +100,7 @@ class TwitterController extends Controller
 	    if (Auth::check()) {
 	      $timeline = Cache::remember('timeline_' . auth()->user()->twitter_id, 
 	          1, function () {
-	          return Twitter::getHomeTimeline(['count' => 25]);
+	          return Twitter::getHomeTimeline(['count' => 100]);
 	      });
 	    }
 
@@ -243,7 +243,7 @@ class TwitterController extends Controller
     public function twitterNewsFeed() 
     {
         
-    	$timeline = Twitter::getHomeTimeline(['count' => 25]);
+    	$timeline = Twitter::getHomeTimeline(['count' => 100]);
 
       return response()->json(Twitter::getCredentials(['include_email' => 'true',]));
     }
@@ -259,7 +259,7 @@ class TwitterController extends Controller
 
     public function getTimeline()
     {
-      $timeline = Twitter::getHomeTimeline(['count' => 25]);
+      $timeline = Twitter::getHomeTimeline(['count' => 100]);
 
       $response = ['timeline' => $timeline];
 

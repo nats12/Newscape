@@ -12271,8 +12271,26 @@ var App = function (_Component) {
 		};
 
 		_this.updateTimeline = function (array) {
-
 			_this.setState({ timeline: array });
+		};
+
+		_this.getSearchInput = function (text) {
+			_this.setState({ search: '' + text });
+		};
+
+		_this.searchHashtag = function (component) {
+			regexp = new RegExp(text, 'i');
+
+			// var text = searchField.value,
+			//       nodes = document.getElementsByClassName('phase'),
+			//       regexp = new RegExp(text, 'i');
+
+			//     for (var i = 0; i < nodes.length; i++) {
+			//       var node = nodes[i];
+
+			//       node.text.search(regexp) < 0 ?
+			//         node.parentNode.style.display = 'none' :
+			//         node.parentNode.style.display = 'block';
 		};
 
 		_this.selectCategory = function (component, checked) {
@@ -12430,27 +12448,13 @@ var App = function (_Component) {
 			savedSources: [],
 			languages: window.Laravel.languages,
 			selectedLanguages: window.Laravel.selectedLanguages,
-			savedLanguages: []
+			savedLanguages: [],
+			search: ''
 		};
 		return _this;
 	}
 
 	_createClass(App, [{
-		key: 'componentDidUpdate',
-		value: function componentDidUpdate() {
-			this.setTwitterFeedHeight(this.newsfeedDiv, this.twitterfeedDiv);
-		}
-	}, {
-		key: 'setTwitterFeedHeight',
-		value: function setTwitterFeedHeight(newsfeed, twitterfeed) {
-			// if(newsfeed && twitterfeed) {
-			// 	setTimeout(() => {
-			// 	    const height = newsfeed.clientHeight;
-			// 	    twitterfeed.style.height = `${height}px`;
-			// 	}, 1000);
-			// }
-		}
-	}, {
 		key: 'render',
 		value: function render() {
 			var _this2 = this;
@@ -12472,12 +12476,38 @@ var App = function (_Component) {
 			    sources = _state.sources,
 			    selectedSources = _state.selectedSources,
 			    languages = _state.languages,
-			    selectedLanguages = _state.selectedLanguages;
+			    selectedLanguages = _state.selectedLanguages,
+			    search = _state.search;
 
 
 			return _react2.default.createElement(
 				'div',
-				{ className: tweetFormOpen ? 'overlay' : '' },
+				{ className: user ? 'authenticated' : '' },
+				_react2.default.createElement(
+					_reactTransitionGroup.CSSTransitionGroup,
+					{
+						className: 'tweet-modal-wrap',
+						component: 'div',
+						transitionName: {
+							enter: 'animated',
+							enterActive: 'fadeIn',
+							leave: 'animated',
+							leaveActive: 'fadeOut'
+						},
+						transitionEnter: true,
+						transitionEnterTimeout: 1000,
+						transitionLeave: true,
+						transitionLeaveTimeout: 1000
+					},
+					tweetFormOpen ? _react2.default.createElement(_TweetForm2.default, {
+						tweetFormOpen: tweetFormOpen,
+						toggleTweetForm: this.toggleTweetForm,
+						selectedArticle: this.state.selectedArticle,
+						user: user,
+						timeline: timeline,
+						updateTimeline: this.updateTimeline
+					}) : ''
+				),
 				_react2.default.createElement(
 					'header',
 					null,
@@ -12523,14 +12553,6 @@ var App = function (_Component) {
 							)
 						)
 					),
-					tweetFormOpen ? _react2.default.createElement(_TweetForm2.default, {
-						tweetFormOpen: tweetFormOpen,
-						toggleTweetForm: this.toggleTweetForm,
-						selectedArticle: this.state.selectedArticle,
-						user: user,
-						timeline: timeline,
-						updateTimeline: this.updateTimeline
-					}) : '',
 					_react2.default.createElement(
 						'div',
 						{ className: menuIsOpen ? 'section-filter menu-open' : 'section-filter' },
@@ -12590,7 +12612,8 @@ var App = function (_Component) {
 								languages: languages,
 								selectLanguage: this.selectLanguage,
 								selectedLanguages: selectedLanguages,
-								toggleMenu: this.toggleMenu
+								toggleMenu: this.toggleMenu,
+								getSearchInput: this.getSearchInput
 							})
 						),
 						user ? _react2.default.createElement(
@@ -12612,9 +12635,7 @@ var App = function (_Component) {
 						{ className: 'row small-collapse medium-uncollapse large-uncollapse' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'large-8 medium-6 columns newsfeed', ref: function ref(element) {
-									return _this2.newsfeedDiv = element;
-								} },
+							{ className: 'large-8 medium-6 columns newsfeed' },
 							_react2.default.createElement(_NewsFeed2.default, {
 								newsArticles: newsArticles,
 								dateFormatter: this.dateFormatter,
@@ -12626,15 +12647,12 @@ var App = function (_Component) {
 								savedCategories: savedCategories,
 								selectedLanguages: selectedLanguages,
 								selectedSources: selectedSources,
-								user: user,
-								setTwitterFeedHeight: this.setTwitterFeedHeight,
-								newsfeedDiv: this.newsfeedDiv,
-								twitterfeedDiv: this.twitterfeedDiv
+								user: user
 							})
 						),
 						_react2.default.createElement(
 							'div',
-							{ className: 'large-4 medium-6 columns twitterfeed' },
+							{ className: 'large-4 medium-6 columns' },
 							_react2.default.createElement(
 								_reactTransitionGroup.CSSTransitionGroup,
 								{
@@ -12662,7 +12680,8 @@ var App = function (_Component) {
 										} },
 									_react2.default.createElement(_TwitterFeed2.default, {
 										timeline: timeline,
-										user: user })
+										user: user,
+										search: search })
 								) : ''
 							),
 							twitterFeedOpen ? '' : _react2.default.createElement(
@@ -12964,7 +12983,8 @@ var Filter = function (_Component) {
           languages = _props.languages,
           selectLanguage = _props.selectLanguage,
           selectedLanguages = _props.selectedLanguages,
-          toggleMenu = _props.toggleMenu;
+          toggleMenu = _props.toggleMenu,
+          getSearchInput = _props.getSearchInput;
 
 
       return _react2.default.createElement(
@@ -13083,7 +13103,9 @@ var Filter = function (_Component) {
                 _react2.default.createElement(
                   'span',
                   { className: 'search-wrap' },
-                  _react2.default.createElement('input', { className: 'search', type: 'text' })
+                  _react2.default.createElement('input', { className: 'search', type: 'text', onChange: function onChange(e) {
+                      return getSearchInput(e.target.value);
+                    } })
                 )
               )
             ) : _react2.default.createElement(
@@ -13473,11 +13495,6 @@ var NewsFeed = function (_Component) {
                 var more = _this.state.limitCountEnd += 20;
                 _this.setState({ limitCountEnd: more });
             }
-
-            //set twitterfeed height equal to newsfeed height when more articles loaded
-            console.log('BLAH');
-            console.log(_this.props.newsfeedDiv, _this.props.twitterfeedDiv);
-            _this.props.setTwitterFeedHeight(_this.props.newsfeedDiv, _this.props.twitterfeedDiv);
         };
 
         _this.filterCategory = function (articles) {
@@ -13561,7 +13578,7 @@ var NewsFeed = function (_Component) {
                 _reactTransitionGroup.CSSTransitionGroup,
                 {
                     component: 'div',
-                    className: 'row small-collapse large-collapse newsfeed',
+                    className: 'row small-collapse large-collapse',
                     transitionName: {
                         enter: 'animated',
                         enterActive: 'zoomInGrow',
@@ -14424,7 +14441,25 @@ var TwitterFeed = function (_Component) {
 	function TwitterFeed() {
 		_classCallCheck(this, TwitterFeed);
 
-		return _possibleConstructorReturn(this, (TwitterFeed.__proto__ || Object.getPrototypeOf(TwitterFeed)).call(this));
+		var _this = _possibleConstructorReturn(this, (TwitterFeed.__proto__ || Object.getPrototypeOf(TwitterFeed)).call(this));
+
+		_this.searchFilter = function (key) {
+			var tweet = _this.props.timeline[key];
+
+			if (_this.props.search.length === 0) {
+				return _this.renderTweet(key);
+			} else if (_this.props.search.length > 0) {
+				var searchText = '#' + _this.props.search;
+				var regexp = new RegExp(searchText, 'i');
+				return tweet.text.search(regexp) >= 0 ? _this.renderTweet(key) : '';
+			}
+		};
+
+		_this.renderTweet = function (key) {
+			return _react2.default.createElement(_Tweet2.default, { key: key, tweet: _this.props.timeline[key] });
+		};
+
+		return _this;
 	}
 
 	_createClass(TwitterFeed, [{
@@ -14437,9 +14472,9 @@ var TwitterFeed = function (_Component) {
 				{ className: 'row' },
 				this.props.timeline && this.props.user ? _react2.default.createElement(
 					'div',
-					null,
+					{ className: 'twitterfeed' },
 					Object.keys(this.props.timeline).map(function (key) {
-						return _react2.default.createElement(_Tweet2.default, { key: key, tweet: _this2.props.timeline[key] });
+						return _this2.searchFilter(key);
 					})
 				) : ''
 			);

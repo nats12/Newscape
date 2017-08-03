@@ -38,7 +38,8 @@ class Filter extends Component {
             languages,
             selectLanguage,
             selectedLanguages,
-            toggleMenu
+            toggleMenu,
+            getSearchInput
     } = this.props;
 
     return (
@@ -101,7 +102,7 @@ class Filter extends Component {
                   </div>
                   <div className="large-7 columns">
                     <p>Search hashtag</p>
-                    <span className="search-wrap"><input className="search" type="text"/></span>
+                    <span className="search-wrap"><input className="search" type="text" onChange={ (e) => getSearchInput(e.target.value)}/></span>
                   </div>
                 </div>
               :

@@ -33,22 +33,9 @@ class App extends Component {
 			savedSources: [],
 			languages: window.Laravel.languages,
 			selectedLanguages: window.Laravel.selectedLanguages,
-			savedLanguages:[]
+			savedLanguages:[],
+			search: ''
 		}		
-	}
-
-	componentDidUpdate() {
-		this.setTwitterFeedHeight(this.newsfeedDiv, this.twitterfeedDiv);
-	}
-	       
-
-	setTwitterFeedHeight(newsfeed, twitterfeed) {
-		// if(newsfeed && twitterfeed) {
-		// 	setTimeout(() => {
-		// 	    const height = newsfeed.clientHeight;
-		// 	    twitterfeed.style.height = `${height}px`;
-		// 	}, 1000);
-		// }
 	}
 
 	toggleTweetForm = (tweetFormOpen) => {
@@ -70,9 +57,28 @@ class App extends Component {
 	}
 
 	updateTimeline = (array) => {
-
 		this.setState({timeline: array});
+	}
 
+	getSearchInput = (text) => {
+		this.setState({search: `${text}`})
+	}
+
+	searchHashtag = (component) => {
+		regexp = new RegExp(text, 'i');
+
+
+
+		// var text = searchField.value,
+		//       nodes = document.getElementsByClassName('phase'),
+		//       regexp = new RegExp(text, 'i');
+
+		//     for (var i = 0; i < nodes.length; i++) {
+		//       var node = nodes[i];
+
+		//       node.text.search(regexp) < 0 ?
+		//         node.parentNode.style.display = 'none' :
+		//         node.parentNode.style.display = 'block';
 	}
 
 	selectCategory = (component, checked) => {
@@ -240,11 +246,36 @@ class App extends Component {
 				sources,
 				selectedSources,
 				languages,
-				selectedLanguages
+				selectedLanguages,
+				search
 				} = this.state;
 
 		return (
-			<div className={tweetFormOpen ? 'overlay' : ''}>
+			<div className={user ? 'authenticated' : ''}>
+
+			<CSSTransitionGroup
+			  className="tweet-modal-wrap"
+			  component="div"
+			  transitionName={ {
+			      enter: 'animated',
+			      enterActive: 'fadeIn',
+			      leave: 'animated',
+			      leaveActive: 'fadeOut',
+			    } }
+			  transitionEnter={true}
+			  transitionEnterTimeout={1000}
+			  transitionLeave={true}
+			  transitionLeaveTimeout={1000}
+			>
+			{tweetFormOpen ? <TweetForm 
+				tweetFormOpen={tweetFormOpen} 
+				toggleTweetForm={this.toggleTweetForm}
+				selectedArticle={this.state.selectedArticle}
+				user={user}
+				timeline={timeline}
+				updateTimeline={this.updateTimeline}
+			/> : '' }
+			</CSSTransitionGroup>
 
 			<header>
 
@@ -268,15 +299,6 @@ class App extends Component {
 						  </div>
 					</div>
 				</div>
-
-				{tweetFormOpen ? <TweetForm 
-					tweetFormOpen={tweetFormOpen} 
-					toggleTweetForm={this.toggleTweetForm}
-					selectedArticle={this.state.selectedArticle}
-					user={user}
-					timeline={timeline}
-					updateTimeline={this.updateTimeline}
-				/> : '' }
 				
 				<div className={menuIsOpen ? 'section-filter menu-open' : 'section-filter'}>
 					<div className="row">
@@ -313,6 +335,7 @@ class App extends Component {
 							selectLanguage={this.selectLanguage}
 							selectedLanguages={selectedLanguages}
 							toggleMenu={this.toggleMenu}
+							getSearchInput={this.getSearchInput}
 						/>
 					</div>
 					{
@@ -329,7 +352,7 @@ class App extends Component {
 
 				<div className="feeds">
 				<div className="row small-collapse medium-uncollapse large-uncollapse">
-					<div className="large-8 medium-6 columns newsfeed" ref={(element) => this.newsfeedDiv = element}>
+					<div className="large-8 medium-6 columns newsfeed">
 
 						
 						<NewsFeed 
@@ -344,12 +367,9 @@ class App extends Component {
 							selectedLanguages={selectedLanguages}
 							selectedSources={selectedSources}
 							user={user}
-							setTwitterFeedHeight={this.setTwitterFeedHeight}
-							newsfeedDiv={this.newsfeedDiv}
-							twitterfeedDiv={this.twitterfeedDiv}
 						/>
 					</div>
-					<div className="large-4 medium-6 columns twitterfeed">
+					<div className="large-4 medium-6 columns">
 						<CSSTransitionGroup
 						  component="div"
 						  className="twitter-container"
@@ -373,7 +393,8 @@ class App extends Component {
 							<div className={twitterFeedOpen ? 'twitter-wrap' : 'twitter-feed'} ref={(element) => this.twitterfeedDiv = element}> 
 								<TwitterFeed 
 									timeline={timeline}
-									user={user} />
+									user={user}
+									search={search} />
 							</div>
 							: ''
 						}

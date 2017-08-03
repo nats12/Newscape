@@ -9,16 +9,36 @@ class TwitterFeed extends Component {
 		super()
 	}
 
+	searchFilter = (key) => {
+		const tweet = this.props.timeline[key];
+
+		if (this.props.search.length === 0) {
+			return this.renderTweet(key)
+		}
+		else if (this.props.search.length > 0) {
+			const searchText = `#${this.props.search}`;
+			const regexp = new RegExp(searchText, 'i');
+			return tweet.text.search(regexp) >= 0 ? this.renderTweet(key) : '';
+		}
+
+	}
+
+	renderTweet = (key) => {
+		return (
+			<Tweet key={key} tweet={this.props.timeline[key]} />
+		)
+	}
+
 	render() {
 		
 		return (
 			<div className="row">
 				{	
 					this.props.timeline && this.props.user ?
-					<div>
+					<div className="twitterfeed">
 						{
 							Object.keys(this.props.timeline)
-							.map(key => <Tweet key={key} tweet={this.props.timeline[key]} />)
+							.map(key => this.searchFilter(key))
 						}
 					</div>
 					: ''

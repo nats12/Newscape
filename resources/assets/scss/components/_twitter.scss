@@ -5,6 +5,10 @@
   @import "./scrollbar";
 }
 
+.twitterfeed {
+  margin-top: 25px;
+}
+
 .sign-in-message {
   position: fixed;
   max-width: 370px;
@@ -44,7 +48,7 @@ textarea {
   background-color: $blue-dk;
   color: $white;
   position: fixed;
-  height: 100%;
+  height: calc(100% - 120px);
 
   a {
     color: rgba(255,255,255,0.6);
@@ -72,29 +76,39 @@ textarea {
     margin-left: 10px;
 }
 
-.overlay:before {
-  content: '';
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  background-color: $black;
-  opacity: 0.8;
+.tweet-modal-wrap {
+  .fadeIn {
+    animation-delay: 0.1s;
+    animation-duration: 0.3s;
+  }
+
+  .fadeOut {
+    animation-duration: 0.3s;
+  }
 }
 
 .tweet-modal {
   position: fixed;
-  width: 320px;
+  width: 500px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1;
-  width: 500px!important;
+  z-index: 3;
+
+  &:before {
+    position: fixed;
+    width: 120vw;
+    height: 120vh;
+    content: '';
+    background-color: rgba(0,0,0,0.8);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+  }
 
   .callout {
-    padding: 80px 20px 80px 20px;
+    padding: 60px 20px 60px 20px;
+    margin: 0;
     background-color: #a23850;
     color: $white;
   }
@@ -118,6 +132,10 @@ textarea {
   .twitter-container,
   .twitter-options {
     display: none;
+  }
+
+  .tweet-modal {
+    width: 100vw;
   }
 }
 

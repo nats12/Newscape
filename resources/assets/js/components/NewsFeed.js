@@ -20,12 +20,6 @@ class NewsFeed extends Component {
             const more = this.state.limitCountEnd += 20;
             this.setState({limitCountEnd: more})
         }
-
-        //set twitterfeed height equal to newsfeed height when more articles loaded
-        console.log('BLAH')
-        console.log(this.props.newsfeedDiv, this.props.twitterfeedDiv);
-        this.props.setTwitterFeedHeight(this.props.newsfeedDiv, this.props.twitterfeedDiv);
-
     }
 
     filterCategory = (articles) => {
@@ -104,7 +98,7 @@ class NewsFeed extends Component {
 
             <CSSTransitionGroup
               component="div"
-              className="row small-collapse large-collapse newsfeed"
+              className="row small-collapse large-collapse"
               transitionName={ {
                   enter: 'animated',
                   enterActive: 'zoomInGrow',
