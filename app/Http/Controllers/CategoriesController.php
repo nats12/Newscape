@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use Exception;
 use App\Category;
 
 
@@ -30,13 +31,22 @@ class CategoriesController extends Controller
      */
     public function attachCategoryToUser(Request $request) {
 
-      $user_id = $request->user['id'];
-      
-      Auth::loginUsingId($user_id);
-      
-      $user = Auth::user();
+      try {
+        $user_id = $request->user['id'];
+        
+        Auth::loginUsingId($user_id);
+        
+        $user = Auth::user();
 
-      $user->categories()->sync($request->categories, true);
+        $user->categories()->sync($request->categories, true);
+
+        return response()->json(['categories' => $user->categories], 201);
+
+      } catch (Exception $e) {
+        return response()->json(['error' => $e], 500);
+      } 
+
+     
 
       // if(Auth::check()){
 
@@ -50,6 +60,6 @@ class CategoriesController extends Controller
       //   }
       // }
 
-      return response()->json(['categories' => $user->categories], 201);
+      
     }
 }

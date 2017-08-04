@@ -12384,12 +12384,19 @@ var App = function (_Component) {
 				categories: categories,
 				user: _this.state.user
 			}).then(function (response) {
-				console.log(response);
 				_this.setState({
 					savedCategories: response.data.categories,
 					menuIsOpen: menuIsOpen ? false : true });
 			}).catch(function (error) {
 				console.log(error);
+				var errorArray = [].concat(_toConsumableArray(_this.state.error));
+				errorArray.push('There was a problem saving your preferred categories.');
+
+				_this.setState({ error: errorArray });
+
+				setTimeout(function () {
+					_this.setState({ error: [] });
+				}, 5000);
 			});
 
 			_axios2.default.post('/api/source', {
@@ -12403,6 +12410,14 @@ var App = function (_Component) {
 				});
 			}).catch(function (error) {
 				console.log(error);
+				var errorArray = [].concat(_toConsumableArray(_this.state.error));
+				errorArray.push('There was a problem saving your preferred categories.');
+
+				_this.setState({ error: errorArray });
+
+				setTimeout(function () {
+					_this.setState({ error: [] });
+				}, 5000);
 			});
 
 			_axios2.default.post('/api/language', {
@@ -12416,6 +12431,14 @@ var App = function (_Component) {
 				});
 			}).catch(function (error) {
 				console.log(error);
+				var errorArray = [].concat(_toConsumableArray(_this.state.error));
+				errorArray.push('There was a problem saving your preferred categories.');
+
+				_this.setState({ error: errorArray });
+
+				setTimeout(function () {
+					_this.setState({ error: [] });
+				}, 5000);
 			});
 		};
 
@@ -12449,7 +12472,8 @@ var App = function (_Component) {
 			languages: window.Laravel.languages,
 			selectedLanguages: window.Laravel.selectedLanguages,
 			savedLanguages: [],
-			search: ''
+			search: '',
+			error: []
 		};
 		return _this;
 	}
@@ -12636,6 +12660,21 @@ var App = function (_Component) {
 						_react2.default.createElement(
 							'div',
 							{ className: 'large-8 medium-6 columns newsfeed' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'callout' },
+								_react2.default.createElement(
+									'ul',
+									null,
+									this.state.error.map(function (error) {
+										return _react2.default.createElement(
+											'li',
+											null,
+											error
+										);
+									})
+								)
+							),
 							_react2.default.createElement(_NewsFeed2.default, {
 								newsArticles: newsArticles,
 								dateFormatter: this.dateFormatter,
@@ -14423,6 +14462,8 @@ var _reactDom = __webpack_require__(6);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _reactTransitionGroup = __webpack_require__(54);
+
 var _Tweet = __webpack_require__(127);
 
 var _Tweet2 = _interopRequireDefault(_Tweet);
@@ -14471,8 +14512,25 @@ var TwitterFeed = function (_Component) {
 				'div',
 				{ className: 'row' },
 				this.props.timeline && this.props.user ? _react2.default.createElement(
-					'div',
-					{ className: 'twitterfeed' },
+					_reactTransitionGroup.CSSTransitionGroup,
+					{
+						component: 'div',
+						className: 'twitterfeed',
+						transitionName: {
+							enter: 'animated',
+							enterActive: 'slideInRightFadeIn',
+							leave: 'animated',
+							leaveActive: 'slideOutRightFadeOut',
+							appear: 'animated',
+							appearActive: 'slideInRightFadeIn'
+						},
+						transitionEnter: true,
+						transitionEnterTimeout: 1000,
+						transitionLeave: true,
+						transitionLeaveTimeout: 1000,
+						transitionAppear: true,
+						transitionAppearTimeout: 1000
+					},
 					Object.keys(this.props.timeline).map(function (key) {
 						return _this2.searchFilter(key);
 					})

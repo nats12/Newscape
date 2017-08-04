@@ -34,7 +34,8 @@ class App extends Component {
 			languages: window.Laravel.languages,
 			selectedLanguages: window.Laravel.selectedLanguages,
 			savedLanguages:[],
-			search: ''
+			search: '',
+			error: []
 		}		
 	}
 
@@ -167,13 +168,20 @@ class App extends Component {
 		      user: this.state.user
 		    })
 		    .then(response => {
-		      console.log(response);
 		      this.setState({
 		      	savedCategories: response.data.categories,
 		      	menuIsOpen: menuIsOpen ? false : true })
 		    })
 		    .catch(error => {
 		      console.log(error);
+		      let errorArray = [...this.state.error];
+		      errorArray.push('There was a problem saving your preferred categories.');
+
+		      this.setState({error: errorArray});
+
+		      setTimeout(()=>{
+		      	this.setState({error: []});
+		      }, 5000)
 		    });
 
 		axios.post('/api/source', {
@@ -188,7 +196,15 @@ class App extends Component {
 	        	});
 	      	})
 	      	.catch(error => {
-	       	console.log(error);
+	      		console.log(error);
+	      		let errorArray = [...this.state.error];
+	      		errorArray.push('There was a problem saving your preferred categories.');
+
+	      		this.setState({error: errorArray});
+
+	      		setTimeout(()=>{
+	      			this.setState({error: []});
+	      		}, 5000)
 	      	});
 
 	  axios.post('/api/language', {
@@ -204,6 +220,14 @@ class App extends Component {
 	      })
 	      .catch(error => {
 	        console.log(error);
+	        let errorArray = [...this.state.error];
+	        errorArray.push('There was a problem saving your preferred categories.');
+
+	        this.setState({error: errorArray});
+
+	        setTimeout(()=>{
+	        	this.setState({error: []});
+	        }, 5000)
 	      });
 	}
 
@@ -303,20 +327,20 @@ class App extends Component {
 				<div className={menuIsOpen ? 'section-filter menu-open' : 'section-filter'}>
 					<div className="row">
 						<div className="large-8 medium-6 columns">
-		          <div className="options-menu">
-		            <span className="icon-cog">News</span>
-		            <span className={ menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big'} onClick={() => this.setState({menuIsOpen: menuIsOpen ? false : true})}></span>
-		          </div>
-          	</div>
+					        <div className="options-menu">
+					        	<span className="icon-cog">News</span>
+					            <span className={ menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big'} onClick={() => this.setState({menuIsOpen: menuIsOpen ? false : true})}></span>
+					        </div>
+          				</div>
 
-    				<div className="large-4 medium-6 columns">
-    					<div className="twitter-options">
-				        <div className="options-menu">
-				          <span className="icon-cog">Twitter</span>
-				          <span className={ menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big'} onClick={() => this.setState({menuIsOpen: menuIsOpen ? false : true})}></span>
-				        </div>
-		        	</div>
-		     		</div>
+	    				<div className="large-4 medium-6 columns">
+	    					<div className="twitter-options">
+						        <div className="options-menu">
+						          <span className="icon-cog">Twitter</span>
+						          <span className={ menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big'} onClick={() => this.setState({menuIsOpen: menuIsOpen ? false : true})}></span>
+						        </div>
+			        		</div>
+		     			</div>
 						<Filter
 							selectedCategories={selectedCategories} 
 							selectCategory={this.selectCategory}
@@ -340,82 +364,88 @@ class App extends Component {
 					</div>
 					{
 						user ?
-							<div className="save" onClick={this.saveData}>
-				        <span className="icon-ok-1">Save</span>
-				      </div>
+						<div className="save" onClick={this.saveData}>
+				        	<span className="icon-ok-1">Save</span>
+				      	</div>
 				        :
 				        	''
 					}
 				</div>
 				</header>
 
-
 				<div className="feeds">
-				<div className="row small-collapse medium-uncollapse large-uncollapse">
-					<div className="large-8 medium-6 columns newsfeed">
+					<div className="row small-collapse medium-uncollapse large-uncollapse">
+						<div className="large-8 medium-6 columns newsfeed">
+						<div className="callout">
+							<ul>
+								{
+									this.state.error.map((error) => <li>{error}</li>)
+								}
+							</ul>
+						</div>
 
-						
-						<NewsFeed 
-							newsArticles={newsArticles} 
-							dateFormatter={this.dateFormatter} 
-							tweetFormOpen={tweetFormOpen} 
-							toggleTweetForm={this.toggleTweetForm}
-							selectArticle={this.selectArticle}
-							selectedCategories={selectedCategories}
-							categories={categories}
-							savedCategories={savedCategories}
-							selectedLanguages={selectedLanguages}
-							selectedSources={selectedSources}
-							user={user}
-						/>
-					</div>
-					<div className="large-4 medium-6 columns">
-						<CSSTransitionGroup
-						  component="div"
-						  className="twitter-container"
-						  transitionName={ {
-						      enter: 'animated',
-						      enterActive: 'slideInRightFadeIn',
-						      leave: 'animated',
-						      leaveActive: 'slideOutRightFadeOut',
-						      appear: 'animated',
-						      appearActive: 'slideInRightFadeIn'
-						    } }
-						  transitionEnter={true}
-						  transitionEnterTimeout={1000}
-						  transitionLeave={true}
-						  transitionLeaveTimeout={1000}
-						  transitionAppear={true}
-						  transitionAppearTimeout={1000}
-						>
-						{
-							twitterFeedOpen ?
-							<div className={twitterFeedOpen ? 'twitter-wrap' : 'twitter-feed'} ref={(element) => this.twitterfeedDiv = element}> 
-								<TwitterFeed 
-									timeline={timeline}
-									user={user}
-									search={search} />
-							</div>
-							: ''
-						}
-						</CSSTransitionGroup>
-
-						 { twitterFeedOpen ? '' : 							
-						 	<div className="sign-in-message">
-								<div className="row">
-									<div className="large-12 columns">
-										<h2>
-										{user ? <span>Activate </span> : <span>Sign in </span>}
-										
-										to use this feature</h2>
-									</div>
+							
+							<NewsFeed 
+								newsArticles={newsArticles} 
+								dateFormatter={this.dateFormatter} 
+								tweetFormOpen={tweetFormOpen} 
+								toggleTweetForm={this.toggleTweetForm}
+								selectArticle={this.selectArticle}
+								selectedCategories={selectedCategories}
+								categories={categories}
+								savedCategories={savedCategories}
+								selectedLanguages={selectedLanguages}
+								selectedSources={selectedSources}
+								user={user}
+							/>
+						</div>
+						<div className="large-4 medium-6 columns">
+							<CSSTransitionGroup
+							  component="div"
+							  className="twitter-container"
+							  transitionName={ {
+							      enter: 'animated',
+							      enterActive: 'slideInRightFadeIn',
+							      leave: 'animated',
+							      leaveActive: 'slideOutRightFadeOut',
+							      appear: 'animated',
+							      appearActive: 'slideInRightFadeIn'
+							    } }
+							  transitionEnter={true}
+							  transitionEnterTimeout={1000}
+							  transitionLeave={true}
+							  transitionLeaveTimeout={1000}
+							  transitionAppear={true}
+							  transitionAppearTimeout={1000}
+							>
+							{
+								twitterFeedOpen ?
+								<div className={twitterFeedOpen ? 'twitter-wrap' : 'twitter-feed'} ref={(element) => this.twitterfeedDiv = element}> 
+									<TwitterFeed 
+										timeline={timeline}
+										user={user}
+										search={search} />
 								</div>
-							</div> 
-						}
+								: ''
+							}
+							</CSSTransitionGroup>
 
-						
+							 { twitterFeedOpen ? '' : 							
+							 	<div className="sign-in-message">
+									<div className="row">
+										<div className="large-12 columns">
+											<h2>
+											{user ? <span>Activate </span> : <span>Sign in </span>}
+											
+											to use this feature</h2>
+										</div>
+									</div>
+								</div> 
+							}
+
+							
+						</div>
 					</div>
-				</div>
 				</div>
 			</div>
 		)
