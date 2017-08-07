@@ -311,15 +311,7 @@ class App extends Component {
 						    </ul>
 						  	</div>
 						  	<div className="top-bar-right">
-						  	<ul className="menu">
-						        <li className="menu-text">
-						        	<TwitterAuth 
-										user={user} 
-										loginPage={loginPage} 
-										logoutPage={logoutPage}
-									/>
-								</li>
-						    </ul>
+						  	{/* Add github icon here */ }
 						  </div>
 					</div>
 				</div>
