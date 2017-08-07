@@ -101,8 +101,12 @@ class Filter extends Component {
                     </p>
                   </div>
                   <div className="large-7 columns">
-                    <p>Search hashtag</p>
-                    <span className="search-wrap"><input className="search" type="text" onChange={ (e) => getSearchInput(e.target.value)}/></span>
+                    <p className="search-hashtag">Search hashtag</p>
+                    <span className="search-wrap">
+                      <span className="icon-hashtag"></span>
+                      <input className="search" type="text" onChange={ (e) => getSearchInput(e.target.value)} />
+                      <span className="icon-search"></span>
+                    </span>
                   </div>
                 </div>
               :

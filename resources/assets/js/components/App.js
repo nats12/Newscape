@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { CSSTransitionGroup } from 'react-transition-group';
 
-import TwitterAuth from './TwitterAuth';
 import TwitterFeed from './TwitterFeed';
 import TweetForm from './TweetForm';
 import NewsFeed from './NewsFeed';

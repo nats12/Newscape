@@ -105,20 +105,26 @@ label>[type=checkbox] {
     padding-left: 20px;
 }
 
-
+.search-hashtag {
+    opacity: 0.50;
+}
 .search-wrap {
     position: relative;
     display: block;
+    opacity: 0.50;
 
-
-    &:before {
-        content: '#';
+    .icon-hashtag {
         position: absolute;
-        top: 50%;
-        left: 8px;
-        transform: translateY(-50%);
-        z-index: 1;
+        top: 0;
+        left: 0;
+        padding: 5px;
     }
+    .icon-search {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 5px;
+    } 
 }
 
 /* Small only */
