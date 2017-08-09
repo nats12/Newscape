@@ -6,6 +6,8 @@ import TwitterFeed from './TwitterFeed';
 import TweetForm from './TweetForm';
 import NewsFeed from './NewsFeed';
 import Filter from './Filter';
+import Errors from './Errors';
+
 import axios from 'axios';
 
 
@@ -34,8 +36,12 @@ class App extends Component {
 			selectedLanguages: window.Laravel.selectedLanguages,
 			savedLanguages:[],
 			search: '',
-			error: []
+			errors: []
 		}		
+	}
+
+	componentDidUpdate() {
+		this.setFeedHeight();
 	}
 
 	toggleTweetForm = (tweetFormOpen) => {
@@ -52,6 +58,15 @@ class App extends Component {
 		this.setState({menuIsOpen: !menuIsOpen});
 	}
 
+	toggleErrors = () => {
+		this.setState({errors: []});
+	}
+
+	updateErrors = (array) => {
+		const errors = [...array];
+		this.setState({errors: errors});
+	}
+
 	selectArticle = (article) => {
 		this.setState({selectedArticle: article});
 	}
@@ -64,21 +79,15 @@ class App extends Component {
 		this.setState({search: `${text}`})
 	}
 
-	searchHashtag = (component) => {
-		regexp = new RegExp(text, 'i');
+	setFeedHeight() {
 
-
-
-		// var text = searchField.value,
-		//       nodes = document.getElementsByClassName('phase'),
-		//       regexp = new RegExp(text, 'i');
-
-		//     for (var i = 0; i < nodes.length; i++) {
-		//       var node = nodes[i];
-
-		//       node.text.search(regexp) < 0 ?
-		//         node.parentNode.style.display = 'none' :
-		//         node.parentNode.style.display = 'block';
+		if (this.state.menuIsOpen) {
+			let height = this.sectionFilterRow.clientHeight;
+			this.twitterfeedDiv.style.paddingTop = `${height}px`;
+		}
+		else {
+			this.twitterfeedDiv.style.paddingTop = "0";
+		}	
 	}
 
 	selectCategory = (component, checked) => {
@@ -173,14 +182,13 @@ class App extends Component {
 		    })
 		    .catch(error => {
 		      console.log(error);
-		      let errorArray = [...this.state.error];
+		      let errorArray = [...this.state.errors];
 		      errorArray.push('There was a problem saving your preferred categories.');
 
-		      this.setState({error: errorArray});
-
-		      setTimeout(()=>{
-		      	this.setState({error: []});
-		      }, 5000)
+		      this.setState({
+		      	menuIsOpen: false,
+		      	errors: errorArray
+		      });
 		    });
 
 		axios.post('/api/source', {
@@ -196,14 +204,13 @@ class App extends Component {
 	      	})
 	      	.catch(error => {
 	      		console.log(error);
-	      		let errorArray = [...this.state.error];
-	      		errorArray.push('There was a problem saving your preferred categories.');
+	      		let errorArray = [...this.state.errors];
+	      		errorArray.push('There was a problem saving your preferred sources.');
 
-	      		this.setState({error: errorArray});
-
-	      		setTimeout(()=>{
-	      			this.setState({error: []});
-	      		}, 5000)
+	      		this.setState({
+	      			menuIsOpen: false,
+	      			errors: errorArray
+	      		});
 	      	});
 
 	  axios.post('/api/language', {
@@ -219,14 +226,13 @@ class App extends Component {
 	      })
 	      .catch(error => {
 	        console.log(error);
-	        let errorArray = [...this.state.error];
-	        errorArray.push('There was a problem saving your preferred categories.');
+	        let errorArray = [...this.state.errors];
+	        errorArray.push('There was a problem saving your preferred languages.');
 
-	        this.setState({error: errorArray});
-
-	        setTimeout(()=>{
-	        	this.setState({error: []});
-	        }, 5000)
+	        this.setState({
+	        	menuIsOpen: false,
+	        	errors: errorArray
+	        });
 	      });
 	}
 
@@ -270,11 +276,14 @@ class App extends Component {
 				selectedSources,
 				languages,
 				selectedLanguages,
-				search
+				search,
+				errors
 				} = this.state;
 
+				console.log(errors);
+
 		return (
-			<div className={user ? 'authenticated' : ''}>
+			<div className={`${user ? 'authenticated' : ''} ${menuIsOpen ? 'menu-open': ''}`}>
 
 			<CSSTransitionGroup
 			  className="tweet-modal-wrap"
@@ -297,7 +306,33 @@ class App extends Component {
 				user={user}
 				timeline={timeline}
 				updateTimeline={this.updateTimeline}
+				errors={errors}
+				updateErrors={this.updateErrors}
 			/> : '' }
+			</CSSTransitionGroup>
+
+			<CSSTransitionGroup
+			  className="errors-modal-wrap"
+			  component="div"
+			  transitionName={ {
+			      enter: 'animated',
+			      enterActive: 'fadeIn',
+			      leave: 'animated',
+			      leaveActive: 'fadeOut',
+			    } }
+			  transitionEnter={true}
+			  transitionEnterTimeout={1000}
+			  transitionLeave={true}
+			  transitionLeaveTimeout={1000}
+			>
+			{
+				errors.length ? 
+					<Errors 
+						errors={errors} 
+						toggleErrors={this.toggleErrors}
+					/> : ''
+			}
+
 			</CSSTransitionGroup>
 
 			<header>
@@ -315,20 +350,20 @@ class App extends Component {
 					</div>
 				</div>
 				
-				<div className={menuIsOpen ? 'section-filter menu-open' : 'section-filter'}>
-					<div className="row">
+				<div className="section-filter">
+					<div className="row" ref={(element) => this.sectionFilterRow = element}>
 						<div className="large-8 medium-6 columns">
-					        <div className="options-menu">
+					        <div className="options-menu" onClick={() => this.setState({menuIsOpen: menuIsOpen ? false : true})}>
 					        	<span className="icon-cog">News</span>
-					            <span className={ menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big'} onClick={() => this.setState({menuIsOpen: menuIsOpen ? false : true})}></span>
+					            <span className={ menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big'}></span>
 					        </div>
           				</div>
 
 	    				<div className="large-4 medium-6 columns">
 	    					<div className="twitter-options">
-						        <div className="options-menu">
+						        <div className="options-menu" onClick={() => this.setState({menuIsOpen: menuIsOpen ? false : true})}>
 						          <span className="icon-cog">Twitter</span>
-						          <span className={ menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big'} onClick={() => this.setState({menuIsOpen: menuIsOpen ? false : true})}></span>
+						          <span className={ menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big'}></span>
 						        </div>
 			        		</div>
 		     			</div>
@@ -367,15 +402,7 @@ class App extends Component {
 				<div className="feeds">
 					<div className="row small-collapse medium-uncollapse large-uncollapse">
 						<div className="large-8 medium-6 columns newsfeed">
-						<div className="callout">
-							<ul>
-								{
-									this.state.error.map((error) => <li>{error}</li>)
-								}
-							</ul>
-						</div>
 
-							
 							<NewsFeed 
 								newsArticles={newsArticles} 
 								dateFormatter={this.dateFormatter} 
@@ -390,7 +417,7 @@ class App extends Component {
 								user={user}
 							/>
 						</div>
-						<div className="large-4 medium-6 columns">
+						<div className="large-4 medium-6 columns twitterfeed" ref={(element) => this.twitterfeedDiv = element}>
 							<CSSTransitionGroup
 							  component="div"
 							  className="twitter-container"
@@ -411,7 +438,7 @@ class App extends Component {
 							>
 							{
 								twitterFeedOpen ?
-								<div className={twitterFeedOpen ? 'twitter-wrap' : 'twitter-feed'} ref={(element) => this.twitterfeedDiv = element}> 
+								<div className="twitter-wrap" ref={(element) => this.twitterfeedDiv = element}> 
 									<TwitterFeed 
 										timeline={timeline}
 										user={user}
@@ -421,7 +448,25 @@ class App extends Component {
 							}
 							</CSSTransitionGroup>
 
-							 { twitterFeedOpen ? '' : 							
+							<CSSTransitionGroup
+							  component="div"
+							  transitionName={ {
+							      enter: 'animated',
+							      enterActive: 'fadeIn',
+							      leave: 'animated',
+							      leaveActive: 'fadeOut',
+							      appear: 'animated',
+							      appearActive: 'fadeIn'
+							    } }
+							  transitionEnter={true}
+							  transitionEnterTimeout={1000}
+							  transitionLeave={true}
+							  transitionLeaveTimeout={1000}
+							  transitionAppear={true}
+							  transitionAppearTimeout={1000}
+							>
+
+							{ twitterFeedOpen ? '' : 							
 							 	<div className="sign-in-message">
 									<div className="row">
 										<div className="large-12 columns">
@@ -433,6 +478,7 @@ class App extends Component {
 									</div>
 								</div> 
 							}
+							</CSSTransitionGroup>
 
 							
 						</div>

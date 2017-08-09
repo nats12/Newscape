@@ -1,0 +1,62 @@
+.errors-modal-wrap {
+  .fadeIn {
+    animation-delay: 0.1s;
+    animation-duration: 0.3s;
+  }
+
+  .fadeOut {
+    animation-duration: 0.3s;
+  }
+}
+
+.errors-modal {
+  position: fixed;
+  width: 500px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  text-align: center;
+
+  ul {
+    text-align: left;
+  }
+
+  &:before {
+    position: fixed;
+    width: 120vw;
+    height: 120vh;
+    content: '';
+    background-color: rgba(0,0,0,0.8);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+  }
+
+  .callout {
+    padding: 60px 40px 60px 40px;
+    margin: 0;
+    background-color: #a23850;
+    color: $white;
+  }
+
+  .close-button{
+    color: $white;
+  }
+
+  label {
+    color: $white;
+  }
+}
+
+/* Small only */
+@media screen and (max-width: 39.9375em) {
+
+  .errors-modal {
+    width: 100vw;
+
+    .callout {
+      padding: 60px 20px 60px 20px;
+    }
+  }
+}

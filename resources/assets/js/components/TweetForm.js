@@ -55,32 +55,34 @@ class TweetForm extends Component {
             this.getTimeline();
           })
           .catch((error) => {
-            console.log(error);
+            this.props.toggleTweetForm(this.props.tweetFormOpen);
+            let errorArray = [...this.props.errors];
+            errorArray.push('There was a problem posting your tweet.');
+            this.props.updateErrors(errorArray);
           });
     }
 
     render() {
         let tweetFormOpen = this.props.tweetFormOpen;
         return (
-                  <div className="tweet-modal">
-                    <div className="callout">
-                      <button className="close-button" aria-label="Close alert" type="button" onClick={() => this.props.toggleTweetForm(tweetFormOpen)}>
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                      <form>
-                        <h5>Compose Tweet</h5>
-                          <label>
-                              <textarea id="postTweet-body" onChange={this.handleChange} type="text" placeholder="Tweet" rows="3" maxLength={this.maxChars}></textarea>
-                          </label>
+                <div className="tweet-modal">
+                  <div className="callout">
+                    <button className="close-button" aria-label="Close alert" type="button" onClick={() => this.props.toggleTweetForm(tweetFormOpen)}>
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <form>
+                      <h5>Compose Tweet</h5>
+                        <label>
+                            <textarea id="postTweet-body" onChange={this.handleChange} type="text" placeholder="Tweet" rows="3" maxLength={this.maxChars}></textarea>
+                        </label>
 
-                          <label>Article URL <small>(uses 23 chars)</small>
-                              <input id="postTweet-url" type="text" value={this.props.selectedArticle.url} disabled/>
-                          </label>
-                      </form>
-                      <button className="button" type="button" onClick={(e) =>this.tweetArticle(e)}>Tweet</button> <small>{this.state.charsLeft}</small>
-                    </div>
+                        <label>Article URL <small>(uses 23 chars)</small>
+                            <input id="postTweet-url" type="text" value={this.props.selectedArticle.url} disabled/>
+                        </label>
+                    </form>
+                    <button className="button" type="button" onClick={(e) =>this.tweetArticle(e)}>Tweet</button> <small>{this.state.charsLeft}</small>
                   </div>
-                    
+                </div>
         )
     }
 }

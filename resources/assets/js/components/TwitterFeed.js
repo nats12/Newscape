@@ -36,29 +36,12 @@ class TwitterFeed extends Component {
 			<div className="row">
 				{	
 					this.props.timeline && this.props.user ?
-						<CSSTransitionGroup
-						  component="div"
-						  className="twitterfeed"
-						  transitionName={ {
-						      enter: 'animated',
-						      enterActive: 'slideInRightFadeIn',
-						      leave: 'animated',
-						      leaveActive: 'slideOutRightFadeOut',
-						      appear: 'animated',
-						      appearActive: 'slideInRightFadeIn'
-						    } }
-						  transitionEnter={true}
-						  transitionEnterTimeout={1000}
-						  transitionLeave={true}
-						  transitionLeaveTimeout={1000}
-						  transitionAppear={true}
-						  transitionAppearTimeout={1000}
-						>
+						<div className="tweets">
 						{
 							Object.keys(this.props.timeline)
 							.map(key => this.searchFilter(key))
 						}
-						</CSSTransitionGroup>
+						</div>
 					: ''
 				}
 			</div>

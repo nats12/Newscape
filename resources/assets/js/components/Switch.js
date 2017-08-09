@@ -15,9 +15,9 @@ class Switch extends Component {
     this.setState({checked: isChecked});
     this.props.toggleTwitterFeed(isChecked);
 
-    setTimeout(()=> {
-      this.props.toggleMenu();
-    }, 475)
+    // setTimeout(()=> {
+    //   this.props.toggleMenu();
+    // }, 1000)
 
   }
 

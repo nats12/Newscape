@@ -6,12 +6,14 @@
     max-height: 44px;
     transition: max-height 0.6s ease-out;
 
-    &.menu-open {
-        transition: max-height 0.6s ease-in;
-    }
-
     label {
         color: $white;
+    }
+}
+
+.menu-open {
+    .section-filter {
+        transition: max-height 0.6s ease-in;
     }
 }
 
@@ -27,6 +29,7 @@ span.icon-down-open-big, span.icon-up-open-big,  {
 .options-menu {
     padding: 10px;
     position: relative;
+    cursor: pointer;
 }
 
 .options-wrap {
@@ -131,9 +134,12 @@ label>[type=checkbox] {
 @media screen and (max-width: 39.9375em) {
     .section-filter {
         margin-bottom: 0;
-        &.menu-open {
+    }
+
+    .menu-open {
+        .section-filter {
             max-height: 1000px;
-        }
+        }  
     }
 
     .options-wrap {
@@ -146,8 +152,8 @@ label>[type=checkbox] {
 
 /* Medium only */
 @media screen and (min-width: 40em) and (max-width: 63.9375em) {
-    .section-filter { 
-        &.menu-open {
+    .menu-open { 
+        .section-filter {
             max-height: 1000px;
         }
     }
@@ -155,8 +161,8 @@ label>[type=checkbox] {
 
 /* Large and up */
 @media screen and (min-width: 64em) {
-    .section-filter { 
-        &.menu-open {
+    .menu-open { 
+        .section-filter {
             max-height: 500px;
         }
     }

@@ -56,7 +56,7 @@ class Tweet extends Component {
 				<div className="media-object">
 				  <div className="media-object-section">
 				    <div className="thumbnail">
-				      <img src={this.props.tweet.user.profile_image_url} alt={tweet.user.name} />
+				      <img src={this.props.tweet.user.profile_image_url} alt={tweet.user.name} width="48" height="48"/>
 				    </div>
 				  </div>
 				  <div className="media-object-section">
