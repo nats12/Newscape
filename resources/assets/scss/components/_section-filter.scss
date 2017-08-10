@@ -8,6 +8,7 @@
 
     label {
         color: $white;
+        position: relative;
     }
 }
 
@@ -19,17 +20,27 @@
 
 span.icon-down-open-big, span.icon-up-open-big,  {
     float: right;
-
-    &:hover {
-        cursor: pointer;
-        color: $pink-dk;
-    }
 }
 
 .options-menu {
     padding: 10px;
     position: relative;
     cursor: pointer;
+    transition: color .25s ease-out;
+
+    &:hover {
+        color: $pink-dk;
+    }
+}
+
+.twitter-options {
+  background-color: $pink-md;
+
+  .options-menu {
+    &:hover {
+        color: $pink-lt;
+    }
+  }
 }
 
 .options-wrap {
@@ -47,10 +58,11 @@ span.icon-down-open-big, span.icon-up-open-big,  {
     text-align: center;
     position: relative;
     z-index: 10;
+    transition: color .25s ease-out;
 
     &:hover {
         cursor: pointer;
-        opacity: 0.8;
+        color: $pink-lt;
     }
 }
 
@@ -61,6 +73,14 @@ span.icon-down-open-big, span.icon-up-open-big,  {
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 30px;
+
+    input {
+        margin: 0;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
 }
 
 .category,
@@ -118,13 +138,15 @@ label>[type=checkbox] {
 
     .icon-hashtag {
         position: absolute;
-        top: 0;
+        top: 50%;
+        transform: translateY(-50%);
         left: 0;
         padding: 5px;
     }
     .icon-search {
         position: absolute;
-        top: 0;
+        top: 50%;
+        transform: translateY(-50%);
         right: 0;
         padding: 5px;
     } 

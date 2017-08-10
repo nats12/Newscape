@@ -8,6 +8,9 @@ class NewsArticle extends Component {
   constructor() {
     super()
 
+    this.state = {
+    }
+
   }
 
   formatText = (text) => {
@@ -18,8 +21,14 @@ class NewsArticle extends Component {
 
   }
 
-  componentWillUnmount() {
-    console.log('unmounted');
+  getImageSize = (url) => {
+    let image = new Image();
+    image.src = url;
+    
+    this.setState({
+      height: image.naturalHeight,
+      width: image.naturalWidth
+    })
   }
 
   render() {
@@ -30,7 +39,7 @@ class NewsArticle extends Component {
       <div className="small-12 large-6 columns tweet-block">
         <div className="card">
         {
-          article.urlToImage ? <img className="article-image" src={article.urlToImage} alt={article.title} /> : ''
+          article.urlToImage ? <img height={this.state.height} width={this.state.width} className="article-image" src={article.urlToImage} alt={article.title} onLoad={ () => this.getImageSize(article.urlToImage)}/> : ''
         }
           
           <div className="card-section offhover">

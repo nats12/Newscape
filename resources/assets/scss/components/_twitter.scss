@@ -31,10 +31,6 @@ textarea {
   padding: 10px;
 }
 
-.twitter-options {
-  background-color: $pink-md;
-}
-
 .icon-user span {
   text-decoration: underline;
 
@@ -64,7 +60,7 @@ textarea {
 
   a {
     color: rgba(255,255,255,0.6);
-    transition: color .25s ease-out,color .25s ease-out;
+    transition: color .25s ease-out;
 
     &:hover {
       color: $white;
