@@ -7354,7 +7354,7 @@ var TopBar = function (_Component) {
                             { className: "menu" },
                             _react2.default.createElement(
                                 "li",
-                                { className: "menu-text auth" },
+                                { className: "menu-text" },
                                 _react2.default.createElement(
                                     "a",
                                     { href: this.props.loginPage },
@@ -12667,6 +12667,8 @@ var App = function (_Component) {
 		value: function render() {
 			var _this2 = this;
 
+			console.log(this.header);
+
 			var _state = this.state,
 			    timeline = _state.timeline,
 			    newsSources = _state.newsSources,
@@ -13937,8 +13939,21 @@ var NewsFeed = function (_Component) {
             );
         };
 
+        _this.scrollStep = function () {
+            if (window.pageYOffset === 0) {
+                clearInterval(_this.state.intervalId);
+            }
+            window.scroll(0, window.pageYOffset - 50);
+        };
+
+        _this.scrollToTop = function () {
+            var intervalId = setInterval(_this.scrollStep, 10);
+            _this.setState({ intervalId: intervalId });
+        };
+
         _this.state = {
-            limitCountEnd: 26
+            limitCountEnd: 26,
+            intervalId: 0
         };
 
         _this.filtered = [];
@@ -13969,7 +13984,7 @@ var NewsFeed = function (_Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'row' },
+                    { className: 'row newsfeed-buttons' },
                     _react2.default.createElement(
                         'button',
                         {
@@ -13980,6 +13995,16 @@ var NewsFeed = function (_Component) {
                             disabled: this.state.limitCountEnd >= filtered.length ? true : false
                         },
                         'Load More'
+                    ),
+                    _react2.default.createElement(
+                        'button',
+                        {
+                            className: 'button scroll-top',
+                            onClick: function onClick() {
+                                return _this2.scrollToTop();
+                            }
+                        },
+                        'Back to Top'
                     )
                 )
             );
@@ -13990,29 +14015,6 @@ var NewsFeed = function (_Component) {
 }(_react.Component);
 
 exports.default = NewsFeed;
-
-// {
-//     this.props.newsArticles.sort((a,b) => new Date(b.publishedAt) - new Date(a.publishedAt) )
-//     .map(
-
-//         (item, index) => {
-//             const publishedAtDate = new Date(item.publishedAt);
-
-//             if(selectedCategories.length === 0 && currentDate > publishedAtDate && limitCounter <= this.state.limitCountEnd) {
-//                 limitCounter +=1;
-//                 return this.renderArticle(item, index);
-//             }
-//             else if (selectedCategories.length > 0 && currentDate > publishedAtDate && limitCounter <= this.state.limitCountEnd) {
-//                 return selectedCategories.map((category) => {
-//                     if (category.name === item.sourceCategory) {
-//                         limitCounter +=1;
-//                         return this.renderArticle(item, index);
-//                     }
-//                 });
-
-//             }
-//         })
-// }
 
 /***/ }),
 /* 127 */

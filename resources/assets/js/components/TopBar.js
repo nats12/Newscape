@@ -17,7 +17,7 @@ class TopBar extends Component {
                     {/* Add github icon here */ }
                     <div className="top-bar-right">
                         <ul className="menu">
-                          <li className="menu-text auth"><a href={this.props.loginPage}>{this.props.user ? "Log out" : "Log in"}</a></li>
+                          <li className="menu-text"><a href={this.props.loginPage}>{this.props.user ? "Log out" : "Log in"}</a></li>
                          
                         </ul>
                     </div>

@@ -16,6 +16,11 @@
     margin-top: 20px;
 }
 
+.scroll-top {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
 .card {
 	color: white;
     position: relative;
@@ -106,6 +111,10 @@
 @media screen and (max-width: 39.9375em) {
   .feeds {
       padding-top: 0;
+  }
+
+  .newsfeed-buttons {
+    text-align: center;
   }
 }
 
