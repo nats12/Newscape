@@ -258,8 +258,9 @@ class App extends Component {
 			day_diff < 31 && Math.ceil( day_diff / 7 ) + " weeks ago";
 	}
 
-
 	render() {
+
+		console.log(this.header);
 
 		const { timeline, 
 				newsSources, 

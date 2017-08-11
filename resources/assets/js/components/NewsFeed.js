@@ -10,6 +10,7 @@ class NewsFeed extends Component {
 
         this.state = {
             limitCountEnd: 26,
+            intervalId: 0
         }
 
         this.filtered = [];
@@ -132,6 +133,18 @@ class NewsFeed extends Component {
         )
     }
 
+    scrollStep = () => {
+      if (window.pageYOffset === 0) {
+          clearInterval(this.state.intervalId);
+      }
+      window.scroll(0, window.pageYOffset - 50);
+    }
+    
+    scrollToTop = () => {
+      let intervalId = setInterval(this.scrollStep, 10);
+      this.setState({ intervalId: intervalId });
+    }
+
     render() {
 
         const { selectedCategories, categories, savedCategories } = this.props;
@@ -156,6 +169,13 @@ class NewsFeed extends Component {
                     >
                         Load More
                     </button>
+
+                    <button 
+                        className="button scroll-top" 
+                        onClick={() => this.scrollToTop()} 
+                    >
+                        Back to Top
+                    </button>
                 </div>
             </div>
             )
@@ -165,30 +185,4 @@ class NewsFeed extends Component {
 
 
 export default NewsFeed
-
-// {
-//     this.props.newsArticles.sort((a,b) => new Date(b.publishedAt) - new Date(a.publishedAt) )
-//     .map(
-
-//         (item, index) => {
-//             const publishedAtDate = new Date(item.publishedAt);
-
-//             if(selectedCategories.length === 0 && currentDate > publishedAtDate && limitCounter <= this.state.limitCountEnd) {
-//                 limitCounter +=1;
-//                 return this.renderArticle(item, index);
-//             }
-//             else if (selectedCategories.length > 0 && currentDate > publishedAtDate && limitCounter <= this.state.limitCountEnd) {
-//                 return selectedCategories.map((category) => {
-//                     if (category.name === item.sourceCategory) {
-//                         limitCounter +=1;
-//                         return this.renderArticle(item, index);
-//                     }
-//                 });
-
-//             }
-//         })
-// } 
-
-
-
 
