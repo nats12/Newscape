@@ -13984,7 +13984,7 @@ var NewsFeed = function (_Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'row' },
+                    { className: 'row newsfeed-buttons' },
                     _react2.default.createElement(
                         'button',
                         {

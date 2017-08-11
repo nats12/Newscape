@@ -161,7 +161,7 @@ class NewsFeed extends Component {
                 }
                 
                 </div>
-                <div className="row">
+                <div className="row newsfeed-buttons">
                     <button 
                         className="button success load-more" 
                         onClick={() => this.loadMore()} 
