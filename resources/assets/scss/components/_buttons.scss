@@ -61,3 +61,21 @@ button:focus {
 .toggle-switch-track.round:before {
   border-radius: 50%;
 }
+
+.button.primary {
+  background-color: $pink-lt;
+
+  &:hover,
+  &:focus {
+    background-color: $pink-md;
+  }
+}
+
+.button.default {
+  background-color: $blue;
+
+  &:hover,
+  &:focus {
+    background-color: $blue-dk;
+  }
+}

@@ -13755,7 +13755,7 @@ var NewsArticle = function (_Component) {
               null,
               _react2.default.createElement(
                 'a',
-                { className: 'button small article-btn', href: article.url, target: '_blank' },
+                { className: 'button primary small', href: article.url, target: '_blank' },
                 _react2.default.createElement('span', { className: 'icon-link-ext' }),
                 ' View article'
               ),
@@ -13988,7 +13988,7 @@ var NewsFeed = function (_Component) {
                     _react2.default.createElement(
                         'button',
                         {
-                            className: 'button success load-more',
+                            className: 'button default load-more',
                             onClick: function onClick() {
                                 return _this2.loadMore();
                             },
@@ -13999,7 +13999,7 @@ var NewsFeed = function (_Component) {
                     _react2.default.createElement(
                         'button',
                         {
-                            className: 'button scroll-top',
+                            className: 'button primary scroll-top',
                             onClick: function onClick() {
                                 return _this2.scrollToTop();
                             }
@@ -14480,7 +14480,7 @@ var TweetButton = function (_Component) {
             var tweetFormOpen = this.props.tweetFormOpen;
             return _react2.default.createElement(
                 'button',
-                { type: 'button icon-twitter', className: 'button small btn-tweet', onClick: function onClick() {
+                { type: 'button icon-twitter', className: 'button default small btn-tweet', onClick: function onClick() {
                         _this2.props.toggleTweetForm(tweetFormOpen);
                         _this2.props.selectArticle(_this2.props.article);
                     } },

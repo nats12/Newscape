@@ -53,7 +53,7 @@ class NewsArticle extends Component {
               <p>{this.formatText(article.description)}</p>
             </Dotdotdot>
             <p>
-              <a className="button small article-btn" href={article.url} target="_blank"><span className="icon-link-ext"></span> View article</a>
+              <a className="button primary small" href={article.url} target="_blank"><span className="icon-link-ext"></span> View article</a>
               { 
                 this.props.user ? <TweetButton 
                   article={article} 
