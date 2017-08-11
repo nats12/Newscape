@@ -19,6 +19,13 @@ body {
 
     a {
         color: $white !important;
+        font-size: 14px;
+        font-family: $font-family;
+        font-weight: lighter;
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 }
 
