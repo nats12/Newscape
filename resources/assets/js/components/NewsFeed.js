@@ -163,7 +163,7 @@ class NewsFeed extends Component {
                 </div>
                 <div className="row newsfeed-buttons">
                     <button 
-                        className="button success load-more" 
+                        className="button default load-more" 
                         onClick={() => this.loadMore()} 
                         disabled={this.state.limitCountEnd >= filtered.length ? true : false}
                     >
@@ -171,7 +171,7 @@ class NewsFeed extends Component {
                     </button>
 
                     <button 
-                        className="button scroll-top" 
+                        className="button primary scroll-top" 
                         onClick={() => this.scrollToTop()} 
                     >
                         Back to Top
