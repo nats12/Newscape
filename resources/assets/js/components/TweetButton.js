@@ -15,11 +15,17 @@ class TweetButton extends Component {
     render() {
         let tweetFormOpen = this.props.tweetFormOpen;
         return (
-            <button type="button icon-twitter" className="button default small btn-tweet" onClick={() => {
-                this.props.toggleTweetForm(tweetFormOpen);
-                this.props.selectArticle(this.props.article);
-            }
-            }>Tweet <span className="icon-twitter"></span></button>
+            <button 
+                type="button icon-twitter" 
+                className="button default small btn-tweet" 
+                onClick={() => {
+                    this.props.toggleTweetForm(tweetFormOpen);
+                    this.props.selectArticle(this.props.article);
+                    }
+                }>
+                Tweet 
+                <span className="icon-twitter"></span>
+            </button>
         )
     }
 }

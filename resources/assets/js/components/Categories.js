@@ -13,19 +13,19 @@ class Categories extends Component {
     const { selectCategory, categories } = this.props;
 
     return(
-            <div className="row">
-            
-              {
+        <div className="row">
+        
+            {
                 categories.map((category, index) => { 
-                  return <Category 
-                  key={index} 
-                  category={category} 
-                  selectCategory={selectCategory}
-                  selectedCategories={this.props.selectedCategories}
-                  />})
-              }
-            </div>
-      )
+                    return <Category 
+                    key={index} 
+                    category={category} 
+                    selectCategory={selectCategory}
+                    selectedCategories={this.props.selectedCategories}/>
+                })
+            }
+        </div>
+    )
   }
 }
 

@@ -12667,8 +12667,6 @@ var App = function (_Component) {
 		value: function render() {
 			var _this2 = this;
 
-			console.log(this.header);
-
 			var _state = this.state,
 			    timeline = _state.timeline,
 			    newsSources = _state.newsSources,
@@ -12690,8 +12688,6 @@ var App = function (_Component) {
 			    search = _state.search,
 			    errors = _state.errors;
 
-
-			console.log(errors);
 
 			if (this.state.newsArticles.length) {
 				return _react2.default.createElement(
@@ -12953,7 +12949,7 @@ exports.default = App;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -12979,40 +12975,39 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Categories = function (_Component) {
-  _inherits(Categories, _Component);
+    _inherits(Categories, _Component);
 
-  function Categories() {
-    _classCallCheck(this, Categories);
+    function Categories() {
+        _classCallCheck(this, Categories);
 
-    return _possibleConstructorReturn(this, (Categories.__proto__ || Object.getPrototypeOf(Categories)).call(this));
-  }
-
-  _createClass(Categories, [{
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      var _props = this.props,
-          selectCategory = _props.selectCategory,
-          categories = _props.categories;
-
-
-      return _react2.default.createElement(
-        'div',
-        { className: 'row' },
-        categories.map(function (category, index) {
-          return _react2.default.createElement(_Category2.default, {
-            key: index,
-            category: category,
-            selectCategory: selectCategory,
-            selectedCategories: _this2.props.selectedCategories
-          });
-        })
-      );
+        return _possibleConstructorReturn(this, (Categories.__proto__ || Object.getPrototypeOf(Categories)).call(this));
     }
-  }]);
 
-  return Categories;
+    _createClass(Categories, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            var _props = this.props,
+                selectCategory = _props.selectCategory,
+                categories = _props.categories;
+
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'row' },
+                categories.map(function (category, index) {
+                    return _react2.default.createElement(_Category2.default, {
+                        key: index,
+                        category: category,
+                        selectCategory: selectCategory,
+                        selectedCategories: _this2.props.selectedCategories });
+                })
+            );
+        }
+    }]);
+
+    return Categories;
 }(_react.Component);
 
 exports.default = Categories;
@@ -13025,7 +13020,7 @@ exports.default = Categories;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -13047,77 +13042,77 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Category = function (_Component) {
-  _inherits(Category, _Component);
+	_inherits(Category, _Component);
 
-  function Category() {
-    _classCallCheck(this, Category);
+	function Category() {
+		_classCallCheck(this, Category);
 
-    var _this = _possibleConstructorReturn(this, (Category.__proto__ || Object.getPrototypeOf(Category)).call(this));
+		var _this = _possibleConstructorReturn(this, (Category.__proto__ || Object.getPrototypeOf(Category)).call(this));
 
-    _this.renderCheckbox = function () {
-      var isChecked = false;
-      _this.props.selectedCategories.map(function (category, index) {
+		_this.renderCheckbox = function () {
+			var isChecked = false;
+			_this.props.selectedCategories.map(function (category, index) {
 
-        if (_this.props.category.name === category.name) {
-          isChecked = true;
-        }
-      });
+				if (_this.props.category.name === category.name) {
+					isChecked = true;
+				}
+			});
 
-      return _react2.default.createElement('input', {
-        className: 'category-checkbox',
-        'data-id': _this.props.category.id,
-        name: _this.props.category.name,
-        onChange: function onChange(e) {
-          return _this.toggleCheckboxState();
-        },
-        type: 'checkbox',
-        checked: isChecked
-      });
-    };
+			return _react2.default.createElement('input', {
+				className: 'category-checkbox',
+				'data-id': _this.props.category.id,
+				name: _this.props.category.name,
+				onChange: function onChange(e) {
+					return _this.toggleCheckboxState();
+				},
+				type: 'checkbox',
+				checked: isChecked
+			});
+		};
 
-    _this.toggleCheckboxState = function () {
-      var isChecked = !_this.state.checked;
-      _this.setState({ checked: isChecked });
-      _this.props.selectCategory(_this, isChecked);
-    };
+		_this.toggleCheckboxState = function () {
+			var isChecked = !_this.state.checked;
+			_this.setState({ checked: isChecked });
+			_this.props.selectCategory(_this, isChecked);
+		};
 
-    _this.state = {
-      checked: false
-    };
+		_this.state = {
+			checked: false
+		};
 
-    return _this;
-  }
+		return _this;
+	}
 
-  _createClass(Category, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
-      var _this2 = this;
+	_createClass(Category, [{
+		key: 'componentWillMount',
+		value: function componentWillMount() {
+			var _this2 = this;
 
-      this.props.selectedCategories.map(function (category, index) {
+			this.props.selectedCategories.map(function (category, index) {
 
-        if (_this2.props.category.name === category.name) {
-          _this2.setState({ checked: true });
-        }
-      });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
+				if (_this2.props.category.name === category.name) {
+					_this2.setState({ checked: true });
+				}
+			});
+		}
+	}, {
+		key: 'render',
+		value: function render() {
 
-      return _react2.default.createElement(
-        'div',
-        { className: 'large-12 columns' },
-        _react2.default.createElement(
-          'label',
-          { className: 'category' },
-          this.props.category.name,
-          this.renderCheckbox()
-        )
-      );
-    }
-  }]);
+			return _react2.default.createElement(
+				'div',
+				{ className: 'large-12 columns' },
+				_react2.default.createElement(
+					'label',
+					{ className: 'category' },
+					this.props.category.name,
+					this.renderCheckbox()
+				)
+			);
+		}
+	}]);
 
-  return Category;
+	return Category;
 }(_react.Component);
 
 exports.default = Category;
@@ -13130,7 +13125,7 @@ exports.default = Category;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -13156,63 +13151,63 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Errors = function (_Component) {
-  _inherits(Errors, _Component);
+    _inherits(Errors, _Component);
 
-  function Errors(props) {
-    _classCallCheck(this, Errors);
+    function Errors(props) {
+        _classCallCheck(this, Errors);
 
-    return _possibleConstructorReturn(this, (Errors.__proto__ || Object.getPrototypeOf(Errors)).call(this));
-  }
-
-  _createClass(Errors, [{
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      return _react2.default.createElement(
-        'div',
-        { className: 'errors-modal' },
-        _react2.default.createElement(
-          'div',
-          { className: 'callout' },
-          _react2.default.createElement(
-            'button',
-            { className: 'close-button', 'aria-label': 'Close alert', type: 'button', onClick: function onClick() {
-                return _this2.props.toggleErrors();
-              } },
-            _react2.default.createElement(
-              'span',
-              { 'aria-hidden': 'true' },
-              '\xD7'
-            )
-          ),
-          _react2.default.createElement(
-            'h5',
-            null,
-            'Oops...there seems to be a problem'
-          ),
-          _react2.default.createElement(
-            'ul',
-            null,
-            this.props.errors.map(function (error, index) {
-              return _react2.default.createElement(
-                'li',
-                { key: index },
-                error
-              );
-            })
-          ),
-          _react2.default.createElement(
-            'p',
-            null,
-            'Please try again later'
-          )
-        )
-      );
+        return _possibleConstructorReturn(this, (Errors.__proto__ || Object.getPrototypeOf(Errors)).call(this));
     }
-  }]);
 
-  return Errors;
+    _createClass(Errors, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'errors-modal' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'callout' },
+                    _react2.default.createElement(
+                        'button',
+                        { className: 'close-button', 'aria-label': 'Close alert', type: 'button', onClick: function onClick() {
+                                return _this2.props.toggleErrors();
+                            } },
+                        _react2.default.createElement(
+                            'span',
+                            { 'aria-hidden': 'true' },
+                            '\xD7'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'h5',
+                        null,
+                        'Oops...there seems to be a problem'
+                    ),
+                    _react2.default.createElement(
+                        'ul',
+                        null,
+                        this.props.errors.map(function (error, index) {
+                            return _react2.default.createElement(
+                                'li',
+                                { key: index },
+                                error
+                            );
+                        })
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'Please try again later'
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Errors;
 }(_react.Component);
 
 exports.default = Errors;
@@ -13225,7 +13220,7 @@ exports.default = Errors;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -13265,189 +13260,189 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Filter = function (_Component) {
-  _inherits(Filter, _Component);
+    _inherits(Filter, _Component);
 
-  function Filter() {
-    _classCallCheck(this, Filter);
+    function Filter() {
+        _classCallCheck(this, Filter);
 
-    return _possibleConstructorReturn(this, (Filter.__proto__ || Object.getPrototypeOf(Filter)).call(this));
-  }
-
-  _createClass(Filter, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var height = this.categoriesDiv.clientHeight;
-      this.newsSourcesDiv.style.height = height + 'px';
+        return _possibleConstructorReturn(this, (Filter.__proto__ || Object.getPrototypeOf(Filter)).call(this));
     }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
 
-      var _props = this.props,
-          selectedCategories = _props.selectedCategories,
-          selectCategory = _props.selectCategory,
-          selectSource = _props.selectSource,
-          selectedSources = _props.selectedSources,
-          sources = _props.sources,
-          getData = _props.getData,
-          saveData = _props.saveData,
-          categories = _props.categories,
-          user = _props.user,
-          menuIsOpen = _props.menuIsOpen,
-          twitterFeedOpen = _props.twitterFeedOpen,
-          logoutPage = _props.logoutPage,
-          loginPage = _props.loginPage,
-          languages = _props.languages,
-          selectLanguage = _props.selectLanguage,
-          selectedLanguages = _props.selectedLanguages,
-          toggleMenu = _props.toggleMenu,
-          getSearchInput = _props.getSearchInput;
+    _createClass(Filter, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var height = this.categoriesDiv.clientHeight;
+            this.newsSourcesDiv.style.height = height + 'px';
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            var _props = this.props,
+                selectedCategories = _props.selectedCategories,
+                selectCategory = _props.selectCategory,
+                selectSource = _props.selectSource,
+                selectedSources = _props.selectedSources,
+                sources = _props.sources,
+                getData = _props.getData,
+                saveData = _props.saveData,
+                categories = _props.categories,
+                user = _props.user,
+                menuIsOpen = _props.menuIsOpen,
+                twitterFeedOpen = _props.twitterFeedOpen,
+                logoutPage = _props.logoutPage,
+                loginPage = _props.loginPage,
+                languages = _props.languages,
+                selectLanguage = _props.selectLanguage,
+                selectedLanguages = _props.selectedLanguages,
+                toggleMenu = _props.toggleMenu,
+                getSearchInput = _props.getSearchInput;
 
 
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'div',
-          { className: 'large-8 medium-6 columns' },
-          _react2.default.createElement(
-            'div',
-            { className: menuIsOpen ? 'animated fadeIn' : 'animated fadeOut' },
-            _react2.default.createElement(
-              'div',
-              { className: 'row' },
-              _react2.default.createElement(
+            return _react2.default.createElement(
                 'div',
-                { className: 'large-4 medium-12 columns' },
-                _react2.default.createElement(
-                  'div',
-                  { className: 'categories', ref: function ref(element) {
-                      return _this2.categoriesDiv = element;
-                    } },
-                  _react2.default.createElement(_Categories2.default, {
-                    selectedCategories: selectedCategories,
-                    selectCategory: selectCategory,
-                    getData: getData,
-                    saveData: saveData,
-                    categories: categories
-                  })
-                )
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'large-5 medium-12 columns' },
-                _react2.default.createElement(
-                  'div',
-                  { className: 'news-sources', ref: function ref(element) {
-                      return _this2.newsSourcesDiv = element;
-                    } },
-                  _react2.default.createElement(_NewsSources2.default, {
-                    selectedCategories: selectedCategories,
-                    selectedLanguages: selectedLanguages,
-                    sources: sources,
-                    selectSource: selectSource,
-                    selectedSources: selectedSources
-                  })
-                )
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'large-3 medium-12 columns' },
-                _react2.default.createElement(
-                  'div',
-                  { className: 'languages' },
-                  _react2.default.createElement(_Languages2.default, {
-                    languages: languages,
-                    selectLanguage: selectLanguage,
-                    selectedLanguages: selectedLanguages
-                  })
-                )
-              )
-            )
-          )
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'large-4 medium-6 columns' },
-          _react2.default.createElement(
-            'div',
-            { className: menuIsOpen ? 'options-wrap animated fadeIn' : 'options-wrap animated fadeOut' },
-            this.props.user ? _react2.default.createElement(
-              'div',
-              { className: 'row collapse' },
-              _react2.default.createElement(
-                'div',
-                { className: 'large-12 columns' },
-                _react2.default.createElement(
-                  'p',
-                  { className: 'icon-user' },
-                  'Not @',
-                  user.handle,
-                  '? ',
-                  _react2.default.createElement(
-                    'span',
-                    null,
-                    _react2.default.createElement(
-                      'a',
-                      { href: logoutPage },
-                      'Log out'
-                    )
-                  )
-                )
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'large-5 columns' },
-                _react2.default.createElement(
-                  'p',
-                  { className: 'view-feed' },
-                  'View feed \xA0',
-                  _react2.default.createElement(_Switch2.default, {
-                    toggleTwitterFeed: this.props.toggleTwitterFeed,
-                    twitterFeedOpen: twitterFeedOpen,
-                    toggleMenu: toggleMenu
-                  })
-                )
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'large-7 columns' },
-                _react2.default.createElement(
-                  'p',
-                  { className: 'search-hashtag' },
-                  'Search hashtag'
-                ),
-                _react2.default.createElement(
-                  'span',
-                  { className: 'search-wrap' },
-                  _react2.default.createElement('span', { className: 'icon-hashtag' }),
-                  _react2.default.createElement('input', { className: 'search', type: 'text', onChange: function onChange(e) {
-                      return getSearchInput(e.target.value);
-                    } }),
-                  _react2.default.createElement('span', { className: 'icon-search' })
-                )
-              )
-            ) : _react2.default.createElement(
-              'p',
-              { className: 'icon-user' },
-              _react2.default.createElement(
-                'span',
                 null,
                 _react2.default.createElement(
-                  'a',
-                  { href: loginPage },
-                  'Sign in'
+                    'div',
+                    { className: 'large-8 medium-6 columns' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: menuIsOpen ? 'animated fadeIn' : 'animated fadeOut' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'row' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'large-4 medium-12 columns' },
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'categories', ref: function ref(element) {
+                                            return _this2.categoriesDiv = element;
+                                        } },
+                                    _react2.default.createElement(_Categories2.default, {
+                                        selectedCategories: selectedCategories,
+                                        selectCategory: selectCategory,
+                                        getData: getData,
+                                        saveData: saveData,
+                                        categories: categories
+                                    })
+                                )
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'large-5 medium-12 columns' },
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'news-sources', ref: function ref(element) {
+                                            return _this2.newsSourcesDiv = element;
+                                        } },
+                                    _react2.default.createElement(_NewsSources2.default, {
+                                        selectedCategories: selectedCategories,
+                                        selectedLanguages: selectedLanguages,
+                                        sources: sources,
+                                        selectSource: selectSource,
+                                        selectedSources: selectedSources
+                                    })
+                                )
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'large-3 medium-12 columns' },
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'languages' },
+                                    _react2.default.createElement(_Languages2.default, {
+                                        languages: languages,
+                                        selectLanguage: selectLanguage,
+                                        selectedLanguages: selectedLanguages
+                                    })
+                                )
+                            )
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'large-4 medium-6 columns' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: menuIsOpen ? 'options-wrap animated fadeIn' : 'options-wrap animated fadeOut' },
+                        this.props.user ? _react2.default.createElement(
+                            'div',
+                            { className: 'row collapse' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'large-12 columns' },
+                                _react2.default.createElement(
+                                    'p',
+                                    { className: 'icon-user' },
+                                    'Not @',
+                                    user.handle,
+                                    '? ',
+                                    _react2.default.createElement(
+                                        'span',
+                                        null,
+                                        _react2.default.createElement(
+                                            'a',
+                                            { href: logoutPage },
+                                            'Log out'
+                                        )
+                                    )
+                                )
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'large-5 columns' },
+                                _react2.default.createElement(
+                                    'p',
+                                    { className: 'view-feed' },
+                                    'View feed \xA0',
+                                    _react2.default.createElement(_Switch2.default, {
+                                        toggleTwitterFeed: this.props.toggleTwitterFeed,
+                                        twitterFeedOpen: twitterFeedOpen,
+                                        toggleMenu: toggleMenu
+                                    })
+                                )
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'large-7 columns' },
+                                _react2.default.createElement(
+                                    'p',
+                                    { className: 'search-hashtag' },
+                                    'Search hashtag'
+                                ),
+                                _react2.default.createElement(
+                                    'span',
+                                    { className: 'search-wrap' },
+                                    _react2.default.createElement('span', { className: 'icon-hashtag' }),
+                                    _react2.default.createElement('input', { className: 'search', type: 'text', onChange: function onChange(e) {
+                                            return getSearchInput(e.target.value);
+                                        } }),
+                                    _react2.default.createElement('span', { className: 'icon-search' })
+                                )
+                            )
+                        ) : _react2.default.createElement(
+                            'p',
+                            { className: 'icon-user' },
+                            _react2.default.createElement(
+                                'span',
+                                null,
+                                _react2.default.createElement(
+                                    'a',
+                                    { href: loginPage },
+                                    'Sign in'
+                                )
+                            )
+                        )
+                    )
                 )
-              )
-            )
-          )
-        )
-      );
-    }
-  }]);
+            );
+        }
+    }]);
 
-  return Filter;
+    return Filter;
 }(_react.Component);
 
 exports.default = Filter;
@@ -13460,7 +13455,7 @@ exports.default = Filter;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -13482,70 +13477,69 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Language = function (_Component) {
-  _inherits(Language, _Component);
+	_inherits(Language, _Component);
 
-  function Language() {
-    _classCallCheck(this, Language);
+	function Language() {
+		_classCallCheck(this, Language);
 
-    var _this = _possibleConstructorReturn(this, (Language.__proto__ || Object.getPrototypeOf(Language)).call(this));
+		var _this = _possibleConstructorReturn(this, (Language.__proto__ || Object.getPrototypeOf(Language)).call(this));
 
-    _this.toggleCheckboxState = function () {
-      var isChecked = !_this.state.checked;
-      _this.setState({ checked: isChecked });
-      _this.props.selectLanguage(_this, isChecked);
-    };
+		_this.toggleCheckboxState = function () {
+			var isChecked = !_this.state.checked;
+			_this.setState({ checked: isChecked });
+			_this.props.selectLanguage(_this, isChecked);
+		};
 
-    _this.renderCheckbox = function () {
+		_this.renderCheckbox = function () {
 
-      return _react2.default.createElement('input', {
-        className: 'language-checkbox',
-        name: _this.props.language.name,
-        onChange: function onChange(e) {
-          return _this.toggleCheckboxState();
-        },
-        type: 'checkbox',
-        checked: _this.state.checked,
-        key: _this.props.id
-      });
-    };
+			return _react2.default.createElement('input', {
+				className: 'language-checkbox',
+				name: _this.props.language.name,
+				onChange: function onChange(e) {
+					return _this.toggleCheckboxState();
+				},
+				type: 'checkbox',
+				checked: _this.state.checked,
+				key: _this.props.id
+			});
+		};
 
-    _this.state = {
-      checked: false
-    };
+		_this.state = {
+			checked: false
+		};
+		return _this;
+	}
 
-    return _this;
-  }
+	_createClass(Language, [{
+		key: 'componentWillMount',
+		value: function componentWillMount() {
+			var _this2 = this;
 
-  _createClass(Language, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
-      var _this2 = this;
+			this.props.selectedLanguages.map(function (language, index) {
 
-      this.props.selectedLanguages.map(function (language, index) {
+				if (_this2.props.language.name === language.name) {
+					_this2.setState({ checked: true });
+				}
+			});
+		}
+	}, {
+		key: 'render',
+		value: function render() {
 
-        if (_this2.props.language.name === language.name) {
-          _this2.setState({ checked: true });
-        }
-      });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
+			return _react2.default.createElement(
+				'div',
+				{ className: 'large-12 columns' },
+				_react2.default.createElement(
+					'label',
+					{ className: 'language' },
+					this.props.language.name,
+					this.renderCheckbox()
+				)
+			);
+		}
+	}]);
 
-      return _react2.default.createElement(
-        'div',
-        { className: 'large-12 columns' },
-        _react2.default.createElement(
-          'label',
-          { className: 'language' },
-          this.props.language.name,
-          this.renderCheckbox()
-        )
-      );
-    }
-  }]);
-
-  return Language;
+	return Language;
 }(_react.Component);
 
 exports.default = Language;
@@ -13558,7 +13552,7 @@ exports.default = Language;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -13584,44 +13578,39 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var languages = function (_Component) {
-  _inherits(languages, _Component);
+    _inherits(languages, _Component);
 
-  function languages() {
-    _classCallCheck(this, languages);
+    function languages() {
+        _classCallCheck(this, languages);
 
-    var _this = _possibleConstructorReturn(this, (languages.__proto__ || Object.getPrototypeOf(languages)).call(this));
-
-    _this.renderLanguage = function () {};
-
-    return _this;
-  }
-
-  _createClass(languages, [{
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      var _props = this.props,
-          languages = _props.languages,
-          selectLanguage = _props.selectLanguage;
-
-
-      return _react2.default.createElement(
-        'div',
-        { className: 'row' },
-        languages.map(function (language, index) {
-          return _react2.default.createElement(_Language2.default, {
-            key: index,
-            language: language,
-            selectLanguage: selectLanguage,
-            selectedLanguages: _this2.props.selectedLanguages
-          });
-        })
-      );
+        return _possibleConstructorReturn(this, (languages.__proto__ || Object.getPrototypeOf(languages)).call(this));
     }
-  }]);
 
-  return languages;
+    _createClass(languages, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            var _props = this.props,
+                languages = _props.languages,
+                selectLanguage = _props.selectLanguage;
+
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'row' },
+                languages.map(function (language, index) {
+                    return _react2.default.createElement(_Language2.default, {
+                        key: index,
+                        language: language,
+                        selectLanguage: selectLanguage,
+                        selectedLanguages: _this2.props.selectedLanguages });
+                })
+            );
+        }
+    }]);
+
+    return languages;
 }(_react.Component);
 
 exports.default = languages;
@@ -13634,7 +13623,7 @@ exports.default = languages;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -13664,115 +13653,115 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var NewsArticle = function (_Component) {
-  _inherits(NewsArticle, _Component);
+    _inherits(NewsArticle, _Component);
 
-  function NewsArticle() {
-    _classCallCheck(this, NewsArticle);
+    function NewsArticle() {
+        _classCallCheck(this, NewsArticle);
 
-    var _this = _possibleConstructorReturn(this, (NewsArticle.__proto__ || Object.getPrototypeOf(NewsArticle)).call(this));
+        var _this = _possibleConstructorReturn(this, (NewsArticle.__proto__ || Object.getPrototypeOf(NewsArticle)).call(this));
 
-    _this.formatText = function (text) {
-      if (text) {
-        var string = text.replace(/&quot;/g, '\\"');
-        return string;
-      }
-    };
+        _this.formatText = function (text) {
+            if (text) {
+                var string = text.replace(/&quot;/g, '\\"');
+                return string;
+            }
+        };
 
-    _this.getImageSize = function (url) {
-      var image = new Image();
-      image.src = url;
+        _this.getImageSize = function (url) {
+            var image = new Image();
+            image.src = url;
 
-      _this.setState({
-        height: image.naturalHeight,
-        width: image.naturalWidth
-      });
-    };
+            _this.setState({
+                height: image.naturalHeight,
+                width: image.naturalWidth
+            });
+        };
 
-    _this.state = {};
+        _this.state = {};
 
-    return _this;
-  }
-
-  _createClass(NewsArticle, [{
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      var article = this.props.newsArticle;
-
-      return _react2.default.createElement(
-        'div',
-        { className: 'small-12 large-6 columns tweet-block' },
-        _react2.default.createElement(
-          'div',
-          { className: 'card', lang: article.sourceLanguage },
-          article.urlToImage ? _react2.default.createElement('img', { height: this.state.height, width: this.state.width, className: 'article-image', src: article.urlToImage, alt: article.title, onLoad: function onLoad() {
-              return _this2.getImageSize(article.urlToImage);
-            } }) : '',
-          _react2.default.createElement(
-            'div',
-            { className: 'card-section offhover' },
-            _react2.default.createElement(
-              'h4',
-              null,
-              article.title
-            ),
-            _react2.default.createElement(
-              'p',
-              null,
-              _react2.default.createElement(
-                'small',
-                null,
-                this.props.dateFormatter(article.publishedAt)
-              ),
-              ' ',
-              _react2.default.createElement(
-                'small',
-                { className: 'source' },
-                article.sourceName
-              )
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'card-section onhover' },
-            _react2.default.createElement(
-              'small',
-              { className: 'source-category icon-tag' },
-              article.sourceCategory
-            ),
-            _react2.default.createElement(
-              _reactDotdotdot2.default,
-              { clamp: 7 },
-              _react2.default.createElement(
-                'p',
-                null,
-                this.formatText(article.description)
-              )
-            ),
-            _react2.default.createElement(
-              'p',
-              null,
-              _react2.default.createElement(
-                'a',
-                { className: 'button primary small', href: article.url, target: '_blank' },
-                _react2.default.createElement('span', { className: 'icon-link-ext' }),
-                ' View article'
-              ),
-              this.props.user ? _react2.default.createElement(_TweetButton2.default, {
-                article: article,
-                tweetFormOpen: this.props.tweetFormOpen,
-                toggleTweetForm: this.props.toggleTweetForm,
-                selectArticle: this.props.selectArticle
-              }) : ''
-            )
-          )
-        )
-      );
+        return _this;
     }
-  }]);
 
-  return NewsArticle;
+    _createClass(NewsArticle, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            var article = this.props.newsArticle;
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'small-12 large-6 columns tweet-block' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'card', lang: article.sourceLanguage },
+                    article.urlToImage ? _react2.default.createElement('img', { height: this.state.height, width: this.state.width, className: 'article-image', src: article.urlToImage, alt: article.title, onLoad: function onLoad() {
+                            return _this2.getImageSize(article.urlToImage);
+                        } }) : '',
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'card-section offhover' },
+                        _react2.default.createElement(
+                            'h4',
+                            null,
+                            article.title
+                        ),
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            _react2.default.createElement(
+                                'small',
+                                null,
+                                this.props.dateFormatter(article.publishedAt)
+                            ),
+                            ' ',
+                            _react2.default.createElement(
+                                'small',
+                                { className: 'source' },
+                                article.sourceName
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'card-section onhover' },
+                        _react2.default.createElement(
+                            'small',
+                            { className: 'source-category icon-tag' },
+                            article.sourceCategory
+                        ),
+                        _react2.default.createElement(
+                            _reactDotdotdot2.default,
+                            { clamp: 7 },
+                            _react2.default.createElement(
+                                'p',
+                                null,
+                                this.formatText(article.description)
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            _react2.default.createElement(
+                                'a',
+                                { className: 'button primary small', href: article.url, target: '_blank' },
+                                _react2.default.createElement('span', { className: 'icon-link-ext' }),
+                                ' View article'
+                            ),
+                            this.props.user ? _react2.default.createElement(_TweetButton2.default, {
+                                article: article,
+                                tweetFormOpen: this.props.tweetFormOpen,
+                                toggleTweetForm: this.props.toggleTweetForm,
+                                selectArticle: this.props.selectArticle
+                            }) : ''
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return NewsArticle;
 }(_react.Component);
 
 exports.default = NewsArticle;
@@ -14122,7 +14111,7 @@ exports.default = NewsSource;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -14152,75 +14141,75 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var NewsSources = function (_Component) {
-  _inherits(NewsSources, _Component);
+    _inherits(NewsSources, _Component);
 
-  function NewsSources(props) {
-    _classCallCheck(this, NewsSources);
+    function NewsSources(props) {
+        _classCallCheck(this, NewsSources);
 
-    var _this = _possibleConstructorReturn(this, (NewsSources.__proto__ || Object.getPrototypeOf(NewsSources)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (NewsSources.__proto__ || Object.getPrototypeOf(NewsSources)).call(this, props));
 
-    _this.renderSource = function (source, index) {
-      return _react2.default.createElement(_NewsSource2.default, {
-        key: source.id,
-        source: source,
-        selectSource: _this.props.selectSource,
-        selectedSources: _this.props.selectedSources
-      });
-    };
+        _this.renderSource = function (source, index) {
+            return _react2.default.createElement(_NewsSource2.default, {
+                key: source.id,
+                source: source,
+                selectSource: _this.props.selectSource,
+                selectedSources: _this.props.selectedSources
+            });
+        };
 
-    return _this;
-  }
-
-  _createClass(NewsSources, [{
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      var _props = this.props,
-          selectedCategories = _props.selectedCategories,
-          selectedLanguages = _props.selectedLanguages;
-
-
-      return _react2.default.createElement(
-        'div',
-        null,
-        this.props.sources.length !== 0 ? _react2.default.createElement(
-          'div',
-          { className: 'row' },
-          this.props.sources.map(function (source, index) {
-
-            if (selectedCategories.length === 0 && selectedLanguages.length === 0) {
-              return _this2.renderSource(source, index);
-            } else if (selectedCategories.length > 0 && selectedLanguages.length === 0) {
-              return selectedCategories.map(function (category) {
-                if (category.name == source.category) {
-                  return _this2.renderSource(source, index);
-                }
-              });
-            } else if (selectedCategories.length === 0 && selectedLanguages.length > 0) {
-              return selectedLanguages.map(function (language) {
-                if (language.iso == source.language) {
-                  return _this2.renderSource(source, index);
-                }
-              });
-            } else {
-              return selectedCategories.map(function (category) {
-                if (category.name == source.category) {
-                  return selectedLanguages.map(function (language) {
-                    if (language.iso == source.language) {
-                      return _this2.renderSource(source, index);
-                    }
-                  });
-                }
-              });
-            }
-          })
-        ) : ''
-      );
+        return _this;
     }
-  }]);
 
-  return NewsSources;
+    _createClass(NewsSources, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            var _props = this.props,
+                selectedCategories = _props.selectedCategories,
+                selectedLanguages = _props.selectedLanguages;
+
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                this.props.sources.length !== 0 ? _react2.default.createElement(
+                    'div',
+                    { className: 'row' },
+                    this.props.sources.map(function (source, index) {
+
+                        if (selectedCategories.length === 0 && selectedLanguages.length === 0) {
+                            return _this2.renderSource(source, index);
+                        } else if (selectedCategories.length > 0 && selectedLanguages.length === 0) {
+                            return selectedCategories.map(function (category) {
+                                if (category.name == source.category) {
+                                    return _this2.renderSource(source, index);
+                                }
+                            });
+                        } else if (selectedCategories.length === 0 && selectedLanguages.length > 0) {
+                            return selectedLanguages.map(function (language) {
+                                if (language.iso == source.language) {
+                                    return _this2.renderSource(source, index);
+                                }
+                            });
+                        } else {
+                            return selectedCategories.map(function (category) {
+                                if (category.name == source.category) {
+                                    return selectedLanguages.map(function (language) {
+                                        if (language.iso == source.language) {
+                                            return _this2.renderSource(source, index);
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    })
+                ) : ''
+            );
+        }
+    }]);
+
+    return NewsSources;
 }(_react.Component);
 
 exports.default = NewsSources;
@@ -14233,7 +14222,7 @@ exports.default = NewsSources;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -14255,46 +14244,46 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Switch = function (_Component) {
-  _inherits(Switch, _Component);
+    _inherits(Switch, _Component);
 
-  function Switch(props) {
-    _classCallCheck(this, Switch);
+    function Switch(props) {
+        _classCallCheck(this, Switch);
 
-    var _this = _possibleConstructorReturn(this, (Switch.__proto__ || Object.getPrototypeOf(Switch)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (Switch.__proto__ || Object.getPrototypeOf(Switch)).call(this, props));
 
-    _this.toggleCheckboxState = function () {
-      var isChecked = !_this.state.checked;
-      _this.setState({ checked: isChecked });
-      _this.props.toggleTwitterFeed(isChecked);
+        _this.toggleCheckboxState = function () {
+            var isChecked = !_this.state.checked;
+            _this.setState({ checked: isChecked });
+            _this.props.toggleTwitterFeed(isChecked);
 
-      // setTimeout(()=> {
-      //   this.props.toggleMenu();
-      // }, 1000)
-    };
+            // setTimeout(()=> {
+            //   this.props.toggleMenu();
+            // }, 1000)
+        };
 
-    _this.state = {
-      checked: _this.props.twitterFeedOpen
-    };
-    return _this;
-  }
-
-  _createClass(Switch, [{
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      return _react2.default.createElement(
-        'label',
-        { className: 'toggle-switch' },
-        _react2.default.createElement('input', { type: 'checkbox', onChange: function onChange() {
-            return _this2.toggleCheckboxState();
-          }, checked: this.props.twitterFeedOpen }),
-        _react2.default.createElement('span', { className: 'toggle-switch-track round' })
-      );
+        _this.state = {
+            checked: _this.props.twitterFeedOpen
+        };
+        return _this;
     }
-  }]);
 
-  return Switch;
+    _createClass(Switch, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            return _react2.default.createElement(
+                'label',
+                { className: 'toggle-switch' },
+                _react2.default.createElement('input', { type: 'checkbox', onChange: function onChange() {
+                        return _this2.toggleCheckboxState();
+                    }, checked: this.props.twitterFeedOpen }),
+                _react2.default.createElement('span', { className: 'toggle-switch-track round' })
+            );
+        }
+    }]);
+
+    return Switch;
 }(_react.Component);
 
 exports.default = Switch;
@@ -14480,11 +14469,14 @@ var TweetButton = function (_Component) {
             var tweetFormOpen = this.props.tweetFormOpen;
             return _react2.default.createElement(
                 'button',
-                { type: 'button icon-twitter', className: 'button default small btn-tweet', onClick: function onClick() {
+                {
+                    type: 'button icon-twitter',
+                    className: 'button default small btn-tweet',
+                    onClick: function onClick() {
                         _this2.props.toggleTweetForm(tweetFormOpen);
                         _this2.props.selectArticle(_this2.props.article);
                     } },
-                'Tweet ',
+                'Tweet',
                 _react2.default.createElement('span', { className: 'icon-twitter' })
             );
         }
@@ -14503,7 +14495,7 @@ exports.default = TweetButton;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -14531,133 +14523,134 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var TweetForm = function (_Component) {
-  _inherits(TweetForm, _Component);
+    _inherits(TweetForm, _Component);
 
-  function TweetForm(props) {
-    _classCallCheck(this, TweetForm);
+    function TweetForm(props) {
+        _classCallCheck(this, TweetForm);
 
-    var _this = _possibleConstructorReturn(this, (TweetForm.__proto__ || Object.getPrototypeOf(TweetForm)).call(this));
+        var _this = _possibleConstructorReturn(this, (TweetForm.__proto__ || Object.getPrototypeOf(TweetForm)).call(this));
 
-    _this.handleChange = function (e) {
-      var input = e.target.value;
-      //remove username from charlimit
-      //   input = input.replace(/[@]+[A-Za-z0-9-_]+/g, function(u) {
-      //   var username = u.length;
-      //   return username;
-      // });
+        _this.handleChange = function (e) {
+            var input = e.target.value;
 
-      _this.setState({
-        charsLeft: _this.maxChars - input.length,
-        tweet: input
-      });
-    };
+            // For future Twitter update - Regex to exclude handle from char limit.
+            //   input = input.replace(/[@]+[A-Za-z0-9-_]+/g, function(u) {
+            //   var username = u.length;
+            //   return username;
+            // });
 
-    _this.getTimeline = function () {
-      _axios2.default.get('/twitter/timeline').then(function (response) {
-        console.log(response);
-        _this.props.updateTimeline(response.data.timeline);
-      }).catch(function (error) {
-        console.log(error);
-      });
-    };
+            _this.setState({
+                charsLeft: _this.maxChars - input.length,
+                tweet: input
+            });
+        };
 
-    _this.tweetArticle = function (e) {
+        _this.getTimeline = function () {
+            _axios2.default.get('/twitter/timeline').then(function (response) {
+                console.log(response);
+                _this.props.updateTimeline(response.data.timeline);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        };
 
-      e.preventDefault();
+        _this.tweetArticle = function (e) {
+            e.preventDefault();
 
-      var postTweetBody = _this.state.tweet;
-      var articleUrl = _this.props.selectedArticle.url;
+            var postTweetBody = _this.state.tweet;
+            var articleUrl = _this.props.selectedArticle.url;
 
-      _axios2.default.post('/tweet', {
-        tweetBody: postTweetBody,
-        tweetUrl: articleUrl
-      }).then(function (response) {
-        console.log(response);
-        _this.props.toggleTweetForm(_this.props.tweetFormOpen);
-        _this.getTimeline();
-      }).catch(function (error) {
-        _this.props.toggleTweetForm(_this.props.tweetFormOpen);
-        var errorArray = [].concat(_toConsumableArray(_this.props.errors));
-        errorArray.push('There was a problem posting your tweet.');
-        _this.props.updateErrors(errorArray);
-      });
-    };
+            _axios2.default.post('/tweet', {
+                tweetBody: postTweetBody,
+                tweetUrl: articleUrl
+            }).then(function (response) {
+                console.log(response);
+                _this.props.toggleTweetForm(_this.props.tweetFormOpen);
+                _this.getTimeline();
+            }).catch(function (error) {
+                _this.props.toggleTweetForm(_this.props.tweetFormOpen);
+                var errorArray = [].concat(_toConsumableArray(_this.props.errors));
+                errorArray.push('There was a problem posting your tweet.');
+                _this.props.updateErrors(errorArray);
+            });
+        };
 
-    _this.maxChars = 117;
-    _this.state = {
-      charsLeft: _this.maxChars,
-      tweet: ''
-    };
-    return _this;
-  }
-
-  _createClass(TweetForm, [{
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      var tweetFormOpen = this.props.tweetFormOpen;
-      return _react2.default.createElement(
-        'div',
-        { className: 'tweet-modal' },
-        _react2.default.createElement(
-          'div',
-          { className: 'callout' },
-          _react2.default.createElement(
-            'button',
-            { className: 'close-button', 'aria-label': 'Close alert', type: 'button', onClick: function onClick() {
-                return _this2.props.toggleTweetForm(tweetFormOpen);
-              } },
-            _react2.default.createElement(
-              'span',
-              { 'aria-hidden': 'true' },
-              '\xD7'
-            )
-          ),
-          _react2.default.createElement(
-            'form',
-            null,
-            _react2.default.createElement(
-              'h5',
-              null,
-              'Compose Tweet'
-            ),
-            _react2.default.createElement(
-              'label',
-              null,
-              _react2.default.createElement('textarea', { id: 'postTweet-body', onChange: this.handleChange, type: 'text', placeholder: 'Tweet', rows: '3', maxLength: this.maxChars })
-            ),
-            _react2.default.createElement(
-              'label',
-              null,
-              'Article URL ',
-              _react2.default.createElement(
-                'small',
-                null,
-                '(uses 23 chars)'
-              ),
-              _react2.default.createElement('input', { id: 'postTweet-url', type: 'text', value: this.props.selectedArticle.url, disabled: true })
-            )
-          ),
-          _react2.default.createElement(
-            'button',
-            { className: 'button', type: 'button', onClick: function onClick(e) {
-                return _this2.tweetArticle(e);
-              } },
-            'Tweet'
-          ),
-          ' ',
-          _react2.default.createElement(
-            'small',
-            null,
-            this.state.charsLeft
-          )
-        )
-      );
+        _this.maxChars = 117;
+        _this.state = {
+            charsLeft: _this.maxChars,
+            tweet: ''
+        };
+        return _this;
     }
-  }]);
 
-  return TweetForm;
+    _createClass(TweetForm, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            var tweetFormOpen = this.props.tweetFormOpen;
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'tweet-modal' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'callout' },
+                    _react2.default.createElement(
+                        'button',
+                        { className: 'close-button', 'aria-label': 'Close alert', type: 'button', onClick: function onClick() {
+                                return _this2.props.toggleTweetForm(tweetFormOpen);
+                            } },
+                        _react2.default.createElement(
+                            'span',
+                            { 'aria-hidden': 'true' },
+                            '\xD7'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'form',
+                        null,
+                        _react2.default.createElement(
+                            'h5',
+                            null,
+                            'Compose Tweet'
+                        ),
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            _react2.default.createElement('textarea', { id: 'postTweet-body', onChange: this.handleChange, type: 'text', placeholder: 'Tweet', rows: '3', maxLength: this.maxChars })
+                        ),
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            'Article URL ',
+                            _react2.default.createElement(
+                                'small',
+                                null,
+                                '(uses 23 chars)'
+                            ),
+                            _react2.default.createElement('input', { id: 'postTweet-url', type: 'text', value: this.props.selectedArticle.url, disabled: true })
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'button',
+                        { className: 'button', type: 'button', onClick: function onClick(e) {
+                                return _this2.tweetArticle(e);
+                            } },
+                        'Tweet'
+                    ),
+                    ' ',
+                    _react2.default.createElement(
+                        'small',
+                        null,
+                        this.state.charsLeft
+                    )
+                )
+            );
+        }
+    }]);
+
+    return TweetForm;
 }(_react.Component);
 
 exports.default = TweetForm;

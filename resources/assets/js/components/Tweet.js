@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom';
 class Tweet extends Component {
 	constructor() {
 		super()
-
 	}
 
 	dateFormatter = (time) => {
@@ -71,7 +70,6 @@ class Tweet extends Component {
 				</div>
 			</div>
 		)
-
 	}
 }
 

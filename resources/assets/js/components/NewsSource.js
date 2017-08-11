@@ -49,7 +49,6 @@ class NewsSource extends Component {
 
 			</div>
 		)
-
 	}
 }
 

@@ -4,32 +4,28 @@ import ReactDOM from 'react-dom';
 import Language from './Language';
 
 class languages extends Component {
-  constructor() {
-    super()
-  }
+    constructor() {
+        super()
+    }
 
-  renderLanguage = () => {
+    render() {
 
-  }
+        const { languages, selectLanguage } = this.props;
 
-  render() {
-
-    const { languages, selectLanguage } = this.props;
-
-    return(
+        return(
             <div className="row">
-              {
-                languages.map((language, index) => { 
-                  return <Language 
-                  key={index} 
-                  language={language} 
-                  selectLanguage={selectLanguage}
-                  selectedLanguages={this.props.selectedLanguages}
-                  />})
-              }
+                {
+                    languages.map((language, index) => { 
+                        return <Language 
+                        key={index} 
+                        language={language} 
+                        selectLanguage={selectLanguage}
+                        selectedLanguages={this.props.selectedLanguages}/>
+                    })
+                }
             </div>
-      )
-  }
+        )
+    }
 }
 
 export default languages

@@ -178,7 +178,7 @@ class NewsFeed extends Component {
                     </button>
                 </div>
             </div>
-            )
+        )
     }
 }
 
