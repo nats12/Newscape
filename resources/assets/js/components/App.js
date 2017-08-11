@@ -341,7 +341,7 @@ class App extends Component {
 
 				<header>
 
-					<TopBar user={user} loginPage={loginPage}/>
+					<TopBar user={user} loginPage={loginPage} logoutPage={logoutPage}/>
 					
 					<div className="section-filter">
 						<div className="row" ref={(element) => this.sectionFilterRow = element}>
