@@ -2,6 +2,10 @@ body {
     font-family: $font-family;
 }
 
+.menu>li>a {
+    padding: 0;
+}
+
 .top-bar, .top-bar ul {
     background-color: $blue;
     color: $white;
