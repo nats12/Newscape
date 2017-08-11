@@ -27,10 +27,6 @@ span.icon-down-open-big, span.icon-up-open-big,  {
     position: relative;
     cursor: pointer;
     transition: color .25s ease-out;
-
-    &:hover {
-        color: $pink-dk;
-    }
 }
 
 .twitter-options {
@@ -58,11 +54,11 @@ span.icon-down-open-big, span.icon-up-open-big,  {
     text-align: center;
     position: relative;
     z-index: 10;
-    transition: color .25s ease-out;
+    transition: background-color .25s ease-out;
 
     &:hover {
         cursor: pointer;
-        color: $pink-lt;
+        background-color: darken($pink-md, 10%);
     }
 }
 
@@ -162,10 +158,29 @@ span.icon-down-open-big, span.icon-up-open-big,  {
     .options-wrap {
         display: none;
     }
+
+    .categories,
+    .languages{
+        padding-right: 37px
+    }
 }
 
 /* Medium and up */
-@media screen and (min-width: 40em) {}
+@media screen and (min-width: 40em) {
+    .options-menu {
+        &:hover {
+            color: $pink-dk;
+        }
+    }
+
+    .twitter-options {
+      .options-menu {
+        &:hover {
+            color: $pink-lt;
+        }
+      }
+    }
+}
 
 /* Medium only */
 @media screen and (min-width: 40em) and (max-width: 63.9375em) {
@@ -173,6 +188,11 @@ span.icon-down-open-big, span.icon-up-open-big,  {
         .section-filter {
             max-height: 1000px;
         }
+    }
+
+    .categories,
+    .languages{
+        padding-right: 37px
     }
 }
 

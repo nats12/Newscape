@@ -14,8 +14,12 @@ class TopBar extends Component {
                             <li className="menu-text"><h1>Newscape</h1></li>
                         </ul>
                     </div>
-                    <div className="top-bar-right">
                     {/* Add github icon here */ }
+                    <div className="top-bar-right">
+                        <ul className="menu">
+                          <li className="menu-text auth"><a href={this.props.loginPage}>{this.props.user ? "Log out" : "Log in"}</a></li>
+                         
+                        </ul>
                     </div>
                 </div>
             </div>

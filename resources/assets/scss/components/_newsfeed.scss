@@ -2,10 +2,6 @@
     padding-top: 120px;
 }
 
-.newsfeed {
-    margin-top: 25px;
-}
-
 .source-category {
     text-transform: capitalize;
 }
@@ -114,7 +110,11 @@
 }
 
 /* Medium and up */
-@media screen and (min-width: 40em) {}
+@media screen and (min-width: 40em) {
+    .newsfeed {
+        margin-top: 25px;
+    }
+}
 
 /* Medium only */
 @media screen and (min-width: 40em) and (max-width: 63.9375em) {}
