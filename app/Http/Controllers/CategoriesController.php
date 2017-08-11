@@ -45,21 +45,5 @@ class CategoriesController extends Controller
       } catch (Exception $e) {
         return response()->json(['error' => $e], 500);
       } 
-
-     
-
-      // if(Auth::check()){
-
-
-      //   if (isset($request->categories)) {
-      //       // $user->categories()->sync($request->categories, true);
-      //     $user->categories()->attach($user->id);
-      //   }
-      //   else {
-      //       $user->categories()->sync([]);
-      //   }
-      // }
-
-      
     }
 }

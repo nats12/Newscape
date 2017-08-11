@@ -25,28 +25,9 @@ class TwitterController extends Controller
 	 */
 	public function accessVariables() 
   	{
-	    // $newsSources = Cache::remember('news_sources', 60, function () {
-	    //   return NewsApi::getSources();
-	    // });
 
   		// Fetch news sources
 	    $newsSources = NewsApi::getSources();
-
-	    // $newsArticles = Cache::remember('news_articles', 60, function () {
-	    //   $articles = [];
-	    //   foreach ($newsSources["sources"] as $source) {
-	    //     $articleArray = NewsApi::getArticles($source["id"])["articles"];
-	    //     foreach($articleArray as $article) {
-	    //       $object = new stdClass();
-	    //       foreach ($article as $key => $value)
-	    //       {
-	    //         $object->$key = $value;
-	    //       }
-	    //       array_push($articles, $object);
-	    //     }
-	    //   }
-	    //   return $articles;
-	    // });
 
 	    // Instantiate articles array
 	    $articles = [];
@@ -108,12 +89,12 @@ class TwitterController extends Controller
 	    $loginPage = route('twitterLogin');
 	    $logoutPage = route('twitterLogout');
 
-      //all data
+      // All data
       $categories = Category::all();
       $sources = Source::all();
       $languages = Language::all();
 
-      //user data
+      // Window object data variables
 
 		return view('welcome', compact('loginPage', 'logoutPage', 'timeline', 'newsSources', 'newsArticles', 'user', 'categories', 'sources', 'languages', 'userCategories', 'userSources', 'userLanguages'));
 	}
@@ -145,9 +126,6 @@ class TwitterController extends Controller
 
   		return Redirect::route('twitter.error');
     }
-
-
-
 
 
     /**
@@ -248,6 +226,12 @@ class TwitterController extends Controller
       return response()->json(Twitter::getCredentials(['include_email' => 'true',]));
     }
 
+
+    /**
+     * [tweetArticle description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function tweetArticle(Request $request) {
 
       $tweet = $request->tweetBody." ".$request->tweetUrl;
@@ -257,6 +241,11 @@ class TwitterController extends Controller
       return response()->json(['status' => $tweet], 201);
     }
 
+
+    /**
+     * [getTimeline description]
+     * @return [type] [description]
+     */
     public function getTimeline()
     {
       $timeline = Twitter::getHomeTimeline(['count' => 100]);
@@ -265,6 +254,8 @@ class TwitterController extends Controller
 
       return response()->json($response, 200);
     }
+
+
 
     /**
      * [error description]

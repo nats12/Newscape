@@ -7357,7 +7357,7 @@ var TopBar = function (_Component) {
                                 { className: "menu-text" },
                                 _react2.default.createElement(
                                     "a",
-                                    { href: this.props.loginPage },
+                                    { href: this.props.user ? this.props.logoutPage : this.props.loginPage },
                                     this.props.user ? "Log out" : "Log in"
                                 )
                             )
@@ -12748,7 +12748,7 @@ var App = function (_Component) {
 					_react2.default.createElement(
 						'header',
 						null,
-						_react2.default.createElement(_TopBar2.default, { user: user, loginPage: loginPage }),
+						_react2.default.createElement(_TopBar2.default, { user: user, loginPage: loginPage, logoutPage: logoutPage }),
 						_react2.default.createElement(
 							'div',
 							{ className: 'section-filter' },
