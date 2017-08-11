@@ -12210,6 +12210,14 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _reactTransitionGroup = __webpack_require__(36);
 
+var _TopBar = __webpack_require__(247);
+
+var _TopBar2 = _interopRequireDefault(_TopBar);
+
+var _ApiDown = __webpack_require__(248);
+
+var _ApiDown2 = _interopRequireDefault(_ApiDown);
+
 var _TwitterFeed = __webpack_require__(131);
 
 var _TwitterFeed2 = _interopRequireDefault(_TwitterFeed);
@@ -12514,116 +12522,73 @@ var App = function (_Component) {
 
 			console.log(errors);
 
-			return _react2.default.createElement(
-				'div',
-				{ className: (user ? 'authenticated' : '') + ' ' + (menuIsOpen ? 'menu-open' : '') },
-				_react2.default.createElement(
-					_reactTransitionGroup.CSSTransitionGroup,
-					{
-						className: 'tweet-modal-wrap',
-						component: 'div',
-						transitionName: {
-							enter: 'animated',
-							enterActive: 'fadeIn',
-							leave: 'animated',
-							leaveActive: 'fadeOut'
-						},
-						transitionEnter: true,
-						transitionEnterTimeout: 1000,
-						transitionLeave: true,
-						transitionLeaveTimeout: 1000
-					},
-					tweetFormOpen ? _react2.default.createElement(_TweetForm2.default, {
-						tweetFormOpen: tweetFormOpen,
-						toggleTweetForm: this.toggleTweetForm,
-						selectedArticle: this.state.selectedArticle,
-						user: user,
-						timeline: timeline,
-						updateTimeline: this.updateTimeline,
-						errors: errors,
-						updateErrors: this.updateErrors
-					}) : ''
-				),
-				_react2.default.createElement(
-					_reactTransitionGroup.CSSTransitionGroup,
-					{
-						className: 'errors-modal-wrap',
-						component: 'div',
-						transitionName: {
-							enter: 'animated',
-							enterActive: 'fadeIn',
-							leave: 'animated',
-							leaveActive: 'fadeOut'
-						},
-						transitionEnter: true,
-						transitionEnterTimeout: 1000,
-						transitionLeave: true,
-						transitionLeaveTimeout: 1000
-					},
-					errors.length ? _react2.default.createElement(_Errors2.default, {
-						errors: errors,
-						toggleErrors: this.toggleErrors
-					}) : ''
-				),
-				_react2.default.createElement(
-					'header',
-					null,
+			if (this.state.newsArticles.length) {
+				return _react2.default.createElement(
+					'div',
+					{ className: (user ? 'authenticated' : '') + ' ' + (menuIsOpen ? 'menu-open' : '') },
 					_react2.default.createElement(
-						'div',
-						{ className: 'top-bar' },
-						_react2.default.createElement(
-							'div',
-							{ className: 'row' },
-							_react2.default.createElement(
-								'div',
-								{ className: 'top-bar-left' },
-								_react2.default.createElement(
-									'ul',
-									{ className: 'menu' },
-									_react2.default.createElement(
-										'li',
-										{ className: 'menu-text' },
-										_react2.default.createElement(
-											'h1',
-											null,
-											'Newscape'
-										)
-									)
-								)
-							),
-							_react2.default.createElement('div', { className: 'top-bar-right' })
-						)
+						_reactTransitionGroup.CSSTransitionGroup,
+						{
+							className: 'tweet-modal-wrap',
+							component: 'div',
+							transitionName: {
+								enter: 'animated',
+								enterActive: 'fadeIn',
+								leave: 'animated',
+								leaveActive: 'fadeOut'
+							},
+							transitionEnter: true,
+							transitionEnterTimeout: 1000,
+							transitionLeave: true,
+							transitionLeaveTimeout: 1000
+						},
+						tweetFormOpen ? _react2.default.createElement(_TweetForm2.default, {
+							tweetFormOpen: tweetFormOpen,
+							toggleTweetForm: this.toggleTweetForm,
+							selectedArticle: this.state.selectedArticle,
+							user: user,
+							timeline: timeline,
+							updateTimeline: this.updateTimeline,
+							errors: errors,
+							updateErrors: this.updateErrors
+						}) : ''
 					),
 					_react2.default.createElement(
-						'div',
-						{ className: 'section-filter' },
+						_reactTransitionGroup.CSSTransitionGroup,
+						{
+							className: 'errors-modal-wrap',
+							component: 'div',
+							transitionName: {
+								enter: 'animated',
+								enterActive: 'fadeIn',
+								leave: 'animated',
+								leaveActive: 'fadeOut'
+							},
+							transitionEnter: true,
+							transitionEnterTimeout: 1000,
+							transitionLeave: true,
+							transitionLeaveTimeout: 1000
+						},
+						errors.length ? _react2.default.createElement(_Errors2.default, {
+							errors: errors,
+							toggleErrors: this.toggleErrors
+						}) : ''
+					),
+					_react2.default.createElement(
+						'header',
+						null,
+						_react2.default.createElement(_TopBar2.default, null),
 						_react2.default.createElement(
 							'div',
-							{ className: 'row', ref: function ref(element) {
-									return _this2.sectionFilterRow = element;
-								} },
+							{ className: 'section-filter' },
 							_react2.default.createElement(
 								'div',
-								{ className: 'large-8 medium-6 columns' },
+								{ className: 'row', ref: function ref(element) {
+										return _this2.sectionFilterRow = element;
+									} },
 								_react2.default.createElement(
 									'div',
-									{ className: 'options-menu', onClick: function onClick() {
-											return _this2.setState({ menuIsOpen: menuIsOpen ? false : true });
-										} },
-									_react2.default.createElement(
-										'span',
-										{ className: 'icon-cog' },
-										'News'
-									),
-									_react2.default.createElement('span', { className: menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big' })
-								)
-							),
-							_react2.default.createElement(
-								'div',
-								{ className: 'large-4 medium-6 columns' },
-								_react2.default.createElement(
-									'div',
-									{ className: 'twitter-options' },
+									{ className: 'large-8 medium-6 columns' },
 									_react2.default.createElement(
 										'div',
 										{ className: 'options-menu', onClick: function onClick() {
@@ -12632,144 +12597,164 @@ var App = function (_Component) {
 										_react2.default.createElement(
 											'span',
 											{ className: 'icon-cog' },
-											'Twitter'
+											'News'
 										),
 										_react2.default.createElement('span', { className: menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big' })
 									)
-								)
-							),
-							_react2.default.createElement(_Filter2.default, {
-								selectedCategories: selectedCategories,
-								selectCategory: this.selectCategory,
-								getData: this.getData,
-								categories: categories,
-								user: user,
-								menuIsOpen: menuIsOpen,
-								twitterFeedOpen: twitterFeedOpen,
-								toggleTwitterFeed: this.toggleTwitterFeed,
-								sources: sources,
-								selectSource: this.selectSource,
-								selectedSources: selectedSources,
-								logoutPage: logoutPage,
-								loginPage: loginPage,
-								languages: languages,
-								selectLanguage: this.selectLanguage,
-								selectedLanguages: selectedLanguages,
-								toggleMenu: this.toggleMenu,
-								getSearchInput: this.getSearchInput
-							})
-						),
-						user ? _react2.default.createElement(
-							'div',
-							{ className: 'save', onClick: this.saveData },
-							_react2.default.createElement(
-								'span',
-								{ className: 'icon-ok-1' },
-								'Save'
-							)
-						) : ''
-					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'feeds' },
-					_react2.default.createElement(
-						'div',
-						{ className: 'row small-collapse medium-uncollapse large-uncollapse' },
-						_react2.default.createElement(
-							'div',
-							{ className: 'large-8 medium-6 columns newsfeed' },
-							_react2.default.createElement(_NewsFeed2.default, {
-								newsArticles: newsArticles,
-								dateFormatter: this.dateFormatter,
-								tweetFormOpen: tweetFormOpen,
-								toggleTweetForm: this.toggleTweetForm,
-								selectArticle: this.selectArticle,
-								selectedCategories: selectedCategories,
-								categories: categories,
-								savedCategories: savedCategories,
-								selectedLanguages: selectedLanguages,
-								selectedSources: selectedSources,
-								user: user
-							})
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'large-4 medium-6 columns twitterfeed', ref: function ref(element) {
-									return _this2.twitterfeedDiv = element;
-								} },
-							_react2.default.createElement(
-								_reactTransitionGroup.CSSTransitionGroup,
-								{
-									component: 'div',
-									className: 'twitter-container',
-									transitionName: {
-										enter: 'animated',
-										enterActive: 'slideInRightFadeIn',
-										leave: 'animated',
-										leaveActive: 'slideOutRightFadeOut',
-										appear: 'animated',
-										appearActive: 'slideInRightFadeIn'
-									},
-									transitionEnter: true,
-									transitionEnterTimeout: 1000,
-									transitionLeave: true,
-									transitionLeaveTimeout: 1000,
-									transitionAppear: true,
-									transitionAppearTimeout: 1000
-								},
-								twitterFeedOpen ? _react2.default.createElement(
+								),
+								_react2.default.createElement(
 									'div',
-									{ className: 'twitter-wrap', ref: function ref(element) {
-											return _this2.twitterfeedDiv = element;
-										} },
-									_react2.default.createElement(_TwitterFeed2.default, {
-										timeline: timeline,
-										user: user,
-										search: search })
-								) : ''
-							),
-							_react2.default.createElement(
-								_reactTransitionGroup.CSSTransitionGroup,
-								{
-									component: 'div',
-									transitionName: {
-										enter: 'animated',
-										enterActive: 'fadeIn',
-										leave: 'animated',
-										leaveActive: 'fadeOut',
-										appear: 'animated',
-										appearActive: 'fadeIn'
-									},
-									transitionEnter: true,
-									transitionEnterTimeout: 1000,
-									transitionLeave: true,
-									transitionLeaveTimeout: 1000,
-									transitionAppear: true,
-									transitionAppearTimeout: 1000
-								},
-								twitterFeedOpen ? '' : _react2.default.createElement(
-									'div',
-									{ className: 'sign-in-message' },
+									{ className: 'large-4 medium-6 columns' },
 									_react2.default.createElement(
 										'div',
-										{ className: 'row' },
+										{ className: 'twitter-options' },
 										_react2.default.createElement(
 											'div',
-											{ className: 'large-12 columns' },
+											{ className: 'options-menu', onClick: function onClick() {
+													return _this2.setState({ menuIsOpen: menuIsOpen ? false : true });
+												} },
 											_react2.default.createElement(
-												'h2',
-												null,
-												user ? _react2.default.createElement(
-													'span',
+												'span',
+												{ className: 'icon-cog' },
+												'Twitter'
+											),
+											_react2.default.createElement('span', { className: menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big' })
+										)
+									)
+								),
+								_react2.default.createElement(_Filter2.default, {
+									selectedCategories: selectedCategories,
+									selectCategory: this.selectCategory,
+									getData: this.getData,
+									categories: categories,
+									user: user,
+									menuIsOpen: menuIsOpen,
+									twitterFeedOpen: twitterFeedOpen,
+									toggleTwitterFeed: this.toggleTwitterFeed,
+									sources: sources,
+									selectSource: this.selectSource,
+									selectedSources: selectedSources,
+									logoutPage: logoutPage,
+									loginPage: loginPage,
+									languages: languages,
+									selectLanguage: this.selectLanguage,
+									selectedLanguages: selectedLanguages,
+									toggleMenu: this.toggleMenu,
+									getSearchInput: this.getSearchInput
+								})
+							),
+							user ? _react2.default.createElement(
+								'div',
+								{ className: 'save', onClick: this.saveData },
+								_react2.default.createElement(
+									'span',
+									{ className: 'icon-ok-1' },
+									'Save'
+								)
+							) : ''
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'feeds' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'row small-collapse medium-uncollapse large-uncollapse' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'large-8 medium-6 columns newsfeed' },
+								_react2.default.createElement(_NewsFeed2.default, {
+									newsArticles: newsArticles,
+									dateFormatter: this.dateFormatter,
+									tweetFormOpen: tweetFormOpen,
+									toggleTweetForm: this.toggleTweetForm,
+									selectArticle: this.selectArticle,
+									selectedCategories: selectedCategories,
+									categories: categories,
+									savedCategories: savedCategories,
+									selectedLanguages: selectedLanguages,
+									selectedSources: selectedSources,
+									user: user
+								})
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'large-4 medium-6 columns twitterfeed', ref: function ref(element) {
+										return _this2.twitterfeedDiv = element;
+									} },
+								_react2.default.createElement(
+									_reactTransitionGroup.CSSTransitionGroup,
+									{
+										component: 'div',
+										className: 'twitter-container',
+										transitionName: {
+											enter: 'animated',
+											enterActive: 'slideInRightFadeIn',
+											leave: 'animated',
+											leaveActive: 'slideOutRightFadeOut',
+											appear: 'animated',
+											appearActive: 'slideInRightFadeIn'
+										},
+										transitionEnter: true,
+										transitionEnterTimeout: 1000,
+										transitionLeave: true,
+										transitionLeaveTimeout: 1000,
+										transitionAppear: true,
+										transitionAppearTimeout: 1000
+									},
+									twitterFeedOpen ? _react2.default.createElement(
+										'div',
+										{ className: 'twitter-wrap', ref: function ref(element) {
+												return _this2.twitterfeedDiv = element;
+											} },
+										_react2.default.createElement(_TwitterFeed2.default, {
+											timeline: timeline,
+											user: user,
+											search: search })
+									) : ''
+								),
+								_react2.default.createElement(
+									_reactTransitionGroup.CSSTransitionGroup,
+									{
+										component: 'div',
+										transitionName: {
+											enter: 'animated',
+											enterActive: 'fadeIn',
+											leave: 'animated',
+											leaveActive: 'fadeOut',
+											appear: 'animated',
+											appearActive: 'fadeIn'
+										},
+										transitionEnter: true,
+										transitionEnterTimeout: 1000,
+										transitionLeave: true,
+										transitionLeaveTimeout: 1000,
+										transitionAppear: true,
+										transitionAppearTimeout: 1000
+									},
+									twitterFeedOpen ? '' : _react2.default.createElement(
+										'div',
+										{ className: 'sign-in-message' },
+										_react2.default.createElement(
+											'div',
+											{ className: 'row' },
+											_react2.default.createElement(
+												'div',
+												{ className: 'large-12 columns' },
+												_react2.default.createElement(
+													'h2',
 													null,
-													'Activate '
-												) : _react2.default.createElement(
-													'span',
-													null,
-													'Sign in '
-												),
-												'to use this feature'
+													user ? _react2.default.createElement(
+														'span',
+														null,
+														'Activate '
+													) : _react2.default.createElement(
+														'span',
+														null,
+														'Sign in '
+													),
+													'to use this feature'
+												)
 											)
 										)
 									)
@@ -12777,8 +12762,10 @@ var App = function (_Component) {
 							)
 						)
 					)
-				)
-			);
+				);
+			} else {
+				return _react2.default.createElement(_ApiDown2.default, null);
+			}
 		}
 	}]);
 
@@ -13547,7 +13534,7 @@ var NewsArticle = function (_Component) {
         { className: 'small-12 large-6 columns tweet-block' },
         _react2.default.createElement(
           'div',
-          { className: 'card' },
+          { className: 'card', lang: article.sourceLanguage },
           article.urlToImage ? _react2.default.createElement('img', { height: this.state.height, width: this.state.width, className: 'article-image', src: article.urlToImage, alt: article.title, onLoad: function onLoad() {
               return _this2.getImageSize(article.urlToImage);
             } }) : '',
@@ -27787,6 +27774,162 @@ module.exports = warning;
 __webpack_require__(97);
 module.exports = __webpack_require__(98);
 
+
+/***/ }),
+/* 244 */,
+/* 245 */,
+/* 246 */,
+/* 247 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TopBar = function (_Component) {
+    _inherits(TopBar, _Component);
+
+    function TopBar() {
+        _classCallCheck(this, TopBar);
+
+        return _possibleConstructorReturn(this, (TopBar.__proto__ || Object.getPrototypeOf(TopBar)).call(this));
+    }
+
+    _createClass(TopBar, [{
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "div",
+                { className: "top-bar" },
+                _react2.default.createElement(
+                    "div",
+                    { className: "row" },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "top-bar-left" },
+                        _react2.default.createElement(
+                            "ul",
+                            { className: "menu" },
+                            _react2.default.createElement(
+                                "li",
+                                { className: "menu-text" },
+                                _react2.default.createElement(
+                                    "h1",
+                                    null,
+                                    "Newscape"
+                                )
+                            )
+                        )
+                    ),
+                    _react2.default.createElement("div", { className: "top-bar-right" })
+                )
+            );
+        }
+    }]);
+
+    return TopBar;
+}(_react.Component);
+
+exports.default = TopBar;
+
+/***/ }),
+/* 248 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _TopBar = __webpack_require__(247);
+
+var _TopBar2 = _interopRequireDefault(_TopBar);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ApiDown = function (_Component) {
+    _inherits(ApiDown, _Component);
+
+    function ApiDown() {
+        _classCallCheck(this, ApiDown);
+
+        return _possibleConstructorReturn(this, (ApiDown.__proto__ || Object.getPrototypeOf(ApiDown)).call(this));
+    }
+
+    _createClass(ApiDown, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(_TopBar2.default, null),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'error-page' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'row' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'large-12 text-center' },
+                            _react2.default.createElement(
+                                'h1',
+                                null,
+                                '500 Error'
+                            ),
+                            _react2.default.createElement(
+                                'p',
+                                null,
+                                'There seems to be an issue connecting to the ',
+                                _react2.default.createElement(
+                                    'a',
+                                    { href: 'https://newsapi.org/', target: '_blank' },
+                                    'News Api'
+                                ),
+                                '. Please try again later. '
+                            )
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return ApiDown;
+}(_react.Component);
+
+exports.default = ApiDown;
 
 /***/ })
 /******/ ]);

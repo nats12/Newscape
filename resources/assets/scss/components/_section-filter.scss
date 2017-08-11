@@ -94,11 +94,6 @@ span.icon-down-open-big, span.icon-up-open-big,  {
     @import "./scrollbar";
 }
 
-label>[type=checkbox] {
-	float: right;
-}
-
-
 .filter_menu-enter {
     transition: all .25s;
     display: block;
@@ -188,8 +183,6 @@ label>[type=checkbox] {
             max-height: 500px;
         }
     }
-
-
 }
 
 /* Large only */

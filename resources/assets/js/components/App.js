@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { CSSTransitionGroup } from 'react-transition-group';
 
+import TopBar from './TopBar';
+import ApiDown from './ApiDown';
 import TwitterFeed from './TwitterFeed';
 import TweetForm from './TweetForm';
 import NewsFeed from './NewsFeed';
@@ -282,210 +284,204 @@ class App extends Component {
 
 				console.log(errors);
 
-		return (
-			<div className={`${user ? 'authenticated' : ''} ${menuIsOpen ? 'menu-open': ''}`}>
+		if (this.state.newsArticles.length) {
+			return (
+				<div className={`${user ? 'authenticated' : ''} ${menuIsOpen ? 'menu-open': ''}`}>
 
-			<CSSTransitionGroup
-			  className="tweet-modal-wrap"
-			  component="div"
-			  transitionName={ {
-			      enter: 'animated',
-			      enterActive: 'fadeIn',
-			      leave: 'animated',
-			      leaveActive: 'fadeOut',
-			    } }
-			  transitionEnter={true}
-			  transitionEnterTimeout={1000}
-			  transitionLeave={true}
-			  transitionLeaveTimeout={1000}
-			>
-			{tweetFormOpen ? <TweetForm 
-				tweetFormOpen={tweetFormOpen} 
-				toggleTweetForm={this.toggleTweetForm}
-				selectedArticle={this.state.selectedArticle}
-				user={user}
-				timeline={timeline}
-				updateTimeline={this.updateTimeline}
-				errors={errors}
-				updateErrors={this.updateErrors}
-			/> : '' }
-			</CSSTransitionGroup>
+				<CSSTransitionGroup
+				  className="tweet-modal-wrap"
+				  component="div"
+				  transitionName={ {
+				      enter: 'animated',
+				      enterActive: 'fadeIn',
+				      leave: 'animated',
+				      leaveActive: 'fadeOut',
+				    } }
+				  transitionEnter={true}
+				  transitionEnterTimeout={1000}
+				  transitionLeave={true}
+				  transitionLeaveTimeout={1000}
+				>
+				{tweetFormOpen ? <TweetForm 
+					tweetFormOpen={tweetFormOpen} 
+					toggleTweetForm={this.toggleTweetForm}
+					selectedArticle={this.state.selectedArticle}
+					user={user}
+					timeline={timeline}
+					updateTimeline={this.updateTimeline}
+					errors={errors}
+					updateErrors={this.updateErrors}
+				/> : '' }
+				</CSSTransitionGroup>
 
-			<CSSTransitionGroup
-			  className="errors-modal-wrap"
-			  component="div"
-			  transitionName={ {
-			      enter: 'animated',
-			      enterActive: 'fadeIn',
-			      leave: 'animated',
-			      leaveActive: 'fadeOut',
-			    } }
-			  transitionEnter={true}
-			  transitionEnterTimeout={1000}
-			  transitionLeave={true}
-			  transitionLeaveTimeout={1000}
-			>
-			{
-				errors.length ? 
-					<Errors 
-						errors={errors} 
-						toggleErrors={this.toggleErrors}
-					/> : ''
-			}
+				<CSSTransitionGroup
+				  className="errors-modal-wrap"
+				  component="div"
+				  transitionName={ {
+				      enter: 'animated',
+				      enterActive: 'fadeIn',
+				      leave: 'animated',
+				      leaveActive: 'fadeOut',
+				    } }
+				  transitionEnter={true}
+				  transitionEnterTimeout={1000}
+				  transitionLeave={true}
+				  transitionLeaveTimeout={1000}
+				>
+				{
+					errors.length ? 
+						<Errors 
+							errors={errors} 
+							toggleErrors={this.toggleErrors}
+						/> : ''
+				}
 
-			</CSSTransitionGroup>
+				</CSSTransitionGroup>
 
-			<header>
+				<header>
 
-				<div className="top-bar">
-					<div className="row">
-						  	<div className="top-bar-left">
-						    	<ul className="menu">
-						    	<li className="menu-text"><h1>Newscape</h1></li>
-						    </ul>
-						  	</div>
-						  	<div className="top-bar-right">
-						  	{/* Add github icon here */ }
-						  </div>
-					</div>
-				</div>
-				
-				<div className="section-filter">
-					<div className="row" ref={(element) => this.sectionFilterRow = element}>
-						<div className="large-8 medium-6 columns">
-					        <div className="options-menu" onClick={() => this.setState({menuIsOpen: menuIsOpen ? false : true})}>
-					        	<span className="icon-cog">News</span>
-					            <span className={ menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big'}></span>
-					        </div>
-          				</div>
-
-	    				<div className="large-4 medium-6 columns">
-	    					<div className="twitter-options">
+					<TopBar/>
+					
+					<div className="section-filter">
+						<div className="row" ref={(element) => this.sectionFilterRow = element}>
+							<div className="large-8 medium-6 columns">
 						        <div className="options-menu" onClick={() => this.setState({menuIsOpen: menuIsOpen ? false : true})}>
-						          <span className="icon-cog">Twitter</span>
-						          <span className={ menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big'}></span>
+						        	<span className="icon-cog">News</span>
+						            <span className={ menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big'}></span>
 						        </div>
-			        		</div>
-		     			</div>
-						<Filter
-							selectedCategories={selectedCategories} 
-							selectCategory={this.selectCategory}
-							getData={this.getData}
-							categories={categories}
-							user={user}
-							menuIsOpen={menuIsOpen}
-							twitterFeedOpen={twitterFeedOpen}
-							toggleTwitterFeed={this.toggleTwitterFeed}
-							sources={sources}
-							selectSource={this.selectSource}
-							selectedSources={selectedSources}
-							logoutPage={logoutPage}
-							loginPage={loginPage}
-							languages={languages}
-							selectLanguage={this.selectLanguage}
-							selectedLanguages={selectedLanguages}
-							toggleMenu={this.toggleMenu}
-							getSearchInput={this.getSearchInput}
-						/>
-					</div>
-					{
-						user ?
-						<div className="save" onClick={this.saveData}>
-				        	<span className="icon-ok-1">Save</span>
-				      	</div>
-				        :
-				        	''
-					}
-				</div>
-				</header>
+	          				</div>
 
-				<div className="feeds">
-					<div className="row small-collapse medium-uncollapse large-uncollapse">
-						<div className="large-8 medium-6 columns newsfeed">
-
-							<NewsFeed 
-								newsArticles={newsArticles} 
-								dateFormatter={this.dateFormatter} 
-								tweetFormOpen={tweetFormOpen} 
-								toggleTweetForm={this.toggleTweetForm}
-								selectArticle={this.selectArticle}
-								selectedCategories={selectedCategories}
+		    				<div className="large-4 medium-6 columns">
+		    					<div className="twitter-options">
+							        <div className="options-menu" onClick={() => this.setState({menuIsOpen: menuIsOpen ? false : true})}>
+							          <span className="icon-cog">Twitter</span>
+							          <span className={ menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big'}></span>
+							        </div>
+				        		</div>
+			     			</div>
+							<Filter
+								selectedCategories={selectedCategories} 
+								selectCategory={this.selectCategory}
+								getData={this.getData}
 								categories={categories}
-								savedCategories={savedCategories}
-								selectedLanguages={selectedLanguages}
-								selectedSources={selectedSources}
 								user={user}
+								menuIsOpen={menuIsOpen}
+								twitterFeedOpen={twitterFeedOpen}
+								toggleTwitterFeed={this.toggleTwitterFeed}
+								sources={sources}
+								selectSource={this.selectSource}
+								selectedSources={selectedSources}
+								logoutPage={logoutPage}
+								loginPage={loginPage}
+								languages={languages}
+								selectLanguage={this.selectLanguage}
+								selectedLanguages={selectedLanguages}
+								toggleMenu={this.toggleMenu}
+								getSearchInput={this.getSearchInput}
 							/>
 						</div>
-						<div className="large-4 medium-6 columns twitterfeed" ref={(element) => this.twitterfeedDiv = element}>
-							<CSSTransitionGroup
-							  component="div"
-							  className="twitter-container"
-							  transitionName={ {
-							      enter: 'animated',
-							      enterActive: 'slideInRightFadeIn',
-							      leave: 'animated',
-							      leaveActive: 'slideOutRightFadeOut',
-							      appear: 'animated',
-							      appearActive: 'slideInRightFadeIn'
-							    } }
-							  transitionEnter={true}
-							  transitionEnterTimeout={1000}
-							  transitionLeave={true}
-							  transitionLeaveTimeout={1000}
-							  transitionAppear={true}
-							  transitionAppearTimeout={1000}
-							>
-							{
-								twitterFeedOpen ?
-								<div className="twitter-wrap" ref={(element) => this.twitterfeedDiv = element}> 
-									<TwitterFeed 
-										timeline={timeline}
-										user={user}
-										search={search} />
-								</div>
-								: ''
-							}
-							</CSSTransitionGroup>
+						{
+							user ?
+							<div className="save" onClick={this.saveData}>
+					        	<span className="icon-ok-1">Save</span>
+					      	</div>
+					        :
+					        	''
+						}
+					</div>
+					</header>
 
-							<CSSTransitionGroup
-							  component="div"
-							  transitionName={ {
-							      enter: 'animated',
-							      enterActive: 'fadeIn',
-							      leave: 'animated',
-							      leaveActive: 'fadeOut',
-							      appear: 'animated',
-							      appearActive: 'fadeIn'
-							    } }
-							  transitionEnter={true}
-							  transitionEnterTimeout={1000}
-							  transitionLeave={true}
-							  transitionLeaveTimeout={1000}
-							  transitionAppear={true}
-							  transitionAppearTimeout={1000}
-							>
+					<div className="feeds">
+						<div className="row small-collapse medium-uncollapse large-uncollapse">
+							<div className="large-8 medium-6 columns newsfeed">
 
-							{ twitterFeedOpen ? '' : 							
-							 	<div className="sign-in-message">
-									<div className="row">
-										<div className="large-12 columns">
-											<h2>
-											{user ? <span>Activate </span> : <span>Sign in </span>}
-											
-											to use this feature</h2>
-										</div>
+								<NewsFeed 
+									newsArticles={newsArticles} 
+									dateFormatter={this.dateFormatter} 
+									tweetFormOpen={tweetFormOpen} 
+									toggleTweetForm={this.toggleTweetForm}
+									selectArticle={this.selectArticle}
+									selectedCategories={selectedCategories}
+									categories={categories}
+									savedCategories={savedCategories}
+									selectedLanguages={selectedLanguages}
+									selectedSources={selectedSources}
+									user={user}
+								/>
+							</div>
+							<div className="large-4 medium-6 columns twitterfeed" ref={(element) => this.twitterfeedDiv = element}>
+								<CSSTransitionGroup
+								  component="div"
+								  className="twitter-container"
+								  transitionName={ {
+								      enter: 'animated',
+								      enterActive: 'slideInRightFadeIn',
+								      leave: 'animated',
+								      leaveActive: 'slideOutRightFadeOut',
+								      appear: 'animated',
+								      appearActive: 'slideInRightFadeIn'
+								    } }
+								  transitionEnter={true}
+								  transitionEnterTimeout={1000}
+								  transitionLeave={true}
+								  transitionLeaveTimeout={1000}
+								  transitionAppear={true}
+								  transitionAppearTimeout={1000}
+								>
+								{
+									twitterFeedOpen ?
+									<div className="twitter-wrap" ref={(element) => this.twitterfeedDiv = element}> 
+										<TwitterFeed 
+											timeline={timeline}
+											user={user}
+											search={search} />
 									</div>
-								</div> 
-							}
-							</CSSTransitionGroup>
+									: ''
+								}
+								</CSSTransitionGroup>
 
-							
+								<CSSTransitionGroup
+								  component="div"
+								  transitionName={ {
+								      enter: 'animated',
+								      enterActive: 'fadeIn',
+								      leave: 'animated',
+								      leaveActive: 'fadeOut',
+								      appear: 'animated',
+								      appearActive: 'fadeIn'
+								    } }
+								  transitionEnter={true}
+								  transitionEnterTimeout={1000}
+								  transitionLeave={true}
+								  transitionLeaveTimeout={1000}
+								  transitionAppear={true}
+								  transitionAppearTimeout={1000}
+								>
+
+								{ twitterFeedOpen ? '' : 							
+								 	<div className="sign-in-message">
+										<div className="row">
+											<div className="large-12 columns">
+												<h2>
+												{user ? <span>Activate </span> : <span>Sign in </span>}
+												
+												to use this feature</h2>
+											</div>
+										</div>
+									</div> 
+								}
+								</CSSTransitionGroup>
+
+								
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		)
+			)
+		}
+		else {
+			return <ApiDown/>
+		}
 	}
 }
 
