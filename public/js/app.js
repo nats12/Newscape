@@ -12817,7 +12817,7 @@ var App = function (_Component) {
 								{ className: 'save', onClick: this.saveData },
 								_react2.default.createElement(
 									'span',
-									{ className: 'icon-ok-1' },
+									{ className: 'icon-ok' },
 									'Save'
 								)
 							) : ''

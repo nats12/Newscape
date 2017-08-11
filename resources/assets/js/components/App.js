@@ -383,7 +383,7 @@ class App extends Component {
 						{
 							user ?
 							<div className="save" onClick={this.saveData}>
-					        	<span className="icon-ok-1">Save</span>
+					        	<span className="icon-ok">Save</span>
 					      	</div>
 					        :
 					        	''
