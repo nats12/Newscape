@@ -161,21 +161,32 @@ class NewsFeed extends Component {
                 }
                 
                 </div>
-                <div className="row newsfeed-buttons">
-                    <button 
-                        className="button default load-more" 
-                        onClick={() => this.loadMore()} 
-                        disabled={this.state.limitCountEnd >= filtered.length ? true : false}
-                    >
-                        Load More
-                    </button>
+                <div className="row small-collapse large-collapse newsfeed-buttons">
+                    <div className="large-6 medium-6-small-12 columns">
+                        <button 
+                            className="button default load-more" 
+                            onClick={() => this.loadMore()} 
+                            disabled={this.state.limitCountEnd >= filtered.length ? true : false}
+                        >
+                            Load More
+                        </button>
 
-                    <button 
-                        className="button primary scroll-top" 
-                        onClick={() => this.scrollToTop()} 
-                    >
-                        Back to Top
-                    </button>
+                        <button 
+                            className="button primary scroll-top" 
+                            onClick={() => this.scrollToTop()} 
+                        >
+                            Back to Top
+                        </button>
+                    </div>
+                    <div className="row small-collapse large-collapse">
+                        <div className="large-6 medium-6-small-12 columns">
+                            <div className="attribution">
+                                <p>Powered by <a href="https://newsapi.org" target="_blank">Newsapi.org</a></p>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    
                 </div>
             </div>
         )

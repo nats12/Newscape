@@ -35,7 +35,7 @@ class NewsArticle extends Component {
         const article = this.props.newsArticle;
 
         return (
-            <div className="small-12 large-6 columns tweet-block">
+            <div className="small-12 large-6 columns article-block">
                 <div className="card" lang={article.sourceLanguage}>
                     {
                         article.urlToImage ? <img height={this.state.height} width={this.state.width} className="article-image" src={article.urlToImage} alt={article.title} onLoad={ () => this.getImageSize(article.urlToImage)}/> : ''

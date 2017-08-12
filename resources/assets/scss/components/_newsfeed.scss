@@ -96,19 +96,30 @@
     }
 }
 
-.tweet-block {
+.article-block {
     animation-duration: 800ms;
+}
+
+.attribution {
+    a {
+        color: $blue;
+        transition: color .25s ease-out;
+
+        &:hover {
+            color: $blue-dk;
+        }
+    }
 }
 
 /* Small only */
 @media screen and (max-width: 39.9375em) {
-  .feeds {
-      padding-top: 0;
-  }
+    .feeds {
+        padding-top: 0;
+    }
 
-  .newsfeed-buttons {
-    text-align: center;
-  }
+    .newsfeed-buttons {
+        text-align: center;
+    }
 }
 
 /* Medium and up */
@@ -119,10 +130,19 @@
 }
 
 /* Medium only */
-@media screen and (min-width: 40em) and (max-width: 63.9375em) {}
+@media screen and (min-width: 40em) and (max-width: 63.9375em) {
+    .attribution {
+        text-align: left;
+    }
+}
 
 /* Large and up */
-@media screen and (min-width: 64em) {}
+@media screen and (min-width: 64em) {
+    .attribution {
+        text-align: right;
+        margin-top: 30px;
+    }
+}
 
 /* Large only */
 @media screen and (min-width: 64em) and (max-width: 74.9375em) {}
