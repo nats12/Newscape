@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-
 import NewsSource from './NewsSource';
-
 import axios from 'axios';
 
 class NewsSources extends Component {

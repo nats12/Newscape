@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { CSSTransitionGroup } from 'react-transition-group';
-
 import Categories from './Categories';
 import NewsSources from './NewsSources';
 import Languages from './Languages';

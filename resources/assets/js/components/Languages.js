@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-
 import Language from './Language';
 
 class languages extends Component {

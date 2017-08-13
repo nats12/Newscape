@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { CSSTransitionGroup } from 'react-transition-group';
 import NewsArticle from './NewsArticle';
-
 
 class NewsFeed extends Component {
     constructor(props) {

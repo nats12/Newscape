@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-
 
 class NewsSource extends Component {
 	constructor() {
