@@ -15,7 +15,7 @@ class CategoriesController extends Controller
    * [getCategories description]
    * @return [type] [description]
    */
-    public ffffunction getCategories()
+    public function getCategories()
     {
     	$categories = Category::all();
 
