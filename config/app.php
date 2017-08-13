@@ -171,6 +171,7 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Thujohn\Twitter\TwitterServiceProvider::class,
+        Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -226,6 +227,7 @@ return [
         'Response' => Illuminate\Support\Facades\Response::class,
         'Route' => Illuminate\Support\Facades\Route::class,
         'Schema' => Illuminate\Support\Facades\Schema::class,
+        'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
         'Session' => Illuminate\Support\Facades\Session::class,
         'Storage' => Illuminate\Support\Facades\Storage::class,
         'Twitter' => Thujohn\Twitter\Facades\Twitter::class,

@@ -9,6 +9,7 @@
         "guzzlehttp/guzzle": "^6.2",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
+        "sentry/sentry-laravel": "^0.8.0",
         "thujohn/twitter": "^2.2"
     },
     "require-dev": {
