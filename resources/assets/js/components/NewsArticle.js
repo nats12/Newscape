@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import Dotdotdot from 'react-dotdotdot';
 
 import TweetButton from './TweetButton'

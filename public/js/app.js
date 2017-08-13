@@ -12373,10 +12373,6 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(6);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
 var _reactTransitionGroup = __webpack_require__(36);
 
 var _TopBar = __webpack_require__(61);
@@ -12958,10 +12954,6 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(6);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
 var _Category = __webpack_require__(120);
 
 var _Category2 = _interopRequireDefault(_Category);
@@ -13029,10 +13021,6 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(6);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -13058,14 +13046,14 @@ var Category = function (_Component) {
 				}
 			});
 
-			return _react2.default.createElement('input', {
-				className: 'category-checkbox',
-				'data-id': _this.props.category.id,
+			return _react2.default.createElement("input", {
+				className: "category-checkbox",
+				"data-id": _this.props.category.id,
 				name: _this.props.category.name,
 				onChange: function onChange(e) {
 					return _this.toggleCheckboxState();
 				},
-				type: 'checkbox',
+				type: "checkbox",
 				checked: isChecked
 			});
 		};
@@ -13084,7 +13072,7 @@ var Category = function (_Component) {
 	}
 
 	_createClass(Category, [{
-		key: 'componentWillMount',
+		key: "componentWillMount",
 		value: function componentWillMount() {
 			var _this2 = this;
 
@@ -13096,15 +13084,15 @@ var Category = function (_Component) {
 			});
 		}
 	}, {
-		key: 'render',
+		key: "render",
 		value: function render() {
 
 			return _react2.default.createElement(
-				'div',
-				{ className: 'large-12 columns' },
+				"div",
+				{ className: "large-12 columns" },
 				_react2.default.createElement(
-					'label',
-					{ className: 'category' },
+					"label",
+					{ className: "category" },
 					this.props.category.name,
 					this.renderCheckbox()
 				)
@@ -13133,10 +13121,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(6);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _axios = __webpack_require__(28);
 
@@ -13228,10 +13212,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(6);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _reactTransitionGroup = __webpack_require__(36);
 
@@ -13464,10 +13444,6 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(6);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -13492,13 +13468,13 @@ var Language = function (_Component) {
 
 		_this.renderCheckbox = function () {
 
-			return _react2.default.createElement('input', {
-				className: 'language-checkbox',
+			return _react2.default.createElement("input", {
+				className: "language-checkbox",
 				name: _this.props.language.name,
 				onChange: function onChange(e) {
 					return _this.toggleCheckboxState();
 				},
-				type: 'checkbox',
+				type: "checkbox",
 				checked: _this.state.checked,
 				key: _this.props.id
 			});
@@ -13511,7 +13487,7 @@ var Language = function (_Component) {
 	}
 
 	_createClass(Language, [{
-		key: 'componentWillMount',
+		key: "componentWillMount",
 		value: function componentWillMount() {
 			var _this2 = this;
 
@@ -13523,15 +13499,15 @@ var Language = function (_Component) {
 			});
 		}
 	}, {
-		key: 'render',
+		key: "render",
 		value: function render() {
 
 			return _react2.default.createElement(
-				'div',
-				{ className: 'large-12 columns' },
+				"div",
+				{ className: "large-12 columns" },
 				_react2.default.createElement(
-					'label',
-					{ className: 'language' },
+					"label",
+					{ className: "language" },
 					this.props.language.name,
 					this.renderCheckbox()
 				)
@@ -13560,10 +13536,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(6);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _Language = __webpack_require__(123);
 
@@ -13631,10 +13603,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(6);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _reactDotdotdot = __webpack_require__(227);
 
@@ -13782,10 +13750,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(6);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _reactTransitionGroup = __webpack_require__(36);
 
@@ -14048,10 +14012,6 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(6);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -14075,12 +14035,12 @@ var NewsSource = function (_Component) {
 		};
 
 		_this.renderCheckbox = function () {
-			return _react2.default.createElement('input', {
-				className: 'source-checkbox',
+			return _react2.default.createElement("input", {
+				className: "source-checkbox",
 				onChange: function onChange(e) {
 					return _this.toggleCheckboxState();
 				},
-				type: 'checkbox',
+				type: "checkbox",
 				checked: _this.state.checked
 			});
 		};
@@ -14092,7 +14052,7 @@ var NewsSource = function (_Component) {
 	}
 
 	_createClass(NewsSource, [{
-		key: 'componentWillMount',
+		key: "componentWillMount",
 		value: function componentWillMount() {
 			var _this2 = this;
 
@@ -14104,17 +14064,17 @@ var NewsSource = function (_Component) {
 			});
 		}
 	}, {
-		key: 'render',
+		key: "render",
 		value: function render() {
 
 			return _react2.default.createElement(
-				'div',
-				{ className: 'large-12 medium-12 columns end' },
+				"div",
+				{ className: "large-12 medium-12 columns end" },
 				_react2.default.createElement(
-					'div',
-					{ className: 'news-source' },
+					"div",
+					{ className: "news-source" },
 					_react2.default.createElement(
-						'label',
+						"label",
 						null,
 						this.props.source.name,
 						this.renderCheckbox()
@@ -14145,10 +14105,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(6);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _NewsSource = __webpack_require__(127);
 
@@ -14257,10 +14213,6 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(6);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -14294,17 +14246,17 @@ var Switch = function (_Component) {
     }
 
     _createClass(Switch, [{
-        key: 'render',
+        key: "render",
         value: function render() {
             var _this2 = this;
 
             return _react2.default.createElement(
-                'label',
-                { className: 'toggle-switch' },
-                _react2.default.createElement('input', { type: 'checkbox', onChange: function onChange() {
+                "label",
+                { className: "toggle-switch" },
+                _react2.default.createElement("input", { type: "checkbox", onChange: function onChange() {
                         return _this2.toggleCheckboxState();
                     }, checked: this.props.twitterFeedOpen }),
-                _react2.default.createElement('span', { className: 'toggle-switch-track round' })
+                _react2.default.createElement("span", { className: "toggle-switch-track round" })
             );
         }
     }]);
@@ -14330,10 +14282,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(6);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14364,19 +14312,19 @@ var Tweet = function (_Component) {
 		_this.parseTweet = function (text) {
 			// Parse URIs
 			text = text.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&~\?\/.=]+/g, function (uri) {
-				return '<a href=' + uri + ' target="_blank">' + uri + '</a>';
+				return "<a href=" + uri + " target=\"_blank\">" + uri + "</a>";
 			});
 
 			// Parse Twitter usernames
 			text = text.replace(/[@]+[A-Za-z0-9-_]+/g, function (u) {
 				var username = u.replace('@', '');
-				return '<a href="http://twitter.com/' + username + '" target="_blank">' + u + '</a>';
+				return "<a href=\"http://twitter.com/" + username + "\" target=\"_blank\">" + u + "</a>";
 			});
 
 			// Parse Twitter hash tags
 			text = text.replace(/[#]+[A-Za-z0-9-_]+/g, function (t) {
 				var tag = t.replace('#', '');
-				return '<a href="https://twitter.com/hashtag/' + tag + '?src=hash" target="_blank">' + t + '</a>';
+				return "<a href=\"https://twitter.com/hashtag/" + tag + "?src=hash\" target=\"_blank\">" + t + "</a>";
 			});
 			return { __html: text };
 		};
@@ -14385,52 +14333,52 @@ var Tweet = function (_Component) {
 	}
 
 	_createClass(Tweet, [{
-		key: 'render',
+		key: "render",
 		value: function render() {
 
 			var tweet = this.props.tweet;
 
 			return _react2.default.createElement(
-				'div',
-				{ className: 'small-12 large-12 columns tweet-block' },
+				"div",
+				{ className: "small-12 large-12 columns tweet-block" },
 				_react2.default.createElement(
-					'div',
-					{ className: 'media-object' },
+					"div",
+					{ className: "media-object" },
 					_react2.default.createElement(
-						'div',
-						{ className: 'media-object-section' },
+						"div",
+						{ className: "media-object-section" },
 						_react2.default.createElement(
-							'div',
-							{ className: 'thumbnail' },
-							_react2.default.createElement('img', { src: this.props.tweet.user.profile_image_url, alt: tweet.user.name, width: '48', height: '48' })
+							"div",
+							{ className: "thumbnail" },
+							_react2.default.createElement("img", { src: this.props.tweet.user.profile_image_url, alt: tweet.user.name, width: "48", height: "48" })
 						)
 					),
 					_react2.default.createElement(
-						'div',
-						{ className: 'media-object-section' },
+						"div",
+						{ className: "media-object-section" },
 						_react2.default.createElement(
-							'p',
+							"p",
 							null,
 							tweet.user.name,
-							' ',
+							" ",
 							_react2.default.createElement(
-								'a',
+								"a",
 								{ href: "http://twitter.com/" + tweet.user.screen_name },
-								'@',
+								"@",
 								tweet.user.screen_name
 							)
 						),
 						_react2.default.createElement(
-							'p',
+							"p",
 							null,
 							_react2.default.createElement(
-								'small',
+								"small",
 								null,
 								this.dateFormatter(tweet.created_at)
 							)
 						),
-						_react2.default.createElement('p', { dangerouslySetInnerHTML: this.parseTweet(tweet.text) }),
-						tweet.entities.media ? _react2.default.createElement('img', { className: 'tweet-media', src: tweet.entities.media[0].media_url, width: tweet.entities.media[0].sizes.medium.w, height: tweet.entities.media[0].sizes.medium.h }) : ''
+						_react2.default.createElement("p", { dangerouslySetInnerHTML: this.parseTweet(tweet.text) }),
+						tweet.entities.media ? _react2.default.createElement("img", { className: "tweet-media", src: tweet.entities.media[0].media_url, width: tweet.entities.media[0].sizes.medium.w, height: tweet.entities.media[0].sizes.medium.h }) : ''
 					)
 				)
 			);
@@ -14459,10 +14407,6 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(6);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -14488,22 +14432,22 @@ var TweetButton = function (_Component) {
     }
 
     _createClass(TweetButton, [{
-        key: 'render',
+        key: "render",
         value: function render() {
             var _this2 = this;
 
             var tweetFormOpen = this.props.tweetFormOpen;
             return _react2.default.createElement(
-                'button',
+                "button",
                 {
-                    type: 'button icon-twitter',
-                    className: 'button default small btn-tweet',
+                    type: "button icon-twitter",
+                    className: "button default small btn-tweet",
                     onClick: function onClick() {
                         _this2.props.toggleTweetForm(tweetFormOpen);
                         _this2.props.selectArticle(_this2.props.article);
                     } },
-                'Tweet',
-                _react2.default.createElement('span', { className: 'icon-twitter' })
+                "Tweet",
+                _react2.default.createElement("span", { className: "icon-twitter" })
             );
         }
     }]);
@@ -14529,10 +14473,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(6);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _axios = __webpack_require__(28);
 
@@ -14697,10 +14637,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(6);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _reactTransitionGroup = __webpack_require__(36);
 
