@@ -114,10 +114,10 @@ class NewsFeed extends Component {
               transitionAppearTimeout={800}
             >
 
-            {articles.map( (article, index) => {
+            {articles.map((article, index) => {
 
                 return <NewsArticle 
-                    key={article.title} 
+                    key={article.url} 
                     newsArticle={article} 
                     dateFormatter={this.props.dateFormatter} 
                     tweetFormOpen={this.props.tweetFormOpen} 
