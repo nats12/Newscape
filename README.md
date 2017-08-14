@@ -31,7 +31,7 @@ We also conducted a discovery process to identify any limitations or blockers of
 ![](public/images/readme/erd.png?raw=true)
 
 ### Design & Wireframing
-We briefed our designer Nick on the website requirements and he mocked up some wireframes using Adobe Photoshop.
+We briefed our designer [Nick Garratt](https://www.linkedin.com/in/njgarratt/) on the website requirements and he mocked up some wireframes using Adobe Photoshop.
 
 ![](public/images/readme/designs.jpg?raw=true)
 
