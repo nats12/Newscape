@@ -9,6 +9,9 @@
         <link rel="icon" type="image/png" href="/images/favicon-96x96.png" sizes="96x96">
         <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
 
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
         <title>@yield('title')</title>
 
         <!-- Fonts -->

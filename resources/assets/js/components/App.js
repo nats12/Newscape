@@ -9,9 +9,6 @@ import NewsFeed from './NewsFeed';
 import Filter from './Filter';
 import Errors from './Errors';
 
-import axios from 'axios';
-
-
 class App extends Component {
 	constructor(props) {
 		super(props)
@@ -172,27 +169,27 @@ class App extends Component {
 
 		const menuIsOpen = this.state.menuIsOpen;
 
-		axios.post('/api/category', {
-		      categories: categories,
-		      user: this.state.user
+		window.axios.post('/api/category', {
+				categories: categories,
+				user: this.state.user
 		    })
 		    .then(response => {
-		      this.setState({
-		      	savedCategories: response.data.categories,
-		      	menuIsOpen: menuIsOpen ? false : true })
+		      	this.setState({
+			      	savedCategories: response.data.categories,
+			      	menuIsOpen: menuIsOpen ? false : true })
 		    })
 		    .catch(error => {
-		      console.log(error);
-		      let errorArray = [...this.state.errors];
-		      errorArray.push('There was a problem saving your preferred categories.');
+		    	console.log(error);
+		    	let errorArray = [...this.state.errors];
+		    	errorArray.push('There was a problem saving your preferred categories.');
 
-		      this.setState({
-		      	menuIsOpen: false,
-		      	errors: errorArray
-		      });
+		    	this.setState({
+		    		menuIsOpen: false,
+		    		errors: errorArray
+		    	});
 		    });
 
-		axios.post('/api/source', {
+		window.axios.post('/api/source', {
         	sources: sources,
         	user: this.state.user
 	      	})
@@ -214,7 +211,7 @@ class App extends Component {
 	      		});
 	      	});
 
-	  axios.post('/api/language', {
+	  window.axios.post('/api/language', {
 	        languages: languages,
 	        user: this.state.user
 	      })
@@ -349,8 +346,8 @@ class App extends Component {
 			    				<div className="large-4 medium-6 columns">
 			    					<div className="twitter-options">
 								        <div className="options-menu" onClick={() => this.setState({menuIsOpen: menuIsOpen ? false : true})}>
-								          <span className="icon-cog">Twitter</span>
-								          <span className={ menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big'}></span>
+											<span className="icon-cog">Twitter</span>
+											<span className={ menuIsOpen ? 'icon-up-open-big' : 'icon-down-open-big'}></span>
 								        </div>
 					        		</div>
 				     			</div>
@@ -429,7 +426,8 @@ class App extends Component {
 											<TwitterFeed 
 												timeline={timeline}
 												user={user}
-												search={search} />
+												search={search} 
+											/>
 										</div>
 										: ''
 									}

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 class TweetForm extends Component {
     constructor(props) {
@@ -27,7 +26,7 @@ class TweetForm extends Component {
     }
 
     getTimeline = () => {
-        axios.get('/twitter/timeline')
+        window.axios.get('/twitter/timeline')
             .then(response => {
                 console.log(response);
                 this.props.updateTimeline(response.data.timeline);
@@ -44,7 +43,7 @@ class TweetForm extends Component {
         const postTweetBody = this.state.tweet;
         const articleUrl = this.props.selectedArticle.url;
 
-        axios.post('/tweet', {
+        window.axios.post('/tweet', {
             tweetBody: postTweetBody,
             tweetUrl: articleUrl
         })
