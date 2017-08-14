@@ -79,7 +79,7 @@ class TweetForm extends Component {
                         <input id="postTweet-url" type="text" value={this.props.selectedArticle.url} disabled/>
                     </label>
                 </form>
-                <button className="button" type="button" onClick={(e) =>this.tweetArticle(e)}>Tweet</button> <small>{this.state.charsLeft}</small>
+                <button className="button default" type="button" onClick={(e) =>this.tweetArticle(e)}>Tweet</button> <small>{this.state.charsLeft}</small>
               </div>
             </div>
         )

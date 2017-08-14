@@ -2,6 +2,10 @@ button:focus {
     outline: none;
 }
 
+.button {
+  font-family: $font-family;
+}
+
 .view-feed {
   position: relative;
 }
