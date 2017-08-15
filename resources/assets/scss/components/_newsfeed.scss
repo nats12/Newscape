@@ -47,6 +47,10 @@
         width: 100%;
         animation-name: stepFadeOut;
         animation-duration: 0.4s;
+
+        p {
+            margin-bottom: 0;
+        }
 	}
 
     .card-section {
