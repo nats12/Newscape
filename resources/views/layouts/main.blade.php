@@ -13,7 +13,20 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>@yield('title')</title>
-
+        <meta name="description" content="Newscape fuses Twitter & News APIs to give users a personalised dashboard of their favourite news sources alongside their Twitter feed.">
+        <!-- OG meta tags -->
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="Newscape: a personalised dashboard of your favourite news sources"/>
+        <meta property="og:url" content="http://newscape.herokuapp.com"/>
+        <meta property="og:description" content="Newscape fuses Twitter & News APIs to give users a personalised dashboard of their favourite news sources alongside their Twitter feed."/>
+        <meta property="og:image" content="http://newscape.herokuapp.com/images/readme/newscape.png"/>
+        <!-- Twitter meta tags -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:creator" content="@LaiJase">
+        <meta name="twitter:creator" content="@nats_369">
+        <meta name="twitter:title" content="Newscape: a personalised dashboard of your favourite news sources">
+        <meta name="twitter:description" content="Newscape fuses Twitter & News APIs to give users a personalised dashboard of their favourite news sources alongside their Twitter feed.">
+        <meta name="twitter:image" content="http://newscape.herokuapp.com/images/readme/newscape.png">
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
