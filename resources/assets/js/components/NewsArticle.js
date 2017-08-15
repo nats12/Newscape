@@ -37,7 +37,15 @@ class NewsArticle extends Component {
             <div className="small-12 large-6 columns article-block">
                 <div className="card" lang={article.sourceLanguage}>
                     {
-                        article.urlToImage ? <img height={this.state.height} width={this.state.width} className="article-image" src={article.urlToImage} alt={article.title} onLoad={ () => this.getImageSize(article.urlToImage)}/> : ''
+                        article.urlToImage ? <img
+                        height={this.state.height} 
+                        width={this.state.width} 
+                        className="article-image" 
+                        src={article.urlToImage} 
+                        alt={article.title} 
+                        onLoad={ () => this.getImageSize(article.urlToImage)}
+                        onError={(event) => event.target.style.display = 'none'}
+                        /> : ''
                     }
                   
                     <div className="card-section offhover">
