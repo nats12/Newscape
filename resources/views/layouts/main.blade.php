@@ -26,6 +26,7 @@
         
     </head>
     <body>
+        @include('../partials/_itemschema')
         @yield('content')
     </body>
 </html>
