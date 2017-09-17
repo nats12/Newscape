@@ -3,6 +3,13 @@
     padding: 0;
 }
 
+.menu-text.strapline {
+    padding-top: 0;
+    font-weight: lighter;
+    font-family: $font-family;
+    display: block;
+}
+
 .top-bar, .top-bar ul {
     background-color: $blue;
     color: $white;
