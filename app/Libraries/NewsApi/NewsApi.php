@@ -31,6 +31,7 @@ class NewsApi {
 
         $response = $this->request('/sources')->getBody()->getContents();
 
+
         return json_decode($response, true);
     }
 
