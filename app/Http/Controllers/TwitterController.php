@@ -31,36 +31,33 @@ class TwitterController extends Controller
       $sources = Source::all();
       $languages = Language::all();
 
-	    // Instantiate articles array
-	    $articles = [];
+      $newsArticles = Cache::remember('news_articles', 30, function () {
+        // Instantiate articles array
+        $articles = [];
+        foreach ($sources as $source) 
+        {
+          $articleArray = NewsApi::getArticles($source->source_id)["articles"];
 
-	    foreach ($sources as $source) 
-	    {
+          foreach($articleArray as $article) 
+          { // Create new article object
+            $articleObject = new stdClass();
 
-        // dd($source->source_id);
-	      $articleArray = NewsApi::getArticles($source->source_id)["articles"];
+            // Add new properties to the article object
+            $articleObject->sourceId = $source['id'];
+            $articleObject->sourceName = $source['name'];
+            $articleObject->sourceCategory = $source['category'];
+            $articleObject->sourceLanguage = $source['language'];
 
-	      foreach($articleArray as $article) 
-	      {	// Create new article object
-	        $articleObject = new stdClass();
-
-	        // Add new properties to the article object
-	        $articleObject->sourceId = $source['id'];
-	        $articleObject->sourceName = $source['name'];
-          $articleObject->sourceCategory = $source['category'];
-          $articleObject->sourceLanguage = $source['language'];
-
-	        foreach ($article as $key => $value)
-	        {
-	          $articleObject->$key = $value;
-	        }
-	        // Push the article objects into the articles array
-	        array_push($articles, $articleObject);
-	      }
-	    }
-
-	    // Reassign to make use of $newsarticles 
-	    $newsArticles = $articles;
+            foreach ($article as $key => $value)
+            {
+              $articleObject->$key = $value;
+            }
+            // Push the article objects into the articles array
+            array_push($articles, $articleObject);
+          }
+        }
+        return $articles;
+      });
 	  
 	    if (Auth::check()) {
 	      $user = Auth::user();
