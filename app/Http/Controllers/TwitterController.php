@@ -25,15 +25,10 @@ class TwitterController extends Controller
 	 */
 	public function accessVariables() 
   	{
-
-      // All data
-      $categories = Category::all();
-      $sources = Source::all();
-      $languages = Language::all();
-
       $newsArticles = Cache::remember('news_articles', 30, function () {
         // Instantiate articles array
         $articles = [];
+        $sources = Source::all();
         foreach ($sources as $source) 
         {
           $articleArray = NewsApi::getArticles($source->source_id)["articles"];
@@ -86,10 +81,14 @@ class TwitterController extends Controller
 	      });
 	    }
 
+      // All data
+      $categories = Category::all();
+      $sources = Source::all();
+      $languages = Language::all();
+
 	    // Assign routes to variables 
 	    $loginPage = route('twitterLogin');
 	    $logoutPage = route('twitterLogout');
-
 
       // Window object data variables
 
