@@ -15,7 +15,6 @@ class App extends Component {
 
 		this.state = {
 			timeline: window.Laravel.timeline,
-			// newsSources: window.Laravel.newsSources.sources,
 			newsArticles: window.Laravel.newsArticles,
 			user: window.Laravel.user,
 			loginPage: window.Laravel.loginPage,

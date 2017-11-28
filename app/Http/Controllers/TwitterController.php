@@ -31,9 +31,6 @@ class TwitterController extends Controller
       $sources = Source::all();
       $languages = Language::all();
 
-  		// Fetch news sources
-	    // $newsSources = NewsApi::getSources();
-
 	    // Instantiate articles array
 	    $articles = [];
 
