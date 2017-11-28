@@ -12686,7 +12686,7 @@ var App = function (_Component) {
 
 		_this.state = {
 			timeline: window.Laravel.timeline,
-			newsSources: window.Laravel.newsSources.sources,
+			// newsSources: window.Laravel.newsSources.sources,
 			newsArticles: window.Laravel.newsArticles,
 			user: window.Laravel.user,
 			loginPage: window.Laravel.loginPage,
@@ -12733,7 +12733,6 @@ var App = function (_Component) {
 
 			var _state = this.state,
 			    timeline = _state.timeline,
-			    newsSources = _state.newsSources,
 			    newsArticles = _state.newsArticles,
 			    user = _state.user,
 			    logoutPage = _state.logoutPage,
