@@ -37,7 +37,6 @@ class SaveArticlesHandler extends Command
     {
         parent::__construct();
 
-        $this->articleSaver = new SaveArticle;
     }
 
     /**
@@ -47,6 +46,7 @@ class SaveArticlesHandler extends Command
      */
     public function handle($source)
     {   
+        $this->articleSaver = new SaveArticle;
         
         return $this->articleSaver->save($source);
     }

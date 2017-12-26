@@ -24,7 +24,7 @@ class SaveArticle
 		foreach($sourceArticles as $sourceArticle) {
 	        $article = new Article;
 
-	        $article->source_id = $source["id"];
+	        $article->source_id = $source["source_id"];
 	        $article->source_name = $source["name"];
 	        $article->source_category = $source["category"];
 	        $article->source_language = $source["language"];

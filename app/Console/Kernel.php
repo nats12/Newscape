@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        'App\Console\Commands\saveArticles',
+        'App\Console\Commands\SaveArticlesHandler',
     ];
 
     /**
@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {   
         // Run the command every fifteen minutes, which in turn runs its handle function
-        $schedule->command('save:articles')->everyFifteenMinutes();
+        $schedule->command('save:articles')->everyMinute();
     }
 
     /**

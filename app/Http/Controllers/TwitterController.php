@@ -53,7 +53,7 @@ class TwitterController extends Controller
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
         // Returned articles from handler
-        $articleArray = $saveArticlesHandler->handle($source);
+        $articleArray = $saveArticlesHandler->handle($source["original"]);
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
