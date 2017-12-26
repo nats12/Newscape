@@ -3,7 +3,6 @@
         'loginPage' => $loginPage,
         'logoutPage' => $logoutPage,
         'timeline' => $timeline,
-        'newsSources' => $newsSources,
         'newsArticles' => $newsArticles,
         'user' => $user,
         'categories' => $categories,

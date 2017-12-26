@@ -34,6 +34,7 @@ class TwitterController extends Controller
 	public function accessVariables() 
   	{
 
+
       // Fetch sources from the database(seeded)
       $newsSources = Source::all();
       
@@ -80,7 +81,6 @@ class TwitterController extends Controller
 	    $newsArticles = $articles;
       // dd(new DateTime($newsArticles[0]->publishedAt));
       
-
 	    if (Auth::check()) {
 	      $user = Auth::user();
 
@@ -108,18 +108,18 @@ class TwitterController extends Controller
 	      });
 	    }
 
-	    // Assign routes to variables 
-	    $loginPage = route('twitterLogin');
-	    $logoutPage = route('twitterLogout');
-
       // All data
       $categories = Category::all();
       $sources = Source::all();
       $languages = Language::all();
 
+	    // Assign routes to variables 
+	    $loginPage = route('twitterLogin');
+	    $logoutPage = route('twitterLogout');
+
       // Window object data variables
 
-		return view('welcome', compact('loginPage', 'logoutPage', 'timeline', 'newsSources', 'newsArticles', 'user', 'categories', 'sources', 'languages', 'userCategories', 'userSources', 'userLanguages'));
+		return view('welcome', compact('loginPage', 'logoutPage', 'timeline', 'newsArticles', 'user', 'categories', 'sources', 'languages', 'userCategories', 'userSources', 'userLanguages'));
 	}
 
     /**
