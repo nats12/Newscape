@@ -41,31 +41,43 @@ class TwitterController extends Controller
 	    $articles = [];
 
       // Wipe articles table clean (of old articles)
-      DB::table('articles')->truncate();
+      // DB::table('articles')->truncate();
+
+      // Fetch articles from DB
+      $articleArray = Article::find([1,11,21]);
+      
+      
 
 	    foreach ($newsSources as $source) 
 	    { 
         // Instantiate SaveArticlesHandler
-        $saveArticlesHandler = new SaveArticlesHandler;
+        // $saveArticlesHandler = new SaveArticlesHandler;
 
         // Remove duplicates
-        Eloquent::unguard();
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        // Eloquent::unguard();
+        // DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
         // Returned articles from handler
-        $articleArray = $saveArticlesHandler->handle($source["original"]);
+        // $articleArray = $saveArticlesHandler->handle($source["original"]);
 
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
-
+        // DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+        
 	      foreach($articleArray as $article) 
 	      {	// Create new article object
 	        $articleObject = new stdClass();
 
-	        // Add new properties to the article object
+          // dd($article);
+          
+	        // Add new properties to the article object to be used in FE
 	        $articleObject->sourceId = $source["original"]['id'];
 	        $articleObject->sourceName = $source["original"]['name'];
           $articleObject->sourceCategory = $source["original"]['category'];
           $articleObject->sourceLanguage = $source["original"]['language'];
+          $articleObject->articleTitle = $article["original"]['title'];
+          $articleObject->articleUrlToImage = $article["original"]['url_to_image'];
+          $articleObject->articleUrl = $article["original"]['url'];
+          $articleObject->articleDescription = $article["original"]['description'];
+          $articleObject->articlePublishedAt = $article["original"]['published_at'];
 
 	        foreach ($article as $key => $value)
 	        {
@@ -78,9 +90,9 @@ class TwitterController extends Controller
 
 	    // Reassign to make use of $newsarticles 
 	    $newsArticles = $articles;
-      // dd(new DateTime($newsArticles[0]->publishedAt));
-      
+      // dd($newsArticles);
 
+      
 	    if (Auth::check()) {
 	      $user = Auth::user();
 
@@ -118,7 +130,6 @@ class TwitterController extends Controller
       $languages = Language::all();
 
       // Window object data variables
-
 		return view('welcome', compact('loginPage', 'logoutPage', 'timeline', 'newsSources', 'newsArticles', 'user', 'categories', 'sources', 'languages', 'userCategories', 'userSources', 'userLanguages'));
 	}
 

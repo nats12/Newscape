@@ -12753,6 +12753,8 @@ var App = function (_Component) {
 			    errors = _state.errors;
 
 
+			console.log(categories);
+
 			if (this.state.newsArticles.length) {
 				return _react2.default.createElement(
 					'div',
@@ -13728,14 +13730,14 @@ var NewsArticle = function (_Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'card', lang: article.sourceLanguage },
-                    article.urlToImage ? _react2.default.createElement('img', {
+                    article.articleUrlToImage ? _react2.default.createElement('img', {
                         height: this.state.height,
                         width: this.state.width,
                         className: 'article-image',
                         src: article.urlToImage,
-                        alt: article.title,
+                        alt: article.articleTitle,
                         onLoad: function onLoad() {
-                            return _this2.getImageSize(article.urlToImage);
+                            return _this2.getImageSize(article.articleUrlToImage);
                         },
                         onError: function onError(event) {
                             return event.target.style.display = 'none';
@@ -13747,7 +13749,7 @@ var NewsArticle = function (_Component) {
                         _react2.default.createElement(
                             'h4',
                             null,
-                            article.title
+                            article.articleTitle
                         ),
                         _react2.default.createElement(
                             'p',
@@ -13755,7 +13757,7 @@ var NewsArticle = function (_Component) {
                             _react2.default.createElement(
                                 'small',
                                 null,
-                                this.props.dateFormatter(article.publishedAt)
+                                this.props.dateFormatter(article.articlePublishedAt)
                             ),
                             ' ',
                             _react2.default.createElement(
@@ -13779,7 +13781,7 @@ var NewsArticle = function (_Component) {
                             _react2.default.createElement(
                                 'p',
                                 null,
-                                this.formatText(article.description)
+                                this.formatText(article.articleDescription)
                             )
                         ),
                         _react2.default.createElement(
@@ -13920,9 +13922,9 @@ var NewsFeed = function (_Component) {
             var ok = false;
 
             return articles.sort(function (a, b) {
-                return new Date(b.publishedAt) - new Date(a.publishedAt);
+                return new Date(b.articlePublishedAt) - new Date(a.articlePublishedAt);
             }).filter(function (article) {
-                var publishedAtDate = new Date(article.publishedAt);
+                var publishedAtDate = new Date(article.articlePublishedAt);
                 if (currentDate > publishedAtDate) {
                     ok = true;
                 }
@@ -13932,6 +13934,7 @@ var NewsFeed = function (_Component) {
         };
 
         _this.renderArticle = function (articles) {
+
             return _react2.default.createElement(
                 _reactTransitionGroup.CSSTransitionGroup,
                 {
@@ -13953,15 +13956,15 @@ var NewsFeed = function (_Component) {
                     transitionAppearTimeout: 800
                 },
                 articles.map(function (article, index) {
-
                     return _react2.default.createElement(_NewsArticle2.default, {
-                        key: article.url,
+                        key: article.articleUrl,
                         newsArticle: article,
                         dateFormatter: _this.props.dateFormatter,
                         tweetFormOpen: _this.props.tweetFormOpen,
                         toggleTweetForm: _this.props.toggleTweetForm,
                         selectArticle: _this.props.selectArticle,
-                        user: _this.props.user
+                        user: _this.props.user,
+                        index: index
                     });
                 })
             );
@@ -14001,6 +14004,8 @@ var NewsFeed = function (_Component) {
             var filtered = this.filterArticles(this.props.newsArticles);
             var sorted = this.sortArticles(filtered);
             var limited = this.filterLimit(sorted);
+
+            console.log(limited);
 
             return _react2.default.createElement(
                 'div',

@@ -82,8 +82,8 @@ class NewsFeed extends Component {
 
         let ok = false;
         
-        return articles.sort((a,b) => new Date(b.publishedAt) - new Date(a.publishedAt) ).filter((article) => {
-            const publishedAtDate = new Date(article.publishedAt);
+        return articles.sort((a,b) => new Date(b.articlePublishedAt) - new Date(a.articlePublishedAt) ).filter((article) => {
+            const publishedAtDate = new Date(article.articlePublishedAt);
             if(currentDate > publishedAtDate) {
                 ok = true;
             }
@@ -93,6 +93,7 @@ class NewsFeed extends Component {
     }
 
     renderArticle = (articles) => {
+
         return(
 
             <CSSTransitionGroup
@@ -114,16 +115,17 @@ class NewsFeed extends Component {
               transitionAppearTimeout={800}
             >
 
-            {articles.map((article, index) => {
 
+            {articles.map((article, index) => {
                 return <NewsArticle 
-                    key={article.url} 
+                    key={article.articleUrl} 
                     newsArticle={article} 
                     dateFormatter={this.props.dateFormatter} 
                     tweetFormOpen={this.props.tweetFormOpen} 
                     toggleTweetForm={this.props.toggleTweetForm}
                     selectArticle={this.props.selectArticle}
                     user={this.props.user}
+                    index={index}
                 />
             })}
 
@@ -149,6 +151,8 @@ class NewsFeed extends Component {
         const filtered = this.filterArticles(this.props.newsArticles);
         const sorted = this.sortArticles(filtered);
         const limited = this.filterLimit(sorted);
+
+        console.log(limited);
 
         return (
             <div>
