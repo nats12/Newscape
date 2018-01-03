@@ -36,61 +36,30 @@ class TwitterController extends Controller
 
       // Fetch sources from the database(seeded)
       $newsSources = Source::all();
-      
+
 	    // Instantiate articles array
-	    $articles = [];
+	    $articles = Article::limit(100)->orderBy('published_at', 'desc')->get();
 
+      // Instantiate SaveArticlesHandler
+      //$saveArticlesHandler = new SaveArticlesHandler;
+      
       // Wipe articles table clean (of old articles)
-      // DB::table('articles')->truncate();
+      //DB::table('articles')->truncate();
 
-      // Fetch articles from DB
-      $articleArray = Article::find([1,11,21]);
-      
-      
+	    // foreach ($newsSources as $source) 
+	    // { 
+     //    // Remove duplicates
+     //    //Eloquent::unguard();
+     //    //DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-	    foreach ($newsSources as $source) 
-	    { 
-        // Instantiate SaveArticlesHandler
-        // $saveArticlesHandler = new SaveArticlesHandler;
+     //    // Run the handler to fetch articles from API
+     //      $saveArticlesHandler->handle($source["original"]);
 
-        // Remove duplicates
-        // Eloquent::unguard();
-        // DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-
-        // Returned articles from handler
-        // $articleArray = $saveArticlesHandler->handle($source["original"]);
-
-        // DB::statement('SET FOREIGN_KEY_CHECKS = 1');
-        
-	      foreach($articleArray as $article) 
-	      {	// Create new article object
-	        $articleObject = new stdClass();
-
-          // dd($article);
-          
-	        // Add new properties to the article object to be used in FE
-	        $articleObject->sourceId = $source["original"]['id'];
-	        $articleObject->sourceName = $source["original"]['name'];
-          $articleObject->sourceCategory = $source["original"]['category'];
-          $articleObject->sourceLanguage = $source["original"]['language'];
-          $articleObject->articleTitle = $article["original"]['title'];
-          $articleObject->articleUrlToImage = $article["original"]['url_to_image'];
-          $articleObject->articleUrl = $article["original"]['url'];
-          $articleObject->articleDescription = $article["original"]['description'];
-          $articleObject->articlePublishedAt = $article["original"]['published_at'];
-
-	        foreach ($article as $key => $value)
-	        {
-	          $articleObject->$key = $value;
-	        }
-	        // Push the article objects into the articles array
-	        array_push($articles, $articleObject);
-	      }
-	    }
+     //    //DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+	    // }
 
 	    // Reassign to make use of $newsarticles 
 	    $newsArticles = $articles;
-      // dd($newsArticles);
 
       
 	    if (Auth::check()) {

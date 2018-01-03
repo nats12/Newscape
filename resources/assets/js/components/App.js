@@ -276,9 +276,7 @@ class App extends Component {
 				search,
 				errors
 				} = this.state;
-
-		console.log(categories);
-
+		console.log(newsArticles);
 		if (this.state.newsArticles.length) {
 			return (
 				<div className={`${user ? 'authenticated' : ''} ${menuIsOpen ? 'menu-open': ''}`}>

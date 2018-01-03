@@ -25,7 +25,7 @@ class NewsFeed extends Component {
         return articles.filter((article) => {
             let ok = false;
             this.props.selectedCategories.map((category) => {
-                if (category.name === article.sourceCategory){
+                if (category.name === article.source_category){
                     ok = true;
                 }
             })
@@ -82,8 +82,8 @@ class NewsFeed extends Component {
 
         let ok = false;
         
-        return articles.sort((a,b) => new Date(b.articlePublishedAt) - new Date(a.articlePublishedAt) ).filter((article) => {
-            const publishedAtDate = new Date(article.articlePublishedAt);
+        return articles.sort((a,b) => new Date(b.published_at) - new Date(a.published_at)).filter((article) => {
+            const publishedAtDate = new Date(article.published_at);
             if(currentDate > publishedAtDate) {
                 ok = true;
             }
@@ -125,7 +125,6 @@ class NewsFeed extends Component {
                     toggleTweetForm={this.props.toggleTweetForm}
                     selectArticle={this.props.selectArticle}
                     user={this.props.user}
-                    index={index}
                 />
             })}
 
@@ -151,8 +150,6 @@ class NewsFeed extends Component {
         const filtered = this.filterArticles(this.props.newsArticles);
         const sorted = this.sortArticles(filtered);
         const limited = this.filterLimit(sorted);
-
-        console.log(limited);
 
         return (
             <div>
