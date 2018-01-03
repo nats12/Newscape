@@ -32,29 +32,30 @@ class NewsArticle extends Component {
     render() {
 
         const article = this.props.newsArticle;
+        console.log(article);
 
         return (
             <div className="small-12 large-6 columns article-block">
-                <div className="card" lang={article.sourceLanguage}>
+                <div className="card" lang={article.source_language}>
                     {
-                        article.urlToImage ? <img
+                        article.url_to_image ? <img
                         height={this.state.height} 
                         width={this.state.width} 
                         className="article-image" 
-                        src={article.urlToImage} 
+                        src={article.url_to_image} 
                         alt={article.title} 
-                        onLoad={ () => this.getImageSize(article.urlToImage)}
+                        onLoad={ () => this.getImageSize(article.url_to_image)}
                         onError={(event) => event.target.style.display = 'none'}
                         /> : ''
                     }
                   
                     <div className="card-section offhover">
                         <h4>{article.title}</h4>
-                        <p><small>{this.props.dateFormatter(article.publishedAt)}</small> <small className="source">{article.sourceName}</small></p>
+                        <p><small>{this.props.dateFormatter(article.published_at)}</small> <small className="source">{article.source_name}</small></p>
                     </div>
 
                     <div className="card-section onhover">
-                        <small className="source-category icon-tag">{article.sourceCategory}</small>
+                        <small className="source-category icon-tag">{article.source_category}</small>
                         <Dotdotdot clamp={7}>  
                           <p>{this.formatText(article.description)}</p>
                         </Dotdotdot>

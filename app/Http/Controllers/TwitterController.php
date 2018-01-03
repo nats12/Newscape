@@ -37,49 +37,30 @@ class TwitterController extends Controller
 
       // Fetch sources from the database(seeded)
       $newsSources = Source::all();
-      
+
 	    // Instantiate articles array
-	    $articles = [];
+	    $articles = Article::limit(100)->orderBy('published_at', 'desc')->get();
 
+      // Instantiate SaveArticlesHandler
+      //$saveArticlesHandler = new SaveArticlesHandler;
+      
       // Wipe articles table clean (of old articles)
-      DB::table('articles')->truncate();
+      //DB::table('articles')->truncate();
 
-	    foreach ($newsSources as $source) 
-	    { 
-        // Instantiate SaveArticlesHandler
-        $saveArticlesHandler = new SaveArticlesHandler;
+	    // foreach ($newsSources as $source) 
+	    // { 
+     //    // Remove duplicates
+     //    //Eloquent::unguard();
+     //    //DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-        // Remove duplicates
-        Eloquent::unguard();
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+     //    // Run the handler to fetch articles from API
+     //      $saveArticlesHandler->handle($source["original"]);
 
-        // Returned articles from handler
-        $articleArray = $saveArticlesHandler->handle($source["original"]);
-
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
-
-	      foreach($articleArray as $article) 
-	      {	// Create new article object
-	        $articleObject = new stdClass();
-
-	        // Add new properties to the article object
-	        $articleObject->sourceId = $source["original"]['id'];
-	        $articleObject->sourceName = $source["original"]['name'];
-          $articleObject->sourceCategory = $source["original"]['category'];
-          $articleObject->sourceLanguage = $source["original"]['language'];
-
-	        foreach ($article as $key => $value)
-	        {
-	          $articleObject->$key = $value;
-	        }
-	        // Push the article objects into the articles array
-	        array_push($articles, $articleObject);
-	      }
-	    }
+     //    //DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+	    // }
 
 	    // Reassign to make use of $newsarticles 
 	    $newsArticles = $articles;
-      // dd(new DateTime($newsArticles[0]->publishedAt));
       
 	    if (Auth::check()) {
 	      $user = Auth::user();
@@ -119,7 +100,7 @@ class TwitterController extends Controller
 
       // Window object data variables
 
-		return view('welcome', compact('loginPage', 'logoutPage', 'timeline', 'newsArticles', 'user', 'categories', 'sources', 'languages', 'userCategories', 'userSources', 'userLanguages'));
+		return view('welcome', compact('loginPage', 'logoutPage', 'timeline', 'newsSources', 'newsArticles', 'user', 'categories', 'sources', 'languages', 'userCategories', 'userSources', 'userLanguages'));
 	}
 
     /**

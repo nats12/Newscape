@@ -12750,7 +12750,7 @@ var App = function (_Component) {
 			    search = _state.search,
 			    errors = _state.errors;
 
-
+			console.log(newsArticles);
 			if (this.state.newsArticles.length) {
 				return _react2.default.createElement(
 					'div',
@@ -13719,21 +13719,22 @@ var NewsArticle = function (_Component) {
             var _this2 = this;
 
             var article = this.props.newsArticle;
+            console.log(article);
 
             return _react2.default.createElement(
                 'div',
                 { className: 'small-12 large-6 columns article-block' },
                 _react2.default.createElement(
                     'div',
-                    { className: 'card', lang: article.sourceLanguage },
-                    article.urlToImage ? _react2.default.createElement('img', {
+                    { className: 'card', lang: article.source_language },
+                    article.url_to_image ? _react2.default.createElement('img', {
                         height: this.state.height,
                         width: this.state.width,
                         className: 'article-image',
-                        src: article.urlToImage,
+                        src: article.url_to_image,
                         alt: article.title,
                         onLoad: function onLoad() {
-                            return _this2.getImageSize(article.urlToImage);
+                            return _this2.getImageSize(article.url_to_image);
                         },
                         onError: function onError(event) {
                             return event.target.style.display = 'none';
@@ -13753,13 +13754,13 @@ var NewsArticle = function (_Component) {
                             _react2.default.createElement(
                                 'small',
                                 null,
-                                this.props.dateFormatter(article.publishedAt)
+                                this.props.dateFormatter(article.published_at)
                             ),
                             ' ',
                             _react2.default.createElement(
                                 'small',
                                 { className: 'source' },
-                                article.sourceName
+                                article.source_name
                             )
                         )
                     ),
@@ -13769,7 +13770,7 @@ var NewsArticle = function (_Component) {
                         _react2.default.createElement(
                             'small',
                             { className: 'source-category icon-tag' },
-                            article.sourceCategory
+                            article.source_category
                         ),
                         _react2.default.createElement(
                             _reactDotdotdot2.default,
@@ -13857,7 +13858,7 @@ var NewsFeed = function (_Component) {
             return articles.filter(function (article) {
                 var ok = false;
                 _this.props.selectedCategories.map(function (category) {
-                    if (category.name === article.sourceCategory) {
+                    if (category.name === article.source_category) {
                         ok = true;
                     }
                 });
@@ -13918,9 +13919,9 @@ var NewsFeed = function (_Component) {
             var ok = false;
 
             return articles.sort(function (a, b) {
-                return new Date(b.publishedAt) - new Date(a.publishedAt);
+                return new Date(b.published_at) - new Date(a.published_at);
             }).filter(function (article) {
-                var publishedAtDate = new Date(article.publishedAt);
+                var publishedAtDate = new Date(article.published_at);
                 if (currentDate > publishedAtDate) {
                     ok = true;
                 }
@@ -13930,6 +13931,7 @@ var NewsFeed = function (_Component) {
         };
 
         _this.renderArticle = function (articles) {
+
             return _react2.default.createElement(
                 _reactTransitionGroup.CSSTransitionGroup,
                 {
@@ -13951,9 +13953,8 @@ var NewsFeed = function (_Component) {
                     transitionAppearTimeout: 800
                 },
                 articles.map(function (article, index) {
-
                     return _react2.default.createElement(_NewsArticle2.default, {
-                        key: article.url,
+                        key: article.articleUrl,
                         newsArticle: article,
                         dateFormatter: _this.props.dateFormatter,
                         tweetFormOpen: _this.props.tweetFormOpen,

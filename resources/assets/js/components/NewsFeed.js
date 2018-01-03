@@ -25,7 +25,7 @@ class NewsFeed extends Component {
         return articles.filter((article) => {
             let ok = false;
             this.props.selectedCategories.map((category) => {
-                if (category.name === article.sourceCategory){
+                if (category.name === article.source_category){
                     ok = true;
                 }
             })
@@ -82,8 +82,8 @@ class NewsFeed extends Component {
 
         let ok = false;
         
-        return articles.sort((a,b) => new Date(b.publishedAt) - new Date(a.publishedAt) ).filter((article) => {
-            const publishedAtDate = new Date(article.publishedAt);
+        return articles.sort((a,b) => new Date(b.published_at) - new Date(a.published_at)).filter((article) => {
+            const publishedAtDate = new Date(article.published_at);
             if(currentDate > publishedAtDate) {
                 ok = true;
             }
@@ -93,6 +93,7 @@ class NewsFeed extends Component {
     }
 
     renderArticle = (articles) => {
+
         return(
 
             <CSSTransitionGroup
@@ -114,10 +115,10 @@ class NewsFeed extends Component {
               transitionAppearTimeout={800}
             >
 
-            {articles.map((article, index) => {
 
+            {articles.map((article, index) => {
                 return <NewsArticle 
-                    key={article.url} 
+                    key={article.articleUrl} 
                     newsArticle={article} 
                     dateFormatter={this.props.dateFormatter} 
                     tweetFormOpen={this.props.tweetFormOpen} 
