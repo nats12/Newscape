@@ -39,7 +39,7 @@ class TwitterController extends Controller
       $newsSources = Source::all();
 
 	    // Instantiate articles array
-	    $articles = Article::limit(300)->orderBy('published_at', 'desc')->get();
+	    $articles = Article::all();
 
 	    // Reassign to make use of $newsarticles 
 	    $newsArticles = $articles;
