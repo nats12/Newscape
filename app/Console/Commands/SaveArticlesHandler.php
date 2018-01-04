@@ -6,6 +6,9 @@ use App\SaveArticle;
 use Illuminate\Console\Command;
 use NewsApi;
 use App\Article;
+use App\Source;
+use Eloquent;
+use DB;
 
 class SaveArticlesHandler extends Command
 {
@@ -46,11 +49,33 @@ class SaveArticlesHandler extends Command
      *
      * @return mixed
      */
-    public function handle($source)
+    public function handle()
     {   
-        // Fetches sources from API
-        $sourceArticles = NewsApi::getArticles($source["source_id"])['articles'];
+        $newsSources = Source::all();
 
+        // Wipe articles table clean (of old articles)
+        DB::table('articles')->truncate();
+
+        foreach($newsSources as $source) {
+            // Remove duplicates
+            Eloquent::unguard();
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
+            // Fetches sources from API
+            $sourceArticles = NewsApi::getArticles($source["source_id"])['articles'];
+
+            $this->saveToDB($sourceArticles, $source);
+
+            DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+        }
+    }
+
+    /**
+     * [callApi description]
+     * @return [type] [description]
+     */
+    public function saveToDB($sourceArticles, $source) 
+    {
         // Stores articles in the database
         foreach($sourceArticles as $sourceArticle) {
             $article = new Article;
@@ -67,7 +92,6 @@ class SaveArticlesHandler extends Command
 
             $article->save();
         }
-
-        return $sourceArticles;
+        
     }
 }

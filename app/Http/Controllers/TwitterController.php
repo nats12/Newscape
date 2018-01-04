@@ -38,25 +38,7 @@ class TwitterController extends Controller
       $newsSources = Source::all();
 
 	    // Instantiate articles array
-	    $articles = Article::limit(100)->orderBy('published_at', 'desc')->get();
-
-      // Instantiate SaveArticlesHandler
-      //$saveArticlesHandler = new SaveArticlesHandler;
-      
-      // Wipe articles table clean (of old articles)
-      //DB::table('articles')->truncate();
-
-	    // foreach ($newsSources as $source) 
-	    // { 
-     //    // Remove duplicates
-     //    //Eloquent::unguard();
-     //    //DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-
-     //    // Run the handler to fetch articles from API
-     //      $saveArticlesHandler->handle($source["original"]);
-
-     //    //DB::statement('SET FOREIGN_KEY_CHECKS = 1');
-	    // }
+	    $articles = Article::limit(300)->orderBy('published_at', 'desc')->get();
 
 	    // Reassign to make use of $newsarticles 
 	    $newsArticles = $articles;
