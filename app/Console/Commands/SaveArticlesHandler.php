@@ -17,7 +17,7 @@ class SaveArticlesHandler extends Command
      *
      * @var string
      */
-    protected $signature = 'save:articles {--sleep=60}';
+    protected $signature = 'save:articles {--sleep=900}';
 
     /**
      * The console command description.
