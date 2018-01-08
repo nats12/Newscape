@@ -13872,7 +13872,7 @@ var NewsFeed = function (_Component) {
             return articles.filter(function (article) {
                 var ok = false;
                 _this.props.selectedLanguages.map(function (language) {
-                    if (language.iso === article.sourceLanguage) {
+                    if (language.iso === article.source_language) {
                         ok = true;
                     }
                 });
@@ -13884,7 +13884,7 @@ var NewsFeed = function (_Component) {
             return articles.filter(function (article) {
                 var ok = false;
                 _this.props.selectedSources.map(function (source) {
-                    if (source.source_id === article.sourceId) {
+                    if (source.source_id === article.source_id) {
                         ok = true;
                     }
                 });
@@ -13956,7 +13956,7 @@ var NewsFeed = function (_Component) {
                 },
                 articles.map(function (article, index) {
                     return _react2.default.createElement(_NewsArticle2.default, {
-                        key: article.articleUrl,
+                        key: article.id,
                         newsArticle: article,
                         dateFormatter: _this.props.dateFormatter,
                         tweetFormOpen: _this.props.tweetFormOpen,

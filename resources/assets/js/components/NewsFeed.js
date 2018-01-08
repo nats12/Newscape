@@ -38,7 +38,7 @@ class NewsFeed extends Component {
         return articles.filter((article) => {
             let ok = false;
             this.props.selectedLanguages.map((language) => {
-                if (language.iso === article.sourceLanguage){
+                if (language.iso === article.source_language){
                     ok = true;
                 }
             })
@@ -50,7 +50,7 @@ class NewsFeed extends Component {
         return articles.filter((article) => {
             let ok = false;
             this.props.selectedSources.map((source) => {
-                if (source.source_id === article.sourceId){
+                if (source.source_id === article.source_id){
                     ok = true;
                 }
             })
@@ -118,7 +118,7 @@ class NewsFeed extends Component {
 
             {articles.map((article, index) => {
                 return <NewsArticle 
-                    key={article.articleUrl} 
+                    key={article.id} 
                     newsArticle={article} 
                     dateFormatter={this.props.dateFormatter} 
                     tweetFormOpen={this.props.tweetFormOpen} 
