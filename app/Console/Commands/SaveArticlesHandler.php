@@ -75,7 +75,7 @@ class SaveArticlesHandler extends Command
      * @return [type] [description]
      */
     public function saveToDB($sourceArticles, $source) 
-    {
+    {   
         // Stores articles in the database
         foreach($sourceArticles as $sourceArticle) {
             $article = new Article;

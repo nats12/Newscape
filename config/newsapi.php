@@ -2,5 +2,5 @@
 
 return [
     'key' => env('NEWSAPI_KEY'),
-    'url' => env('NEWSAPI_URL', 'https://newsapi.org/v1')
+    'url' => env('NEWSAPI_URL', 'https://newsapi.org/v2')
 ];

@@ -23,18 +23,6 @@ class NewsApi {
         $this->client = $client;
     }
 
-    /**
-     * [getSources description]
-     * @return [type] [description]
-     */
-    public function getSources() {
-
-        $response = $this->request('/sources')->getBody()->getContents();
-
-
-        return json_decode($response, true);
-    }
-
 
     /**
      * [getArticles description]
@@ -43,8 +31,8 @@ class NewsApi {
      */
     public function getArticles($source) {
 
-        $response = $this->request('/articles', ['source' => $source])->getBody()->getContents();
-
+        $response = $this->request('/top-headlines', ['sources' => $source])->getBody()->getContents();
+        
         return json_decode($response, true);
     }
 
@@ -60,7 +48,7 @@ class NewsApi {
         $data = $data + ['apiKey' => $this->key];
 
         $url = $this->url . $endpoint . '?' . http_build_query($data);
-     
+
         return $this->client->request('GET', $url);
     }
 
