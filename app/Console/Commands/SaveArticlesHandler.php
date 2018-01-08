@@ -17,7 +17,7 @@ class SaveArticlesHandler extends Command
      *
      * @var string
      */
-    protected $signature = 'save:articles';
+    protected $signature = 'save:articles {--sleep=60}';
 
     /**
      * The console command description.
@@ -51,23 +51,31 @@ class SaveArticlesHandler extends Command
      */
     public function handle()
     {   
-        $newsSources = Source::all();
+        while(true) {
 
-        // Wipe articles table clean (of old articles)
-        DB::table('articles')->truncate();
+            $newsSources = Source::all();
 
-        foreach($newsSources as $source) {
-            // Remove duplicates
-            Eloquent::unguard();
-            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+            // Wipe articles table clean (of old articles)
+            DB::table('articles')->truncate();
 
-            // Fetches sources from API
-            $sourceArticles = NewsApi::getArticles($source["source_id"])['articles'];
+            foreach($newsSources as $source) {
+                // Remove duplicates
+                Eloquent::unguard();
+                DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-            $this->saveToDB($sourceArticles, $source);
+                // Fetches sources from API
+                $sourceArticles = NewsApi::getArticles($source["source_id"])['articles'];
 
-            DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+                $this->saveToDB($sourceArticles, $source);
+
+                DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+            }
+
+            $this->call('schedule:run');
+
+            sleep($this->option('sleep'));
         }
+        
     }
 
     /**
@@ -91,7 +99,6 @@ class SaveArticlesHandler extends Command
             $article->published_at = $sourceArticle["publishedAt"];
 
             $article->save();
-        }
-        
+        } 
     }
 }
