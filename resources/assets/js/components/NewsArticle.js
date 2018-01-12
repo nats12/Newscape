@@ -32,7 +32,7 @@ class NewsArticle extends Component {
     render() {
 
         const article = this.props.newsArticle;
-        console.log(article);
+    
 
         return (
             <div className="small-12 large-6 columns article-block">

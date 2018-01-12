@@ -34,6 +34,21 @@
 }
 
 .top-bar-right {
+    
+    input {
+        background-color: $blue-dk;
+    }
+
+    input:focus {
+        border-radius: 30px;
+        border: none;
+        background-color: $blue-dk;
+        box-shadow: none;
+        // color: rgba(255,255,255,0.8);
+    }
+}
+
+.top-bar-right .loginlogout {
     display: none;
 }
 
@@ -48,16 +63,22 @@ header {
     header {
         position: static;
     }
-
+    
     .top-bar-right {
-        display: block;
         width: 40% !important;
 
-        li {
-            display: block;
+        .menu {
             text-align: right;
-            padding: 22px 20px;
         }
+    }
+
+    .top-bar-right .loginlogout {
+        display: block;
+
+        // li {
+        //     display: block;
+        //     padding: 22px 20px;
+        // }
     }
 
     .top-bar-left {

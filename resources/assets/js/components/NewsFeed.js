@@ -77,6 +77,19 @@ class NewsFeed extends Component {
         return filtered;
     }
 
+    filterSearchedArticles = (key) => {
+
+        const article = this.props.newsArticles[key];
+
+        if (this.props.searchArticle.length === 0) {
+            return this.renderSearchedArticle(key);
+        } else if (this.props.searchArticle.length > 0) {
+            const searchText = `${this.props.searchArticle}`;
+            const regexp = new RegExp(searchText, 'i');
+            return article.title.search(regexp) >= 0 ? this.renderSearchedArticle(key) : '';
+        }
+    }
+
     sortArticles = (articles) => {
         const currentDate = new Date();
 
@@ -90,6 +103,20 @@ class NewsFeed extends Component {
 
             return ok;
         })
+    }
+
+    renderSearchedArticle = (id) => {
+        return (
+            <NewsArticle 
+                key={id} 
+                newsArticle={this.props.newsArticles[id]} 
+                dateFormatter={this.props.dateFormatter} 
+                tweetFormOpen={this.props.tweetFormOpen} 
+                toggleTweetForm={this.props.toggleTweetForm}
+                selectArticle={this.props.selectArticle}
+                user={this.props.user}
+            />
+        )
     }
 
     renderArticle = (articles) => {
@@ -155,8 +182,12 @@ class NewsFeed extends Component {
             <div>
                 <div className="row small-collapse large-collapse"> 
 
-                {
-                    this.renderArticle(limited)
+                {   this.props.searchArticle ? 
+                        Object.keys(this.props.newsArticles)
+                        .map(key => this.filterSearchedArticles(key))
+                    :
+                        this.renderArticle(limited)
+
                 }
                 
                 </div>
