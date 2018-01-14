@@ -15,7 +15,7 @@ class TopBar extends Component {
                             <li className="menu-text strapline"><small>Personalise your newsfeed.</small></li>
                         </ul>
                     </div>
-                    {/* Add github icon here */ }
+                    'test'
                     <div className="top-bar-right">
                         <ul className="menu">
                           <li className="menu-text"><a href={this.props.user ? this.props.logoutPage : this.props.loginPage}>{this.props.user ? "Log out" : "Log in"}</a></li>
