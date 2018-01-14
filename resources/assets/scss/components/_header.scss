@@ -69,11 +69,30 @@ header {
         position: static;
     }
     
+    .top-bar {
+        height: 165px;
+
+        input {
+            max-width: 100%;
+        }
+    }
+
     .top-bar-right {
         width: 40% !important;
+        
+        .search-wrap {
+            width: 100%;
+        }
 
         .menu {
             text-align: right;
+
+            .search-bar {
+                position: absolute;
+                left: 0;
+                margin-top: 50px;
+                width: 100%;
+            }
         }
     }
 

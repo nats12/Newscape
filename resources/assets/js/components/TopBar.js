@@ -22,7 +22,7 @@ class TopBar extends Component {
                     <div className="top-bar-right">
                         <ul className="menu">
                           <li className="menu-text loginlogout"><a href={this.props.user ? this.props.logoutPage : this.props.loginPage}>{this.props.user ? "Log out" : "Log in"}</a></li>
-                          <li className="menu-text"><SearchBar getArticleSearchInput={getArticleSearchInput} /></li>
+                          <li className="menu-text search-bar"><SearchBar getArticleSearchInput={getArticleSearchInput} /></li>
                         </ul>
                     </div>
 

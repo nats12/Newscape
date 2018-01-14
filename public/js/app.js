@@ -7378,7 +7378,7 @@ var TopBar = function (_Component) {
                             ),
                             _react2.default.createElement(
                                 'li',
-                                { className: 'menu-text' },
+                                { className: 'menu-text search-bar' },
                                 _react2.default.createElement(_SearchBar2.default, { getArticleSearchInput: getArticleSearchInput })
                             )
                         )
