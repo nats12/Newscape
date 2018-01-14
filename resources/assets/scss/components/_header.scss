@@ -34,7 +34,8 @@
 }
 
 .top-bar-right {
-    
+
+
     input {
         background-color: $blue-dk;
     }
@@ -45,6 +46,10 @@
         background-color: $blue-dk;
         box-shadow: none;
         // color: rgba(255,255,255,0.8);
+    }
+
+    input[placeholder] {
+        font-size: 80%;
     }
 }
 

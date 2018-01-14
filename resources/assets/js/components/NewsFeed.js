@@ -77,16 +77,18 @@ class NewsFeed extends Component {
         return filtered;
     }
 
-    filterSearchedArticles = (key) => {
+    filterSearchedArticles = (key, limited) => {
 
-        const article = this.props.newsArticles[key];
+        const article = limited[key];
+
+        console.log(article);
 
         if (this.props.searchArticle.length === 0) {
-            return this.renderSearchedArticle(key);
+            return this.renderSearchedArticle(article);
         } else if (this.props.searchArticle.length > 0) {
             const searchText = `${this.props.searchArticle}`;
             const regexp = new RegExp(searchText, 'i');
-            return article.title.search(regexp) >= 0 ? this.renderSearchedArticle(key) : '';
+            return article.title.search(regexp) >= 0 ? this.renderSearchedArticle(article) : '';
         }
     }
 
@@ -105,11 +107,11 @@ class NewsFeed extends Component {
         })
     }
 
-    renderSearchedArticle = (id) => {
+    renderSearchedArticle = (article) => {
         return (
             <NewsArticle 
-                key={id} 
-                newsArticle={this.props.newsArticles[id]} 
+                key={article.id} 
+                newsArticle={article} 
                 dateFormatter={this.props.dateFormatter} 
                 tweetFormOpen={this.props.tweetFormOpen} 
                 toggleTweetForm={this.props.toggleTweetForm}
@@ -178,13 +180,15 @@ class NewsFeed extends Component {
         const sorted = this.sortArticles(filtered);
         const limited = this.filterLimit(sorted);
 
+        console.log(limited);
+
         return (
             <div>
                 <div className="row small-collapse large-collapse"> 
 
                 {   this.props.searchArticle ? 
-                        Object.keys(this.props.newsArticles)
-                        .map(key => this.filterSearchedArticles(key))
+                        Object.keys(limited)
+                        .map(key => this.filterSearchedArticles(key, limited))
                     :
                         this.renderArticle(limited)
 

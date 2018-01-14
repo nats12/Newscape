@@ -13930,16 +13930,18 @@ var NewsFeed = function (_Component) {
             return filtered;
         };
 
-        _this.filterSearchedArticles = function (key) {
+        _this.filterSearchedArticles = function (key, limited) {
 
-            var article = _this.props.newsArticles[key];
+            var article = limited[key];
+
+            console.log(article);
 
             if (_this.props.searchArticle.length === 0) {
-                return _this.renderSearchedArticle(key);
+                return _this.renderSearchedArticle(article);
             } else if (_this.props.searchArticle.length > 0) {
                 var searchText = '' + _this.props.searchArticle;
                 var regexp = new RegExp(searchText, 'i');
-                return article.title.search(regexp) >= 0 ? _this.renderSearchedArticle(key) : '';
+                return article.title.search(regexp) >= 0 ? _this.renderSearchedArticle(article) : '';
             }
         };
 
@@ -13960,10 +13962,10 @@ var NewsFeed = function (_Component) {
             });
         };
 
-        _this.renderSearchedArticle = function (id) {
+        _this.renderSearchedArticle = function (article) {
             return _react2.default.createElement(_NewsArticle2.default, {
-                key: id,
-                newsArticle: _this.props.newsArticles[id],
+                key: article.id,
+                newsArticle: article,
                 dateFormatter: _this.props.dateFormatter,
                 tweetFormOpen: _this.props.tweetFormOpen,
                 toggleTweetForm: _this.props.toggleTweetForm,
@@ -14043,14 +14045,16 @@ var NewsFeed = function (_Component) {
             var sorted = this.sortArticles(filtered);
             var limited = this.filterLimit(sorted);
 
+            console.log(limited);
+
             return _react2.default.createElement(
                 'div',
                 null,
                 _react2.default.createElement(
                     'div',
                     { className: 'row small-collapse large-collapse' },
-                    this.props.searchArticle ? Object.keys(this.props.newsArticles).map(function (key) {
-                        return _this2.filterSearchedArticles(key);
+                    this.props.searchArticle ? Object.keys(limited).map(function (key) {
+                        return _this2.filterSearchedArticles(key, limited);
                     }) : this.renderArticle(limited)
                 ),
                 _react2.default.createElement(
@@ -14355,11 +14359,12 @@ var SearchBar = function (_Component) {
 
 
             return _react2.default.createElement(
-                "div",
-                { className: "search-bar" },
-                _react2.default.createElement("input", { className: "search", type: "text", onChange: function onChange(e) {
+                "span",
+                { className: "search-wrap" },
+                _react2.default.createElement("input", { className: "search", type: "text", placeholder: "Search articles..", onChange: function onChange(e) {
                         return getArticleSearchInput(e.target.value);
-                    } })
+                    } }),
+                _react2.default.createElement("span", { className: "icon-search" })
             );
         }
     }]);
