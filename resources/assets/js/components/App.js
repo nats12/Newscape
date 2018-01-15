@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { CSSTransitionGroup } from 'react-transition-group';
+import moment from 'moment';
 
 import TopBar from './TopBar';
 import ApiDown from './ApiDown';
@@ -239,11 +240,11 @@ class App extends Component {
 	}
 
 
-	dateFormatter = (time) => {
-		var date = new Date(time),
-			diff = (((new Date()).getTime() - date.getTime()) / 1000),
-			day_diff = Math.floor(diff / 86400);
-				
+	dateFormatter = (time) => {		
+		const date = moment(time, 'YYYY-MM-DD HH:mm:ss');
+		const diff = (moment().valueOf() - moment(time, 'YYYY-MM-DD HH:mm:ss').valueOf()) / 1000;
+		const day_diff = Math.floor(diff / 86400);
+
 		if ( isNaN(day_diff) || day_diff < 0 || day_diff >= 31 )
 			return;
 				
@@ -259,9 +260,7 @@ class App extends Component {
 	}
 
 	render() {
-
 		const { timeline, 
-				// newsSources, 
 				newsArticles, 
 				user, 
 				logoutPage, 

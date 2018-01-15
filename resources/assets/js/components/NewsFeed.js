@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { CSSTransitionGroup } from 'react-transition-group';
 import NewsArticle from './NewsArticle';
+import moment from 'moment';
 
 class NewsFeed extends Component {
     constructor(props) {
@@ -78,10 +79,7 @@ class NewsFeed extends Component {
     }
 
     filterSearchedArticles = (key, limited) => {
-
         const article = limited[key];
-
-        console.log(article);
 
         if (this.props.searchArticle.length === 0) {
             return this.renderSearchedArticle(article);
@@ -93,12 +91,11 @@ class NewsFeed extends Component {
     }
 
     sortArticles = (articles) => {
-        const currentDate = new Date();
-
+        const currentDate = moment().toDate();
         let ok = false;
-        
-        return articles.sort((a,b) => new Date(b.published_at) - new Date(a.published_at)).filter((article) => {
-            const publishedAtDate = new Date(article.published_at);
+
+        return articles.sort((a,b) => moment(b.published_at, 'YYYY-MM-DD HH:mm:ss') - moment(a.published_at, 'YYYY-MM-DD HH:mm:ss')).filter((article) => {
+            const publishedAtDate = moment(article.published_at, 'YYYY-MM-DD HH:mm:ss').toDate();
             if(currentDate > publishedAtDate) {
                 ok = true;
             }
@@ -179,8 +176,6 @@ class NewsFeed extends Component {
         const filtered = this.filterArticles(this.props.newsArticles);
         const sorted = this.sortArticles(filtered);
         const limited = this.filterLimit(sorted);
-
-        console.log(limited);
 
         return (
             <div>
