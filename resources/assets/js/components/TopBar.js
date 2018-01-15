@@ -18,11 +18,14 @@ class TopBar extends Component {
                             <li className="menu-text strapline"><small>Personalise your newsfeed.</small></li>
                         </ul>
                     </div>
-                    {/* Add github icon here */ }
                     <div className="top-bar-right">
                         <ul className="menu">
+<<<<<<< HEAD
                           <li className="menu-text loginlogout"><a href={this.props.user ? this.props.logoutPage : this.props.loginPage}>{this.props.user ? "Log out" : "Log in"}</a></li>
                           <li className="menu-text search-bar"><SearchBar getArticleSearchInput={getArticleSearchInput} /></li>
+=======
+                          <li className="menu-text"><a href={this.props.user ? this.props.logoutPage : this.props.loginPage}>{this.props.user ? "Log out" : "Log in"}</a></li>
+>>>>>>> master
                         </ul>
                     </div>
 
