@@ -9,6 +9,7 @@ class TwitterFeed extends Component {
 	}
 
 	searchFilter = (key) => {
+		
 		const tweet = this.props.timeline[key];
 
 		if (this.props.search.length === 0) {

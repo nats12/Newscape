@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { CSSTransitionGroup } from 'react-transition-group';
 import NewsArticle from './NewsArticle';
+import moment from 'moment';
 
 class NewsFeed extends Component {
     constructor(props) {
@@ -77,19 +78,44 @@ class NewsFeed extends Component {
         return filtered;
     }
 
-    sortArticles = (articles) => {
-        const currentDate = new Date();
+    filterSearchedArticles = (key, limited) => {
+        const article = limited[key];
 
+        if (this.props.searchArticle.length === 0) {
+            return this.renderSearchedArticle(article);
+        } else if (this.props.searchArticle.length > 0) {
+            const searchText = `${this.props.searchArticle}`;
+            const regexp = new RegExp(searchText, 'i');
+            return article.title.search(regexp) >= 0 ? this.renderSearchedArticle(article) : '';
+        }
+    }
+
+    sortArticles = (articles) => {
+        const currentDate = moment().toDate();
         let ok = false;
-        
-        return articles.sort((a,b) => new Date(b.published_at) - new Date(a.published_at)).filter((article) => {
-            const publishedAtDate = new Date(article.published_at);
+
+        return articles.sort((a,b) => moment(b.published_at, 'YYYY-MM-DD HH:mm:ss') - moment(a.published_at, 'YYYY-MM-DD HH:mm:ss')).filter((article) => {
+            const publishedAtDate = moment(article.published_at, 'YYYY-MM-DD HH:mm:ss').toDate();
             if(currentDate > publishedAtDate) {
                 ok = true;
             }
 
             return ok;
         })
+    }
+
+    renderSearchedArticle = (article) => {
+        return (
+            <NewsArticle 
+                key={article.id} 
+                newsArticle={article} 
+                dateFormatter={this.props.dateFormatter} 
+                tweetFormOpen={this.props.tweetFormOpen} 
+                toggleTweetForm={this.props.toggleTweetForm}
+                selectArticle={this.props.selectArticle}
+                user={this.props.user}
+            />
+        )
     }
 
     renderArticle = (articles) => {
@@ -155,8 +181,12 @@ class NewsFeed extends Component {
             <div>
                 <div className="row small-collapse large-collapse"> 
 
-                {
-                    this.renderArticle(limited)
+                {   this.props.searchArticle ? 
+                        Object.keys(limited)
+                        .map(key => this.filterSearchedArticles(key, limited))
+                    :
+                        this.renderArticle(limited)
+
                 }
                 
                 </div>

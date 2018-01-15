@@ -10,9 +10,10 @@ class SearchBar extends Component {
         const { getArticleSearchInput } = this.props;
         
         return(
-            <div className="search-bar">
-                <input className="search" type="text" onChange={ (e) => getArticleSearchInput(e.target.value)} />
-            </div>
+             <span className="search-wrap">
+                <input className="search" type="text" placeholder="Search articles.." onChange={ (e) => getArticleSearchInput(e.target.value)} />
+                <span className="icon-search"></span>
+            </span>
                               
         )
     }

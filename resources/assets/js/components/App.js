@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { CSSTransitionGroup } from 'react-transition-group';
+import moment from 'moment';
 
 import TopBar from './TopBar';
 import ApiDown from './ApiDown';
@@ -33,6 +34,7 @@ class App extends Component {
 			selectedLanguages: window.Laravel.selectedLanguages,
 			savedLanguages:[],
 			search: '',
+			searchArticle: '',
 			errors: []
 		}		
 	}
@@ -74,6 +76,10 @@ class App extends Component {
 
 	getSearchInput = (text) => {
 		this.setState({search: `${text}`})
+	}
+
+	getArticleSearchInput = (text) => {
+		this.setState({searchArticle: `${text}`})
 	}
 
 	setFeedHeight() {
@@ -234,11 +240,11 @@ class App extends Component {
 	}
 
 
-	dateFormatter = (time) => {
-		var date = new Date(time),
-			diff = (((new Date()).getTime() - date.getTime()) / 1000),
-			day_diff = Math.floor(diff / 86400);
-				
+	dateFormatter = (time) => {		
+		const date = moment(time, 'YYYY-MM-DD HH:mm:ss');
+		const diff = (moment().valueOf() - moment(time, 'YYYY-MM-DD HH:mm:ss').valueOf()) / 1000;
+		const day_diff = Math.floor(diff / 86400);
+
 		if ( isNaN(day_diff) || day_diff < 0 || day_diff >= 31 )
 			return;
 				
@@ -254,9 +260,7 @@ class App extends Component {
 	}
 
 	render() {
-
 		const { timeline, 
-				// newsSources, 
 				newsArticles, 
 				user, 
 				logoutPage, 
@@ -273,9 +277,10 @@ class App extends Component {
 				languages,
 				selectedLanguages,
 				search,
+				searchArticle,
 				errors
 				} = this.state;
-		console.log(newsArticles);
+
 		if (this.state.newsArticles.length) {
 			return (
 				<div className={`${user ? 'authenticated' : ''} ${menuIsOpen ? 'menu-open': ''}`}>
@@ -331,7 +336,7 @@ class App extends Component {
 
 					<header>
 
-						<TopBar user={user} loginPage={loginPage} logoutPage={logoutPage}/>
+						<TopBar user={user} loginPage={loginPage} logoutPage={logoutPage} getArticleSearchInput={this.getArticleSearchInput}/>
 						
 						<div className="section-filter">
 							<div className="row" ref={(element) => this.sectionFilterRow = element}>
@@ -398,6 +403,7 @@ class App extends Component {
 										selectedLanguages={selectedLanguages}
 										selectedSources={selectedSources}
 										user={user}
+										searchArticle={searchArticle}
 									/>
 								</div>
 								<div className="large-4 medium-6 columns twitterfeed" ref={(element) => this.twitterfeedDiv = element}>
