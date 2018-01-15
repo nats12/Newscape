@@ -25,6 +25,7 @@
     "vue": "^2.4.2"
   },
   "dependencies": {
+    "moment": "^2.20.1",
     "react-dotdotdot": "^1.1.0",
     "react-transition-group": "^1.2.0",
     "webpack-preset": "^0.2.0",
