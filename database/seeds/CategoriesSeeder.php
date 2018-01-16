@@ -31,6 +31,10 @@ class CategoriesSeeder extends Seeder
     			'name' => 'general'
     		),
 
+            array(
+                'name' => 'health'
+            ),
+
     		array(
     			'name' => 'music'
     		),
@@ -39,13 +43,13 @@ class CategoriesSeeder extends Seeder
     			'name' => 'politics'
     		),
 
-    		array(
-    			'name' => 'science-and-nature'
-    		),
+            array(
+                'name' => 'science'
+            ),
 
-    		array(
-    			'name' => 'sport'
-    		),
+            array(
+                'name' => 'sports'
+            ),
 
     		array(
     			'name' => 'technology'

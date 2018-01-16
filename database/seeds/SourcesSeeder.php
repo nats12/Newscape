@@ -151,7 +151,7 @@ class SourcesSeeder extends Seeder
     			'name' => 'BBC Sport',
     			'description' => 'The home of BBC Sport online. Includes live sports coverage, breaking news, results, video, audio and analysis on Football, F1, Cricket, Rugby Union, Rugby League, Golf, Tennis and all the main world sports, plus major events such as the Olympic Games.',
     			'url' => 'http://www.bbc.co.uk/sport',
-    			'category' => 'sport',
+    			'category' => 'sports',
     			'language' => 'en',
     			'country' => 'gb',
     			'logoUrl' => 'http://logo.clearbit.com/www.bbc.co.uk'
@@ -382,7 +382,7 @@ class SourcesSeeder extends Seeder
     			'name' => 'ESPN',
     			'description' => 'ESPN has up-to-the-minute sports news coverage, scores, highlights and commentary for NFL, MLB, NBA, College Football, NCAA Basketball and more.',
     			'url' => 'http://espn.go.com',
-    			'category' => 'sport',
+    			'category' => 'sports',
     			'language' => 'en',
     			'country' => 'us',
     			'logoUrl' => 'https://www.brandsoftheworld.com/sites/default/files/styles/logo-thumbnail/public/052016/untitled-1_242.png?itok=vy3l2HxD'
@@ -393,7 +393,7 @@ class SourcesSeeder extends Seeder
     			'name' => 'ESPN Cric Info',
     			'description' => 'ESPN Cricinfo provides the most comprehensive cricket coverage available including live ball-by-ball commentary, news, unparalleled statistics, quality editorial comment and analysis.',
     			'url' => 'http://www.espncricinfo.com/',
-    			'category' => 'sport',
+    			'category' => 'sports',
     			'language' => 'en',
     			'country' => 'us',
     			'logoUrl' => 'http://logo.clearbit.com/www.espncricinfo.com'
@@ -437,7 +437,7 @@ class SourcesSeeder extends Seeder
     			'name' => 'Football Italia',
     			'description' => 'Italian football news, analysis, fixtures and results for the latest from Serie A, Serie B and the Azzurri.',
     			'url' => 'http://www.football-italia.net',
-    			'category' => 'sport',
+    			'category' => 'sports',
     			'language' => 'en',
     			'country' => 'it',
     			'logoUrl' => 'http://logo.clearbit.com/www.football-italia.net'
@@ -459,7 +459,7 @@ class SourcesSeeder extends Seeder
     			'name' => 'FourFourTwo',
     			'description' => 'The latest football news, in-depth features, tactical and statistical analysis from FourFourTwo, the UK&#039;s favourite football monthly.',
     			'url' => 'http://www.fourfourtwo.com/news',
-    			'category' => 'sport',
+    			'category' => 'sports',
     			'language' => 'en',
     			'country' => 'gb',
     			'logoUrl' => 'http://logo.clearbit.com/www.fourfourtwo.com'
@@ -481,7 +481,7 @@ class SourcesSeeder extends Seeder
     			'name' => 'Fox Sports',
     			'description' => 'Find live scores, player and team news, videos, rumors, stats, standings, schedules and fantasy games on FOX Sports.',
     			'url' => 'http://www.foxsports.com',
-    			'category' => 'sport',
+    			'category' => 'sports',
     			'language' => 'en',
     			'country' => 'us',
     			'logoUrl' => 'http://logo.clearbit.com/www.foxsports.com'
@@ -910,7 +910,7 @@ class SourcesSeeder extends Seeder
     			'name' => 'National Geographic',
     			'description' => 'Reporting our world daily: original nature and science news from National Geographic.',
     			'url' => 'http://news.nationalgeographic.com',
-    			'category' => 'science-and-nature',
+    			'category' => 'science',
     			'language' => 'en',
     			'country' => 'us',
     			'logoUrl' => 'http://logo.clearbit.com/news.nationalgeographic.com'
@@ -943,7 +943,7 @@ class SourcesSeeder extends Seeder
     			'name' => 'New Scientist',
     			'description' => 'Breaking science and technology news from around the world. Exclusive stories and expert analysis on space, technology, health, physics, life and Earth.',
     			'url' => 'https://www.newscientist.com/section/news',
-    			'category' => 'science-and-nature',
+    			'category' => 'science',
     			'language' => 'en',
     			'country' => 'us',
     			'logoUrl' => 'http://logo.clearbit.com/www.newscientist.com'
@@ -998,7 +998,7 @@ class SourcesSeeder extends Seeder
     			'name' => 'NFL News',
     			'description' => 'The official source for NFL news, schedules, stats, scores and more.',
     			'url' => 'http://www.nfl.com/news',
-    			'category' => 'sport',
+    			'category' => 'sports',
     			'language' => 'en',
     			'country' => 'us',
     			'logoUrl' => 'http://logo.clearbit.com/www.nfl.com'
@@ -1009,7 +1009,7 @@ class SourcesSeeder extends Seeder
                 'name' => 'NHL News',
                 'description' => 'The most up-to-date breaking hockey news from the official source including interviews, rumors, statistics and schedules.',
                 'url' => 'https://www.nhl.com/news',
-                'category' => 'sport',
+                'category' => 'sports',
                 'language' => 'en',
                 'country' => 'us',
                 'logoUrl' => 'http://logo.clearbit.com/www.nhl.com/news'
@@ -1174,7 +1174,7 @@ class SourcesSeeder extends Seeder
     			'name' => 'TalkSport',
     			'description' => 'Tune in to the world\'s biggest sports radio station - Live Premier League football coverage, breaking sports news, transfer rumours &amp; exclusive interviews.',
     			'url' => 'http://talksport.com',
-    			'category' => 'sport',
+    			'category' => 'sports',
     			'language' => 'en',
     			'country' => 'gb',
     			'logoUrl' => 'http://logo.clearbit.com/talksport.com'
@@ -1339,7 +1339,7 @@ class SourcesSeeder extends Seeder
     			'name' => 'The Sport Bible',
     			'description' => 'TheSPORTbible is one of the largest communities for sports fans across the world. Send us your sporting pictures and videos!',
     			'url' => 'TheSPORTbible is one of the largest communities for sports fans across the world. Send us your sporting pictures and videos!',
-    			'category' => 'sport',
+    			'category' => 'sports',
     			'language' => 'en',
     			'country' => 'gb',
     			'logoUrl' => 'http://logo.clearbit.com/www.thesportbible.com'
