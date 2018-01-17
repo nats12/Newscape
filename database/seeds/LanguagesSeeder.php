@@ -23,6 +23,31 @@ class LanguagesSeeder extends Seeder
           'iso' => 'de',
           'name' => 'german'
         ),
+        array(
+          'iso' => 'es',
+          'name' => 'spanish'
+        ),
+        array(
+          'iso' => 'fr',
+          'name' => 'french'
+        ),
+        array(
+          'iso' => 'it',
+          'name' => 'italian'
+        ),
+        array(
+          'iso' => 'ru',
+          'name' => 'russian'
+        ),
+        array(
+          'iso' => 'nl',
+          'name' => 'dutch'
+        ),
+        array(
+          'iso' => 'ud',
+          'name' => 'urdu'
+        ),
+
       );
 
 
