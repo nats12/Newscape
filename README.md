@@ -58,6 +58,7 @@ We briefed our designer [Nick Garratt](https://www.linkedin.com/in/njgarratt/) o
 * Run `php artisan migrate`
 * Run `php artisan db:seed`
 * `composer dump-autoload` may be required before seeding the database
+* Run `php artisan save:articles` to fetch articles from the News API and save into your database
 
 
 ##### Installation for development use without MAMP

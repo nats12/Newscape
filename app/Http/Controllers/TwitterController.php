@@ -38,6 +38,7 @@ class TwitterController extends Controller
       // Fetch sources from the database(seeded)
       $newsSources = Source::all();
 
+
 	    // Instantiate articles array
 	    $articles = Article::all();
 
@@ -91,13 +92,16 @@ class TwitterController extends Controller
      */
     public function twitterLogIn() 
     {
+
     	// your SIGN IN WITH TWITTER  button should point to this route
   		$sign_in_twitter = true;
   		$force_login = false;
 
   		// Make sure we make this request w/o tokens, overwrite the default values in case of login.
   		Twitter::reconfig(['token' => '', 'secret' => '']);
+      
   		$token = Twitter::getRequestToken(route('callback'));
+
 
   		if (isset($token['oauth_token_secret']))
   		{
