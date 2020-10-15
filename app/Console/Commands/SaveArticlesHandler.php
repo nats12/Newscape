@@ -17,7 +17,7 @@ class SaveArticlesHandler extends Command
      *
      * @var string
      */
-    protected $signature = 'save:articles {--sleep=28800}';
+    protected $signature = 'save:articles';
 
     /**
      * The console command description.
@@ -71,7 +71,7 @@ class SaveArticlesHandler extends Command
                 DB::statement('SET FOREIGN_KEY_CHECKS = 1');
             }
 
-            $this->call('schedule:run');
+            // $this->call('schedule:run');
 
             sleep($this->option('sleep'));
         }

@@ -26,8 +26,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {   
-        // Run the command every fifteen minutes, which in turn runs its handle function
-        $schedule->command('save:articles');
+        $schedule->command('save:articles')->cron('0 */6 * * *');
     }
 
     /**
