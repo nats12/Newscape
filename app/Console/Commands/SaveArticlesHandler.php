@@ -66,9 +66,8 @@ class SaveArticlesHandler extends Command
                 $sourceArticles = NewsApi::getArticles($source["source_id"])['articles'];
                 
                 if($sourceArticles) {
-                    $articles = Article::where('source_id', $source["source_id"])->get();
-                    $articles->delete();
-
+                    Article::where('source_id', $source["source_id"])->delete();
+                    
                     $this->saveToDB($sourceArticles, $source);
                 }
 
