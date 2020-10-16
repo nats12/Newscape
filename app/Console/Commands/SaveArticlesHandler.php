@@ -56,7 +56,6 @@ class SaveArticlesHandler extends Command
             $newsSources = Source::all();
 
             // Wipe articles table clean (of old articles)
-            DB::table('articles')->truncate();
 
             foreach($newsSources as $source) {
                 // Remove duplicates
@@ -65,13 +64,18 @@ class SaveArticlesHandler extends Command
 
                 // Fetches sources from API
                 $sourceArticles = NewsApi::getArticles($source["source_id"])['articles'];
+                
+                if($sourceArticles) {
+                    $articles = Article::where('source_id', $source["source_id"])->get();
+                    $articles->delete();
 
-                $this->saveToDB($sourceArticles, $source);
+                    $this->saveToDB($sourceArticles, $source);
+                }
 
                 DB::statement('SET FOREIGN_KEY_CHECKS = 1');
             }
 
-            // $this->call('schedule:run');
+            $this->call('schedule:run');
 
             sleep($this->option('sleep'));
         }
